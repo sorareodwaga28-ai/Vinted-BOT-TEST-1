@@ -1,10 +1,11 @@
 import json
 import os
+import re
 import sys
 import time
 import unicodedata
 from pathlib import Path
-from urllib.parse import urlparse, parse_qsl
+from urllib.parse import urlparse, parse_qsl, urlencode
 
 import requests
 
@@ -19,56 +20,64 @@ def norm(s):
     return "".join(c for c in s if unicodedata.category(c) != "Mn")
 
 
-def url_to_api(search_url):
+def page_url(search_url):
     u = urlparse(search_url.strip())
-    params = []
-    for k, v in parse_qsl(u.query, keep_blank_values=False):
-        key = k.replace("[]", "")
-        if key in ("time", "search_id", "page", "disabled_personalization", "order"):
-            continue
-        if key == "catalog":
-            key = "catalog_ids"
-        params.append((key, v))
-    return f"{u.scheme}://{u.netloc}", params
+    q = [(k, v) for k, v in parse_qsl(u.query, keep_blank_values=False)
+         if k not in ("time", "search_id", "page", "order")]
+    q.append(("order", "newest_first"))
+    return f"{u.scheme}://{u.netloc}", f"{u.scheme}://{u.netloc}{u.path}?{urlencode(q)}"
 
 
-def get_session(base):
+def get_session():
     s = requests.Session()
     s.headers.update({"User-Agent": UA,
+                      "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
                       "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8"})
-    r = s.get(base + "/", timeout=20)
-    print(f"[diag] page d'accueil : HTTP {r.status_code} | cookies : {sorted(s.cookies.keys())}")
-    s.headers.update({"Accept": "application/json, text/plain, */*",
-                      "Referer": base + "/catalog", "Origin": base})
     return s
 
 
-def fetch_items(session, base, params):
-    multi = {}
-    for k, v in params:
-        multi.setdefault(k, []).append(v)
-    extra = [("order", "newest_first"), ("per_page", "48"), ("page", "1")]
-    variantes = [
-        [((k + "[]") if len(vs) > 1 or k.endswith("_ids") else k, v)
-         for k, vs in multi.items() for v in vs] + extra,
-        [(k, ",".join(vs)) for k, vs in multi.items()] + extra,
-        [(k, v) for k, v in params if k == "search_text"] + extra,
-    ]
-    for i, p in enumerate(variantes, 1):
-        r = session.get(base + "/api/v2/catalog/items", params=p, timeout=20)
-        print(f"[diag] essai {i} : HTTP {r.status_code} | {r.text[:200]!r}")
-        if r.status_code == 200:
-            if i == 3:
-                print("[diag] ATTENTION : seule la recherche texte marche, filtres ignorés")
-            return r.json().get("items", [])
-    raise RuntimeError(f"Vinted refuse toutes les variantes (dernier code HTTP {r.status_code})")
+def extract_items(html):
+    full = ""
+    for m in re.finditer(r"self\.__next_f\.push\((\[.*?\])\)</script>", html, re.S):
+        try:
+            arr = json.loads(m.group(1))
+            if len(arr) > 1 and isinstance(arr[1], str):
+                full += arr[1]
+        except ValueError:
+            pass
+    key = '"items":{"items":['
+    p = full.find(key)
+    if p < 0:
+        return None
+    arr, _ = json.JSONDecoder().raw_decode(full, p + len(key) - 1)
+    return arr
 
 
-def price_of(item):
-    p = item.get("price")
-    if isinstance(p, dict):
-        return f"{p.get('amount', '?')} {p.get('currency_code', '€')}"
-    return f"{p} {item.get('currency', '€')}"
+def fetch_items(session, base, url):
+    r = session.get(url, timeout=30)
+    print(f"[diag] page recherche : HTTP {r.status_code} | {len(r.text)} caractères")
+    if r.status_code in (401, 403):
+        raise PermissionError(f"Vinted a refusé l'accès (HTTP {r.status_code})")
+    r.raise_for_status()
+    raw = extract_items(r.text)
+    if raw is None:
+        raise RuntimeError("Annonces introuvables dans la page (Vinted a peut-être changé son site)")
+    items = []
+    for x in raw:
+        p = x.get("productItem") or x
+        box = p.get("itemBox") or {}
+        photos = p.get("photos") or []
+        price = p.get("price") or {}
+        items.append({
+            "id": p.get("id") or x.get("id"),
+            "title": p.get("title") or "",
+            "url": base + (p.get("url") or ""),
+            "price": f"{price.get('amount', '?')} {price.get('currencyCode', 'EUR')}",
+            "brand": box.get("firstLine") or "?",
+            "details": box.get("secondLine") or "?",
+            "photo": (photos[0].get("url") if photos else None) or p.get("thumbnailUrl"),
+        })
+    return items
 
 
 def is_excluded(item, words):
@@ -77,15 +86,15 @@ def is_excluded(item, words):
 
 
 def send_discord(webhook, item):
-    photo = (item.get("photo") or {}).get("url")
+    photo = item.get("photo")
     embed = {
         "title": item.get("title", "Annonce")[:250],
         "url": item.get("url"),
         "color": 0x007782,
         "fields": [
-            {"name": "Prix", "value": price_of(item), "inline": True},
-            {"name": "Taille", "value": item.get("size_title") or "?", "inline": True},
-            {"name": "Marque", "value": item.get("brand_title") or "?", "inline": True},
+            {"name": "Prix", "value": item["price"], "inline": True},
+            {"name": "Taille · état", "value": item["details"], "inline": True},
+            {"name": "Marque", "value": item["brand"], "inline": True},
         ],
     }
     if photo:
@@ -114,13 +123,11 @@ def main():
     first_run = seen_list is None
     seen = set(seen_list or [])
     new_ids, sent, skipped = [], 0, 0
-    sessions = {}
+    session = get_session()
 
     for url in urls:
-        base, params = url_to_api(url)
-        if base not in sessions:
-            sessions[base] = get_session(base)
-        items = fetch_items(sessions[base], base, params)
+        base, purl = page_url(url)
+        items = fetch_items(session, base, purl)
         print(f"{len(items)} annonces lues pour : {url[:80]}")
         for item in reversed(items):
             iid = str(item.get("id"))
