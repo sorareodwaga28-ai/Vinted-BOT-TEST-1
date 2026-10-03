@@ -21,35 +21,47 @@ def norm(s):
 
 def url_to_api(search_url):
     u = urlparse(search_url.strip())
-    params = {}
+    params = []
     for k, v in parse_qsl(u.query, keep_blank_values=False):
         key = k.replace("[]", "")
+        if key in ("time", "search_id", "page", "disabled_personalization", "order"):
+            continue
         if key == "catalog":
             key = "catalog_ids"
-        if key in ("time", "search_id", "page", "disabled_personalization"):
-            continue
-        params.setdefault(key, []).append(v)
-    api = {k: ",".join(v) for k, v in params.items()}
-    api["order"] = "newest_first"
-    api["per_page"] = "48"
-    api["page"] = "1"
-    return f"{u.scheme}://{u.netloc}", api
+        params.append((key, v))
+    return f"{u.scheme}://{u.netloc}", params
 
 
 def get_session(base):
     s = requests.Session()
-    s.headers.update({"User-Agent": UA, "Accept": "application/json, text/plain, */*",
-                      "Accept-Language": "fr-FR,fr;q=0.9"})
-    s.get(base + "/", timeout=20)
+    s.headers.update({"User-Agent": UA,
+                      "Accept-Language": "fr-FR,fr;q=0.9,en;q=0.8"})
+    r = s.get(base + "/", timeout=20)
+    print(f"[diag] page d'accueil : HTTP {r.status_code} | cookies : {sorted(s.cookies.keys())}")
+    s.headers.update({"Accept": "application/json, text/plain, */*",
+                      "Referer": base + "/catalog", "Origin": base})
     return s
 
 
 def fetch_items(session, base, params):
-    r = session.get(base + "/api/v2/catalog/items", params=params, timeout=20)
-    if r.status_code in (401, 403):
-        raise PermissionError(f"Vinted a refusé l'accès (HTTP {r.status_code})")
-    r.raise_for_status()
-    return r.json().get("items", [])
+    multi = {}
+    for k, v in params:
+        multi.setdefault(k, []).append(v)
+    extra = [("order", "newest_first"), ("per_page", "48"), ("page", "1")]
+    variantes = [
+        [((k + "[]") if len(vs) > 1 or k.endswith("_ids") else k, v)
+         for k, vs in multi.items() for v in vs] + extra,
+        [(k, ",".join(vs)) for k, vs in multi.items()] + extra,
+        [(k, v) for k, v in params if k == "search_text"] + extra,
+    ]
+    for i, p in enumerate(variantes, 1):
+        r = session.get(base + "/api/v2/catalog/items", params=p, timeout=20)
+        print(f"[diag] essai {i} : HTTP {r.status_code} | {r.text[:200]!r}")
+        if r.status_code == 200:
+            if i == 3:
+                print("[diag] ATTENTION : seule la recherche texte marche, filtres ignorés")
+            return r.json().get("items", [])
+    raise RuntimeError(f"Vinted refuse toutes les variantes (dernier code HTTP {r.status_code})")
 
 
 def price_of(item):
