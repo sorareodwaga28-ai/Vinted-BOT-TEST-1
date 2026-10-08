@@ -15,7 +15,7 @@ permissions:
 jobs:
   check:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -32,5 +32,26 @@ jobs:
         run: |
           git config user.name "vinted-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add seen.json
-          git diff --cached --quiet || (git commit -m "maj annonces vues" && git push)
+          cp seen.json /tmp/mine.json
+          for i in 1 2 3 4 5; do
+            git fetch -q origin main
+            git reset -q --hard origin/main
+            git show origin/main:seen.json > /tmp/theirs.json 2>/dev/null || echo '{"ids":[],"searches":[]}' > /tmp/theirs.json
+            python - <<'EOF'
+          import json
+          def load(p):
+              d = json.load(open(p))
+              return {"ids": d, "searches": []} if isinstance(d, list) else d
+          a, b = load("/tmp/theirs.json"), load("/tmp/mine.json")
+          ids = list(dict.fromkeys(a.get("ids", []) + b.get("ids", [])))[-20000:]
+          searches = sorted(set(a.get("searches") or []) | set(b.get("searches") or []))
+          json.dump({"ids": ids, "searches": searches}, open("seen.json", "w"))
+          EOF
+            git add seen.json
+            git diff --cached --quiet && exit 0
+            git commit -q -m "maj annonces vues"
+            git push -q origin HEAD:main && exit 0
+            echo "Push refusé, nouvel essai ($i)..."
+            sleep $((RANDOM % 5 + 2))
+          done
+          exit 1
