@@ -10,7 +10,7 @@ from urllib.parse import urlparse, parse_qsl, urlencode
 import requests
 
 SEEN_FILE = Path(__file__).with_name("seen.json")
-MAX_SEEN = 3000
+MAX_SEEN = 20000
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/124.0 Safari/537.36")
 
@@ -91,6 +91,7 @@ def send_discord(webhook, item):
         "title": item.get("title", "Annonce")[:250],
         "url": item.get("url"),
         "color": 0x007782,
+        "author": {"name": item.get("search", "Vinted")},
         "fields": [
             {"name": "Prix", "value": item["price"], "inline": True},
             {"name": "Taille · état", "value": item["details"], "inline": True},
@@ -106,51 +107,86 @@ def send_discord(webhook, item):
     time.sleep(1)
 
 
-def load_seen():
-    if SEEN_FILE.exists():
-        return json.loads(SEEN_FILE.read_text())
-    return None
+def parse_searches(raw):
+    out = []
+    for line in raw.splitlines():
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if "|" in line and not line.lower().startswith("http"):
+            name, url = line.split("|", 1)
+            out.append((name.strip(), url.strip()))
+        else:
+            out.append((f"Recherche {len(out) + 1}", line))
+    return out
+
+
+def load_state():
+    if not SEEN_FILE.exists():
+        return None
+    data = json.loads(SEEN_FILE.read_text())
+    if isinstance(data, list):
+        return {"ids": data, "searches": None}
+    return data
 
 
 def main():
     webhook = os.environ.get("DISCORD_WEBHOOK", "").strip()
-    urls = [u for u in os.environ.get("SEARCH_URLS", "").splitlines() if u.strip()]
+    searches = parse_searches(os.environ.get("SEARCH_URLS", ""))
     exclude = [w.strip() for w in (os.environ.get("EXCLUDE") or "blazer").split(",") if w.strip()]
-    if not webhook or not urls:
+    if not webhook or not searches:
         sys.exit("Il manque DISCORD_WEBHOOK ou SEARCH_URLS.")
 
-    seen_list = load_seen()
-    first_run = seen_list is None
-    seen = set(seen_list or [])
-    new_ids, sent, skipped = [], 0, 0
+    state = load_state()
+    first_run = state is None
+    state = state or {"ids": [], "searches": []}
+    if state.get("searches") is None:
+        state["searches"] = [page_url(u)[1] for _, u in searches]
+    seen = set(state["ids"])
+    known = set(state["searches"])
+    new_ids, sent, skipped, errors = [], 0, 0, 0
     session = get_session()
 
-    for url in urls:
+    for idx, (name, url) in enumerate(searches):
+        if idx:
+            time.sleep(3)
         base, purl = page_url(url)
-        items = fetch_items(session, base, purl)
-        print(f"{len(items)} annonces lues pour : {url[:80]}")
+        new_search = purl not in known
+        try:
+            items = fetch_items(session, base, purl)
+        except Exception as e:
+            errors += 1
+            print(f"ERREUR [{name}] : {e}")
+            continue
+        print(f"[{name}] {len(items)} annonces lues" + (" (nouvelle recherche : mémorisées sans envoi)" if new_search else ""))
         for item in reversed(items):
             iid = str(item.get("id"))
             if iid in seen:
                 continue
             seen.add(iid)
             new_ids.append(iid)
-            if first_run:
+            if first_run or new_search:
                 continue
             if is_excluded(item, exclude):
                 skipped += 1
                 continue
+            item["search"] = name
             send_discord(webhook, item)
             sent += 1
+        known.add(purl)
+        if new_search and not first_run:
+            requests.post(webhook, json={"content": f"🆕 Nouvelle recherche ajoutée : **{name}**"}, timeout=20)
 
     if first_run:
         print(f"Premier lancement : {len(new_ids)} annonces mémorisées, rien envoyé.")
         requests.post(webhook, json={"content": "✅ Bot Vinted connecté. Les nouvelles annonces arriveront ici."}, timeout=20)
-    else:
-        print(f"Envoyées : {sent} | exclues : {skipped}")
+    print(f"Envoyées : {sent} | exclues : {skipped} | recherches en erreur : {errors}")
 
-    all_seen = (seen_list or []) + new_ids
-    SEEN_FILE.write_text(json.dumps(all_seen[-MAX_SEEN:]))
+    state["ids"] = (state["ids"] + new_ids)[-MAX_SEEN:]
+    state["searches"] = sorted(known)
+    SEEN_FILE.write_text(json.dumps(state))
+    if errors == len(searches):
+        sys.exit("Toutes les recherches ont échoué.")
 
 
 if __name__ == "__main__":
