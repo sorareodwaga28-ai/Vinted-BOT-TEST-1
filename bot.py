@@ -113,11 +113,16 @@ def parse_searches(raw):
         line = line.strip()
         if not line or line.startswith("#"):
             continue
-        if "|" in line and not line.lower().startswith("http"):
-            name, url = line.split("|", 1)
-            out.append((name.strip(), url.strip()))
+        if line.lower().startswith("http"):
+            parts = ["", line]
         else:
-            out.append((f"Recherche {len(out) + 1}", line))
+            parts = [p.strip() for p in line.split("|")]
+        name = parts[0] or f"Recherche {len(out) + 1}"
+        url = parts[1] if len(parts) > 1 else ""
+        words = [w.strip() for w in (parts[2] if len(parts) > 2 else "").split(",") if w.strip()]
+        required = [w for w in words if not w.startswith("-")]
+        excluded = [w[1:].strip() for w in words if w.startswith("-") and w[1:].strip()]
+        out.append((name, url, required, excluded))
     return out
 
 
@@ -141,13 +146,13 @@ def main():
     first_run = state is None
     state = state or {"ids": [], "searches": []}
     if state.get("searches") is None:
-        state["searches"] = [page_url(u)[1] for _, u in searches]
+        state["searches"] = [page_url(u)[1] for _, u, _, _ in searches]
     seen = set(state["ids"])
     known = set(state["searches"])
     new_ids, sent, skipped, errors = [], 0, 0, 0
     session = get_session()
 
-    for idx, (name, url) in enumerate(searches):
+    for idx, (name, url, required, excl_here) in enumerate(searches):
         if idx:
             time.sleep(3)
         base, purl = page_url(url)
@@ -167,7 +172,10 @@ def main():
             new_ids.append(iid)
             if first_run or new_search:
                 continue
-            if is_excluded(item, exclude):
+            if is_excluded(item, exclude + excl_here):
+                skipped += 1
+                continue
+            if required and not is_excluded(item, required):
                 skipped += 1
                 continue
             item["search"] = name
