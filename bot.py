@@ -296,7 +296,13 @@ def track_market(session, stats, searches, exclude, launch=False):
 
 
 def main():
-    webhook = os.environ.get("DISCORD_WEBHOOK", "").strip()
+    raw_hook = os.environ.get("DISCORD_WEBHOOK", "")
+    m = re.search(r"https://(?:\w+\.)?discord(?:app)?\.com/api/webhooks/[\w/-]+", raw_hook)
+    webhook = m.group(0) if m else ""
+    if raw_hook and not webhook:
+        sys.exit("Le secret DISCORD_WEBHOOK ne contient pas d'adresse https://discord.com/api/webhooks/... valide.")
+    if m and m.group(0) != raw_hook.strip():
+        print("[diag] DISCORD_WEBHOOK contenait des caractères en trop : nettoyé automatiquement.")
     searches = parse_searches(os.environ.get("SEARCH_URLS", ""))
     exclude = [w.strip() for w in (os.environ.get("EXCLUDE") or "blazer").split(",") if w.strip()]
     if not webhook or not searches:
