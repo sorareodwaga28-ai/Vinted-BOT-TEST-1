@@ -86,6 +86,51 @@ def modele_depuis_commit():
     return None
 
 
+def jeton(url):
+    m = re.search(r"/t/([^/]+)/", url or "")
+    return m.group(1) if m else url
+
+
+def photos_annonce(session, item):
+    """Toutes les photos d'une annonce (on ouvre sa page). Liste vide si échec."""
+    r = session.get(item["url"], timeout=30)
+    if r.status_code != 200:
+        print(f"[diag] annonce {item['id']} : HTTP {r.status_code}")
+        return []
+    full = r.text
+    for m in re.finditer(r"self\.__next_f\.push\((\[.*?\])\)</script>", r.text, re.S):
+        try:
+            arr = json.loads(m.group(1))
+            if len(arr) > 1 and isinstance(arr[1], str):
+                full += arr[1]
+        except ValueError:
+            pass
+    cible = jeton(item["photo"])
+    dec = json.JSONDecoder()
+    for m in re.finditer(r'"photos":\[', full):
+        try:
+            arr, _ = dec.raw_decode(full, m.end() - 1)
+        except ValueError:
+            continue
+        urls = [p.get("full_size_url") or p.get("url") for p in arr if isinstance(p, dict)]
+        urls = [u for u in urls if u]
+        # On garde la liste qui contient la photo de l'annonce (et pas celles des annonces suggérées).
+        if urls and any(jeton(u) == cible for u in urls):
+            return urls
+    # Plan B : adresses d'images dans la page, en partant de la photo de l'annonce.
+    brut = full.replace("\\u0026", "&").replace("\\/", "/")
+    urls, vus = [], set()
+    for u in re.findall(r"https://images\d*\.vinted\.net/t/[^\"\\\s<>]+", brut):
+        j = jeton(u)
+        if j not in vus:
+            vus.add(j)
+            urls.append(u)
+    if cible in vus:
+        i = [jeton(u) for u in urls].index(cible)
+        return urls[i:i + 20]
+    return []
+
+
 def main():
     auto = not os.environ.get("MODELE")
     modele = os.environ.get("MODELE") or modele_depuis_commit() or "Vivid Sulfur"
@@ -284,6 +329,86 @@ def main():
     if len(res) > 10:
         post(webhook, {"content": "**Zone de doute (rangs 11 à 15)**",
                        "embeds": [embed(x, n, 0xF39C12) for n, x in enumerate(res[10:15], 11)]})
+
+    # 7. Contrôle de l'étiquette intérieure sur les meilleures candidates
+    nb = int(os.environ.get("VERIF") or 10)
+    if nb <= 0:
+        return
+    eti_dir = ref_dir / "etiquette"
+    etis = []
+    for p in sorted(eti_dir.glob("*")) if eti_dir.exists() else []:
+        if p.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp"):
+            try:
+                etis.append(Image.open(p).convert("RGB"))
+            except Exception as e:
+                print(f"Étiquette de référence illisible {p.name} : {e}")
+    eti_emb = embed_images(etis) if etis else None
+    textes_eti = ["a close-up photo of the size label tag inside a sneaker, with barcode and small printed text",
+                  "a photo of sneakers", "a photo of the sole of a sneaker", "a photo of a shoe box"]
+    with torch.no_grad():
+        te = model.encode_text(tok(textes_eti))
+    te = te / te.norm(dim=-1, keepdim=True)
+
+    candidates = [x for x in res if not x.get("temoin")][:nb]
+    candidates += [x for x in res if x.get("temoin")][:2]   # 2 témoins pour comparer
+    bilan = []
+    for x in candidates:
+        time.sleep(2)
+        try:
+            urls = photos_annonce(session, x)
+        except Exception as e:
+            print(f"Annonce illisible {x['id']} : {e}")
+            urls = []
+        x["nb_photos"] = len(urls)
+        meilleur, best_ref = None, x["ref"]
+        for u in urls:
+            try:
+                img = Image.open(io.BytesIO(session.get(u, timeout=20).content)).convert("RGB")
+            except Exception:
+                continue
+            e = embed_images([img])
+            p_eti = float((100 * e @ te.T).softmax(dim=-1)[0][0])
+            s_eti = float((e @ eti_emb.T).max()) if eti_emb is not None else None
+            if ref_emb is not None:
+                best_ref = max(best_ref or 0, float((e @ ref_emb.T).max()))
+            note = s_eti if s_eti is not None else p_eti
+            if meilleur is None or note > meilleur[0]:
+                meilleur = (note, u, p_eti, s_eti)
+        x["ref_toutes"] = best_ref
+        x["eti"] = meilleur
+        x["eti_ok"] = bool(meilleur and (meilleur[2] >= 0.5 or (meilleur[3] or 0) >= 0.80))
+        bilan.append(x)
+        print(f"[étiquette] {x['id']} : {len(urls)} photos, étiquette {'oui' if x['eti_ok'] else 'non'}"
+              + (f" (proba {meilleur[2]:.2f}, ressemblance étiquette {meilleur[3]})" if meilleur else ""))
+
+    bilan.sort(key=lambda x: (not x["eti_ok"], -(x["ref_toutes"] or 0)))
+    avec = sum(x["eti_ok"] for x in bilan)
+    lues = sum(x["nb_photos"] > 0 for x in bilan)
+    post(webhook, {"content": (
+        f"**Contrôle étiquette** — {len(bilan)} meilleures candidates ouvertes "
+        f"({lues} pages lues), {avec} avec une photo d'étiquette repérée.\n"
+        "Grande image = la photo qui ressemble le plus à une étiquette. Petite image = 1re photo. "
+        "« Ressemblance (toutes photos) » = meilleure ressemblance sur toutes les photos de l'annonce.")})
+    embeds = []
+    for x in bilan:
+        champs = [
+            {"name": "Prix", "value": x["price"], "inline": True},
+            {"name": "Photos", "value": str(x["nb_photos"]), "inline": True},
+            {"name": "Étiquette", "value": "repérée" if x["eti_ok"] else "pas trouvée", "inline": True},
+        ]
+        if x["ref_toutes"] is not None:
+            champs.insert(1, {"name": "Ressemblance (toutes photos)", "value": f"{x['ref_toutes']:.3f}", "inline": True})
+        if x["eti"]:
+            v = f"{x['eti'][2]:.0%}" + (f" · proche de ton étiquette {x['eti'][3]:.3f}" if x["eti"][3] is not None else "")
+            champs.append({"name": "Score étiquette", "value": v, "inline": False})
+        e = {"title": (("[T] " if x.get("temoin") else "") + x["title"])[:250], "url": x["url"],
+             "color": 0x3498DB if x["eti_ok"] else 0x95A5A6, "fields": champs,
+             "thumbnail": {"url": x["photo"]}}
+        if x["eti"]:
+            e["image"] = {"url": x["eti"][1]}
+        embeds.append(e)
+    for i in range(0, len(embeds), 4):   # 4 par message pour garder des grandes images lisibles
+        post(webhook, {"embeds": embeds[i:i + 4]})
 
 
 if __name__ == "__main__":

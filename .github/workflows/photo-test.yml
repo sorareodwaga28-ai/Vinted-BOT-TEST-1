@@ -28,6 +28,10 @@ on:
         description: "Texte de recherche Vinted (vide = aucun texte, la photo fait le tri)"
         required: false
         default: ""
+      verif:
+        description: "Nombre de meilleures annonces à ouvrir pour chercher l'étiquette (0 = aucune)"
+        required: false
+        default: "10"
       pages:
         description: "Nombre de pages Vinted à lire (environ 96 annonces par page)"
         required: false
@@ -66,6 +70,7 @@ jobs:
           PRIX_MAX: ${{ inputs.prix_max }}
           PAGES: ${{ inputs.pages }}
           RECHERCHE: ${{ inputs.recherche }}
+          VERIF: ${{ inputs.verif }}
           HEAD_COMMIT: ${{ toJSON(github.event.head_commit) }}
         run: |
           set -o pipefail
