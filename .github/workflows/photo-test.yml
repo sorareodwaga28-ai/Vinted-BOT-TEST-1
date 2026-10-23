@@ -44,15 +44,22 @@ jobs:
             ~/.cache/huggingface
           key: clip-v1
       - run: |
-          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
           pip install open_clip_torch requests pillow
+          python -c "import open_clip, torch, torchvision; print('OK', torch.__version__, torchvision.__version__)"
       - name: Analyser les photos
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           MODELE: ${{ inputs.modele }}
           PRIX_MAX: ${{ inputs.prix_max }}
           PAGES: ${{ inputs.pages }}
-        run: python photo_test.py
+        run: |
+          set -o pipefail
+          if ! python photo_test.py 2>&1 | tee log.txt; then
+            msg=$(tail -n 15 log.txt | sed ':a;N;$!ba;s/%/%25/g;s/\r/%0D/g;s/\n/%0A/g')
+            echo "::error title=Erreur du test photo::$msg"
+            exit 1
+          fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:
