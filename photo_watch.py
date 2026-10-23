@@ -5,6 +5,8 @@ atteint le seuil et que le prix est sous le prix max du modèle.
 Réglages (variables d'environnement) :
   MODELES   modèles suivis, séparés par des virgules (défaut : Fire Red)
   SEUIL     seuil de ressemblance (défaut 0.84)
+  PRIX      prix max propres à la surveillance, ex. "Vivid Sulfur=30; Fire Red=60"
+            (sinon le prix du bot)
   PAGES     pages max lues par passage (défaut 3) ; on s'arrête dès qu'on retombe sur du déjà vu
 """
 import io
@@ -53,6 +55,11 @@ def main():
         sys.exit("DISCORD_WEBHOOK manquant ou invalide.")
     webhook = m.group(0)
     modeles = [x.strip() for x in (os.environ.get("MODELES") or "Fire Red").split(",") if x.strip()]
+    for morceau in re.split(r"[;\n]", os.environ.get("PRIX") or ""):
+        if "=" in morceau:
+            nom, val = (t.strip() for t in morceau.split("=", 1))
+            if nom in pt.PRIX:
+                pt.PRIX[nom] = float(val.replace(",", "."))
     modeles = [x for x in modeles if x in pt.PRIX]
     seuil = float((os.environ.get("SEUIL") or "0.84").replace(",", "."))
     pages = int(os.environ.get("PAGES") or 3)
@@ -65,7 +72,7 @@ def main():
     premier = not etat["ids"]
 
     # 1. Nouvelles annonces, les plus récentes d'abord, au prix max le plus haut des modèles suivis
-    prix_haut = max(pt.PRIX[x] for x in modeles)
+    prix_haut = int(max(pt.PRIX[x] for x in modeles))
     base, purl = bot.page_url(pt.BASE_URL + f"&price_to={prix_haut}")
     session = bot.get_session()
     items, deja = [], False
@@ -97,7 +104,7 @@ def main():
     if premier or nouveaux_modeles:
         sauver()
         post(webhook, {"content": "**Surveillance photo démarrée** : " + ", ".join(
-            f"{x} (≤ {pt.PRIX[x]} €)" for x in modeles)
+            f"{x} (≤ {pt.PRIX[x]:g} €)" for x in modeles)
             + f" · seuil {seuil:.2f} · toutes les 5 min, nouvelles annonces seulement."})
         if premier:
             return

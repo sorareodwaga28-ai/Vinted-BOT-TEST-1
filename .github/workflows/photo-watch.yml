@@ -34,7 +34,8 @@ jobs:
       - name: Surveiller les nouvelles annonces
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          MODELES: ${{ vars.PHOTO_MODELES || 'Fire Red' }}
+          MODELES: ${{ vars.PHOTO_MODELES || 'Fire Red, Vivid Sulfur' }}
+          PRIX: ${{ vars.PHOTO_PRIX || 'Fire Red=60; Vivid Sulfur=30' }}
           SEUIL: ${{ vars.PHOTO_SEUIL || '0.84' }}
         run: |
           set -o pipefail
