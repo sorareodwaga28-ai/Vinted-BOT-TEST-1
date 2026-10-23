@@ -131,9 +131,10 @@ def modele_depuis_commit():
     try:
         c = json.loads(os.environ.get("HEAD_COMMIT") or "null") or {}
     except ValueError:
-        return None
+        c = {}
     par_slug = {slug(k): k for k in COLORIS}
-    for f in (c.get("added") or []) + (c.get("modified") or []):
+    fichiers = [l.strip() for l in (os.environ.get("CHANGES") or "").splitlines() if l.strip()]
+    for f in fichiers + (c.get("added") or []) + (c.get("modified") or []):
         parts = f.split("/")
         if len(parts) >= 3 and parts[0] == "references" and parts[1] in par_slug:
             return par_slug[parts[1]]
@@ -387,7 +388,8 @@ def main():
     lignes.append(f"**Étape 1 — est-ce une {modele} ?** Seuil {seuil:.3f} ({origine_seuil}).")
     lignes.append(f"OUI : {oui_autres} annonce(s) hors témoins"
                   + (f" · témoins reconnus : {oui_t}/{len(rangs_t)}" if rangs_t else ""))
-    lignes.append("Ci-dessous : le top 10, puis les rangs 11 à 15 (zone de doute). [T] = témoin.")
+    lignes.append("Ci-dessous : les 10 annonces les plus ressemblantes, même si elles sont sous le seuil "
+                  "(vert = OUI, gris = NON), puis les rangs 11 à 15. [T] = témoin.")
     post(webhook, {"content": "\n".join(lignes)})
 
     def embed(x, n, couleur):
