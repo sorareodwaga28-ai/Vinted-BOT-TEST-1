@@ -1,0 +1,63 @@
+name: Surveillance photo
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: photo-watch
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.cache/huggingface
+            ~/.EasyOCR
+          key: clip-v2
+      - run: |
+          pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          pip install open_clip_torch requests pillow easyocr
+      - name: Surveiller les nouvelles annonces
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          MODELES: ${{ vars.PHOTO_MODELES || 'Fire Red' }}
+          SEUIL: ${{ vars.PHOTO_SEUIL || '0.84' }}
+        run: |
+          set -o pipefail
+          if ! python photo_watch.py 2>&1 | tee log.txt; then
+            msg=$(tail -n 15 log.txt | sed ':a;N;$!ba;s/%/%25/g;s/\r/%0D/g;s/\n/%0A/g')
+            echo "::error title=Erreur surveillance photo::$msg"
+            exit 1
+          fi
+      - name: Sauvegarder les annonces vues
+        if: always()
+        run: |
+          [ -f photo_seen.json ] || exit 0
+          git config user.name "vinted-bot"
+          git config user.email "bot@users.noreply.github.com"
+          cp photo_seen.json /tmp/photo_seen.json
+          for i in 1 2 3 4 5; do
+            git fetch -q origin main
+            git reset -q --hard origin/main
+            cp /tmp/photo_seen.json photo_seen.json
+            git add photo_seen.json
+            git diff --cached --quiet && exit 0
+            git commit -q -m "maj annonces vues (photo)"
+            git push -q origin HEAD:main && exit 0
+            sleep $((RANDOM % 5 + 2))
+          done
+          exit 1
