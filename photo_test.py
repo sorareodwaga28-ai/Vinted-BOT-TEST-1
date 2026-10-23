@@ -330,7 +330,7 @@ def main():
     elif len(sc_t) >= 3:
         seuil, origine_seuil = sc_t[int(0.8 * (len(sc_t) - 1))], "automatique : 80 % des témoins au-dessus"
     else:
-        seuil = {"marge": 0.0, "ref": 0.82, "prob": 0.5}[key]
+        seuil = {"marge": 0.0, "ref": 0.84, "prob": 0.5}[key]
         origine_seuil = "par défaut"
     for x in res:
         x["oui"] = x[key] >= seuil

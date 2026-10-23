@@ -33,7 +33,7 @@ on:
         required: false
         default: "20"
       seuil:
-        description: "Seuil de l'étape 1 (vide = 0.82, ou automatique si témoins activés)"
+        description: "Seuil de l'étape 1 (vide = 0.84, ou automatique si témoins activés)"
         required: false
         default: ""
       temoins:
