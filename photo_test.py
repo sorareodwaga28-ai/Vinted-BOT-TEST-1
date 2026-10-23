@@ -44,7 +44,7 @@ COLORIS = {
 }
 
 # Prix max de chaque paire (ceux du bot).
-PRIX = {"Vivid Sulfur": 40, "Fire Red": 60, "Infrared": 40, "Black Canvas": 40,
+PRIX = {"Vivid Sulfur": 30, "Fire Red": 60, "Infrared": 40, "Black Canvas": 40,
         "Midnight Navy": 40, "Seafoam": 50, "Canyon Purple": 50, "Craft Olive": 50}
 
 # Code produit imprimé sur l'étiquette intérieure (doit correspondre exactement).
