@@ -11,6 +11,7 @@ Deux façons de juger une photo :
 """
 import csv
 import io
+import json
 import os
 import re
 import sys
@@ -67,8 +68,23 @@ def post(webhook, payload):
     time.sleep(1)
 
 
+def modele_depuis_commit():
+    """Lancement auto : retrouve le modèle d'après le dossier où des photos ont été ajoutées."""
+    try:
+        c = json.loads(os.environ.get("HEAD_COMMIT") or "null") or {}
+    except ValueError:
+        return None
+    par_slug = {slug(k): k for k in COLORIS}
+    for f in (c.get("added") or []) + (c.get("modified") or []):
+        parts = f.split("/")
+        if len(parts) >= 3 and parts[0] == "references" and parts[1] in par_slug:
+            return par_slug[parts[1]]
+    return None
+
+
 def main():
-    modele = os.environ.get("MODELE") or "Vivid Sulfur"
+    auto = not os.environ.get("MODELE")
+    modele = os.environ.get("MODELE") or modele_depuis_commit() or "Vivid Sulfur"
     prix_max = (os.environ.get("PRIX_MAX") or "").strip()
     pages = int(os.environ.get("PAGES") or 3)
     m = re.search(r"https://(?:\w+\.)?discord(?:app)?\.com/api/webhooks/[\w/-]+",
@@ -170,7 +186,7 @@ def main():
     caches = [x for x in devine_cible if not x["titre_ok"]]
     titre_ok = sum(x["titre_ok"] for x in res)
     lignes = [
-        f"**Test photo — {modele}**",
+        f"**Test photo — {modele}**" + (" (lancé automatiquement après ajout de photos)" if auto else ""),
         f"Annonces analysées : {len(res)} (recherche « jordan », {pages} page(s), "
         + (f"prix max {prix_max} €)" if prix_max else "tous les prix)"),
         f"Mode : {mode}",

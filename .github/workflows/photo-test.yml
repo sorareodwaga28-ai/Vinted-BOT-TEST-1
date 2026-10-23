@@ -1,6 +1,10 @@
 name: Test reconnaissance photo
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "references/**"
   workflow_dispatch:
     inputs:
       modele:
@@ -28,6 +32,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: photo-test
+  cancel-in-progress: true
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -53,6 +61,7 @@ jobs:
           MODELE: ${{ inputs.modele }}
           PRIX_MAX: ${{ inputs.prix_max }}
           PAGES: ${{ inputs.pages }}
+          HEAD_COMMIT: ${{ toJSON(github.event.head_commit) }}
         run: |
           set -o pipefail
           if ! python photo_test.py 2>&1 | tee log.txt; then
