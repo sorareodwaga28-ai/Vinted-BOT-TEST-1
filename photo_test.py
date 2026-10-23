@@ -107,7 +107,21 @@ def main():
         except Exception as e:
             print(f"Page {pg} illisible : {e}")
         time.sleep(3)
-    print(f"{len(items)} annonces avec photo")
+    # Témoins : vraies annonces du modèle (titre explicite), pour vérifier que le
+    # modèle sait les reconnaître et voir à quel score elles arrivent.
+    turl = ("https://www.vinted.fr/catalog?catalog[]=1242&order=relevance&search_text="
+            + requests.utils.quote(f"jordan 4 {modele}"))
+    groupes = [g.strip() for g in MOTS[modele].split(",")]
+    try:
+        for it in bot.fetch_items(session, "https://www.vinted.fr", turl):
+            if it["id"] not in ids and it.get("photo") and bot.matches_required(it, groupes):
+                ids.add(it["id"])
+                it["temoin"] = True
+                items.append(it)
+    except Exception as e:
+        print(f"Témoins illisibles : {e}")
+    nb_temoins = sum(1 for x in items if x.get("temoin"))
+    print(f"{len(items)} annonces avec photo, dont {nb_temoins} témoins")
     if not items:
         sys.exit("Aucune annonce lue.")
 
@@ -137,11 +151,23 @@ def main():
             except Exception as e:
                 print(f"Référence illisible {p.name} : {e}")
     ref_emb = embed_images(refs) if refs else None
+    # Pièges : photos de modèles qui ressemblent mais qui ne sont PAS le bon.
+    pieges, noms_pieges = [], []
+    piege_dir = ref_dir / "pas-ca"
+    for p in sorted(piege_dir.glob("*")) if piege_dir.exists() else []:
+        if p.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp"):
+            try:
+                pieges.append(Image.open(p).convert("RGB"))
+                noms_pieges.append(p.stem)
+            except Exception as e:
+                print(f"Piège illisible {p.name} : {e}")
+    piege_emb = embed_images(pieges) if pieges else None
     mode = f"{len(refs)} photo(s) de référence" if refs else "description texte seule (aucune photo de référence)"
+    if pieges:
+        mode += f" + {len(pieges)} photo(s) piège"
     print(f"Mode : {mode}")
 
     # 4. Analyser chaque annonce
-    groupes = [g.strip() for g in MOTS[modele].split(",")]
     res = []
     for i, it in enumerate(items, 1):
         try:
@@ -153,6 +179,10 @@ def main():
         e = embed_images([img])
         probs = (100 * e @ t.T).softmax(dim=-1)[0]
         top = int(probs.argmax())
+        if piege_emb is not None:
+            sp = (e @ piege_emb.T)[0]
+            it["piege"] = float(sp.max())
+            it["piege_nom"] = noms_pieges[int(sp.argmax())]
         it.update({
             "ref": float((e @ ref_emb.T).max()) if ref_emb is not None else None,
             "prob": float(probs[cible]),
@@ -164,15 +194,26 @@ def main():
         if i % 25 == 0:
             print(f"{i}/{len(items)} photos analysées")
 
-    key = "ref" if ref_emb is not None else "prob"
+    for x in res:
+        if x["ref"] is not None and "piege" in x:
+            x["marge"] = x["ref"] - x["piege"]
+    if ref_emb is not None and piege_emb is not None:
+        key = "marge"
+    elif ref_emb is not None:
+        key = "ref"
+    else:
+        key = "prob"
     res.sort(key=lambda x: x[key], reverse=True)
 
     # 5. Résultats complets (fichier téléchargeable)
     with open("resultats.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f, delimiter=";")
-        w.writerow(["rang", "score_reference", f"proba_{modele}", "clip_pense", "titre_mentionne_modele", "prix", "titre", "lien"])
+        w.writerow(["rang", "temoin", "score_reference", "score_piege", "piege_le_plus_proche", "marge",
+                    f"proba_{modele}", "clip_pense", "titre_mentionne_modele", "prix", "titre", "lien"])
         for n, x in enumerate(res, 1):
-            w.writerow([n, "" if x["ref"] is None else f"{x['ref']:.3f}", f"{x['prob']:.2f}",
+            w.writerow([n, "oui" if x.get("temoin") else "", "" if x["ref"] is None else f"{x['ref']:.3f}",
+                        f"{x['piege']:.3f}" if "piege" in x else "", x.get("piege_nom", ""),
+                        f"{x['marge']:+.3f}" if "marge" in x else "", f"{x['prob']:.2f}",
                         x["devine"], "oui" if x["titre_ok"] else "non", x["price"], x["title"], x["url"]])
     for n, x in enumerate(res[:30], 1):
         print(f"{n:>3} | ref {x['ref'] if x['ref'] is None else round(x['ref'], 3)} | {x['devine']} {x['devine_prob']:.0%} | titre {'OK' if x['titre_ok'] else '--'} | {x['title'][:60]}")
@@ -182,6 +223,7 @@ def main():
         return
 
     # 6. Discord
+    rangs_t = [n for n, x in enumerate(res, 1) if x.get("temoin")]
     devine_cible = [x for x in res if x["devine"] == modele]
     caches = [x for x in devine_cible if not x["titre_ok"]]
     titre_ok = sum(x["titre_ok"] for x in res)
@@ -193,10 +235,23 @@ def main():
         f"Titre qui mentionne le modèle : {titre_ok}",
         f"CLIP pense que c'est une {modele} : {len(devine_cible)}, dont {len(caches)} avec un titre qui ne le dit pas",
     ]
+    if rangs_t:
+        sc = sorted((x[key] for x in res if x.get("temoin")), reverse=True)
+        lignes.append(f"Témoins (vraies {modele} ajoutées exprès) : {len(rangs_t)}, classés aux rangs "
+                      f"{', '.join(map(str, rangs_t[:12]))}{'…' if len(rangs_t) > 12 else ''}")
+        lignes.append(f"Score des témoins ({'marge' if key == 'marge' else 'ressemblance' if key == 'ref' else 'proba'}) : "
+                      f"du plus haut {sc[0]:.3f} au plus bas {sc[-1]:.3f}")
+        autres = [x[key] for x in res if not x.get("temoin")]
+        if autres:
+            lignes.append(f"Meilleur score parmi les autres annonces : {max(autres):.3f}")
+    else:
+        lignes.append("Aucun témoin trouvé sur Vinted pour ce modèle.")
     if ref_emb is not None:
-        for s in (0.90, 0.85, 0.80, 0.75):
-            lignes.append(f"Score de ressemblance ≥ {s:.2f} : {sum(x['ref'] >= s for x in res)}")
-    lignes.append("Ci-dessous : les 10 annonces les plus ressemblantes, puis les 5 suivantes (zone de doute).")
+        for s in (0.90, 0.85, 0.80):
+            lignes.append(f"Ressemblance ≥ {s:.2f} : {sum(x['ref'] >= s for x in res)}")
+    if key == "marge":
+        lignes.append(f"Marge positive (plus proche de tes références que des pièges) : {sum(x['marge'] > 0 for x in res)}")
+    lignes.append("Ci-dessous : le top 10, puis les rangs 11 à 15 (zone de doute). [T] = témoin.")
     post(webhook, {"content": "\n".join(lignes)})
 
     def embed(x, n, couleur):
@@ -205,9 +260,13 @@ def main():
             {"name": "CLIP pense", "value": f"{x['devine']} ({x['devine_prob']:.0%})", "inline": True},
             {"name": "Titre", "value": "mentionne le modèle" if x["titre_ok"] else "ne le dit pas", "inline": True},
         ]
+        if "marge" in x:
+            champs.insert(0, {"name": "Piège le plus proche", "value": f"{x['piege_nom']} ({x['piege']:.3f})", "inline": True})
+            champs.insert(0, {"name": "Marge", "value": f"{x['marge']:+.3f}", "inline": True})
         if x["ref"] is not None:
             champs.insert(0, {"name": "Ressemblance", "value": f"{x['ref']:.3f}", "inline": True})
-        return {"title": f"#{n} · {x['title']}"[:250], "url": x["url"], "color": couleur,
+        tag = "[T] " if x.get("temoin") else ""
+        return {"title": f"#{n} · {tag}{x['title']}"[:250], "url": x["url"], "color": couleur,
                 "fields": champs, "thumbnail": {"url": x["photo"]}}
 
     post(webhook, {"embeds": [embed(x, n, 0x2ECC71) for n, x in enumerate(res[:10], 1)]})
