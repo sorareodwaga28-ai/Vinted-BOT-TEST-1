@@ -57,17 +57,25 @@ def git_sauver():
     import subprocess as sp
     tmp = "/tmp/photo_seen.json"
     shutil.copy(ETAT, tmp)
-    for _ in range(5):
-        sp.run(["git", "fetch", "-q", "origin", "main"])
-        sp.run(["git", "reset", "-q", "--hard", "origin/main"])
+    def run(*cmd):
+        r = sp.run(list(cmd), capture_output=True, text=True, cwd=ETAT.parent)
+        if r.returncode not in (0,) and cmd[:2] != ("git", "diff"):
+            print(f"::warning::{' '.join(cmd[:3])} -> {r.returncode} {(r.stderr or r.stdout).strip()[:300]}")
+        return r.returncode
+    for essai in range(5):
+        run("git", "fetch", "-q", "origin", "main")
+        run("git", "reset", "-q", "--hard", "origin/main")
         shutil.copy(tmp, ETAT)
-        sp.run(["git", "add", ETAT.name])
-        if sp.run(["git", "diff", "--cached", "--quiet"]).returncode == 0:
+        run("git", "add", ETAT.name)
+        if run("git", "diff", "--cached", "--quiet") == 0:
+            print(f"::notice::sauvegarde : rien de nouveau ({time.strftime('%H:%M:%S')})")
             return
-        sp.run(["git", "commit", "-q", "-m", "maj annonces vues (photo)"])
-        if sp.run(["git", "push", "-q", "origin", "HEAD:main"]).returncode == 0:
+        run("git", "commit", "-q", "-m", "maj annonces vues (photo)")
+        if run("git", "push", "-q", "origin", "HEAD:main") == 0:
+            print(f"::notice::sauvegarde OK ({time.strftime('%H:%M:%S')})")
             return
         time.sleep(3)
+    print("::warning::sauvegarde impossible après 5 essais")
 
 
 def main():
@@ -239,14 +247,17 @@ def main():
 
     debut = time.time()
     dernier_git = time.time()
+    nb_passages = 0
     while True:
         t0 = time.time()
         try:
             passage()
         except Exception as e:
-            print(f"Erreur pendant le passage : {e}")
+            print(f"::warning::Erreur pendant le passage : {str(e)[:300]}")
         sauver()
+        nb_passages += 1
         if git_auto and time.time() - dernier_git > 300:
+            print(f"::notice::{nb_passages} passages, {len(etat['ids'])} annonces vues")
             git_sauver()
             dernier_git = time.time()
         if time.time() - debut + pause > duree:

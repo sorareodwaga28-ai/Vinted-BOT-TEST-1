@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "*/5 * * * *"
   workflow_dispatch:
+    inputs:
+      duree:
+        description: "Durée du passage en minutes"
+        required: false
+        default: "50"
 
 concurrency:
   group: photo-watch
@@ -42,7 +47,7 @@ jobs:
           PRIX: ${{ vars.PHOTO_PRIX || 'Fire Red=60; Vivid Sulfur=30' }}
           SEUIL: ${{ vars.PHOTO_SEUIL || '0.84' }}
           INTERVALLE: ${{ vars.PHOTO_INTERVALLE || '90' }}
-          DUREE: "50"
+          DUREE: ${{ inputs.duree || '50' }}
           GIT_SAVE: "1"
         run: |
           set -o pipefail
