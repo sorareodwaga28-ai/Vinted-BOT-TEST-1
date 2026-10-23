@@ -29,9 +29,13 @@ on:
         required: false
         default: ""
       verif:
-        description: "Nombre de meilleures annonces à ouvrir pour chercher l'étiquette (0 = aucune)"
+        description: "Nombre max d'annonces jugées OUI à ouvrir pour chercher l'étiquette (0 = aucune)"
         required: false
-        default: "10"
+        default: "20"
+      seuil:
+        description: "Seuil de l'étape 1 (vide = automatique d'après les témoins)"
+        required: false
+        default: ""
       pages:
         description: "Nombre de pages Vinted à lire (environ 96 annonces par page)"
         required: false
@@ -72,6 +76,7 @@ jobs:
           PAGES: ${{ inputs.pages }}
           RECHERCHE: ${{ inputs.recherche }}
           VERIF: ${{ inputs.verif }}
+          SEUIL: ${{ inputs.seuil }}
           HEAD_COMMIT: ${{ toJSON(github.event.head_commit) }}
         run: |
           set -o pipefail

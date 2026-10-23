@@ -314,6 +314,20 @@ def main():
         key = "prob"
     res.sort(key=lambda x: x[key], reverse=True)
 
+    # Étape 1 : est-ce le bon modèle ? Seuil choisi à la main, sinon calé sur les témoins
+    # (80 % des vraies paires témoins sont au-dessus du seuil automatique).
+    seuil_txt = (os.environ.get("SEUIL") or "").strip().replace(",", ".")
+    sc_t = sorted((x[key] for x in res if x.get("temoin")), reverse=True)
+    if seuil_txt:
+        seuil, origine_seuil = float(seuil_txt), "choisi à la main"
+    elif len(sc_t) >= 3:
+        seuil, origine_seuil = sc_t[int(0.8 * (len(sc_t) - 1))], "automatique : 80 % des témoins au-dessus"
+    else:
+        seuil = {"marge": 0.0, "ref": 0.80, "prob": 0.5}[key]
+        origine_seuil = "par défaut (pas assez de témoins)"
+    for x in res:
+        x["oui"] = x[key] >= seuil
+
     # 5. Résultats complets (fichier téléchargeable)
     with open("resultats.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.writer(f, delimiter=";")
@@ -361,11 +375,17 @@ def main():
             lignes.append(f"Ressemblance ≥ {s:.2f} : {sum(x['ref'] >= s for x in res)}")
     if key == "marge":
         lignes.append(f"Marge positive (plus proche de tes références que des pièges) : {sum(x['marge'] > 0 for x in res)}")
+    oui_autres = sum(bool(x["oui"] and not x.get("temoin")) for x in res)
+    oui_t = sum(bool(x["oui"] and x.get("temoin")) for x in res)
+    lignes.append(f"**Étape 1 — est-ce une {modele} ?** Seuil {seuil:.3f} ({origine_seuil}).")
+    lignes.append(f"OUI : {oui_autres} annonce(s) hors témoins"
+                  + (f" · témoins reconnus : {oui_t}/{len(rangs_t)}" if rangs_t else ""))
     lignes.append("Ci-dessous : le top 10, puis les rangs 11 à 15 (zone de doute). [T] = témoin.")
     post(webhook, {"content": "\n".join(lignes)})
 
     def embed(x, n, couleur):
         champs = [
+            {"name": "Verdict étape 1", "value": "OUI" if x["oui"] else "NON", "inline": True},
             {"name": "Prix", "value": x["price"], "inline": True},
             {"name": "CLIP pense", "value": f"{x['devine']} ({x['devine_prob']:.0%})", "inline": True},
             {"name": "Titre", "value": "mentionne le modèle" if x["titre_ok"] else "ne le dit pas", "inline": True},
@@ -379,13 +399,14 @@ def main():
         return {"title": f"#{n} · {tag}{x['title']}"[:250], "url": x["url"], "color": couleur,
                 "fields": champs, "thumbnail": {"url": x["photo"]}}
 
-    post(webhook, {"embeds": [embed(x, n, 0x2ECC71) for n, x in enumerate(res[:10], 1)]})
+    coul = lambda x: 0x2ECC71 if x["oui"] else 0x95A5A6
+    post(webhook, {"embeds": [embed(x, n, coul(x)) for n, x in enumerate(res[:10], 1)]})
     if len(res) > 10:
         post(webhook, {"content": "**Zone de doute (rangs 11 à 15)**",
-                       "embeds": [embed(x, n, 0xF39C12) for n, x in enumerate(res[10:15], 11)]})
+                       "embeds": [embed(x, n, coul(x)) for n, x in enumerate(res[10:15], 11)]})
 
     # 7. Contrôle de l'étiquette intérieure sur les meilleures candidates
-    nb = int(os.environ.get("VERIF") or 10)
+    nb = int(os.environ.get("VERIF") or 20)
     if nb <= 0:
         return
     eti_dir = ref_dir / "etiquette"
@@ -414,8 +435,12 @@ def main():
         te = model.encode_text(tok(textes_eti))
     te = te / te.norm(dim=-1, keepdim=True)
 
-    candidates = [x for x in res if not x.get("temoin")][:nb]
-    candidates += [x for x in res if x.get("temoin")][:2]   # 2 témoins pour comparer
+    # Étape 2 : seulement les annonces jugées OUI à l'étape 1
+    candidates = [x for x in res if x["oui"] and not x.get("temoin")][:nb]
+    candidates += [x for x in res if x["oui"] and x.get("temoin")][:2]   # 2 témoins pour comparer
+    if not candidates:
+        post(webhook, {"content": f"**Étape 2 — étiquette** : aucune annonce n'a passé l'étape 1, rien à ouvrir."})
+        return
     bilan = []
     for x in candidates:
         time.sleep(2)
@@ -468,7 +493,7 @@ def main():
     bons = sum(x["code"][0] == "ok" for x in bilan)
     lues = sum(x["nb_photos"] > 0 for x in bilan)
     post(webhook, {"content": (
-        f"**Contrôle étiquette** — {len(bilan)} meilleures candidates ouvertes "
+        f"**Étape 2 — étiquette** : {len(bilan)} annonce(s) jugées OUI ouvertes "
         f"({lues} pages lues), {avec} avec une photo d'étiquette repérée.\n"
         + (f"Code attendu : {', '.join(codes)} — trouvé dans {bons} annonce(s).\n" if codes else "")
         + (controle_ref + "\n" if controle_ref else "") +
@@ -479,13 +504,13 @@ def main():
         champs = [
             {"name": "Prix", "value": x["price"], "inline": True},
             {"name": "Photos", "value": str(x["nb_photos"]), "inline": True},
-            {"name": "Étiquette", "value": "repérée" if x["eti_ok"] else "pas trouvée", "inline": True},
         ]
-        if codes:
-            et, lu = x["code"]
-            champs.append({"name": "Code étiquette", "inline": False, "value":
-                           f"{lu} : BON CODE" if et == "ok" else
-                           f"autre code lu : {lu}" if et == "autre" else "illisible ou absent"})
+        et, lu = x["code"]
+        statut = (f"trouvée, lisible : {lu} = BON CODE" if et == "ok" else
+                  f"trouvée, lisible : {lu} = AUTRE CODE" if et == "autre" else
+                  "trouvée, mais code illisible : à vérifier à l'oeil" if x["eti_ok"] else
+                  "pas de photo d'étiquette : à demander au vendeur")
+        champs.append({"name": "Étiquette", "value": statut, "inline": False})
         if x["ref_toutes"] is not None:
             champs.insert(1, {"name": "Ressemblance (toutes photos)", "value": f"{x['ref_toutes']:.3f}", "inline": True})
         if x["eti"]:
