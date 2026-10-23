@@ -16,6 +16,7 @@ concurrency:
 
 permissions:
   contents: write
+  actions: write
 
 jobs:
   watch:
@@ -74,3 +75,8 @@ jobs:
             sleep $((RANDOM % 5 + 2))
           done
           exit 1
+      - name: Lancer le passage suivant
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run photo-watch.yml --ref main -R "$GITHUB_REPOSITORY" || true
