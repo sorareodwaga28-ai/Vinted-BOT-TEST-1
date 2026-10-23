@@ -58,10 +58,11 @@ jobs:
           path: |
             ~/.cache/pip
             ~/.cache/huggingface
-          key: clip-v1
+            ~/.EasyOCR
+          key: clip-v2
       - run: |
           pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
-          pip install open_clip_torch requests pillow
+          pip install open_clip_torch requests pillow easyocr
           python -c "import open_clip, torch, torchvision; print('OK', torch.__version__, torchvision.__version__)"
       - name: Analyser les photos
         env:

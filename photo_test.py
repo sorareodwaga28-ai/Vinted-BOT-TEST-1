@@ -47,6 +47,60 @@ COLORIS = {
 PRIX = {"Vivid Sulfur": 40, "Fire Red": 60, "Infrared": 40, "Black Canvas": 40,
         "Midnight Navy": 40, "Seafoam": 50, "Canyon Purple": 50, "Craft Olive": 50}
 
+# Code produit imprimé sur l'étiquette intérieure (doit correspondre exactement).
+CODES = {"Vivid Sulfur": ["AQ9129-101"]}
+
+# Lettres et chiffres que l'OCR confond souvent.
+CONFUS = {"0": "0OQD", "1": "1IL", "2": "2Z", "5": "5S", "8": "8B", "6": "6G",
+          "O": "O0", "I": "I1L", "S": "S5", "B": "B8", "Z": "Z2", "Q": "Q0O"}
+
+
+def motif_code(code):
+    parts = []
+    for c in code.upper():
+        if c == "-":
+            parts.append(r"[-\s._]?")
+        else:
+            parts.append("[" + CONFUS.get(c, c) + "]")
+    return re.compile("".join(parts))
+
+
+_ocr = None
+
+
+def lire_texte(img):
+    """Texte lu sur l'image (majuscules, sans espaces superflus)."""
+    global _ocr
+    if _ocr is None:
+        import easyocr
+        _ocr = easyocr.Reader(["en"], gpu=False, verbose=False)
+    import numpy as np
+    from PIL import ImageEnhance, ImageFilter, ImageOps
+    w, h = img.size
+    if max(w, h) < 1200:   # agrandir les petites photos aide la lecture
+        k = 1200 / max(w, h)
+        img = img.resize((int(w * k), int(h * k)), Image.LANCZOS)
+    # 2 lectures : photo telle quelle, puis en gris + contraste + netteté
+    net = ImageEnhance.Contrast(ImageOps.autocontrast(ImageOps.grayscale(img))).enhance(1.5)
+    net = net.filter(ImageFilter.UnsharpMask(4, 200, 2))
+    textes = []
+    for version in (img, net):
+        lignes = _ocr.readtext(np.array(version), detail=0, paragraph=False,
+                               allowlist="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-")
+        textes.append(" ".join(lignes).upper())
+    return " | ".join(textes)
+
+
+def verifier_code(texte, codes):
+    """('ok', code) si un code attendu est lu, ('autre', code lu) si un autre code produit, sinon (None, '')."""
+    compact = texte.replace(" ", "")
+    for c in codes:
+        if motif_code(c).search(texte) or motif_code(c).search(compact):
+            return "ok", c
+    m = re.search(r"[A-Z0-9]{2}\d{4}[-\s]?\d{3}", texte)
+    return ("autre", m.group(0)) if m else (None, "")
+
+
 # Mots obligatoires actuels du bot, pour comparer titre et photo.
 MOTS = {
     "Vivid Sulfur": "jordan 4 + sulfur, jordan 4 + sulphur, jordan4 + sulfur, jordan4 + sulphur, j4 + sulfur, j4 + sulphur, aj4 + sulfur, aj4 + sulphur, jordan iv + sulfur, jordan iv + sulphur",
@@ -343,6 +397,17 @@ def main():
             except Exception as e:
                 print(f"Étiquette de référence illisible {p.name} : {e}")
     eti_emb = embed_images(etis) if etis else None
+    codes = CODES.get(modele, [])
+    controle_ref = ""
+    if codes and etis:
+        try:
+            etat = verifier_code(lire_texte(etis[0]), codes)
+            controle_ref = ("Lecture de ton étiquette de référence : code " + etat[1] + " lu correctement."
+                            if etat[0] == "ok" else
+                            "Lecture de ton étiquette de référence : code NON lu (photo trop floue pour l'OCR ?).")
+        except Exception as e:
+            controle_ref = f"OCR indisponible : {e}"
+        print(controle_ref)
     textes_eti = ["a close-up photo of the size label tag inside a sneaker, with barcode and small printed text",
                   "a photo of sneakers", "a photo of the sole of a sneaker", "a photo of a shoe box"]
     with torch.no_grad():
@@ -360,7 +425,7 @@ def main():
             print(f"Annonce illisible {x['id']} : {e}")
             urls = []
         x["nb_photos"] = len(urls)
-        meilleur, best_ref = None, x["ref"]
+        meilleur, best_ref, notes = None, x["ref"], []
         for u in urls:
             try:
                 img = Image.open(io.BytesIO(session.get(u, timeout=20).content)).convert("RGB")
@@ -372,21 +437,41 @@ def main():
             if ref_emb is not None:
                 best_ref = max(best_ref or 0, float((e @ ref_emb.T).max()))
             note = s_eti if s_eti is not None else p_eti
+            notes.append((note, u, img))
             if meilleur is None or note > meilleur[0]:
                 meilleur = (note, u, p_eti, s_eti)
         x["ref_toutes"] = best_ref
         x["eti"] = meilleur
         x["eti_ok"] = bool(meilleur and (meilleur[2] >= 0.5 or (meilleur[3] or 0) >= 0.80))
+        # Lecture du code sur les 3 photos qui ressemblent le plus à une étiquette
+        x["code"] = (None, "")
+        if codes:
+            for note, u, img in sorted(notes, key=lambda t: t[0], reverse=True)[:3]:
+                try:
+                    etat = verifier_code(lire_texte(img), codes)
+                except Exception as e:
+                    print(f"OCR impossible : {e}")
+                    break
+                if etat[0] == "ok":
+                    x["code"] = etat
+                    x["eti"] = (note, u) + tuple(x["eti"][2:]) if x["eti"] else (note, u, 0, None)
+                    break
+                if etat[0] == "autre" and x["code"][0] is None:
+                    x["code"] = etat
         bilan.append(x)
         print(f"[étiquette] {x['id']} : {len(urls)} photos, étiquette {'oui' if x['eti_ok'] else 'non'}"
               + (f" (proba {meilleur[2]:.2f}, ressemblance étiquette {meilleur[3]})" if meilleur else ""))
 
-    bilan.sort(key=lambda x: (not x["eti_ok"], -(x["ref_toutes"] or 0)))
+    ordre = {"ok": 0, None: 1, "autre": 2}
+    bilan.sort(key=lambda x: (ordre[x["code"][0]], not x["eti_ok"], -(x["ref_toutes"] or 0)))
     avec = sum(x["eti_ok"] for x in bilan)
+    bons = sum(x["code"][0] == "ok" for x in bilan)
     lues = sum(x["nb_photos"] > 0 for x in bilan)
     post(webhook, {"content": (
         f"**Contrôle étiquette** — {len(bilan)} meilleures candidates ouvertes "
         f"({lues} pages lues), {avec} avec une photo d'étiquette repérée.\n"
+        + (f"Code attendu : {', '.join(codes)} — trouvé dans {bons} annonce(s).\n" if codes else "")
+        + (controle_ref + "\n" if controle_ref else "") +
         "Grande image = la photo qui ressemble le plus à une étiquette. Petite image = 1re photo. "
         "« Ressemblance (toutes photos) » = meilleure ressemblance sur toutes les photos de l'annonce.")})
     embeds = []
@@ -396,13 +481,19 @@ def main():
             {"name": "Photos", "value": str(x["nb_photos"]), "inline": True},
             {"name": "Étiquette", "value": "repérée" if x["eti_ok"] else "pas trouvée", "inline": True},
         ]
+        if codes:
+            et, lu = x["code"]
+            champs.append({"name": "Code étiquette", "inline": False, "value":
+                           f"{lu} : BON CODE" if et == "ok" else
+                           f"autre code lu : {lu}" if et == "autre" else "illisible ou absent"})
         if x["ref_toutes"] is not None:
             champs.insert(1, {"name": "Ressemblance (toutes photos)", "value": f"{x['ref_toutes']:.3f}", "inline": True})
         if x["eti"]:
             v = f"{x['eti'][2]:.0%}" + (f" · proche de ton étiquette {x['eti'][3]:.3f}" if x["eti"][3] is not None else "")
             champs.append({"name": "Score étiquette", "value": v, "inline": False})
         e = {"title": (("[T] " if x.get("temoin") else "") + x["title"])[:250], "url": x["url"],
-             "color": 0x3498DB if x["eti_ok"] else 0x95A5A6, "fields": champs,
+             "color": 0x2ECC71 if x["code"][0] == "ok" else 0xE74C3C if x["code"][0] == "autre"
+                      else 0x3498DB if x["eti_ok"] else 0x95A5A6, "fields": champs,
              "thumbnail": {"url": x["photo"]}}
         if x["eti"]:
             e["image"] = {"url": x["eti"][1]}
