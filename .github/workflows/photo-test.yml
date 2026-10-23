@@ -1,0 +1,61 @@
+name: Test reconnaissance photo
+
+on:
+  workflow_dispatch:
+    inputs:
+      modele:
+        description: "Modèle à tester"
+        type: choice
+        default: "Vivid Sulfur"
+        options:
+          - "Vivid Sulfur"
+          - "Fire Red"
+          - "Infrared"
+          - "Black Canvas"
+          - "Midnight Navy"
+          - "Seafoam"
+          - "Canyon Purple"
+          - "Craft Olive"
+      prix_max:
+        description: "Prix max en € (laisser vide = tous les prix, plus d'annonces pour apprendre)"
+        required: false
+        default: ""
+      pages:
+        description: "Nombre de pages Vinted à lire (environ 96 annonces par page)"
+        required: false
+        default: "3"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.cache/huggingface
+          key: clip-v1
+      - run: |
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install open_clip_torch requests pillow
+      - name: Analyser les photos
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          MODELE: ${{ inputs.modele }}
+          PRIX_MAX: ${{ inputs.prix_max }}
+          PAGES: ${{ inputs.pages }}
+        run: python photo_test.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: resultats-photo
+          path: resultats.csv
+          if-no-files-found: ignore
