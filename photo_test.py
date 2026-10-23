@@ -25,7 +25,7 @@ from PIL import Image
 
 import bot
 
-BASE_URL = ("https://www.vinted.fr/catalog?search_text=jordan&catalog[]=1242&currency=EUR"
+BASE_URL = ("https://www.vinted.fr/catalog?catalog[]=1242&currency=EUR"
             + "".join(f"&size_ids[]={s}" for s in range(780, 796))
             + "&status_ids[]=6&status_ids[]=1&status_ids[]=2&status_ids[]=3&order=newest_first")
 
@@ -42,6 +42,10 @@ COLORIS = {
     "autre Jordan": "Jordan sneakers of another model or colorway",
     "pas une paire": "a photo that does not show sneakers",
 }
+
+# Prix max de chaque paire (ceux du bot).
+PRIX = {"Vivid Sulfur": 40, "Fire Red": 60, "Infrared": 40, "Black Canvas": 40,
+        "Midnight Navy": 40, "Seafoam": 50, "Canyon Purple": 50, "Craft Olive": 50}
 
 # Mots obligatoires actuels du bot, pour comparer titre et photo.
 MOTS = {
@@ -85,7 +89,8 @@ def modele_depuis_commit():
 def main():
     auto = not os.environ.get("MODELE")
     modele = os.environ.get("MODELE") or modele_depuis_commit() or "Vivid Sulfur"
-    prix_max = (os.environ.get("PRIX_MAX") or "").strip()
+    prix_max = (os.environ.get("PRIX_MAX") or "").strip().lower()
+    recherche = (os.environ.get("RECHERCHE") or "").strip()
     pages = int(os.environ.get("PAGES") or 3)
     m = re.search(r"https://(?:\w+\.)?discord(?:app)?\.com/api/webhooks/[\w/-]+",
                   os.environ.get("DISCORD_WEBHOOK", ""))
@@ -94,7 +99,12 @@ def main():
         sys.exit(f"Modèle inconnu : {modele}")
 
     # 1. Lire les annonces
-    url = BASE_URL + (f"&price_to={prix_max}" if prix_max else "")
+    if prix_max in ("", "defaut", "défaut"):
+        prix_max = str(PRIX.get(modele, ""))
+    elif prix_max in ("aucun", "0"):
+        prix_max = ""
+    url = (BASE_URL + (f"&price_to={prix_max}" if prix_max else "")
+           + (f"&search_text={requests.utils.quote(recherche)}" if recherche else ""))
     base, purl = bot.page_url(url)
     session = bot.get_session()
     items, ids = [], set()
@@ -229,7 +239,8 @@ def main():
     titre_ok = sum(x["titre_ok"] for x in res)
     lignes = [
         f"**Test photo — {modele}**" + (" (lancé automatiquement après ajout de photos)" if auto else ""),
-        f"Annonces analysées : {len(res)} (recherche « jordan », {pages} page(s), "
+        f"Annonces analysées : {len(res)} (recherche : " + (f"« {recherche} »" if recherche else "aucun texte, toutes les baskets")
+        + f", {pages} page(s), "
         + (f"prix max {prix_max} €)" if prix_max else "tous les prix)"),
         f"Mode : {mode}",
         f"Titre qui mentionne le modèle : {titre_ok}",

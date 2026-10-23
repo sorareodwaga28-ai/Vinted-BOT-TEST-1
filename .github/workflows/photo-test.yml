@@ -21,7 +21,11 @@ on:
           - "Canyon Purple"
           - "Craft Olive"
       prix_max:
-        description: "Prix max en € (laisser vide = tous les prix, plus d'annonces pour apprendre)"
+        description: "Prix max en € (vide = le prix de la paire dans le bot, aucun = tous les prix)"
+        required: false
+        default: ""
+      recherche:
+        description: "Texte de recherche Vinted (vide = aucun texte, la photo fait le tri)"
         required: false
         default: ""
       pages:
@@ -61,6 +65,7 @@ jobs:
           MODELE: ${{ inputs.modele }}
           PRIX_MAX: ${{ inputs.prix_max }}
           PAGES: ${{ inputs.pages }}
+          RECHERCHE: ${{ inputs.recherche }}
           HEAD_COMMIT: ${{ toJSON(github.event.head_commit) }}
         run: |
           set -o pipefail
