@@ -216,19 +216,26 @@ def main():
         except Exception as e:
             print(f"Page {pg} illisible : {e}")
         time.sleep(3)
-    # Témoins : vraies annonces du modèle (titre explicite), pour vérifier que le
-    # modèle sait les reconnaître et voir à quel score elles arrivent.
-    turl = ("https://www.vinted.fr/catalog?catalog[]=1242&order=relevance&search_text="
-            + requests.utils.quote(f"jordan 4 {modele}"))
+    # Sécurité : rien au-dessus du prix max, même si Vinted en renvoie.
+    if prix_max:
+        avant = len(items)
+        items = [it for it in items if (bot.price_value(it) or 0) <= float(prix_max)]
+        if avant != len(items):
+            print(f"{avant - len(items)} annonce(s) au-dessus de {prix_max} € retirées")
     groupes = [g.strip() for g in MOTS[modele].split(",")]
-    try:
-        for it in bot.fetch_items(session, "https://www.vinted.fr", turl):
-            if it["id"] not in ids and it.get("photo") and bot.matches_required(it, groupes):
-                ids.add(it["id"])
-                it["temoin"] = True
-                items.append(it)
-    except Exception as e:
-        print(f"Témoins illisibles : {e}")
+    # Témoins (option, désactivée par défaut) : vraies annonces du modèle, SANS limite
+    # de prix, pour calibrer le seuil. Jamais comptées comme résultats.
+    if (os.environ.get("TEMOINS") or "non").strip().lower() == "oui":
+        turl = ("https://www.vinted.fr/catalog?catalog[]=1242&order=relevance&search_text="
+                + requests.utils.quote(f"jordan 4 {modele}"))
+        try:
+            for it in bot.fetch_items(session, "https://www.vinted.fr", turl):
+                if it["id"] not in ids and it.get("photo") and bot.matches_required(it, groupes):
+                    ids.add(it["id"])
+                    it["temoin"] = True
+                    items.append(it)
+        except Exception as e:
+            print(f"Témoins illisibles : {e}")
     nb_temoins = sum(1 for x in items if x.get("temoin"))
     print(f"{len(items)} annonces avec photo, dont {nb_temoins} témoins")
     if not items:
@@ -323,8 +330,8 @@ def main():
     elif len(sc_t) >= 3:
         seuil, origine_seuil = sc_t[int(0.8 * (len(sc_t) - 1))], "automatique : 80 % des témoins au-dessus"
     else:
-        seuil = {"marge": 0.0, "ref": 0.80, "prob": 0.5}[key]
-        origine_seuil = "par défaut (pas assez de témoins)"
+        seuil = {"marge": 0.0, "ref": 0.82, "prob": 0.5}[key]
+        origine_seuil = "par défaut"
     for x in res:
         x["oui"] = x[key] >= seuil
 

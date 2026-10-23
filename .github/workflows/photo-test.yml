@@ -33,9 +33,14 @@ on:
         required: false
         default: "20"
       seuil:
-        description: "Seuil de l'étape 1 (vide = automatique d'après les témoins)"
+        description: "Seuil de l'étape 1 (vide = 0.82, ou automatique si témoins activés)"
         required: false
         default: ""
+      temoins:
+        description: "Ajouter des témoins (vraies paires, sans limite de prix) pour calibrer"
+        type: choice
+        default: "non"
+        options: ["non", "oui"]
       pages:
         description: "Nombre de pages Vinted à lire (environ 96 annonces par page)"
         required: false
@@ -77,6 +82,7 @@ jobs:
           RECHERCHE: ${{ inputs.recherche }}
           VERIF: ${{ inputs.verif }}
           SEUIL: ${{ inputs.seuil }}
+          TEMOINS: ${{ inputs.temoins }}
           HEAD_COMMIT: ${{ toJSON(github.event.head_commit) }}
         run: |
           set -o pipefail
