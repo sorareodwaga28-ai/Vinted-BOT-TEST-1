@@ -78,7 +78,7 @@ def mots_des_oui(titres, modele):
     exclus = VIDES | set(bot.norm(modele).split())
     c = Counter()
     for t in titres:
-        for w in set(bot.norm(t).split()):
+        for w in set(re.sub(r"[^a-z0-9 ]+", " ", bot.norm(t)).split()):
             if len(w) >= 3 and not w.isdigit() and w not in exclus:
                 c[w] += 1
     return [w for w, n in c.most_common(4) if n >= 2]
