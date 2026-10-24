@@ -38,7 +38,7 @@ ICI = Path(__file__).parent
 IMG = (".jpg", ".jpeg", ".png", ".webp")
 ETAPES = ["V1", "V2", "V3", "V4", "V5"]
 NOMS = {"V1": "Seuil", "V2": "Sans le bon titre", "V3": "Titres", "V4": "Prix max", "V5": "Étiquette"}
-TAILLE = 50
+TAILLE = 20
 VIDES = set("jordan air nike retro aj4 j4 jordan4 iv og taille size pointure eu us uk fr homme femme neuf "
             "neuve tres bon etat vintage paire baskets basket sneakers sneaker chaussures chaussure de du la le "
             "et a en avec sans boite original originale originales authentique".split())
@@ -217,22 +217,22 @@ def main():
                 choix.append((x, raison))
 
     if etape == "V1":
-        prendre(tri([x for x in items if x["source"] == "temoin" and x["titre_ok"]]), 15, "Témoin : le titre nomme la paire")
-        prendre(tri([x for x in items if x["source"] != "temoin" and x["score"] >= seuil - 0.08]), 30, "Photo proche du seuil")
+        prendre(tri([x for x in items if x["source"] == "temoin" and x["titre_ok"]]), 6, "Témoin : le titre nomme la paire")
+        prendre(tri([x for x in items if x["source"] != "temoin" and x["score"] >= seuil - 0.08]), 10, "Photo proche du seuil")
         prendre(tri([x for x in items if x["source"] != "temoin"]), TAILLE - len(choix), "Photo la plus ressemblante")
     elif etape == "V2":
         sans_nom = [x for x in items if not x["titre_ok"]]
-        prendre(tri([x for x in sans_nom if x["source"].startswith("recherche")]), 12, "Trouvée par une recherche tirée de tes OUI")
+        prendre(tri([x for x in sans_nom if x["source"].startswith("recherche")]), 5, "Trouvée par une recherche tirée de tes OUI")
         prendre(tri(sans_nom), TAILLE - len(choix), "Titre ne nomme pas la paire")
     elif etape == "V3":
-        prendre(tri([x for x in items if x["titre_ok"]]), 25, "Titre qui nomme la paire")
-        prendre(tri([x for x in items if x["autre"]]), 15, "Titre d'un autre coloris")
+        prendre(tri([x for x in items if x["titre_ok"]]), 10, "Titre qui nomme la paire")
+        prendre(tri([x for x in items if x["autre"]]), 6, "Titre d'un autre coloris")
         prendre(tri([x for x in items if not x["titre_ok"] and not x["autre"]]), TAILLE - len(choix), "Titre vague")
     elif etape == "V4":
-        prendre(tri([x for x in items if alerte(x)]), 40, "Le bot enverrait une alerte")
+        prendre(tri([x for x in items if alerte(x)]), 16, "Le bot enverrait une alerte")
         prendre(tri([x for x in items if not alerte(x) and x["score"] >= seuil - 0.05]), TAILLE - len(choix), "Juste sous le seuil")
     else:   # V5
-        prendre(tri([x for x in items if alerte(x)]), 30, "Nouvelle alerte du bot")
+        prendre(tri([x for x in items if alerte(x)]), 12, "Nouvelle alerte du bot")
 
     # Les OUI des manches d'avant reviennent (à rejuger en V5, avec l'étiquette)
     repris = []

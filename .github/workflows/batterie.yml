@@ -8,18 +8,9 @@ on:
   workflow_dispatch:
     inputs:
       modele:
-        description: "Modèle à tester"
-        type: choice
+        description: "Modèle à tester (nom exact, ex. Midnight Navy)"
+        required: true
         default: "Midnight Navy"
-        options:
-          - "Midnight Navy"
-          - "Fire Red"
-          - "Vivid Sulfur"
-          - "Infrared"
-          - "Black Canvas"
-          - "Seafoam"
-          - "Canyon Purple"
-          - "Craft Olive"
       etape:
         description: "Manche (vide = la manche en cours du modèle)"
         type: choice
@@ -36,25 +27,52 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
+# Une file par modèle : plusieurs paires avancent en même temps, sans s'attendre.
 concurrency:
-  group: batterie
+  group: batterie-${{ inputs.modele || github.sha }}
   cancel-in-progress: false
 
 jobs:
-  batterie:
+  # Photos ajoutées : une batterie V1 par NOUVEAU modèle du commit (les modèles déjà en cours ne sont pas relancés)
+  repartir:
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 2
-      - name: Dossier de photos modifié
-        if: github.event_name == 'push'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Lancer une batterie par nouveau modèle
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          echo "CHANGES<<EOF" >> $GITHUB_ENV
-          git diff --name-only HEAD~1 HEAD -- references >> $GITHUB_ENV || true
-          echo "EOF" >> $GITHUB_ENV
+          git diff --name-only HEAD~1 HEAD -- references | cut -d/ -f2 | sort -u > /tmp/slugs.txt
+          python - <<'PY' > /tmp/modeles.txt
+          import re, pathlib
+          src = open("photo_test.py", encoding="utf-8").read()
+          i = src.index("PRIX = {"); j = src.index("}", i)
+          noms = re.findall(r'"([^"]+)"\s*:', src[i:j])
+          slug = lambda n: re.sub(r"[^a-z0-9]+", "-", n.lower()).strip("-")
+          par = {slug(n): n for n in noms}
+          for s in open("/tmp/slugs.txt").read().split():
+              if s in par and not pathlib.Path(f"batteries/{s}/etat.json").exists():
+                  print(par[s])
+          PY
+          cat /tmp/modeles.txt
+          while read -r m; do
+            [ -n "$m" ] && gh workflow run batterie.yml --ref main -f modele="$m" -f etape=V1
+          done < /tmp/modeles.txt
+
+  batterie:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -75,7 +93,6 @@ jobs:
           ETAPE: ${{ inputs.etape }}
           SEUIL: ${{ inputs.seuil }}
           PAGES: ${{ inputs.pages }}
-          HEAD_COMMIT: ${{ toJSON(github.event.head_commit) }}
         run: python batterie.py
       - name: Enregistrer les résultats
         run: |
