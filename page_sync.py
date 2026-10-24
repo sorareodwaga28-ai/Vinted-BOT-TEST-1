@@ -1,35 +1,34 @@
 """Lien entre le repo et la page « Vérification batterie » (outil pour Claude).
 
-  python page_sync.py annonces <slug> <dossier>
+  python page_sync.py vignettes <slug>
+      Liste les vignettes à envoyer comme fichiers de la page (Artifact, asset: true,
+      25 par envoi). Noter ensuite « <id annonce> <id fichier> » par ligne dans un fichier.
+
+  python page_sync.py annonces <slug> <dossier> <fichier_correspondance>
       Prépare les documents à écrire dans la base de la page :
       <dossier>/batteries/<slug>.json et <dossier>/annonces/<slug>__<id>.json
-      (vignette incluse en data URI). Affiche la liste des fichiers.
+      (img = /_blob/<id fichier>), puis <dossier>/lots.json (lots de 25 écritures).
 
   python page_sync.py verdicts <dossier_export>
       Lit un export de la collection « verdicts » (fichiers <slug>__<id>.json,
       tels qu'écrits par ArtifactData list avec out_dir) et écrit
       verdicts/<slug>.json pour chaque modèle. Affiche ce qui a changé.
 """
-import base64
-import io
 import json
 import sys
 from pathlib import Path
 
-from PIL import Image
-
 ICI = Path(__file__).parent
 
 
-def vignette(p):
-    im = Image.open(p).convert("RGB")
-    im.thumbnail((240, 240))
-    b = io.BytesIO()
-    im.save(b, "JPEG", quality=70)
-    return "data:image/jpeg;base64," + base64.b64encode(b.getvalue()).decode()
+def vignettes(slug):
+    fs = sorted(str(p.resolve()) for p in (ICI / "batteries" / slug / "img").glob("*.jpg"))
+    for i in range(0, len(fs), 25):
+        print(json.dumps(fs[i:i + 25]))
 
 
-def annonces(slug, out):
+def annonces(slug, out, corr):
+    blobs = dict(l.split() for l in Path(corr).read_text().splitlines() if len(l.split()) == 2)
     res = json.loads((ICI / "batteries" / slug / "resultats.json").read_text())
     out = Path(out)
     (out / "batteries").mkdir(parents=True, exist_ok=True)
@@ -38,10 +37,14 @@ def annonces(slug, out):
     (out / "batteries" / f"{slug}.json").write_text(json.dumps(meta, ensure_ascii=False))
     for a in res["annonces"]:
         doc = dict(a, slug=slug, modele=res["modele"], batterie=res["batterie"])
-        img = ICI / "batteries" / slug / "img" / f"{a['id']}.jpg"
-        doc["img"] = vignette(img) if img.exists() else ""
+        doc["img"] = f"/_blob/{blobs[a['id']]}" if a["id"] in blobs else ""
         (out / "annonces" / f"{slug}__{a['id']}.json").write_text(json.dumps(doc, ensure_ascii=False))
-    print(f"batterie {res['batterie']} · {len(res['annonces'])} annonces -> {out}")
+    w = [{"op": "set", "collection": "annonces", "doc_id": f"{slug}__{a['id']}",
+          "file_path": str((out / "annonces" / f"{slug}__{a['id']}.json").resolve())} for a in res["annonces"]]
+    w.append({"op": "set", "collection": "batteries", "doc_id": slug,
+              "file_path": str((out / "batteries" / f"{slug}.json").resolve())})
+    (out / "lots.json").write_text(json.dumps([w[i:i + 25] for i in range(0, len(w), 25)]))
+    print(f"batterie {res['batterie']} · {len(res['annonces'])} annonces · {sum(1 for a in res['annonces'] if a['id'] in blobs)} vignettes -> {out}")
 
 
 def verdicts(dossier):
@@ -74,7 +77,9 @@ def verdicts(dossier):
 
 
 if __name__ == "__main__":
-    if sys.argv[1] == "annonces":
-        annonces(sys.argv[2], sys.argv[3])
+    if sys.argv[1] == "vignettes":
+        vignettes(sys.argv[2])
+    elif sys.argv[1] == "annonces":
+        annonces(sys.argv[2], sys.argv[3], sys.argv[4])
     elif sys.argv[1] == "verdicts":
         verdicts(sys.argv[2])
