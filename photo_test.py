@@ -103,14 +103,14 @@ def verifier_code(texte, codes):
 
 # Mots obligatoires actuels du bot, pour comparer titre et photo.
 MOTS = {
-    "Vivid Sulfur": "jordan 4 + sulfur, jordan 4 + sulphur, jordan4 + sulfur, jordan4 + sulphur, j4 + sulfur, j4 + sulphur, aj4 + sulfur, aj4 + sulphur, jordan iv + sulfur, jordan iv + sulphur",
-    "Fire Red": "jordan 4 + fire + red, jordan 4 + firered, jordan4 + fire + red, jordan4 + firered, j4 + fire + red, j4 + firered, aj4 + fire + red, aj4 + firered, jordan iv + fire + red, jordan iv + firered",
-    "Infrared": "jordan 4 + infrared, jordan 4 + infra + red, jordan4 + infrared, jordan4 + infra + red, j4 + infrared, j4 + infra + red, aj4 + infrared, aj4 + infra + red, jordan iv + infrared, jordan iv + infra + red",
-    "Black Canvas": "jordan 4 + black + canvas, jordan4 + black + canvas, j4 + black + canvas, aj4 + black + canvas, jordan iv + black + canvas",
-    "Midnight Navy": "jordan 4 + midnight + navy, jordan4 + midnight + navy, j4 + midnight + navy, aj4 + midnight + navy, jordan iv + midnight + navy",
-    "Seafoam": "jordan 4 + seafoam, jordan 4 + sea + foam, jordan4 + seafoam, jordan4 + sea + foam, j4 + seafoam, j4 + sea + foam, aj4 + seafoam, aj4 + sea + foam, jordan iv + seafoam, jordan iv + sea + foam",
-    "Canyon Purple": "jordan 4 + canyon, jordan4 + canyon, j4 + canyon, aj4 + canyon, jordan iv + canyon",
-    "Craft Olive": "jordan 4 + craft + olive, jordan4 + craft + olive, j4 + craft + olive, aj4 + craft + olive, jordan iv + craft + olive",
+    "Vivid Sulfur": "jordan + sulfur, jordan + sulphur, jordan 4 + sulfur, jordan 4 + sulphur, jordan4 + sulfur, jordan4 + sulphur, j4 + sulfur, j4 + sulphur, aj4 + sulfur, aj4 + sulphur, jordan iv + sulfur, jordan iv + sulphur",
+    "Fire Red": "jordan + fire + red, jordan + firered, jordan 4 + fire + red, jordan 4 + firered, jordan4 + fire + red, jordan4 + firered, j4 + fire + red, j4 + firered, aj4 + fire + red, aj4 + firered, jordan iv + fire + red, jordan iv + firered",
+    "Infrared": "jordan + infrared, jordan + infra + red, jordan 4 + infrared, jordan 4 + infra + red, jordan4 + infrared, jordan4 + infra + red, j4 + infrared, j4 + infra + red, aj4 + infrared, aj4 + infra + red, jordan iv + infrared, jordan iv + infra + red",
+    "Black Canvas": "jordan + black + canvas, jordan 4 + black + canvas, jordan4 + black + canvas, j4 + black + canvas, aj4 + black + canvas, jordan iv + black + canvas",
+    "Midnight Navy": "jordan + midnight + navy, jordan + midnightnavy, jordan 4 + midnight + navy, jordan4 + midnight + navy, j4 + midnight + navy, aj4 + midnight + navy, jordan iv + midnight + navy",
+    "Seafoam": "jordan + seafoam, jordan + sea + foam, jordan 4 + seafoam, jordan 4 + sea + foam, jordan4 + seafoam, jordan4 + sea + foam, j4 + seafoam, j4 + sea + foam, aj4 + seafoam, aj4 + sea + foam, jordan iv + seafoam, jordan iv + sea + foam",
+    "Canyon Purple": "jordan + canyon, jordan 4 + canyon, jordan4 + canyon, j4 + canyon, aj4 + canyon, jordan iv + canyon",
+    "Craft Olive": "jordan + craft + olive, jordan 4 + craft + olive, jordan4 + craft + olive, j4 + craft + olive, aj4 + craft + olive, jordan iv + craft + olive",
 }
 
 

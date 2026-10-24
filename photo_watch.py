@@ -1,6 +1,8 @@
 """Surveillance photo : toutes les 5 minutes, nouvelles annonces Vinted (sans texte),
 comparées aux photos de référence des modèles suivis. Alerte Discord si la photo
-atteint le seuil et que le prix est sous le prix max du modèle.
+atteint le seuil OU si le titre nomme le modèle, et que le prix est sous le prix max
+du modèle. Quand un modèle est ajouté, les annonces récentes déjà en ligne sont
+relues pour ce modèle (rattrapage), au lieu d'être ignorées.
 
 Réglages (variables d'environnement) :
   MODELES   modèles suivis, séparés par des virgules (défaut : Fire Red)
@@ -109,7 +111,8 @@ def main():
         etat["modeles"] = sorted(set(etat["modeles"]) | set(modeles))
         ETAT.write_text(json.dumps(etat))
 
-    def nouvelles(premier):
+    def nouvelles(premier, toutes=False):
+        """toutes=True : relit les pages sans sauter le déjà vu (rattrapage d'un nouveau modèle)."""
         items, deja = [], False
         for pg in range(1, pages + 1):
             try:
@@ -121,26 +124,35 @@ def main():
                 iid = str(it["id"])
                 if iid in vus:
                     deja = True
+                    if toutes and it.get("photo"):
+                        items.append(it)
                     continue
                 vus.add(iid)
                 etat["ids"].append(iid)
                 if it.get("photo"):
                     items.append(it)
-            if deja or premier:
+            if (deja and not toutes) or premier:
                 break
             time.sleep(3)
         etat["ids"] = etat["ids"][-20000:]
         return items
 
     nouveaux_modeles = [x for x in modeles if x not in etat["modeles"]]
-    if not etat["ids"] or nouveaux_modeles:
-        nouvelles(premier=not etat["ids"])
+    premier_demarrage = not etat["ids"]
+    rattrapage = []
+    if premier_demarrage:
+        nouvelles(premier=True)          # tout premier démarrage : on mémorise sans envoyer
+    elif nouveaux_modeles:
+        rattrapage = nouvelles(premier=False, toutes=True)   # relu plus bas pour les nouveaux modèles
+    if premier_demarrage or nouveaux_modeles:
         sauver()
         if git_auto:
             git_sauver()
         post(webhook, {"content": "**Surveillance photo démarrée** : " + ", ".join(
             f"{x} (≤ {pt.PRIX[x]:g} €)" for x in modeles)
-            + f" · seuil {seuil:.2f} · vérification toutes les {pause} s, nouvelles annonces seulement."})
+            + f" · seuil {seuil:.2f} · photo OU titre · vérification toutes les {pause} s"
+            + (f" · rattrapage de {len(rattrapage)} annonce(s) récentes pour " + ", ".join(nouveaux_modeles)
+               if rattrapage else "") + "."})
 
     # CLIP + références de chaque modèle (chargés une seule fois)
     model, _, prep = open_clip.create_model_and_transforms("ViT-B-32", pretrained="laion2b_s34b_b79k")
@@ -167,10 +179,15 @@ def main():
                                     "a photo of sneakers", "a photo of the sole of a sneaker", "a photo of a shoe box"]))
     te = te / te.norm(dim=-1, keepdim=True)
 
-    def passage():
-        items = nouvelles(premier=False)
-        print(f"{time.strftime('%H:%M:%S')} : {len(items)} nouvelle(s) annonce(s)")
-        if not items:
+    def titre_dit(it, x):
+        return bot.matches_required(it, [g.strip() for g in pt.MOTS.get(x, "").split(",") if g.strip()])
+
+    def passage(items=None, mods=None):
+        if items is None:
+            items = nouvelles(premier=False)
+        mods = [x for x in (mods or modeles) if x in refs]
+        print(f"{time.strftime('%H:%M:%S')} : {len(items)} annonce(s) à juger ({', '.join(mods)})")
+        if not items or not mods:
             return
         # 3. Étape 1 : la photo ressemble-t-elle à un modèle suivi, dans son prix ?
         alertes = []
@@ -183,9 +200,13 @@ def main():
             e = emb([img])
             prix = bot.price_value(it) or 0
             meilleur = None
-            for x, r in refs.items():
-                s = float((e @ r.T).max())
-                if s >= seuil and prix <= pt.PRIX[x] and (meilleur is None or s > meilleur[1]):
+            for x in mods:
+                if prix > pt.PRIX[x]:
+                    continue
+                s = float((e @ refs[x].T).max())
+                # photo au-dessus du seuil OU titre qui nomme la paire ; la photo l'emporte
+                if (s >= seuil or titre_dit(it, x)) and (
+                        meilleur is None or (s >= seuil, s) > (meilleur[1] >= seuil, meilleur[1])):
                     meilleur = (x, s)
             if meilleur:
                 it["modele"], it["score"] = meilleur
@@ -228,15 +249,16 @@ def main():
                         break
                     if et == "autre":
                         eti_url, statut = u, f"trouvée, lisible : {lu} = AUTRE CODE"
-            titre_ok = bot.matches_required(it, [g.strip() for g in pt.MOTS.get(x, "").split(",") if g.strip()])
+            titre_ok = titre_dit(it, x)
+            par_photo = it["score"] >= seuil
             embeds = [{
                 "title": it["title"][:250], "url": it["url"], "color": 0x2ECC71,
-                "author": {"name": f"Photo : {x}"},
+                "author": {"name": f"{'Photo' if par_photo else 'Titre'} : {x}"},
                 "fields": [
                     {"name": "Prix", "value": it["price"], "inline": True},
-                    {"name": "Ressemblance", "value": f"{it['score']:.3f}", "inline": True},
+                    {"name": "Ressemblance", "value": f"{it['score']:.3f}" + ("" if par_photo else " (sous le seuil)"), "inline": True},
                     {"name": "Taille · état", "value": it.get("details", "?"), "inline": True},
-                    {"name": "Titre", "value": "dit le modèle" if titre_ok else "ne le dit pas (trouvée par la photo)", "inline": True},
+                    {"name": "Titre", "value": ("dit le modèle" + ("" if par_photo else " (trouvée par le titre)")) if titre_ok else "ne le dit pas (trouvée par la photo)", "inline": True},
                     {"name": "Étiquette", "value": statut, "inline": False},
                 ],
                 "image": {"url": it["photo"]},
@@ -244,6 +266,12 @@ def main():
             if eti_url:
                 embeds.append({"url": it["url"], "image": {"url": eti_url}})
             post(webhook, {"embeds": embeds})
+
+    if rattrapage:
+        try:
+            passage(rattrapage, [x for x in nouveaux_modeles if x in refs])
+        except Exception as e:
+            print(f"::warning::Erreur pendant le rattrapage : {str(e)[:300]}")
 
     debut = time.time()
     dernier_git = time.time()
