@@ -71,7 +71,7 @@ def main():
     seuils = json.loads(seuils_f.read_text()) if seuils_f.exists() else {}
     fichiers = sorted((ICI / "verdicts").glob("*.json"))
     if not fichiers:
-        sys.exit("Aucun fichier de réponses.")
+        print("Aucun fichier de réponses."); return
     for vf in fichiers:
         data = json.loads(vf.read_text())
         s = vf.stem
