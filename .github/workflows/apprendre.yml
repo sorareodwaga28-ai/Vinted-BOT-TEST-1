@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: write
+  actions: write
 
 concurrency:
   group: apprendre
@@ -33,14 +34,23 @@ jobs:
           git config user.name "vinted-bot"
           git config user.email "bot@users.noreply.github.com"
           mkdir -p /tmp/a && cp -r references seuils.json /tmp/a/ && mkdir -p /tmp/a/b
-          for f in batteries/*/appris.json; do [ -f "$f" ] && mkdir -p /tmp/a/b/$(dirname $f) && cp $f /tmp/a/b/$f; done
+          for f in batteries/*/appris.json batteries/*/etat.json; do [ -f "$f" ] && mkdir -p /tmp/a/b/$(dirname $f) && cp $f /tmp/a/b/$f; done
+          ok=0
           for i in 1 2 3 4 5; do
             git fetch -q origin main && git reset -q --hard origin/main
             cp -r /tmp/a/references . && cp /tmp/a/seuils.json . && cp -r /tmp/a/b/batteries . 2>/dev/null || true
             git add references seuils.json batteries
-            git diff --cached --quiet && exit 0
+            if git diff --cached --quiet; then ok=1; break; fi
             git commit -q -m "apprentissage : pièges, références et seuils"
-            git push -q origin HEAD:main && exit 0
+            if git push -q origin HEAD:main; then ok=1; break; fi
             sleep 3
           done
-          exit 1
+          [ $ok = 1 ] || exit 1
+      - name: Lancer la manche suivante
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          [ -f /tmp/a_lancer.txt ] || exit 0
+          while IFS='|' read -r modele etape; do
+            [ -n "$modele" ] && gh workflow run batterie.yml --ref main -f modele="$modele" -f etape="$etape"
+          done < /tmp/a_lancer.txt

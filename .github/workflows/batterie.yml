@@ -20,8 +20,13 @@ on:
           - "Seafoam"
           - "Canyon Purple"
           - "Craft Olive"
+      etape:
+        description: "Manche (vide = la manche en cours du modèle)"
+        type: choice
+        default: ""
+        options: ["", "V1", "V2", "V3", "V4", "V5"]
       seuil:
-        description: "Seuil de départ (vide = seuil appris, sinon 0.84)"
+        description: "Seuil (vide = seuil appris, sinon 0.84)"
         required: false
         default: ""
       pages:
@@ -67,6 +72,7 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           MODELE: ${{ inputs.modele }}
+          ETAPE: ${{ inputs.etape }}
           SEUIL: ${{ inputs.seuil }}
           PAGES: ${{ inputs.pages }}
           HEAD_COMMIT: ${{ toJSON(github.event.head_commit) }}
@@ -75,10 +81,15 @@ jobs:
         run: |
           git config user.name "vinted-bot"
           git config user.email "bot@users.noreply.github.com"
+          # On n'écrase ni l'état des manches ni l'apprentissage (gérés par « Apprentissage »)
           cp -r batteries /tmp/batteries
           for i in 1 2 3 4 5; do
             git fetch -q origin main && git reset -q --hard origin/main
-            rm -rf batteries && cp -r /tmp/batteries batteries
+            mkdir -p batteries
+            rsync -a --exclude appris.json --exclude etat.json /tmp/batteries/ batteries/
+            for f in /tmp/batteries/*/etat.json; do
+              d=batteries/$(basename $(dirname $f)); [ -f $d/etat.json ] || cp $f $d/etat.json
+            done
             git add batteries
             git diff --cached --quiet && exit 0
             git commit -q -m "batterie de tests : résultats"

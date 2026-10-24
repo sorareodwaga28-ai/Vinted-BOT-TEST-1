@@ -1,18 +1,21 @@
 """Lien entre le repo et la page « Vérification batterie » (outil pour Claude).
 
-  python page_sync.py vignettes <slug>
-      Liste les vignettes à envoyer comme fichiers de la page (Artifact, asset: true,
-      25 par envoi). Noter ensuite « <id annonce> <id fichier> » par ligne dans un fichier.
+  python page_sync.py etat
+      Pour chaque modèle : manche en cours dans le repo (batteries/<slug>/etat.json + <V>.json).
 
-  python page_sync.py annonces <slug> <dossier> <fichier_correspondance>
-      Prépare les documents à écrire dans la base de la page :
-      <dossier>/batteries/<slug>.json et <dossier>/annonces/<slug>__<id>.json
-      (img = /_blob/<id fichier>), puis <dossier>/lots.json (lots de 25 écritures).
+  python page_sync.py vignettes <slug> <V>
+      Listes (25 max) de vignettes à envoyer comme fichiers de la page
+      (Artifact publish, url de la page, asset: true, file_paths).
+      Noter ensuite « <id annonce> <id fichier> » par ligne dans un fichier.
+
+  python page_sync.py annonces <slug> <V> <dossier> <fichier_correspondance>
+      Prépare les documents de la base de la page : batteries/<slug> (manche affichée)
+      et annonces/<slug>__<V>__<id> (img = /_blob/<id fichier>), puis <dossier>/lots.json
+      (lots de 25 écritures pour ArtifactData batch).
 
   python page_sync.py verdicts <dossier_export>
-      Lit un export de la collection « verdicts » (fichiers <slug>__<id>.json,
-      tels qu'écrits par ArtifactData list avec out_dir) et écrit
-      verdicts/<slug>.json pour chaque modèle. Affiche ce qui a changé.
+      Lit un export de la collection « verdicts » de la page (ArtifactData list avec out_dir)
+      et écrit verdicts/<slug>.json ({"verdicts": {"<V>:<id>": "oui"|"non"}}). Affiche ce qui a changé.
 """
 import json
 import sys
@@ -21,30 +24,43 @@ from pathlib import Path
 ICI = Path(__file__).parent
 
 
-def vignettes(slug):
-    fs = sorted(str(p.resolve()) for p in (ICI / "batteries" / slug / "img").glob("*.jpg"))
+def etat():
+    for d in sorted((ICI / "batteries").glob("*/etat.json")):
+        e = json.loads(d.read_text())
+        f = d.parent / f"{e['etape']}.json"
+        b = json.loads(f.read_text())["batterie"] if f.exists() else "pas encore générée"
+        print(f"{d.parent.name} : manche {e['etape']} · batterie {b} · terminées {e.get('terminees', [])}"
+              + (" · FINI" if e.get("fini") else ""))
+
+
+def vignettes(slug, v):
+    fs = sorted(str(p.resolve()) for p in (ICI / "batteries" / slug / "img" / v).glob("*.jpg"))
     for i in range(0, len(fs), 25):
         print(json.dumps(fs[i:i + 25]))
 
 
-def annonces(slug, out, corr):
+def annonces(slug, v, out, corr):
     blobs = dict(l.split() for l in Path(corr).read_text().splitlines() if len(l.split()) == 2)
-    res = json.loads((ICI / "batteries" / slug / "resultats.json").read_text())
+    res = json.loads((ICI / "batteries" / slug / f"{v}.json").read_text())
+    et = json.loads((ICI / "batteries" / slug / "etat.json").read_text())
     out = Path(out)
     (out / "batteries").mkdir(parents=True, exist_ok=True)
     (out / "annonces").mkdir(parents=True, exist_ok=True)
-    meta = {k: res[k] for k in ("modele", "slug", "batterie", "seuil_depart", "prix_max", "codes", "nb_lues")}
+    meta = {k: res[k] for k in ("modele", "slug", "etape", "nom_etape", "batterie", "seuil", "prix_max", "codes",
+                                "nb_references", "nb_pieges", "recherches_tirees_des_oui")}
+    meta["terminees"] = et.get("terminees", [])
     (out / "batteries" / f"{slug}.json").write_text(json.dumps(meta, ensure_ascii=False))
+    w = []
     for a in res["annonces"]:
-        doc = dict(a, slug=slug, modele=res["modele"], batterie=res["batterie"])
+        doc = dict(a, slug=slug, modele=res["modele"], etape=v, batterie=res["batterie"])
         doc["img"] = f"/_blob/{blobs[a['id']]}" if a["id"] in blobs else ""
-        (out / "annonces" / f"{slug}__{a['id']}.json").write_text(json.dumps(doc, ensure_ascii=False))
-    w = [{"op": "set", "collection": "annonces", "doc_id": f"{slug}__{a['id']}",
-          "file_path": str((out / "annonces" / f"{slug}__{a['id']}.json").resolve())} for a in res["annonces"]]
-    w.append({"op": "set", "collection": "batteries", "doc_id": slug,
-              "file_path": str((out / "batteries" / f"{slug}.json").resolve())})
+        k = f"{slug}__{v}__{a['id']}"
+        (out / "annonces" / f"{k}.json").write_text(json.dumps(doc, ensure_ascii=False))
+        w.append({"op": "set", "collection": "annonces", "doc_id": k, "file_path": str((out / "annonces" / f"{k}.json").resolve())})
+    w.append({"op": "set", "collection": "batteries", "doc_id": slug, "file_path": str((out / "batteries" / f"{slug}.json").resolve())})
     (out / "lots.json").write_text(json.dumps([w[i:i + 25] for i in range(0, len(w), 25)]))
-    print(f"batterie {res['batterie']} · {len(res['annonces'])} annonces · {sum(1 for a in res['annonces'] if a['id'] in blobs)} vignettes -> {out}")
+    print(f"{slug} {v} · batterie {res['batterie']} · {len(res['annonces'])} annonces · "
+          f"{sum(1 for a in res['annonces'] if a['id'] in blobs)} vignettes -> {out / 'lots.json'}")
 
 
 def verdicts(dossier):
@@ -54,22 +70,19 @@ def verdicts(dossier):
             d = json.loads(f.read_text())
         except ValueError:
             continue
-        d = d.get("data", d)          # selon le format de l'export
+        d = d.get("data", d)
         slug, rep = d.get("slug"), str(d.get("rep", "")).lower()
-        if slug and rep in ("oui", "non"):
-            par.setdefault(slug, {})[str(d["id"])] = rep
+        if slug and rep in ("oui", "non") and d.get("id"):
+            par.setdefault(slug, {})[f"{d.get('etape') or 'V1'}:{d['id']}"] = rep
     (ICI / "verdicts").mkdir(exist_ok=True)
     for slug, v in par.items():
-        rf = ICI / "batteries" / slug / "resultats.json"
-        if not rf.exists():
+        ef = ICI / "batteries" / slug / "etat.json"
+        if not ef.exists():
             continue
-        res = json.loads(rf.read_text())
-        ids = {a["id"] for a in res["annonces"]}
-        v = {k: x for k, x in sorted(v.items()) if k in ids}
-        new = {"modele": res["modele"], "batterie": res["batterie"], "verdicts": v}
         f = ICI / "verdicts" / f"{slug}.json"
-        old = json.loads(f.read_text()) if f.exists() else None
-        if old != new:
+        old = json.loads(f.read_text()) if f.exists() else {}
+        new = {"slug": slug, "verdicts": dict(sorted(v.items()))}
+        if old.get("verdicts") != new["verdicts"]:
             f.write_text(json.dumps(new, ensure_ascii=False, indent=1))
             print(f"{slug} : {len(v)} réponses écrites")
         else:
@@ -77,9 +90,6 @@ def verdicts(dossier):
 
 
 if __name__ == "__main__":
-    if sys.argv[1] == "vignettes":
-        vignettes(sys.argv[2])
-    elif sys.argv[1] == "annonces":
-        annonces(sys.argv[2], sys.argv[3], sys.argv[4])
-    elif sys.argv[1] == "verdicts":
-        verdicts(sys.argv[2])
+    a = sys.argv[1:]
+    {"etat": lambda: etat(), "vignettes": lambda: vignettes(a[1], a[2]),
+     "annonces": lambda: annonces(a[1], a[2], a[3], a[4]), "verdicts": lambda: verdicts(a[1])}[a[0]]()

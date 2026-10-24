@@ -1,25 +1,26 @@
-"""Apprentissage à partir des réponses OUI / NON de Bastien.
+"""Apprentissage entre les manches, à partir des réponses OUI / NON de Bastien.
 
-Lit verdicts/<modele>.json ({"modele", "batterie", "verdicts": {id: "oui"|"non"}})
-et batteries/<modele>/resultats.json (scores, photos), puis :
-  - NON avec une photo proche du seuil   -> photo ajoutée dans references/<modele>/pas-ca/
-  - OUI avec une photo sous le seuil     -> photo ajoutée dans references/<modele>/ (si c'est bien
-                                            la paire en photo : ressemblance >= 0,65)
-  - nouveau seuil du modèle               -> seuils.json (lu par la surveillance photo)
-  - bilan des vues V1 à V5                -> Discord
-Les réponses déjà appliquées sont notées dans batteries/<modele>/appris.json.
+Lit verdicts/<slug>.json ({"verdicts": {"<manche>:<id annonce>": "oui"|"non"}}) et les
+manches batteries/<slug>/<V>.json, puis :
+  - NON avec une photo proche du seuil   -> photo ajoutée dans references/<slug>/pas-ca/
+  - OUI avec une photo sous le seuil     -> photo ajoutée dans references/<slug>/ (si >= 0,65)
+  - seuil du modèle recalculé sur toutes les réponses -> seuils.json
+  - bilan de la manche -> Discord
+  - manche entièrement jugée -> manche suivante lancée (workflow « Batterie de tests »)
+Réponses déjà appliquées : batteries/<slug>/appris.json.
 """
 import io
 import json
 import os
 import re
-import sys
 from pathlib import Path
 
 import requests
 from PIL import Image
 
 ICI = Path(__file__).parent
+ETAPES = ["V1", "V2", "V3", "V4", "V5"]
+NOMS = {"V1": "Seuil", "V2": "Sans le bon titre", "V3": "Titres", "V4": "Prix max", "V5": "Étiquette"}
 MIN_OUI = 3            # réponses OUI nécessaires pour fixer un seuil
 COUT_FAUSSE = 2        # une fausse alerte compte double par rapport à une paire ratée
 BORNES = (0.72, 0.95)
@@ -34,34 +35,38 @@ def meilleur_seuil(notes):
         gain = sum(1 for s, o in notes if o and s >= t) - COUT_FAUSSE * sum(1 for s, o in notes if not o and s >= t)
         if best is None or gain > best[0] or (gain == best[0] and t > best[1]):
             best = (gain, t)
-    t = best[1] - 0.005                       # petite marge sous la plus basse vraie paire gardée
+    t = best[1] - 0.005
     return round(min(max(t, BORNES[0]), BORNES[1]), 3)
-
-
-def vues(annonces, v, seuil):
-    """Bilan V1 à V5 : (vraies paires trouvées, fausses alertes, paires ratées)."""
-    j = [a for a in annonces if a["id"] in v]
-    oui = lambda a: v[a["id"]] == "oui"
-    def bilan(pred, base):
-        b = [a for a in j if base(a)]
-        return (sum(1 for a in b if pred(a) and oui(a)), sum(1 for a in b if pred(a) and not oui(a)),
-                sum(1 for a in b if not pred(a) and oui(a)))
-    photo = lambda a: a["score"] >= seuil
-    return {
-        "V1 seuil photo": bilan(photo, lambda a: True),
-        "V2 photo, titre qui ne nomme pas la paire": bilan(photo, lambda a: not a["titre_ok"]),
-        "V3 photo OU bon titre": bilan(lambda a: photo(a) or a["titre_ok"], lambda a: True),
-        "V4 V3 + prix max": bilan(lambda a: (photo(a) or a["titre_ok"]) and a["prix_ok"], lambda a: a["prix_ok"]),
-        "V5 V4 + étiquette sans autre code": bilan(
-            lambda a: (photo(a) or a["titre_ok"]) and a["prix_ok"] and a.get("etiquette") != "autre code",
-            lambda a: a["prix_ok"]),
-    }
 
 
 def telecharger(url, dest):
     r = requests.get(url, timeout=30, headers={"User-Agent": "Mozilla/5.0"})
     r.raise_for_status()
     Image.open(io.BytesIO(r.content)).convert("RGB").save(dest, "JPEG", quality=90)
+
+
+def lancer(modele, etape):
+    """Note la manche à lancer ; le workflow la lance APRÈS avoir enregistré pièges, références et seuil."""
+    with open("/tmp/a_lancer.txt", "a", encoding="utf-8") as f:
+        f.write(f"{modele}|{etape}\n")
+    return True
+
+
+def bilan(annonces, v, seuil):
+    """(trouvées, fausses alertes, ratées) avec la règle du bot, sur les annonces jugées dans le prix."""
+    t = f = r = 0
+    for a in annonces:
+        rep = v.get(a["id"])
+        if not rep or not a["prix_ok"]:      # au-dessus du prix max : ni trouvée ni ratée
+            continue
+        al = (a["score"] >= seuil or a["titre_ok"]) and a["prix_ok"] and a.get("etiquette") != "autre code"
+        if al and rep == "oui":
+            t += 1
+        elif al:
+            f += 1
+        elif rep == "oui":
+            r += 1
+    return t, f, r
 
 
 def main():
@@ -71,29 +76,47 @@ def main():
     seuils = json.loads(seuils_f.read_text()) if seuils_f.exists() else {}
     fichiers = sorted((ICI / "verdicts").glob("*.json"))
     if not fichiers:
-        print("Aucun fichier de réponses."); return
+        print("Aucun fichier de réponses.")
+        return
     for vf in fichiers:
-        data = json.loads(vf.read_text())
         s = vf.stem
-        rf = ICI / "batteries" / s / "resultats.json"
-        if not rf.exists():
-            print(f"{s} : pas de résultats de batterie, ignoré")
+        dossier = ICI / "batteries" / s
+        etat_f = dossier / "etat.json"
+        if not etat_f.exists():
             continue
-        res = json.loads(rf.read_text())
-        modele = res["modele"]
-        v = {str(k): str(x).lower() for k, x in data.get("verdicts", {}).items() if str(x).lower() in ("oui", "non")}
-        af = ICI / "batteries" / s / "appris.json"
+        etat = json.loads(etat_f.read_text())
+        etape = etat["etape"]
+        mf = dossier / f"{etape}.json"
+        if not mf.exists():
+            continue
+        manche = json.loads(mf.read_text())
+        modele = manche["modele"]
+        brut = json.loads(vf.read_text()).get("verdicts", {})
+        par_etape = {e: {} for e in ETAPES}
+        for k, x in brut.items():
+            e, i = k.split(":", 1) if ":" in k else ("V1", k)
+            if str(x).lower() in ("oui", "non") and e in par_etape:
+                par_etape[e][i] = str(x).lower()
+        # Toutes les annonces connues et leur dernière réponse
+        toutes, dernier = {}, {}
+        for e in ETAPES:
+            f = dossier / f"{e}.json"
+            if f.exists():
+                for a in json.loads(f.read_text())["annonces"]:
+                    if not a.get("repris"):
+                        toutes[a["id"]] = a
+            for i, x in par_etape[e].items():
+                dernier[i] = x
+        af = dossier / "appris.json"
         appris = json.loads(af.read_text()) if af.exists() else {"ids": []}
-        annonces = res["annonces"]
-        par_id = {a["id"]: a for a in annonces}
-        depart = float(res["seuil_depart"])
+        depart = float(manche["seuil"])
 
         # Photos : pièges et nouvelles références
         ajout_p, ajout_r = 0, 0
         d = ICI / "references" / s
         (d / "pas-ca").mkdir(parents=True, exist_ok=True)
-        for i, rep in v.items():
-            a = par_id.get(i)
+        for i, rep in dernier.items():
+            a = toutes.get(i)
             if not a or i in appris["ids"]:
                 continue
             try:
@@ -109,22 +132,42 @@ def main():
             appris["ids"].append(i)
         af.write_text(json.dumps(appris))
 
-        # Seuil
-        notes = [(par_id[i]["score"], rep == "oui") for i, rep in v.items() if i in par_id]
+        # Seuil sur toutes les réponses
+        notes = [(toutes[i]["score"], x == "oui") for i, x in dernier.items() if i in toutes]
         nouveau = meilleur_seuil(notes)
-        ancien = seuils.get(modele)
+        ancien = seuils.get(modele, depart)
         if nouveau is not None:
             seuils[modele] = nouveau
         seuil = seuils.get(modele, depart)
-        b = vues(annonces, v, seuil)
-        nb_o = sum(1 for x in v.values() if x == "oui")
-        lignes = [f"**Apprentissage — {modele}** (batterie du {res['batterie']} UTC)",
-                  f"Réponses : {len(v)} ({nb_o} OUI, {len(v) - nb_o} NON)",
-                  (f"Seuil : {ancien if ancien else depart:.3f} → **{nouveau:.3f}**" if nouveau is not None
-                   else f"Seuil inchangé ({seuil:.3f}) : il faut au moins {MIN_OUI} OUI"),
-                  f"Photos ajoutées : {ajout_p} piège(s) dans pas-ca, {ajout_r} référence(s)",
-                  "Bilan au seuil " + f"{seuil:.3f} (trouvées · fausses alertes · ratées) :"]
-        lignes += [f"- {k} : {x[0]} · {x[1]} · {x[2]}" for k, x in b.items()]
+
+        # Manche terminée ?
+        a_juger = [a for a in manche["annonces"] if a.get("a_juger", True)]
+        v = par_etape[etape]
+        reste = [a for a in a_juger if a["id"] not in v]
+        t, f, r = bilan(a_juger, v, seuil)
+        nb_o = sum(1 for a in a_juger if v.get(a["id"]) == "oui")
+        lignes = [f"**Apprentissage — {modele}, manche {etape} ({NOMS[etape]})**",
+                  f"Réponses : {len(a_juger) - len(reste)}/{len(a_juger)} ({nb_o} OUI)",
+                  (f"Seuil : {ancien:.3f} → **{nouveau:.3f}**" if nouveau is not None and nouveau != ancien
+                   else f"Seuil : {seuil:.3f}"),
+                  f"Photos ajoutées : {ajout_p} piège(s), {ajout_r} référence(s)",
+                  f"Avec la règle du bot : {t} trouvée(s) · {f} fausse(s) alerte(s) · {r} ratée(s)"]
+        if not reste:
+            if etape not in etat["terminees"]:
+                etat["terminees"].append(etape)
+            k = ETAPES.index(etape)
+            if k + 1 < len(ETAPES):
+                suiv = ETAPES[k + 1]
+                etat["etape"] = suiv
+                ok = lancer(modele, suiv)
+                lignes.append(f"Manche {etape} terminée → **manche {suiv} ({NOMS[suiv]})** "
+                              + ("en préparation." if ok else "à lancer à la main (Actions → Batterie de tests)."))
+            else:
+                etat["fini"] = True
+                lignes.append(f"**Les 5 manches sont terminées.** Seuil final {seuil:.3f}, utilisé par la surveillance photo.")
+        else:
+            lignes.append(f"Il reste {len(reste)} annonce(s) à juger dans cette manche.")
+        etat_f.write_text(json.dumps(etat, ensure_ascii=False))
         print("\n".join(lignes))
         if webhook:
             requests.post(webhook, json={"content": "\n".join(lignes)}, timeout=20)
