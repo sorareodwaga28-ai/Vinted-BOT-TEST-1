@@ -6,7 +6,8 @@ relues pour ce modèle (rattrapage), au lieu d'être ignorées.
 
 Réglages (variables d'environnement) :
   MODELES   modèles suivis, séparés par des virgules (défaut : Fire Red)
-  SEUIL     seuil de ressemblance (défaut 0.84)
+  SEUIL     seuil de ressemblance (défaut 0.84) ; un seuil appris par la batterie de tests
+            (seuils.json) le remplace pour son modèle
   PRIX      prix max propres à la surveillance, ex. "Vivid Sulfur=30; Fire Red=60"
             (sinon le prix du bot)
   PAGES     pages max lues par passage (défaut 3) ; on s'arrête dès qu'on retombe sur du déjà vu
@@ -94,6 +95,9 @@ def main():
                 pt.PRIX[nom] = float(val.replace(",", "."))
     modeles = [x for x in modeles if x in pt.PRIX]
     seuil = float((os.environ.get("SEUIL") or "0.84").replace(",", "."))
+    f_seuils = Path(__file__).with_name("seuils.json")
+    appris = json.loads(f_seuils.read_text()) if f_seuils.exists() else {}
+    seuil_de = {x: float(appris.get(x, seuil)) for x in modeles}
     pages = int(os.environ.get("PAGES") or 3)
     pause = int(os.environ.get("INTERVALLE") or 90)          # secondes entre deux vérifications
     duree = int(os.environ.get("DUREE") or 0) * 60           # minutes de surveillance (0 = un seul passage)
@@ -149,8 +153,8 @@ def main():
         if git_auto:
             git_sauver()
         post(webhook, {"content": "**Surveillance photo démarrée** : " + ", ".join(
-            f"{x} (≤ {pt.PRIX[x]:g} €)" for x in modeles)
-            + f" · seuil {seuil:.2f} · photo OU titre · vérification toutes les {pause} s"
+            f"{x} (≤ {pt.PRIX[x]:g} €, seuil {seuil_de[x]:.2f})" for x in modeles)
+            + " · photo OU titre · vérification toutes les {pause} s"
             + (f" · rattrapage de {len(rattrapage)} annonce(s) récentes pour " + ", ".join(nouveaux_modeles)
                if rattrapage else "") + "."})
 
@@ -164,7 +168,7 @@ def main():
             f = model.encode_image(torch.stack([prep(i) for i in imgs]))
         return f / f.norm(dim=-1, keepdim=True)
 
-    refs, etis = {}, {}
+    refs, etis, pieges = {}, {}, {}
     for x in modeles:
         d = Path("references") / pt.slug(x)
         r = charger(d)
@@ -172,6 +176,8 @@ def main():
             print(f"Pas de photo de référence pour {x} : ignoré")
             continue
         refs[x] = emb(r)
+        p = charger(d / "pas-ca")
+        pieges[x] = emb(p) if p else None
         e = charger(d / "etiquette")
         etis[x] = emb(e) if e else None
     with torch.no_grad():
@@ -204,12 +210,14 @@ def main():
                 if prix > pt.PRIX[x]:
                     continue
                 s = float((e @ refs[x].T).max())
+                if pieges.get(x) is not None and float((e @ pieges[x].T).max()) > s:
+                    s = 0.0          # plus proche d'un piège (paire refusée par Bastien) que des références
                 # photo au-dessus du seuil OU titre qui nomme la paire ; la photo l'emporte
-                if (s >= seuil or titre_dit(it, x)) and (
-                        meilleur is None or (s >= seuil, s) > (meilleur[1] >= seuil, meilleur[1])):
-                    meilleur = (x, s)
+                ok = s >= seuil_de[x]
+                if (ok or titre_dit(it, x)) and (meilleur is None or (ok, s) > meilleur[2:]):
+                    meilleur = (x, s, ok, s)
             if meilleur:
-                it["modele"], it["score"] = meilleur
+                it["modele"], it["score"] = meilleur[:2]
                 alertes.append(it)
         print(f"{len(alertes)} alerte(s)")
 
@@ -250,7 +258,7 @@ def main():
                     if et == "autre":
                         eti_url, statut = u, f"trouvée, lisible : {lu} = AUTRE CODE"
             titre_ok = titre_dit(it, x)
-            par_photo = it["score"] >= seuil
+            par_photo = it["score"] >= seuil_de[x]
             embeds = [{
                 "title": it["title"][:250], "url": it["url"], "color": 0x2ECC71,
                 "author": {"name": f"{'Photo' if par_photo else 'Titre'} : {x}"},

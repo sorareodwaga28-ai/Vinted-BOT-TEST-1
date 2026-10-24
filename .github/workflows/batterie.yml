@@ -1,0 +1,88 @@
+name: Batterie de tests
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "references/**"
+  workflow_dispatch:
+    inputs:
+      modele:
+        description: "Modèle à tester"
+        type: choice
+        default: "Midnight Navy"
+        options:
+          - "Midnight Navy"
+          - "Fire Red"
+          - "Vivid Sulfur"
+          - "Infrared"
+          - "Black Canvas"
+          - "Seafoam"
+          - "Canyon Purple"
+          - "Craft Olive"
+      seuil:
+        description: "Seuil de départ (vide = seuil appris, sinon 0.84)"
+        required: false
+        default: ""
+      pages:
+        description: "Pages Vinted à lire sans texte (environ 96 annonces par page)"
+        required: false
+        default: "3"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: batterie
+  cancel-in-progress: false
+
+jobs:
+  batterie:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Dossier de photos modifié
+        if: github.event_name == 'push'
+        run: |
+          echo "CHANGES<<EOF" >> $GITHUB_ENV
+          git diff --name-only HEAD~1 HEAD -- references >> $GITHUB_ENV || true
+          echo "EOF" >> $GITHUB_ENV
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.cache/huggingface
+            ~/.EasyOCR
+          key: clip-v2
+      - run: |
+          pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          pip install open_clip_torch requests pillow easyocr
+      - name: Lancer la batterie
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          MODELE: ${{ inputs.modele }}
+          SEUIL: ${{ inputs.seuil }}
+          PAGES: ${{ inputs.pages }}
+          HEAD_COMMIT: ${{ toJSON(github.event.head_commit) }}
+        run: python batterie.py
+      - name: Enregistrer les résultats
+        run: |
+          git config user.name "vinted-bot"
+          git config user.email "bot@users.noreply.github.com"
+          cp -r batteries /tmp/batteries
+          for i in 1 2 3 4 5; do
+            git fetch -q origin main && git reset -q --hard origin/main
+            rm -rf batteries && cp -r /tmp/batteries batteries
+            git add batteries
+            git diff --cached --quiet && exit 0
+            git commit -q -m "batterie de tests : résultats"
+            git push -q origin HEAD:main && exit 0
+            sleep 3
+          done
+          exit 1

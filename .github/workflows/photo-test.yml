@@ -1,10 +1,7 @@
 name: Test reconnaissance photo
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "references/**"
+  # Lancement automatique remplacé par la « Batterie de tests » (batterie.yml).
   workflow_dispatch:
     inputs:
       modele:
