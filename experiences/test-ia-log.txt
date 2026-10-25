@@ -1,7 +1,5 @@
-Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-WARNING:huggingface_hub.utils._http:Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
 251 réponses
-ERREUR IA HTTP 401 {"type":"error","error":{"type":"authentication_error","message":"x-api-key header is required"},"request_id":"req_011CgPMwY72d53AAENR84ern"}
+ERREUR IA HTTP 401 {"type":"error","error":{"type":"authentication_error","message":"x-api-key header is required"},"request_id":"req_011CgPN72bYBS7YAvHvsnucT"}
 **Test IA de vision — Midnight Navy** (0 annonces jugées par Bastien, modèle claude-haiku-5-5)
 Ancienne méthode (ressemblance ≥ 0,84) : 0 % des vraies paires trouvées (0/0) · 0 % d'alertes justes (0 fausse(s))
 IA seule : 0 % des vraies paires trouvées (0/0) · 0 % d'alertes justes (0 fausse(s))
