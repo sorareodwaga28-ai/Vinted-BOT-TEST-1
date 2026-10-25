@@ -1,7 +1,11 @@
 name: Test reconnaissance photo
 
 on:
-  # Lancement automatique remplacé par la « Batterie de tests » (batterie.yml).
+  # Lancé automatiquement quand des photos de référence sont ajoutées (comme pour la Fire Red et la Vivid Sulfur)
+  push:
+    branches: [main]
+    paths:
+      - "references/**"
   workflow_dispatch:
     inputs:
       modele:
