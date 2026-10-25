@@ -313,7 +313,12 @@ def main():
     state = state or {"ids": [], "searches": []}
     if state.get("searches") is None:
         state["searches"] = [page_url(u)[1] for _, u, _, _ in searches]
-    seen = set(state["ids"])
+    # Annonces déjà traitées : seulement celles qui correspondent à une recherche (envoyées ou mémorisées).
+    # Liste jamais raccourcie : une annonce déjà envoyée ne revient jamais. (Avant, on gardait les
+    # 20 000 dernières annonces lues de toutes sortes, et les plus anciennes étaient oubliées puis renvoyées.)
+    if "alertes" not in state:
+        state["alertes"] = list(state.get("ids", []))      # migration : tout ce qui était connu reste connu
+    seen = set(state["alertes"])
     known = set(state["searches"])
     new_ids, sent, skipped, errors = [], 0, 0, 0
     session = get_session()
@@ -336,15 +341,15 @@ def main():
             iid = str(item.get("id"))
             if iid in seen:
                 continue
-            seen.add(iid)
-            new_ids.append(iid)
-            if first_run or new_search:
-                continue
             if is_excluded(item, exclude + excl_here):
                 skipped += 1
                 continue
             if required and not matches_required(item, required):
                 skipped += 1
+                continue
+            seen.add(iid)
+            new_ids.append(iid)
+            if first_run or new_search:
                 continue
             item["search"] = name
             send_discord(webhook, item)
@@ -380,7 +385,8 @@ def main():
         print("Récap du jour envoyé.")
     STATS_FILE.write_text(json.dumps(stats))
 
-    state["ids"] = (state["ids"] + new_ids)[-MAX_SEEN:]
+    state["alertes"] = state["alertes"] + new_ids
+    state.pop("ids", None)
     state["searches"] = sorted(known)
     SEEN_FILE.write_text(json.dumps(state))
     if errors == len(searches):
