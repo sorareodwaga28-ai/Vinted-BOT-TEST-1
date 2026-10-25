@@ -168,7 +168,16 @@ def main():
             f = model.encode_image(torch.stack([prep(i) for i in imgs]))
         return f / f.norm(dim=-1, keepdim=True)
 
-    refs, etis, pieges = {}, {}, {}
+    refs, etis, pieges, clfs = {}, {}, {}, {}
+    # Classifieur entraîné par le calibrage (modeles/<slug>.json) : utilisé dès 10 OUI de Bastien
+    for x in modeles:
+        f = Path("modeles") / f"{pt.slug(x)}.json"
+        if f.exists():
+            c = json.loads(f.read_text())
+            if c.get("nb_oui", 0) >= 10:
+                clfs[x] = (torch.tensor(c["coef"]), float(c["biais"]), float(c["seuil"]))
+                seuil_de[x] = clfs[x][2]
+                print(f"{x} : classifieur entraîné (seuil {clfs[x][2]:.2f})")
     for x in modeles:
         d = Path("references") / pt.slug(x)
         r = charger(d)
@@ -209,9 +218,13 @@ def main():
             for x in mods:
                 if prix > pt.PRIX[x]:
                     continue
-                s = float((e @ refs[x].T).max())
-                if pieges.get(x) is not None and float((e @ pieges[x].T).max()) > s:
-                    s = 0.0          # plus proche d'un piège (paire refusée par Bastien) que des références
+                if x in clfs:
+                    w, b0, _ = clfs[x]
+                    s = float(torch.sigmoid((e[0] * w).sum() + b0))
+                else:
+                    s = float((e @ refs[x].T).max())
+                    if pieges.get(x) is not None and float((e @ pieges[x].T).max()) > s:
+                        s = 0.0      # plus proche d'un piège (paire refusée par Bastien) que des références
                 # photo au-dessus du seuil OU titre qui nomme la paire ; la photo l'emporte
                 ok = s >= seuil_de[x]
                 if (ok or titre_dit(it, x)) and (meilleur is None or (ok, s) > meilleur[2:]):
@@ -264,7 +277,7 @@ def main():
                 "author": {"name": f"{'Photo' if par_photo else 'Titre'} : {x}"},
                 "fields": [
                     {"name": "Prix", "value": it["price"], "inline": True},
-                    {"name": "Ressemblance", "value": f"{it['score']:.3f}" + ("" if par_photo else " (sous le seuil)"), "inline": True},
+                    {"name": "Probabilité" if x in clfs else "Ressemblance", "value": (f"{it['score']*100:.0f} %" if x in clfs else f"{it['score']:.3f}") + ("" if par_photo else " (sous le seuil)"), "inline": True},
                     {"name": "Taille · état", "value": it.get("details", "?"), "inline": True},
                     {"name": "Titre", "value": ("dit le modèle" + ("" if par_photo else " (trouvée par le titre)")) if titre_ok else "ne le dit pas (trouvée par la photo)", "inline": True},
                     {"name": "Étiquette", "value": statut, "inline": False},

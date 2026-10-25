@@ -1,0 +1,97 @@
+name: Calibrage
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "references/**"
+      - "verdicts/**"
+  workflow_dispatch:
+    inputs:
+      modele:
+        description: "Modèle (nom exact, ex. Midnight Navy)"
+        required: true
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: calibrage-${{ inputs.modele || github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  # Photos ajoutées ou réponses envoyées : un calibrage par modèle concerné, tous en parallèle
+  repartir:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Lancer un calibrage par modèle
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git diff --name-only HEAD~1 HEAD -- references verdicts \
+            | sed -E 's#^references/([^/]+)/.*#\1#; s#^verdicts/([^/]+)\.json#\1#' | sort -u > /tmp/slugs.txt
+          python3 - <<'PY' > /tmp/modeles.txt
+          import re
+          src = open("photo_test.py", encoding="utf-8").read()
+          i = src.index("PRIX = {"); j = src.index("}", i)
+          noms = re.findall(r'"([^"]+)"\s*:', src[i:j])
+          slug = lambda n: re.sub(r"[^a-z0-9]+", "-", n.lower()).strip("-")
+          par = {slug(n): n for n in noms}
+          for s in open("/tmp/slugs.txt").read().split():
+              if s in par:
+                  print(par[s])
+          PY
+          cat /tmp/modeles.txt
+          while read -r m; do
+            [ -n "$m" ] && gh workflow run calibrage.yml --ref main -f modele="$m"
+          done < /tmp/modeles.txt
+
+  calibrage:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.cache/huggingface
+            ~/.EasyOCR
+          key: clip-v2
+      - uses: actions/cache@v4
+        with:
+          path: .cache_emb
+          key: emb-${{ inputs.modele }}-${{ github.run_id }}
+          restore-keys: emb-${{ inputs.modele }}-
+      - run: |
+          pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          pip install open_clip_torch requests pillow easyocr scikit-learn
+      - name: Calibrer
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          MODELE: ${{ inputs.modele }}
+        run: python calibrage.py
+      - name: Enregistrer
+        run: |
+          git config user.name "vinted-bot"
+          git config user.email "bot@users.noreply.github.com"
+          mkdir -p /tmp/c && cp -r calibrage modeles /tmp/c/
+          for i in 1 2 3 4 5; do
+            git fetch -q origin main && git reset -q --hard origin/main
+            mkdir -p calibrage modeles && cp /tmp/c/calibrage/* calibrage/ && cp /tmp/c/modeles/* modeles/
+            git add calibrage modeles
+            git diff --cached --quiet && exit 0
+            git commit -q -m "calibrage : ${{ inputs.modele }}"
+            git push -q origin HEAD:main && exit 0
+            sleep 3
+          done
+          exit 1
