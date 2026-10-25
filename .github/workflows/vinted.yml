@@ -44,9 +44,11 @@ jobs:
               d = json.load(open(p))
               return {"ids": d, "searches": []} if isinstance(d, list) else d
           a, b = load("/tmp/theirs.json"), load("/tmp/mine.json")
-          ids = list(dict.fromkeys(a.get("ids", []) + b.get("ids", [])))[-20000:]
+          # Annonces déjà traitées : union complète, jamais raccourcie (une annonce envoyée ne revient pas)
+          al = lambda d: d.get("alertes", d.get("ids", []))
+          alertes = list(dict.fromkeys(al(a) + al(b)))
           searches = sorted(set(a.get("searches") or []) | set(b.get("searches") or []))
-          json.dump({"ids": ids, "searches": searches}, open("seen.json", "w"))
+          json.dump({"alertes": alertes, "searches": searches}, open("seen.json", "w"))
           EOF
             [ -f /tmp/stats.json ] && cp /tmp/stats.json stats.json
             git add seen.json
