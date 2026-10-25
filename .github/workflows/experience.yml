@@ -35,8 +35,10 @@ jobs:
           mkdir -p experiences
           python experience.py 2>&1 | grep -v "^[0-9]*/[0-9]*$" | tee "experiences/${MODELE// /-}.txt"
           git config user.name "vinted-bot"; git config user.email "bot@users.noreply.github.com"
+          cp -r experiences /tmp/exp
           for i in 1 2 3; do
-            git fetch -q origin main && git reset -q --soft origin/main
+            git fetch -q origin main && git reset -q --hard origin/main
+            mkdir -p experiences && cp /tmp/exp/* experiences/
             git add experiences && git commit -q -m "résultat expérience" && git push -q origin HEAD:main && break
             sleep 3
           done
