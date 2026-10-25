@@ -37,7 +37,7 @@ jobs:
           IA_MODELE: ${{ inputs.ia_modele }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        run: python test_ia.py 2>&1 | grep -v "^[0-9]*/[0-9]*$" | tee /tmp/log.txt
+        run: python test_ia.py 2>&1 | grep -v "^[0-9]*/[0-9]*$" | tee /tmp/log.txt; exit ${PIPESTATUS[0]}
       - if: always()
         run: |
           git config user.name "vinted-bot"; git config user.email "bot@users.noreply.github.com"

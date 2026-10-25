@@ -43,6 +43,12 @@ for k, x in v.items():
         if a:
             cas[i] = {"rep": x, "photo": a["photo"], "titre": a["titre"], "url": a["url"]}
 print(f"{len(cas)} réponses")
+_k = os.environ.get("ANTHROPIC_API_KEY", "")
+print(f"[diag] clé reçue : {'oui' if _k.strip() else 'NON (secret vide ou absent)'} · longueur {len(_k.strip())} · début {_k.strip()[:7]!r}")
+autres = sorted(k for k in os.environ if "ANTHROP" in k.upper() or "CLAUDE" in k.upper())
+print(f"[diag] variables liées : {autres}")
+if not _k.strip():
+    raise SystemExit("Pas de clé : vérifie le secret ANTHROPIC_API_KEY dans Repository secrets")
 
 model, _, prep = open_clip.create_model_and_transforms("ViT-B-32", pretrained="laion2b_s34b_b79k")
 model.eval()
