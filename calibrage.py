@@ -251,15 +251,38 @@ def main():
             c = fit(np.vstack([X, Xv[tr]]), np.concatenate([y, yv[tr]]), np.concatenate([w, np.full(len(tr), 3.0)]))
             p_cv[te] = c.predict_proba(Xv[te])[:, 1]
         base_seuil, y_seuil, origine = p_cv, yv, "tes réponses"
+        E_eval = Xv
     else:
         p_cv = np.zeros(len(y))
         for tr, te in StratifiedKFold(5, shuffle=True, random_state=0).split(X, y):
             c = fit(X[tr], y[tr], w[tr])
             p_cv[te] = c.predict_proba(X[te])[:, 1]
-        base_seuil, y_seuil, origine = p_cv, y, "exemples automatiques"
+        # on évalue sans les photos de référence / pièges elles-mêmes
+        k = len(refs) + len(pieges)
+        base_seuil, y_seuil, origine = p_cv[k:], y[k:], "exemples automatiques"
+        E_eval = X[k:]
     auc = float(roc_auc_score(y_seuil, base_seuil)) if len(set(y_seuil)) == 2 else None
     b = seuil_auto(base_seuil, y_seuil)
     seuil = b[0] if b else 0.9
+
+    # Comparaison avec l'ancienne méthode (ressemblance à la photo de référence la plus proche),
+    # sur exactement les mêmes annonces : on garde la meilleure pour la surveillance.
+    R = np.array(refs)
+    s_old = (E_eval @ R.T).max(1)
+    if pieges:
+        s_old = np.where((E_eval @ np.array(pieges).T).max(1) > s_old, 0.0, s_old)
+    auc_old = float(roc_auc_score(y_seuil, s_old)) if len(set(y_seuil)) == 2 else None
+    b_old = seuil_auto(s_old, y_seuil)
+    note = lambda bb, a: ((bb[1] if bb else 0.0), (a or 0.0))
+    methode = "classifieur" if note(b, auc) >= note(b_old, auc_old) else "ressemblance"
+    if not b and not b_old:
+        methode = "ressemblance"      # aucune n'atteint 90 % de bonnes alertes : on garde l'ancienne réglée à la main
+    comparaison = {
+        "classifieur": {"auc": round(auc, 3) if auc else None, "rappel": round(b[1], 3) if b else None, "seuil": round(seuil, 3)},
+        "ressemblance": {"auc": round(auc_old, 3) if auc_old else None, "rappel": round(b_old[1], 3) if b_old else None,
+                         "seuil": round(b_old[0], 3) if b_old else None},
+        "evaluee_sur": f"{len(y_seuil)} annonces ({origine})", "choisie": methode}
+    print("Comparaison :", comparaison)
     clf = fit(np.vstack([X, Xv]) if len(vids) else X, np.concatenate([y, yv]) if len(vids) else y,
               np.concatenate([w, np.full(len(vids), 3.0)]) if len(vids) else w)
     print(f"Seuil {seuil:.3f} ({origine}) · AUC {auc} · {b}")
@@ -323,7 +346,7 @@ def main():
 
     out = {
         "modele": modele, "slug": s, "date": time.strftime("%Y-%m-%d %H:%M", time.gmtime()), "prix_max": prix,
-        "seuil": round(seuil, 3), "origine_seuil": origine, "auc": round(auc, 3) if auc else None,
+        "seuil": round(seuil, 3), "origine_seuil": origine, "methode": methode, "comparaison": comparaison, "auc": round(auc, 3) if auc else None,
         "rappel": round(b[1], 3) if b else None, "precision": round(b[2], 3) if b else None,
         "nb_reponses": len(verdicts), "nb_oui": nb_oui, "nb_exemples_auto": n_auto, "codes": codes,
         "recherches_tirees_des_oui": [f"jordan 4 {w}" for w in idees],
@@ -340,7 +363,8 @@ def main():
     (ICI / "modeles").mkdir(exist_ok=True)
     (ICI / "modeles" / f"{s}.json").write_text(json.dumps({
         "modele": modele, "seuil": round(seuil, 4), "nb_oui": nb_oui, "auc": out["auc"],
-        "coef": [round(float(c), 6) for c in clf.coef_[0]], "biais": float(clf.intercept_[0]), "date": out["date"]}))
+        "coef": [round(float(c), 6) for c in clf.coef_[0]], "biais": float(clf.intercept_[0]), "date": out["date"],
+        "methode": methode, "seuil_ressemblance": comparaison["ressemblance"]["seuil"], "comparaison": comparaison}))
     print(f"{len(lot)} annonces prêtes à juger")
 
     if webhook:

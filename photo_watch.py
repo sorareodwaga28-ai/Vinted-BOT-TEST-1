@@ -169,15 +169,20 @@ def main():
         return f / f.norm(dim=-1, keepdim=True)
 
     refs, etis, pieges, clfs = {}, {}, {}, {}
-    # Classifieur entraîné par le calibrage (modeles/<slug>.json) : utilisé dès 10 OUI de Bastien
+    # Réglage choisi par le calibrage (modeles/<slug>.json)
     for x in modeles:
         f = Path("modeles") / f"{pt.slug(x)}.json"
         if f.exists():
             c = json.loads(f.read_text())
-            if c.get("nb_oui", 0) >= 10:
+            # Le calibrage a mesuré les deux méthodes sur les mêmes annonces et choisi la meilleure
+            methode = c.get("methode") or ("classifieur" if c.get("nb_oui", 0) >= 10 else "ressemblance")
+            if methode == "classifieur":
                 clfs[x] = (torch.tensor(c["coef"]), float(c["biais"]), float(c["seuil"]))
                 seuil_de[x] = clfs[x][2]
                 print(f"{x} : classifieur entraîné (seuil {clfs[x][2]:.2f})")
+            elif c.get("seuil_ressemblance"):
+                seuil_de[x] = float(c["seuil_ressemblance"])
+                print(f"{x} : ressemblance (seuil mesuré {seuil_de[x]:.3f})")
     for x in modeles:
         d = Path("references") / pt.slug(x)
         r = charger(d)
