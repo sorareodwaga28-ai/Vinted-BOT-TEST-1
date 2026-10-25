@@ -147,10 +147,12 @@ def main():
     for txt in ("jordan 4", "jordan 4 retro", "jordan 4 white", "air jordan"):
         negatifs += lire(session, cat + q(txt), 3, f"autres « {txt} »")
     idees = mots_des_oui([x["titre"] for x in verdicts.values() if x["rep"] == "oui"], modele)
-    candidats = lire(session, pt.BASE_URL + f"&price_to={int(prix)}", 5, "sans texte, dans le prix", prix)
-    candidats += lire(session, pt.BASE_URL + f"&price_to={int(prix)}&search_text=" + q("jordan 4"), 4, "« jordan 4 », dans le prix", prix)
+    # Jusqu'au prix max + 20 € : plus d'annonces proches du seuil à faire juger
+    pmax2 = prix + 20
+    candidats = lire(session, pt.BASE_URL + f"&price_to={int(pmax2)}", 6, "sans texte", pmax2)
+    candidats += lire(session, pt.BASE_URL + f"&price_to={int(pmax2)}&search_text=" + q("jordan 4"), 5, "« jordan 4 »", pmax2)
     for w in idees:
-        candidats += lire(session, pt.BASE_URL + f"&price_to={int(prix)}&search_text=" + q(f"jordan 4 {w}"), 1, f"« jordan 4 {w} » (tiré de tes OUI)", prix)
+        candidats += lire(session, pt.BASE_URL + f"&price_to={int(pmax2)}&search_text=" + q(f"jordan 4 {w}"), 1, f"« jordan 4 {w} » (tiré de tes OUI)", pmax2)
 
     tous = {}
     for it in temoins + negatifs + candidats:
@@ -266,11 +268,14 @@ def main():
     for it in tous.values():
         it["proba"] = float(clf.predict_proba(it["emb"][None])[0, 1]) if it.get("emb") is not None else 0.0
     libres = [it for i, it in tous.items() if i not in juges and it.get("emb") is not None and not it["marque"]]
-    dans_prix = sorted([it for it in libres if it["prix_val"] <= prix and it["source"] != "titre de la paire"], key=lambda x: -x["proba"])
-    paire = sorted([it for it in libres if it["titre_ok"]], key=lambda x: -x["proba"])
-    autres = sorted([it for it in libres if it["autre"] and not it["titre_ok"]], key=lambda x: -x["proba"])
+    # Seulement ce qui sert au calibrage : les annonces proches du seuil (là où le bot hésite)
+    proche = lambda it: abs(it["proba"] - seuil)
+    zone = [it for it in libres if proche(it) <= 0.15]
+    dans_prix = sorted([it for it in zone if it["prix_val"] <= pmax2 and it["source"] != "titre de la paire"], key=proche)
+    paire = sorted([it for it in zone if it["titre_ok"] and it["prix_val"] <= pmax2], key=proche)
+    autres = sorted([it for it in zone if it["autre"] and not it["titre_ok"]], key=proche)
     lot, vus = [], set()
-    for lst, nmax in ((dans_prix, 130), (paire, 45), (autres, 35)):
+    for lst, nmax in ((dans_prix, 150), (paire, 30), (autres, 40)):
         for it in lst[:nmax]:
             if it["id"] not in vus:
                 vus.add(it["id"]); lot.append(it)
@@ -283,7 +288,7 @@ def main():
         te = model.encode_text(tok(["a close-up photo of the size label tag inside a sneaker, with barcode and small printed text",
                                     "a photo of sneakers", "a photo of the sole of a sneaker", "a photo of a shoe box"]))
     te = (te / te.norm(dim=-1, keepdim=True)).numpy()
-    a_ouvrir = [it for it in lot if it["prix_val"] <= prix and (it["proba"] >= seuil - 0.1 or it["titre_ok"])][:30]
+    a_ouvrir = sorted([it for it in lot if it["prix_val"] <= pmax2 and (it["proba"] >= seuil - 0.05 or it["titre_ok"])], key=proche)[:30]
     for it in a_ouvrir:
         it["etiquette"], it["code_lu"], it["photo_etiquette"] = "absente", "", ""
         time.sleep(1.5)
@@ -326,7 +331,7 @@ def main():
             "id": str(it["id"]), "titre": it["title"], "url": it["url"], "photo": it["photo"],
             "prix": it["prix_val"], "prix_txt": it["price"], "details": it.get("details", ""),
             "proba": round(it["proba"], 4), "titre_ok": bool(it["titre_ok"]), "autre": it["autre"],
-            "prix_ok": it["prix_val"] <= prix, "source": it["source"],
+            "prix_ok": it["prix_val"] <= prix, "depasse": max(0.0, round(it["prix_val"] - prix, 2)), "source": it["source"],
             "etiquette": it.get("etiquette"), "code_lu": it.get("code_lu", ""), "photo_etiquette": it.get("photo_etiquette", ""),
         } for it in lot],
     }
