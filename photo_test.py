@@ -48,7 +48,7 @@ PRIX = {"Vivid Sulfur": 30, "Fire Red": 60, "Infrared": 40, "Black Canvas": 40,
         "Midnight Navy": 40, "Seafoam": 50, "Canyon Purple": 50, "Craft Olive": 50}
 
 # Code produit imprimé sur l'étiquette intérieure (doit correspondre exactement).
-CODES = {"Vivid Sulfur": ["AQ9129-101"], "Fire Red": ["DC7770-160"], "Midnight Navy": ["DH6927-140"]}
+CODES = {"Vivid Sulfur": ["AQ9129-101"], "Fire Red": ["DC7770-160"], "Midnight Navy": ["DH6927-140"], "Black Canvas": ["DH7138-006"]}
 
 # Lettres et chiffres que l'OCR confond souvent.
 CONFUS = {"0": "0OQD", "1": "1IL", "2": "2Z", "5": "5S", "8": "8B", "6": "6G",

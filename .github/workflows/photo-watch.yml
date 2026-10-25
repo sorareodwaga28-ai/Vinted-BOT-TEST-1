@@ -44,8 +44,8 @@ jobs:
       - name: Surveiller les nouvelles annonces
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          MODELES: ${{ vars.PHOTO_MODELES || 'Fire Red, Vivid Sulfur, Midnight Navy' }}
-          PRIX: ${{ vars.PHOTO_PRIX || 'Fire Red=60; Vivid Sulfur=30; Midnight Navy=40' }}
+          MODELES: ${{ vars.PHOTO_MODELES || 'Fire Red, Vivid Sulfur, Midnight Navy, Black Canvas' }}
+          PRIX: ${{ vars.PHOTO_PRIX || 'Fire Red=60; Vivid Sulfur=30; Midnight Navy=40; Black Canvas=40' }}
           SEUIL: ${{ vars.PHOTO_SEUIL || '0.84' }}
           INTERVALLE: ${{ vars.PHOTO_INTERVALLE || '90' }}
           DUREE: ${{ inputs.duree || '50' }}
