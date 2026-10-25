@@ -1066,7 +1066,62 @@
    "prix": 20,
    "titre_ok": true,
    "proba": 0.7485
+  },
+  "10221820416": {
+   "id": "10221820416",
+   "rep": "oui",
+   "etape": "V1",
+   "photo": "https://images1.vinted.net/t/02_01106_M9ZMienhdukE77DbUT7pvYof/f800/61779032.webp?s=18019f7d774d6556f908f7cfc183f6702f46988f",
+   "titre": "Jordan 4 Midnight Navy",
+   "url": "https://www.vinted.fr/items/10221820416-jordan-4-midnight-navy",
+   "prix": 45,
+   "titre_ok": true,
+   "proba": 0.8378
+  },
+  "10038648916": {
+   "id": "10038648916",
+   "rep": "oui",
+   "etape": "V1",
+   "photo": "https://images1.vinted.net/t/04_01db0_Q4Q3JiMGFLut2yhw86keawDA/f800/e877c5d5.webp?s=5fca700356e945621a13d2a47f5a86803ce9a25b",
+   "titre": "202Air Jordan 4 Retro Midnight Navy'",
+   "url": "https://www.vinted.fr/items/10038648916-202air-jordan-4-retro-midnight-navy",
+   "prix": 49,
+   "titre_ok": true,
+   "proba": 0.7452
+  },
+  "10362445757": {
+   "id": "10362445757",
+   "rep": "oui",
+   "etape": "V1",
+   "photo": "https://images1.vinted.net/t/02_011f0_mDmWCaqQm5ipbCw9LWce9HmY/f800/f58d75a5.webp?s=330e378c0ef94724b5ec83f69853cdd718b0ab2c",
+   "titre": "Air Jordan 4 Retro Midnight Navy",
+   "url": "https://www.vinted.fr/items/10362445757-air-jordan-4-retro-midnight-navy",
+   "prix": 45,
+   "titre_ok": true,
+   "proba": 0.7772
+  },
+  "10389609831": {
+   "id": "10389609831",
+   "rep": "oui",
+   "etape": "V1",
+   "photo": "https://images1.vinted.net/t/06_02062_nYQhYxQR8gLDCs9yc8PUyz5L/f800/2c9404f3.webp?s=28b0e8b3c1a03561c429cf75a7878882ba6c00b9",
+   "titre": "Nike Air Jordan 4 Retro Midnight Navy – Weiß/Grau/Blau",
+   "url": "https://www.vinted.fr/items/10389609831-nike-air-jordan-4-retro-midnight-navy-weissgraublau",
+   "prix": 45,
+   "titre_ok": true,
+   "proba": 0.7125
+  },
+  "10496467290": {
+   "id": "10496467290",
+   "rep": "oui",
+   "etape": "V1",
+   "photo": "https://images1.vinted.net/t/06_0056a_hRTo2dGoy2Q1fd4X9anjDAuX/f800/f39943da.webp?s=8f8302809402e7848498c7a7e3ff9f996a4c925c",
+   "titre": "Air Jordan 4",
+   "url": "https://www.vinted.fr/items/10496467290-air-jordan-4",
+   "prix": 60,
+   "titre_ok": false,
+   "proba": 0.8709
   }
  },
- "etape": "fini"
+ "etape": "V2"
 }
