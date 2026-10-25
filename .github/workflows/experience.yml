@@ -8,7 +8,7 @@ on:
         default: "Midnight Navy"
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   exp:
@@ -31,4 +31,12 @@ jobs:
           pip install open_clip_torch requests pillow easyocr scikit-learn
       - env:
           MODELE: ${{ inputs.modele }}
-        run: python experience.py
+        run: |
+          mkdir -p experiences
+          python experience.py 2>&1 | grep -v "^[0-9]*/[0-9]*$" | tee "experiences/${MODELE// /-}.txt"
+          git config user.name "vinted-bot"; git config user.email "bot@users.noreply.github.com"
+          for i in 1 2 3; do
+            git fetch -q origin main && git reset -q --soft origin/main
+            git add experiences && git commit -q -m "résultat expérience" && git push -q origin HEAD:main && break
+            sleep 3
+          done
