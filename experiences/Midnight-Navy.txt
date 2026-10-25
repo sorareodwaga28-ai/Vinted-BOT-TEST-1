@@ -1,0 +1,28 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+WARNING:huggingface_hub.utils._http:Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Réponses de Bastien : 164 (44 OUI)
+[diag] page recherche : HTTP 200 | 3648947 caractères
+[diag] page recherche : HTTP 200 | 3655305 caractères
+[diag] page recherche : HTTP 200 | 3651831 caractères
+[diag] page recherche : HTTP 200 | 3655055 caractères
+[diag] page recherche : HTTP 200 | 3635809 caractères
+[diag] page recherche : HTTP 200 | 3640278 caractères
+[diag] page recherche : HTTP 200 | 3641668 caractères
+[diag] page recherche : HTTP 200 | 3648534 caractères
+[diag] page recherche : HTTP 200 | 3653541 caractères
+[diag] page recherche : HTTP 200 | 3650854 caractères
+[diag] page recherche : HTTP 200 | 3647572 caractères
+[diag] page recherche : HTTP 200 | 3647586 caractères
+[diag] page recherche : HTTP 200 | 3654482 caractères
+[diag] page recherche : HTTP 200 | 3643123 caractères
+[diag] page recherche : HTTP 200 | 3649117 caractères
+[diag] page recherche : HTTP 200 | 3649686 caractères
+Auto-étiquetées : 434 (47 positives)
+
+=== Résultats (AUC : 0,5 = hasard, 1 = parfait) ===
+A. ressemblance actuelle : AUC 0.734
+A. ressemblance actuelle : AUC 0.734 · à 90 % de bonnes alertes : 20 % des vraies paires trouvées (10 alertes, 1 fausses)
+B. calibrage tout seul (image) : AUC 0.925 · à 90 % de bonnes alertes : 11 % des vraies paires trouvées (5 alertes, 0 fausses)
+C. avec tes réponses (image) : AUC 0.964 · à 90 % de bonnes alertes : 68 % des vraies paires trouvées (33 alertes, 3 fausses)
+B. calibrage tout seul (image+couleurs) : AUC 0.913 · à 90 % de bonnes alertes : 23 % des vraies paires trouvées (11 alertes, 1 fausses)
+C. avec tes réponses (image+couleurs) : AUC 0.965 · à 90 % de bonnes alertes : 64 % des vraies paires trouvées (31 alertes, 3 fausses)
