@@ -1044,7 +1044,29 @@
    "prix": 19,
    "titre_ok": false,
    "proba": 0.3158
+  },
+  "10292687654": {
+   "id": "10292687654",
+   "rep": "non",
+   "etape": "V5",
+   "photo": "https://images1.vinted.net/t/02_0161c_SrjEbZ6U6CBhkFqnrb18wPXU/f800/6bd7019e.webp?s=a386817100022e7ca4ca006a92f63e7ab1434edd",
+   "titre": "Air Jordan 4 Retro “Midnight Navy”",
+   "url": "https://www.vinted.fr/items/10292687654-air-jordan-4-retro-midnight-navy",
+   "prix": 30,
+   "titre_ok": true,
+   "proba": 0.3296
+  },
+  "10090528825": {
+   "id": "10090528825",
+   "rep": "oui",
+   "etape": "V5",
+   "photo": "https://images1.vinted.net/t/06_01d14_Jn9nEdsEKo1Z3PwW3N91zweo/f800/ec1d3ef6.webp?s=8e298d52e8de712b68dd5a48026fa79ea5dc7fac",
+   "titre": "Jordan 4 midnight navy",
+   "url": "https://www.vinted.fr/items/10090528825-jordan-4-midnight-navy",
+   "prix": 20,
+   "titre_ok": true,
+   "proba": 0.7485
   }
  },
- "etape": "V5"
+ "etape": "fini"
 }
