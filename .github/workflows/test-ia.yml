@@ -1,0 +1,51 @@
+name: Test IA de vision
+
+on:
+  workflow_dispatch:
+    inputs:
+      modele:
+        description: "Modèle"
+        default: "Midnight Navy"
+      ia_modele:
+        description: "Modèle IA"
+        default: "claude-haiku-5-5"
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/pip
+            ~/.cache/huggingface
+            ~/.EasyOCR
+          key: clip-v2
+      - run: |
+          pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+          pip install open_clip_torch requests pillow easyocr
+      - env:
+          MODELE: ${{ inputs.modele }}
+          IA_MODELE: ${{ inputs.ia_modele }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        run: python test_ia.py 2>&1 | grep -v "^[0-9]*/[0-9]*$" | tee /tmp/log.txt
+      - if: always()
+        run: |
+          git config user.name "vinted-bot"; git config user.email "bot@users.noreply.github.com"
+          mkdir -p experiences /tmp/exp; cp experiences/* /tmp/exp/ 2>/dev/null || true
+          tail -n 40 /tmp/log.txt > /tmp/exp/test-ia-log.txt
+          for i in 1 2 3; do
+            git fetch -q origin main && git reset -q --hard origin/main
+            mkdir -p experiences && cp /tmp/exp/* experiences/
+            git add experiences && git commit -q -m "résultat test IA" && git push -q origin HEAD:main && break
+            sleep 3
+          done
