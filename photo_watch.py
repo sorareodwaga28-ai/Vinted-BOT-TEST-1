@@ -194,6 +194,8 @@ def main():
                                     "a photo of sneakers", "a photo of the sole of a sneaker", "a photo of a shoe box"]))
     te = te / te.norm(dim=-1, keepdim=True)
 
+    from titres import autre_marque
+
     def titre_dit(it, x):
         return bot.matches_required(it, [g.strip() for g in pt.MOTS.get(x, "").split(",") if g.strip()])
 
@@ -226,7 +228,7 @@ def main():
                     if pieges.get(x) is not None and float((e @ pieges[x].T).max()) > s:
                         s = 0.0      # plus proche d'un piège (paire refusée par Bastien) que des références
                 # photo au-dessus du seuil OU titre qui nomme la paire ; la photo l'emporte
-                ok = s >= seuil_de[x]
+                ok = s >= seuil_de[x] and not (x in clfs and autre_marque(it.get("title")))
                 if (ok or titre_dit(it, x)) and (meilleur is None or (ok, s) > meilleur[2:]):
                     meilleur = (x, s, ok, s)
             if meilleur:

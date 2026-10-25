@@ -31,6 +31,7 @@ from sklearn.model_selection import StratifiedKFold
 
 import bot
 import photo_test as pt
+from titres import MARQUES, autre_marque, norm_titre
 
 ICI = Path(__file__).parent
 IMG = (".jpg", ".jpeg", ".png", ".webp")
@@ -42,10 +43,6 @@ COLORIS = ("military", "cement", "oreo", "fire", "bred", "black cat", "thunder",
 VIDES = set("jordan air nike retro aj4 j4 jordan4 iv og taille size pointure eu us uk fr homme femme neuf "
             "neuve tres bon etat vintage paire baskets basket sneakers sneaker chaussures chaussure de du la le "
             "et a en avec sans boite original originale originales authentique".split())
-
-
-def norm_titre(t):
-    return " " + re.sub(r"[^a-z0-9 ]+", " ", bot.norm(t or "")) + " "
 
 
 def autre_coloris(titre, modele):
@@ -161,6 +158,7 @@ def main():
     for i, it in tous.items():
         it["titre_ok"] = bot.matches_required(it, groupes)
         it["autre"] = autre_modele(it, modele) or ("autre coloris" if autre_coloris(it["title"], modele) else "")
+        it["marque"] = (not it["titre_ok"]) and autre_marque(it["title"])
         it["prix_val"] = bot.price_value(it) or 0
 
     # 2. Images → vecteurs (cache entre les lancements)
@@ -232,7 +230,7 @@ def main():
             continue
         if it["source"].startswith("titre de la paire") and it["titre_ok"] and not it["autre"]:
             ajouter(it["emb"], True, 1.0); auto_ids.append(i)
-        elif it["autre"] and not it["titre_ok"]:
+        elif (it["autre"] or it["marque"]) and not it["titre_ok"]:
             ajouter(it["emb"], False, 1.0); auto_ids.append(i)
     n_auto = len(X)
     vids = [i for i, x in verdicts.items() if x.get("emb") is not None]
@@ -267,7 +265,7 @@ def main():
     # 4. Lot à juger
     for it in tous.values():
         it["proba"] = float(clf.predict_proba(it["emb"][None])[0, 1]) if it.get("emb") is not None else 0.0
-    libres = [it for i, it in tous.items() if i not in juges and it.get("emb") is not None]
+    libres = [it for i, it in tous.items() if i not in juges and it.get("emb") is not None and not it["marque"]]
     dans_prix = sorted([it for it in libres if it["prix_val"] <= prix and it["source"] != "titre de la paire"], key=lambda x: -x["proba"])
     paire = sorted([it for it in libres if it["titre_ok"]], key=lambda x: -x["proba"])
     autres = sorted([it for it in libres if it["autre"] and not it["titre_ok"]], key=lambda x: -x["proba"])
