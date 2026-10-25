@@ -168,7 +168,12 @@ def main():
             f = model.encode_image(torch.stack([prep(i) for i in imgs]))
         return f / f.norm(dim=-1, keepdim=True)
 
-    refs, etis, pieges, clfs = {}, {}, {}, {}
+    refs, etis, pieges, clfs, refs_img = {}, {}, {}, {}, {}
+    import ia
+    pre = float((os.environ.get("IA_PRESELECTION") or "0.70").replace(",", "."))   # 1er tri par la photo (gratuit)
+    conf_min = int(os.environ.get("IA_CONFIANCE") or 70)
+    ia_max = int(os.environ.get("IA_MAX") or 15)                                     # vérifications IA max par passage
+    print("IA de vision : " + ("active" if ia.dispo() else "pas de clé ANTHROPIC_API_KEY, alertes par le titre seulement"))
     # Méthode de la Fire Red / Vivid Sulfur pour toutes les paires : ressemblance aux photos de référence,
     # seuil commun (SEUIL, 0.84 par défaut). Le classifieur du calibrage n'est plus utilisé.
     for x in modeles:
@@ -178,6 +183,7 @@ def main():
             print(f"Pas de photo de référence pour {x} : ignoré")
             continue
         refs[x] = emb(r)
+        refs_img[x] = r[:2]
         p = charger(d / "pas-ca")
         pieges[x] = emb(p) if p else None
         e = charger(d / "etiquette")
@@ -199,35 +205,36 @@ def main():
         print(f"{time.strftime('%H:%M:%S')} : {len(items)} annonce(s) à juger ({', '.join(mods)})")
         if not items or not mods:
             return
-        # 3. Étape 1 : la photo ressemble-t-elle à un modèle suivi, dans son prix ?
+        # 3. Étape 1 (gratuite) : présélection par la photo ou par le titre, dans le prix
         alertes = []
         for it in items:
+            prix = bot.price_value(it) or 0
+            if autre_marque(it.get("title")):
+                continue
             try:
                 img = Image.open(io.BytesIO(session.get(it["photo"], timeout=20).content)).convert("RGB")
             except Exception as e:
                 print(f"Photo illisible {it['id']} : {e}")
                 continue
             e = emb([img])
-            prix = bot.price_value(it) or 0
             meilleur = None
             for x in mods:
                 if prix > pt.PRIX[x]:
                     continue
-                if x in clfs:
-                    w, b0, _ = clfs[x]
-                    s = float(torch.sigmoid((e[0] * w).sum() + b0))
-                else:
-                    s = float((e @ refs[x].T).max())
-                    if pieges.get(x) is not None and float((e @ pieges[x].T).max()) > s:
-                        s = 0.0      # plus proche d'un piège (paire refusée par Bastien) que des références
-                # photo au-dessus du seuil OU titre qui nomme la paire ; la photo l'emporte
-                ok = s >= seuil_de[x] and not (x in clfs and autre_marque(it.get("title")))
-                if (ok or titre_dit(it, x)) and (meilleur is None or (ok, s) > meilleur[2:]):
-                    meilleur = (x, s, ok, s)
+                s = float((e @ refs[x].T).max())
+                if pieges.get(x) is not None and float((e @ pieges[x].T).max()) > s:
+                    s = 0.0      # plus proche d'un piège (paire refusée par Bastien) que des références
+                t = titre_dit(it, x)
+                if (s >= pre or t) and (meilleur is None or (t, s) > meilleur[2:]):
+                    meilleur = (x, s, t, s)
             if meilleur:
                 it["modele"], it["score"] = meilleur[:2]
                 alertes.append(it)
-        print(f"{len(alertes)} alerte(s)")
+        alertes.sort(key=lambda it: (titre_dit(it, it["modele"]), it["score"]), reverse=True)
+        if len(alertes) > ia_max:
+            print(f"{len(alertes) - ia_max} candidate(s) au-delà de {ia_max} non vérifiées ce passage")
+            alertes = alertes[:ia_max]
+        print(f"{len(alertes)} candidate(s) à vérifier")
 
         # 4. Étape 2 : étiquette dans les autres photos, puis envoi
         for it in alertes:
@@ -240,7 +247,7 @@ def main():
                 print(f"Annonce illisible {it['id']} : {ex}")
                 urls = []
             notes = []
-            for u in urls:
+            for u in urls[:8]:
                 try:
                     im = Image.open(io.BytesIO(session.get(u, timeout=20).content)).convert("RGB")
                 except Exception:
@@ -250,33 +257,45 @@ def main():
                 s_eti = float((f @ etis[x].T).max()) if etis.get(x) is not None else 0
                 notes.append((max(p_eti, s_eti), p_eti >= 0.5 or s_eti >= 0.80, u, im))
             notes.sort(key=lambda t: t[0], reverse=True)
+            eti_img = None
             if notes and notes[0][1]:
-                eti_url = notes[0][2]
+                eti_url, eti_img = notes[0][2], notes[0][3]
                 statut = "trouvée, mais code illisible : à vérifier à l'oeil"
-            if codes:
-                for _, _, u, im in notes[:3]:
-                    try:
-                        et, lu = pt.verifier_code(pt.lire_texte(im), codes)
-                    except Exception as ex:
-                        print(f"OCR impossible : {ex}")
-                        break
-                    if et == "ok":
-                        eti_url, statut = u, f"trouvée, lisible : {lu} = BON CODE"
-                        break
-                    if et == "autre":
-                        eti_url, statut = u, f"trouvée, lisible : {lu} = AUTRE CODE"
             titre_ok = titre_dit(it, x)
-            par_photo = it["score"] >= seuil_de[x]
+
+            # Étape 2 : l'IA de vision regarde vraiment les photos
+            verdict = None
+            if ia.dispo():
+                photos = [im for _, _, u, im in sorted(notes, key=lambda t: urls.index(t[2]) if t[2] in urls else 99)
+                          if u != eti_url][:4] or [Image.open(io.BytesIO(session.get(it["photo"], timeout=20).content)).convert("RGB")]
+                voisins = [m for m in pt.PRIX if m != x][:6]
+                verdict = ia.verifier(x, codes, refs_img[x], photos, eti_img, it.get("title", ""), voisins)
+                print(f"IA {it['id']} {x} : {verdict}")
+                if verdict.get("erreur"):
+                    if not titre_ok:
+                        continue
+                    verdict = None
+                elif verdict["verdict"] != "oui" or verdict["confiance"] < conf_min:
+                    continue
+                elif verdict.get("code_lu"):
+                    lu = verdict["code_lu"].upper().replace(" ", "-")
+                    bon = any(c.replace("-", "") in lu.replace("-", "") for c in codes)
+                    statut = f"lue par l'IA : {verdict['code_lu']} = " + ("BON CODE" if bon else "AUTRE CODE (à vérifier)")
+            elif not titre_ok:
+                continue          # sans IA : plus d'alerte sur la photo seule (trop de fausses alertes)
+
+            champs = [{"name": "Prix", "value": it["price"], "inline": True},
+                      {"name": "Taille · état", "value": it.get("details", "?"), "inline": True}]
+            if verdict:
+                champs.insert(1, {"name": "IA", "value": f"OUI à {verdict['confiance']} %", "inline": True})
+                if verdict.get("raison"):
+                    champs.append({"name": "Pourquoi", "value": verdict["raison"][:200], "inline": False})
+            champs.append({"name": "Titre", "value": "dit le modèle" if titre_ok else "ne le dit pas (trouvée par la photo)", "inline": True})
+            champs.append({"name": "Étiquette", "value": statut, "inline": False})
             embeds = [{
                 "title": it["title"][:250], "url": it["url"], "color": 0x2ECC71,
-                "author": {"name": f"{'Photo' if par_photo else 'Titre'} : {x}"},
-                "fields": [
-                    {"name": "Prix", "value": it["price"], "inline": True},
-                    {"name": "Probabilité" if x in clfs else "Ressemblance", "value": (f"{it['score']*100:.0f} %" if x in clfs else f"{it['score']:.3f}") + ("" if par_photo else " (sous le seuil)"), "inline": True},
-                    {"name": "Taille · état", "value": it.get("details", "?"), "inline": True},
-                    {"name": "Titre", "value": ("dit le modèle" + ("" if par_photo else " (trouvée par le titre)")) if titre_ok else "ne le dit pas (trouvée par la photo)", "inline": True},
-                    {"name": "Étiquette", "value": statut, "inline": False},
-                ],
+                "author": {"name": f"{'IA' if verdict else 'Titre'} : {x}"},
+                "fields": champs,
                 "image": {"url": it["photo"]},
             }]
             if eti_url:
