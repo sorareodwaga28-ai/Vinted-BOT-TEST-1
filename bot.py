@@ -211,31 +211,20 @@ def fmt_eur(x):
 
 def build_recap(stats, searches, today, launch=False):
     if launch:
-        lines = ["**Récap de lancement** — annonces en ligne en ce moment (3 premières pages de chaque recherche, sans prix max). Le récap du jour arrivera ensuite chaque soir à 21h."]
+        lines = ["**Récap de lancement** — annonces en ligne en ce moment, toutes tailles et prix. Ensuite, récap chaque soir à 21h."]
     else:
-        lines = [f"**Récap du jour — {datetime.now(TZ):%d/%m}**"]
+        lines = [f"**Récap du jour — {datetime.now(TZ):%d/%m}** (mises en ligne aujourd'hui, tes tailles et états, tous prix)"]
     for name, url, _, _ in searches:
         d = stats["day"].get(name, {})
-        alerts = d.get("alerts", 0)
-        ok = d.get("in_budget", 0)
-        over = sorted(d.get("over", {}).values())
-        mp = max_price(url)
-        line = f"**{name}** : {alerts} alerte{'s' if alerts > 1 else ''}"
-        if mp is None:
-            lines.append(line + " (pas de prix max)")
+        prix = sorted((d.get("prix") or {}).values())
+        if not prix:
+            lines.append(f"**{name}** : 0 postée")
             continue
-        if over:
-            med = over[len(over) // 2]
-            line += (f" · {len(over)} trop chère{'s' if len(over) > 1 else ''}"
-                     f" (moins chère {fmt_eur(over[0])}, médiane {fmt_eur(med)})")
-        else:
-            line += " · 0 trop chère"
-        if launch:
-            line = f"**{name}** : {ok} dans ton prix · " + line.split(" · ", 1)[1]
-        elif ok > alerts:
-            line += f" · {ok - alerts} dans ton prix mais pas envoyée{'s' if ok - alerts > 1 else ''}"
-        lines.append(line)
-    lines.append("_Trop chère = bonne paire (mots obligatoires OK) mais au-dessus de ton prix max._")
+        niveaux = {}
+        for v in prix:
+            niveaux[v] = niveaux.get(v, 0) + 1
+        moins_cheres = ", ".join(f"{n} à {fmt_eur(v)}" for v, n in sorted(niveaux.items())[:3])
+        lines.append(f"**{name}** : {len(prix)} postée{'s' if len(prix) > 1 else ''} · {moins_cheres}")
     msg, out = "", []
     for l in lines:
         if len(msg) + len(l) + 1 > 1900:
@@ -246,7 +235,7 @@ def build_recap(stats, searches, today, launch=False):
     return out
 
 
-def track_market(session, stats, searches, exclude, launch=False):
+def track_market(session, stats, searches, exclude, launch=False, frontiere=0):
     """Relit chaque recherche sans prix max et compte les annonces du jour."""
     seen = set(stats["seen"])
     bases = set(stats["bases"])
@@ -292,6 +281,9 @@ def track_market(session, stats, searches, exclude, launch=False):
             pv = price_value(item)
             if pv is None:
                 continue
+            if frontiere and iid.isdigit() and int(iid) < frontiere - MARGE_IDS:
+                continue                      # vieille annonce remontée : pas une mise en ligne du jour
+            d.setdefault("prix", {})[iid] = pv
             if pv <= mp:
                 d["in_budget"] = d.get("in_budget", 0) + 1
             else:
@@ -380,7 +372,7 @@ def main():
     print(f"Envoyées : {sent} | anciennes ignorées : {trop_vieilles} | exclues : {skipped} | recherches en erreur : {errors}")
 
     try:
-        track_market(session, stats, searches, exclude, launch=stats.get("fresh", False))
+        track_market(session, stats, searches, exclude, launch=stats.get("fresh", False), frontiere=frontiere)
     except Exception as e:
         print(f"ERREUR récap : {e}")
     if stats.pop("fresh", False):
