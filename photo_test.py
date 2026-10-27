@@ -92,8 +92,11 @@ def nom(x):
     return NOMS.get(x, f"Air Jordan 4 \"{x}\"")
 
 
+NIKE = "&brand_ids[]=53"     # Jordan rangées sous la marque « Nike » par les particuliers (vérifié au démarrage)
+
+
 def recherche(x):
-    return RECHERCHES.get(x, "&brand_ids[]=2703")
+    return RECHERCHES.get(x, "&brand_ids[]=2703" + NIKE)
 
 # Lettres et chiffres que l'OCR confond souvent.
 CONFUS = {"0": "0OQD", "1": "1IL", "2": "2Z", "5": "5S", "8": "8B", "6": "6G",

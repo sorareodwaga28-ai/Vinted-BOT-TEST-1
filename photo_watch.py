@@ -116,6 +116,23 @@ def main():
                   for f, xs in familles.items()]
     session = bot.get_session()
 
+    # Vérifie que le numéro de marque utilisé pour « Nike » renvoie bien des annonces Nike ; sinon on le retire.
+    if pt.NIKE and any(pt.NIKE in f for f in familles):
+        try:
+            b, u = bot.page_url(pt.BASE_URL + pt.NIKE)
+            marques = [str(it.get("brand", "")).lower() for it in bot.fetch_items(session, b, u)]
+            ok = sum("nike" in m for m in marques) >= max(3, len(marques) // 2)
+            print(f"[diag] marque {pt.NIKE} : {len(marques)} annonces, Nike = {ok} ({marques[:5]})")
+        except Exception as e:
+            ok = True      # Vinted injoignable : on garde, la recherche normale dira s'il y a un souci
+            print(f"[diag] vérification marque Nike impossible : {e}")
+        if not ok:
+            post(webhook, {"content": "**Attention** : le numéro de marque Nike du bot est faux, la recherche Jordan "
+                                      "reste sur la marque Jordan seule. Préviens Claude."})
+            familles = {f.replace(pt.NIKE, ""): xs for f, xs in familles.items()}
+            recherches = [bot.page_url(pt.BASE_URL + f + f"&price_to={int(max(pt.PRIX[x] for x in xs))}")
+                          for f, xs in familles.items()]
+
     def sauver():
         etat["modeles"] = sorted(set(etat["modeles"]) | set(modeles))
         ETAT.write_text(json.dumps(etat))

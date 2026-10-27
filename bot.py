@@ -342,6 +342,17 @@ def main():
     if m and m.group(0) != raw_hook.strip():
         print("[diag] DISCORD_WEBHOOK contenait des caractères en trop : nettoyé automatiquement.")
     searches = parse_searches(os.environ.get("SEARCH_URLS", ""))
+    # Les paires suivies par la surveillance photo ne sont plus cherchées ici (évite les alertes en double)
+    try:
+        cles = re.findall(r'"([^"]+)": \d+', re.search(r"^PRIX = \{(.*?)\}", Path(__file__).with_name(
+            "photo_test.py").read_text(), re.S | re.M).group(1))
+        suivies = {" ".join(tokens(c)) for c in cles} - {" ".join(tokens(c)) for c in ("Infrared", "Seafoam",
+                                                                                     "Canyon Purple", "Craft Olive")}
+        avant = len(searches)
+        searches = [x for x in searches if not any(f" {c} " in " " + " ".join(tokens(x[0])) + " " for c in suivies)]
+        print(f"[diag] {avant - len(searches)} recherche(s) laissée(s) à la surveillance photo, {len(searches)} gardée(s)")
+    except Exception as e:
+        print(f"[diag] liste de la surveillance photo illisible : {e}")
     exclude = [w.strip() for w in (os.environ.get("EXCLUDE") or "blazer").split(",") if w.strip()]
     for _, _, req, exc in searches:
         for w in req + exc:
