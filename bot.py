@@ -99,18 +99,59 @@ def tokens(s):
     return re.sub(r"[^a-z0-9]+", " ", norm(s)).split()
 
 
+# Tolérance aux fautes de frappe dans les titres.
+# Mots de 4 lettres : 1 lettre remplacée ou 2 lettres inversées. 5 à 7 lettres : 1 faute
+# (lettre en trop, en moins, remplacée ou inversée). 8 lettres et plus : 2 fautes.
+# Mots de 3 lettres ou moins et chiffres : toujours exacts (jordan 4 ≠ jordan 1).
+# Un mot du titre qui est lui-même un mot d'une autre recherche (black/blank, noise/noire,
+# pink/pine…) n'est jamais pris pour un autre.
+VOCAB = set()
+
+
+def distance(a, b, limite):
+    """Distance de Damerau-Levenshtein, arrêtée dès qu'elle dépasse la limite."""
+    if abs(len(a) - len(b)) > limite:
+        return limite + 1
+    prev2, prev = None, list(range(len(b) + 1))
+    for i in range(1, len(a) + 1):
+        cur = [i] + [0] * len(b)
+        for k in range(1, len(b) + 1):
+            c = 0 if a[i - 1] == b[k - 1] else 1
+            cur[k] = min(prev[k] + 1, cur[k - 1] + 1, prev[k - 1] + c)
+            if i > 1 and k > 1 and a[i - 1] == b[k - 2] and a[i - 2] == b[k - 1]:
+                cur[k] = min(cur[k], prev2[k - 2] + 1)
+        if min(cur) > limite:
+            return limite + 1
+        prev2, prev = prev, cur
+    return prev[-1]
+
+
+def proche(mot, cible):
+    if mot == cible:
+        return True
+    if re.sub(r"[^0-9]", "", mot) != re.sub(r"[^0-9]", "", cible):
+        return False
+    lettres = len(re.sub(r"[0-9]", "", cible))
+    if lettres < 4 or mot in VOCAB:
+        return False
+    if lettres == 4:
+        return len(mot) == len(cible) and distance(mot, cible, 1) <= 1
+    return distance(mot, cible, 1 if lettres < 8 else 2) <= (1 if lettres < 8 else 2)
+
+
 def has_term(toks, term):
-    """Mot ou expression entière ; « airmax » = « air max », « firered » = « fire red »."""
-    target = "".join(tokens(term))
+    """Mot ou expression entière ; « airmax » = « air max » ; petites fautes de frappe tolérées."""
+    parts = tokens(term)
+    target = "".join(parts)
     if not target:
         return True
     for i in range(len(toks)):
         acc = ""
-        for j in range(i, len(toks)):
+        for j in range(i, min(len(toks), i + len(parts) + 1)):
             acc += toks[j]
-            if acc == target:
+            if proche(acc, target):
                 return True
-            if len(acc) >= len(target) or not target.startswith(acc):
+            if len(acc) > len(target) + 2:
                 break
     return False
 
@@ -302,6 +343,11 @@ def main():
         print("[diag] DISCORD_WEBHOOK contenait des caractères en trop : nettoyé automatiquement.")
     searches = parse_searches(os.environ.get("SEARCH_URLS", ""))
     exclude = [w.strip() for w in (os.environ.get("EXCLUDE") or "blazer").split(",") if w.strip()]
+    for _, _, req, exc in searches:
+        for w in req + exc:
+            for t in w.split("+"):
+                VOCAB.add("".join(tokens(t)))
+                VOCAB.update(tokens(t))
     if not webhook or not searches:
         sys.exit("Il manque DISCORD_WEBHOOK ou SEARCH_URLS.")
 
