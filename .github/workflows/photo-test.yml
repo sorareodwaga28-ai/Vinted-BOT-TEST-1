@@ -24,6 +24,7 @@ on:
           - "Sacai Vaporwaffle Sesame Blue Void"
           - "SB Pine Green"
           - "Lightning"
+          - "Craft Photon Dust"
       prix_max:
         description: "Prix max en € (vide = le prix de la paire dans le bot, aucun = tous les prix)"
         required: false
