@@ -25,8 +25,9 @@ from PIL import Image
 
 import bot
 
-BASE_URL = ("https://www.vinted.fr/catalog?catalog[]=1242&currency=EUR"
-            + "".join(f"&size_ids[]={s}" for s in range(780, 796))
+# Baskets Hommes (1242) ET Femmes (2632), toutes tailles : beaucoup de Jordan 4 (Frozen Moments...)
+# sont rangées en Femmes ou en petites tailles (36-39).
+BASE_URL = ("https://www.vinted.fr/catalog?catalog[]=1242&catalog[]=2632&currency=EUR"
             + "&status_ids[]=6&status_ids[]=1&status_ids[]=2&status_ids[]=3&order=newest_first")
 
 # Description de chaque coloris pour CLIP (en anglais : CLIP a appris en anglais).
