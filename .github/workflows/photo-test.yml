@@ -1,11 +1,7 @@
 name: Test reconnaissance photo
 
 on:
-  # Lancé automatiquement quand des photos de référence sont ajoutées (comme pour la Fire Red et la Vivid Sulfur)
-  push:
-    branches: [main]
-    paths:
-      - "references/**"
+  # Plus de lancement automatique (résultats non fiables) : seulement à la main
   workflow_dispatch:
     inputs:
       modele:
