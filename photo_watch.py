@@ -260,11 +260,16 @@ def main():
             x = it["modele"]
             codes = pt.CODES.get(x, [])
             eti_url, statut = None, "pas de photo d'étiquette : à demander au vendeur"
-            try:
-                urls = pt.photos_annonce(session, it)
-            except Exception as ex:
-                print(f"Annonce illisible {it['id']} : {ex}")
-                urls = []
+            urls = []
+            for essai in range(2):      # 2e essai si la page de l'annonce n'a pas donné ses photos
+                try:
+                    urls = pt.photos_annonce(session, it)
+                except Exception as ex:
+                    print(f"Annonce illisible {it['id']} : {ex}")
+                if urls:
+                    break
+                time.sleep(3)
+            print(f"[diag] annonce {it['id']} : {len(urls)} photo(s) lue(s)")
             notes = []
             for u in urls[:8]:
                 try:
@@ -322,8 +327,6 @@ def main():
                       {"name": "Taille · état", "value": it.get("details", "?"), "inline": True}]
             if verdict:
                 champs.insert(1, {"name": "IA", "value": f"OUI à {verdict['confiance']} %", "inline": True})
-                if verdict.get("raison"):
-                    champs.append({"name": "Pourquoi", "value": verdict["raison"][:200], "inline": False})
             champs.append({"name": "Titre", "value": "dit le modèle" if titre_ok else "ne le dit pas (trouvée par la photo)", "inline": True})
             champs.append({"name": "Étiquette", "value": statut, "inline": False})
             embeds = [{
@@ -332,11 +335,13 @@ def main():
                 "fields": champs,
                 "image": {"url": it["photo"]},
             }]
-            # 2 autres photos de l'annonce (Discord les affiche en galerie avec la 1re), puis l'étiquette
-            for u in [u for u in urls if u != eti_url and pt.jeton(u) != pt.jeton(it["photo"])][:2]:
+            # Les 3 premières photos de l'annonce, dans l'ordre (Discord les regroupe en galerie : même "url")
+            for u in [u for u in urls if pt.jeton(u) != pt.jeton(it["photo"])][:2]:
                 embeds.append({"url": it["url"], "image": {"url": u}})
+            # Étiquette en dessous, dans un bloc à part (url différente = pas mélangée à la galerie)
             if eti_url:
-                embeds.append({"url": it["url"], "image": {"url": eti_url}})
+                embeds.append({"url": it["url"] + "#etiquette", "title": "Étiquette",
+                               "color": 0x2ECC71, "image": {"url": eti_url}})
             post(webhook, {"embeds": embeds})
 
     if rattrapage:
