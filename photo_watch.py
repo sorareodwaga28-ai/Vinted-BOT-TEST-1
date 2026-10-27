@@ -173,6 +173,7 @@ def main():
     pre = float((os.environ.get("IA_PRESELECTION") or "0.70").replace(",", "."))   # 1er tri par la photo (gratuit)
     conf_min = int(os.environ.get("IA_CONFIANCE") or 70)
     ia_max = int(os.environ.get("IA_MAX") or 15)
+    ia_jour_max = int(os.environ.get("IA_MAX_JOUR") or 150)                         # appels IA max par jour (coût)
     marge = float((os.environ.get("MARGE") or "0.05").replace(",", "."))             # marge sous le seuil calculé
     pre_de = {}
     voir_refus = (os.environ.get("IA_VOIR_REFUS") or "1") == "1"                     # refus de l'IA envoyés en gris                                     # vérifications IA max par passage
@@ -280,7 +281,14 @@ def main():
 
             # Étape 2 : l'IA de vision regarde vraiment les photos
             verdict = None
-            if ia.dispo():
+            jour = time.strftime("%Y-%m-%d")
+            if etat.get("ia_jour") != jour:
+                etat["ia_jour"], etat["ia_n"] = jour, 0
+            if ia.dispo() and etat["ia_n"] >= ia_jour_max:
+                if not titre_ok:
+                    continue      # plafond du jour atteint : plus d'IA, seulement les titres qui nomment la paire
+            elif ia.dispo():
+                etat["ia_n"] += 1
                 photos = [im for _, _, u, im in sorted(notes, key=lambda t: urls.index(t[2]) if t[2] in urls else 99)
                           if u != eti_url][:4] or [Image.open(io.BytesIO(session.get(it["photo"], timeout=20).content)).convert("RGB")]
                 voisins = [m for m in pt.PRIX if m != x][:6]
