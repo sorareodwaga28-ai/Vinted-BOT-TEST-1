@@ -200,6 +200,35 @@ def main():
         pieges[x] = emb(p) if p else None
         e = charger(d / "etiquette")
         etis[x] = emb(e) if e else None
+        # Apprentissage : on repart de zéro si les photos de référence ont changé (les scores ne sont plus comparables)
+        if etat.setdefault("auto_refs", {}).get(x) != len(r):
+            etat["auto_refs"][x] = len(r)
+            etat.setdefault("auto", {})[x] = []
+    base_de = dict(pre_de)
+    sonde_ecart = float((os.environ.get("SONDE_ECART") or "0.10").replace(",", "."))   # zone testée sous le seuil
+    sonde_jour_max = int(os.environ.get("SONDE_MAX_JOUR") or 20)                       # tests silencieux max par jour
+
+    def seuil_auto(x):
+        """Seuil appris : la plus basse vraie paire confirmée par l'IA (trouvée par la photo), moins 0,02.
+        Descend dès qu'une vraie est vue plus bas ; ne monte au-dessus du seuil de départ qu'après 3 vraies."""
+        oui = [o["s"] for o in etat.get("auto", {}).get(x, []) if o["v"] == "oui" and o["c"] >= conf_min]
+        if not oui:
+            return base_de[x]
+        bas = min(oui) - 0.02
+        if bas < base_de[x] or len(oui) >= 3:
+            return round(min(1.0, max(0.60, bas)), 3)
+        return base_de[x]
+
+    def apprendre(x, score, verdict):
+        obs = etat.setdefault("auto", {}).setdefault(x, [])
+        obs.append({"s": round(score, 3), "v": verdict["verdict"], "c": verdict["confiance"]})
+        del obs[:-300]
+        avant, pre_de[x] = pre_de[x], seuil_auto(x)
+        if pre_de[x] != avant:
+            print(f"[auto] seuil {x} : {avant:.3f} -> {pre_de[x]:.3f}")
+
+    for x in pre_de:
+        pre_de[x] = seuil_auto(x)
     print("Seuils par paire : " + ", ".join(f"{x} {v:.2f}" for x, v in pre_de.items()))
     relance_manuelle = os.environ.get("GITHUB_ACTOR", "") not in ("", "github-actions[bot]")
     if premier_demarrage or nouveaux_modeles or relance_manuelle:
@@ -225,7 +254,7 @@ def main():
         if not items or not mods:
             return
         # 3. Étape 1 (gratuite) : présélection par la photo ou par le titre, dans le prix
-        alertes = []
+        alertes, sondes = [], []
         for it in items:
             prix = bot.price_value(it) or 0
             if autre_marque(it.get("title")):
@@ -236,7 +265,7 @@ def main():
                 print(f"Photo illisible {it['id']} : {e}")
                 continue
             e = emb([img])
-            meilleur = None
+            meilleur = sonde = None
             for x in mods:
                 if prix > pt.PRIX[x]:
                     continue
@@ -246,14 +275,32 @@ def main():
                 t = titre_dit(it, x)
                 if (s >= pre_de.get(x, pre) or t) and (meilleur is None or (t, s) > meilleur[2:]):
                     meilleur = (x, s, t, s)
+                # Juste sous le seuil : candidate à un test silencieux (pour apprendre où sont les vraies)
+                ecart = pre_de.get(x, pre) - s
+                if 0 < ecart <= sonde_ecart and (sonde is None or ecart < sonde[2]):
+                    sonde = (x, s, ecart)
             if meilleur:
                 it["modele"], it["score"] = meilleur[:2]
                 alertes.append(it)
+            elif sonde:
+                it["modele"], it["score"], it["sonde"] = sonde[0], sonde[1], True
+                sondes.append(it)
         alertes.sort(key=lambda it: (titre_dit(it, it["modele"]), it["score"]), reverse=True)
         if len(alertes) > ia_max:
             print(f"{len(alertes) - ia_max} candidate(s) au-delà de {ia_max} non vérifiées ce passage")
             alertes = alertes[:ia_max]
         print(f"{len(alertes)} candidate(s) à vérifier")
+        # Tests silencieux : quelques annonces sous le seuil vérifiées par l'IA, rien n'est envoyé si NON
+        jour = time.strftime("%Y-%m-%d")
+        if etat.get("sonde_jour") != jour:
+            etat["sonde_jour"], etat["sonde_n"] = jour, 0
+        if ia.dispo() and sondes:
+            sondes.sort(key=lambda it: pre_de[it["modele"]] - it["score"])
+            n = max(0, min(3, sonde_jour_max - etat["sonde_n"]))
+            etat["sonde_n"] += min(n, len(sondes))
+            alertes += sondes[:n]
+            if n and sondes:
+                print(f"[auto] {min(n, len(sondes))} test(s) silencieux sous le seuil")
 
         # 4. Étape 2 : étiquette dans les autres photos, puis envoi
         for it in alertes:
@@ -306,7 +353,12 @@ def main():
                     if not titre_ok:
                         continue
                     verdict = None
-                elif verdict["verdict"] != "oui" or verdict["confiance"] < conf_min:
+                else:
+                    if not titre_ok:     # trouvée par la photo : sert à apprendre le seuil de la paire
+                        apprendre(x, it["score"], verdict)
+                    if it.get("sonde") and (verdict["verdict"] != "oui" or verdict["confiance"] < conf_min):
+                        continue         # test silencieux refusé : rien sur Discord
+                if verdict and (verdict["verdict"] != "oui" or verdict["confiance"] < conf_min):
                     if voir_refus:      # montrer aussi les refus (en gris) pour juger l'IA
                         post(webhook, {"embeds": [{
                             "title": it["title"][:250], "url": it["url"], "color": 0x95A5A6,
@@ -316,7 +368,7 @@ def main():
                                        {"name": "Pourquoi", "value": (verdict.get("raison") or "-")[:200], "inline": False}],
                             "thumbnail": {"url": it["photo"]}}]})
                     continue
-                elif verdict.get("code_lu"):
+                elif verdict and verdict.get("code_lu"):
                     lu = verdict["code_lu"].upper().replace(" ", "-")
                     bon = any(c.replace("-", "") in lu.replace("-", "") for c in codes)
                     statut = f"lue par l'IA : {verdict['code_lu']} = " + ("BON CODE" if bon else "AUTRE CODE (à vérifier)")
