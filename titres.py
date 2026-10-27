@@ -23,6 +23,10 @@ AUTRES_AIR_MAX = ("air max 90", "air max 95", "air max 97", "air max plus", "air
 AUTRES_SACAI = ("ldwaffle", "ld waffle", "ldv", "magmascape", "pegasus", "jordan", "regasus", "kaws")
 
 
+AUTRES_NOCTA = ("hot step", "hotstep", "terra", "running", "opal", "zoom", "drive", "jordan", "black", "noir", "noire",
+                "slime", "green", "vert", "verte")
+
+
 AUTRES_JORDAN_1 = ("jordan 3", "jordan 4", "jordan 5", "jordan 6", "jordan 11", "jordan 12", "jordan 13", "j4", "aj4",
                    "aj3", "aj11", "low", "mid")
 
@@ -31,6 +35,9 @@ def autre_marque(titre, modele=""):
     """Le titre nomme une autre marque ou un autre modèle de basket que celui de la paire suivie
     (par défaut : une Jordan 4)."""
     t = norm_titre(titre)
+    if " nocta " in norm_titre(modele):      # Nocta Glide : refuse les autres modèles Nocta et la Glide noire/verte
+        return (any(f" {m} " in t for m in MARQUES)
+                or any(f" {m} " in t for m in AUTRES_NOCTA))
     if " jordan 1 " in norm_titre(modele):   # Jordan 1 High : refuse les autres Jordan, les Low et les Mid
         return (any(f" {m} " in t for m in MARQUES if m not in ("jordan 1", "aj1"))
                 or any(f" {m} " in t for m in AUTRES_JORDAN_1))

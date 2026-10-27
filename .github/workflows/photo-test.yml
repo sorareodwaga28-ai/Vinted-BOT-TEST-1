@@ -32,6 +32,7 @@ on:
           - "Wet Cement"
           - "Air Max 1 Anniversary Aqua"
           - "Thunder"
+          - "Nocta Glide White"
       prix_max:
         description: "Prix max en € (vide = le prix de la paire dans le bot, aucun = tous les prix)"
         required: false
