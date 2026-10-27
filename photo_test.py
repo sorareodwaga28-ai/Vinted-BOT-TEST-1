@@ -51,6 +51,7 @@ COLORIS = {
     "Jordan 1 High Lost and Found": "Air Jordan 1 High OG Lost and Found sneakers, varsity red and sail cracked leather with black swoosh, grey collar and aged cream midsole",
     "Air Max 1 Watermelon": "Nike Air Max 1 Watermelon sneakers, summit white and light grey with pink swoosh and kinetic green suede mudguard",
     "Air Max 1 Safari Cobblestone": "Nike Air Max 1 Safari Cobblestone sneakers, grey safari spotted print with beige and olive panels, light blue swoosh, yellow laces and sail midsole",
+    "Blank Canvas": "Air Jordan 4 Blank Canvas sneakers, all sail cream canvas with frayed edges, small blue and red accents on the outsole",
     "autre Jordan": "Jordan sneakers of another model or colorway",
     "pas une paire": "a photo that does not show sneakers",
 }
@@ -58,10 +59,10 @@ COLORIS = {
 # Prix max de chaque paire (ceux du bot).
 PRIX = {"Vivid Sulfur": 30, "Fire Red": 60, "Infrared": 40, "Black Canvas": 40,
         "Midnight Navy": 40, "Seafoam": 50, "Canyon Purple": 50, "Craft Olive": 50, "Fear": 50, "Frozen Moments": 60,
-        "Air Max 1 Limeade": 40, "Sacai Vaporwaffle Villain Red": 70, "Sacai Vaporwaffle Sesame Blue Void": 50, "SB Pine Green": 60, "Lightning": 50, "Craft Photon Dust": 60, "Jordan 1 High Lost and Found": 60, "Air Max 1 Watermelon": 50, "Air Max 1 Safari Cobblestone": 40}
+        "Air Max 1 Limeade": 40, "Sacai Vaporwaffle Villain Red": 70, "Sacai Vaporwaffle Sesame Blue Void": 50, "SB Pine Green": 60, "Lightning": 50, "Craft Photon Dust": 60, "Jordan 1 High Lost and Found": 60, "Air Max 1 Watermelon": 50, "Air Max 1 Safari Cobblestone": 40, "Blank Canvas": 50}
 
 # Code produit imprimé sur l'étiquette intérieure (doit correspondre exactement).
-CODES = {"Vivid Sulfur": ["AQ9129-101"], "Fire Red": ["DC7770-160"], "Midnight Navy": ["DH6927-140"], "Black Canvas": ["DH7138-006"], "Fear": ["FQ8138-002"], "Frozen Moments": ["AQ9129-001"], "Air Max 1 Limeade": ["CJ0609-300"], "Sacai Vaporwaffle Villain Red": ["DD3035-200"], "Sacai Vaporwaffle Sesame Blue Void": ["DD1875-200"], "SB Pine Green": ["DR5415-103"], "Lightning": ["CT8527-700"], "Craft Photon Dust": ["DV3770-001", "DV2262-021"], "Jordan 1 High Lost and Found": ["DZ5485-612"], "Air Max 1 Watermelon": ["AH8145-106"], "Air Max 1 Safari Cobblestone": ["DV3027-001"]}
+CODES = {"Vivid Sulfur": ["AQ9129-101"], "Fire Red": ["DC7770-160"], "Midnight Navy": ["DH6927-140"], "Black Canvas": ["DH7138-006"], "Fear": ["FQ8138-002"], "Frozen Moments": ["AQ9129-001"], "Air Max 1 Limeade": ["CJ0609-300"], "Sacai Vaporwaffle Villain Red": ["DD3035-200"], "Sacai Vaporwaffle Sesame Blue Void": ["DD1875-200"], "SB Pine Green": ["DR5415-103"], "Lightning": ["CT8527-700"], "Craft Photon Dust": ["DV3770-001", "DV2262-021"], "Jordan 1 High Lost and Found": ["DZ5485-612"], "Air Max 1 Watermelon": ["AH8145-106"], "Air Max 1 Safari Cobblestone": ["DV3027-001"], "Blank Canvas": ["DQ4909-100"]}
 
 # Nom complet donné à l'IA de vision, et recherche Vinted de la famille (Jordan 4 par défaut).
 NOMS = {"Air Max 1 Limeade": "Nike Air Max 1 Premium \"Limeade\" (Powerwall, Pine Green)",
@@ -72,7 +73,8 @@ NOMS = {"Air Max 1 Limeade": "Nike Air Max 1 Premium \"Limeade\" (Powerwall, Pin
         "Craft Photon Dust": "Air Jordan 4 SE Craft \"Photon Dust\" (Photon Dust/Pale Vanilla, grey, NOT the olive Craft)",
         "Jordan 1 High Lost and Found": "Air Jordan 1 Retro High OG \"Lost and Found\" / Chicago Reimagined (Varsity Red/Black-Sail-Muslin)",
         "Air Max 1 Watermelon": "Nike Air Max 1 \"Watermelon\" (Summit White/Sunset Pulse-Kinetic Green)",
-        "Air Max 1 Safari Cobblestone": "Nike Air Max 1 \"Safari Cobblestone\" (women's, Cobblestone/Worn Blue)"}
+        "Air Max 1 Safari Cobblestone": "Nike Air Max 1 \"Safari Cobblestone\" (women's, Cobblestone/Worn Blue)",
+        "Blank Canvas": "Air Jordan 4 Retro \"Blank Canvas\" (women's, Sail/Sail-Cement Grey-Fire Red, all cream canvas — NOT the Black Canvas)"}
 RECHERCHES = {"Air Max 1 Limeade": "&search_text=air+max+1", "Air Max 1 Watermelon": "&search_text=air+max+1", "Air Max 1 Safari Cobblestone": "&search_text=air+max+1", "Sacai Vaporwaffle Villain Red": "&search_text=sacai", "Sacai Vaporwaffle Sesame Blue Void": "&search_text=sacai"}
 
 
@@ -154,6 +156,7 @@ MOTS = {
     "Jordan 1 High Lost and Found": "jordan + lost + found, jordan 1 + lost + found, jordan1 + lost + found, j1 + lost + found, aj1 + lost + found, jordan one + lost + found, jordan + lost, jordan 1 + lost, jordan1 + lost, j1 + lost, aj1 + lost, jordan one + lost, jordan + chicago + reimagined, jordan 1 + chicago + reimagined, jordan1 + chicago + reimagined, j1 + chicago + reimagined, aj1 + chicago + reimagined, jordan one + chicago + reimagined, jordan + chicago + lost, jordan 1 + chicago + lost, jordan1 + chicago + lost, j1 + chicago + lost, aj1 + chicago + lost, jordan one + chicago + lost",
     "Air Max 1 Watermelon": "air max 1 + watermelon, am1 + watermelon, air max one + watermelon, air max + watermelon, air max 1 + water + melon, am1 + water + melon, air max one + water + melon, air max + water + melon, air max 1 + pasteque, am1 + pasteque, air max one + pasteque, air max + pasteque, air max 1 + watermelone, am1 + watermelone, air max one + watermelone, air max + watermelone, air max 1 + sunset + pulse, am1 + sunset + pulse, air max one + sunset + pulse, air max + sunset + pulse",
     "Air Max 1 Safari Cobblestone": "air max 1 + cobblestone, am1 + cobblestone, air max one + cobblestone, air max + cobblestone, air max 1 + cobble + stone, am1 + cobble + stone, air max one + cobble + stone, air max + cobble + stone, air max 1 + safari + bleu, am1 + safari + bleu, air max one + safari + bleu, air max + safari + bleu, air max 1 + safari + blue, am1 + safari + blue, air max one + safari + blue, air max + safari + blue, air max 1 + safari + beige, am1 + safari + beige, air max one + safari + beige, air max + safari + beige, air max 1 + safari + worn, am1 + safari + worn, air max one + safari + worn, air max + safari + worn",
+    "Blank Canvas": "jordan + blank, jordan 4 + blank, jordan4 + blank, j4 + blank, aj4 + blank, jordan iv + blank, jordan + blanc + canvas, jordan 4 + blanc + canvas, jordan4 + blanc + canvas, j4 + blanc + canvas, aj4 + blanc + canvas, jordan iv + blanc + canvas, jordan + blank + canva, jordan 4 + blank + canva, jordan4 + blank + canva, j4 + blank + canva, aj4 + blank + canva, jordan iv + blank + canva, jordan + canvas + sail, jordan 4 + canvas + sail, jordan4 + canvas + sail, j4 + canvas + sail, aj4 + canvas + sail, jordan iv + canvas + sail, jordan + canvas + beige, jordan 4 + canvas + beige, jordan4 + canvas + beige, j4 + canvas + beige, aj4 + canvas + beige, jordan iv + canvas + beige, jordan + canvas + creme, jordan 4 + canvas + creme, jordan4 + canvas + creme, j4 + canvas + creme, aj4 + canvas + creme, jordan iv + canvas + creme, jordan + canvas + blanche, jordan 4 + canvas + blanche, jordan4 + canvas + blanche, j4 + canvas + blanche, aj4 + canvas + blanche, jordan iv + canvas + blanche, jordan + canvas + blanc, jordan 4 + canvas + blanc, jordan4 + canvas + blanc, j4 + canvas + blanc, aj4 + canvas + blanc, jordan iv + canvas + blanc",
     "Air Max 1 Limeade": "air max 1 + limeade, am1 + limeade, air max one + limeade, air max + limeade, air max 1 + limead, air max 1 + powerwall + green, air max 1 + powerwall + vert, air max 1 + pine + green, am1 + pine + green, air max 1 + vert + sapin",
 }
 

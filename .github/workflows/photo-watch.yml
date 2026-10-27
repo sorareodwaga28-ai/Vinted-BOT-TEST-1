@@ -48,8 +48,8 @@ jobs:
           IA_MODELE: ${{ vars.IA_MODELE || 'claude-haiku-5-5' }}
           IA_PRESELECTION: ${{ vars.IA_PRESELECTION || '0.70' }}
           IA_CONFIANCE: ${{ vars.IA_CONFIANCE || '70' }}
-          MODELES: ${{ vars.PHOTO_MODELES || 'Fire Red, Vivid Sulfur, Midnight Navy, Black Canvas, Fear, Frozen Moments, Air Max 1 Limeade, Sacai Vaporwaffle Villain Red, Sacai Vaporwaffle Sesame Blue Void, SB Pine Green, Lightning, Craft Photon Dust, Jordan 1 High Lost and Found, Air Max 1 Watermelon, Air Max 1 Safari Cobblestone' }}
-          PRIX: ${{ vars.PHOTO_PRIX || 'Fire Red=60; Vivid Sulfur=30; Midnight Navy=40; Black Canvas=40; Fear=50; Frozen Moments=60; Air Max 1 Limeade=40; Sacai Vaporwaffle Villain Red=70; Sacai Vaporwaffle Sesame Blue Void=50; SB Pine Green=60; Lightning=50; Craft Photon Dust=60; Jordan 1 High Lost and Found=60; Air Max 1 Watermelon=50; Air Max 1 Safari Cobblestone=40' }}
+          MODELES: ${{ vars.PHOTO_MODELES || 'Fire Red, Vivid Sulfur, Midnight Navy, Black Canvas, Fear, Frozen Moments, Air Max 1 Limeade, Sacai Vaporwaffle Villain Red, Sacai Vaporwaffle Sesame Blue Void, SB Pine Green, Lightning, Craft Photon Dust, Jordan 1 High Lost and Found, Air Max 1 Watermelon, Air Max 1 Safari Cobblestone, Blank Canvas' }}
+          PRIX: ${{ vars.PHOTO_PRIX || 'Fire Red=60; Vivid Sulfur=30; Midnight Navy=40; Black Canvas=40; Fear=50; Frozen Moments=60; Air Max 1 Limeade=40; Sacai Vaporwaffle Villain Red=70; Sacai Vaporwaffle Sesame Blue Void=50; SB Pine Green=60; Lightning=50; Craft Photon Dust=60; Jordan 1 High Lost and Found=60; Air Max 1 Watermelon=50; Air Max 1 Safari Cobblestone=40; Blank Canvas=50' }}
           SEUIL: ${{ vars.PHOTO_SEUIL || '0.84' }}
           INTERVALLE: ${{ vars.PHOTO_INTERVALLE || '90' }}
           DUREE: ${{ inputs.duree || '50' }}
