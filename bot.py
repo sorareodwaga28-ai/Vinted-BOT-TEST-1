@@ -13,6 +13,11 @@ import requests
 
 SEEN_FILE = Path(__file__).with_name("seen.json")
 MAX_SEEN = 20000
+# Annonces « fraîches » seulement : les numéros d'annonce Vinted augmentent avec le temps.
+# Une annonce dont le numéro est plus petit que le plus grand numéro vu au passage précédent
+# (moins une marge d'environ 2 h) existait déjà : vieille annonce remontée, baisse de prix
+# ou Vinted qui mélange ses résultats. On la mémorise sans l'envoyer.
+MARGE_IDS = 1_000_000
 STATS_FILE = Path(__file__).with_name("stats.json")
 TZ = ZoneInfo("Europe/Paris")
 RECAP_HOUR = 21
@@ -319,6 +324,9 @@ def main():
     if "alertes" not in state:
         state["alertes"] = list(state.get("ids", []))      # migration : tout ce qui était connu reste connu
     seen = set(state["alertes"])
+    frontiere = int(state.get("max_id") or 0) or max((int(x) for x in seen if x.isdigit()), default=0)
+    plus_grand = frontiere
+    trop_vieilles = 0
     known = set(state["searches"])
     new_ids, sent, skipped, errors = [], 0, 0, 0
     session = get_session()
@@ -339,6 +347,8 @@ def main():
         print(f"[{name}] {len(items)} annonces lues" + (" (nouvelle recherche : mémorisées sans envoi)" if new_search else ""))
         for item in reversed(items):
             iid = str(item.get("id"))
+            if iid.isdigit():
+                plus_grand = max(plus_grand, int(iid))
             if iid in seen:
                 continue
             if is_excluded(item, exclude + excl_here):
@@ -350,6 +360,10 @@ def main():
             seen.add(iid)
             new_ids.append(iid)
             if first_run or new_search:
+                continue
+            if frontiere and iid.isdigit() and int(iid) < frontiere - MARGE_IDS:
+                trop_vieilles += 1
+                print(f"[{name}] ignorée (ancienne annonce) : {item.get('title')} {item.get('url')}")
                 continue
             item["search"] = name
             send_discord(webhook, item)
@@ -363,7 +377,7 @@ def main():
     if first_run:
         print(f"Premier lancement : {len(new_ids)} annonces mémorisées, rien envoyé.")
         requests.post(webhook, json={"content": "✅ Bot Vinted connecté. Les nouvelles annonces arriveront ici."}, timeout=20)
-    print(f"Envoyées : {sent} | exclues : {skipped} | recherches en erreur : {errors}")
+    print(f"Envoyées : {sent} | anciennes ignorées : {trop_vieilles} | exclues : {skipped} | recherches en erreur : {errors}")
 
     try:
         track_market(session, stats, searches, exclude, launch=stats.get("fresh", False))
@@ -388,6 +402,7 @@ def main():
     state["alertes"] = state["alertes"] + new_ids
     state.pop("ids", None)
     state["searches"] = sorted(known)
+    state["max_id"] = plus_grand
     SEEN_FILE.write_text(json.dumps(state))
     if errors == len(searches):
         sys.exit("Toutes les recherches ont échoué.")

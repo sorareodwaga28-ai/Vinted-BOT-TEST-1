@@ -48,7 +48,8 @@ jobs:
           al = lambda d: d.get("alertes", d.get("ids", []))
           alertes = list(dict.fromkeys(al(a) + al(b)))
           searches = sorted(set(a.get("searches") or []) | set(b.get("searches") or []))
-          json.dump({"alertes": alertes, "searches": searches}, open("seen.json", "w"))
+          max_id = max(int(a.get("max_id") or 0), int(b.get("max_id") or 0))
+          json.dump({"alertes": alertes, "searches": searches, "max_id": max_id}, open("seen.json", "w"))
           EOF
             [ -f /tmp/stats.json ] && cp /tmp/stats.json stats.json
             git add seen.json
