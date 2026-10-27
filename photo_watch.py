@@ -256,7 +256,7 @@ def main():
         if not items or not mods:
             return
         # 3. Étape 1 (gratuite) : présélection par la photo ou par le titre, dans le prix
-        alertes, sondes = [], []
+        alertes = []
         for it in items:
             prix = bot.price_value(it) or 0
             if autre_marque(it.get("title")):
@@ -267,7 +267,7 @@ def main():
                 print(f"Photo illisible {it['id']} : {e}")
                 continue
             e = emb([img])
-            meilleur = sonde = None
+            meilleur = None
             for x in mods:
                 if prix > pt.PRIX[x]:
                     continue
@@ -277,44 +277,14 @@ def main():
                 t = titre_dit(it, x)
                 if (s >= pre_de.get(x, pre) or t) and (meilleur is None or (t, s) > meilleur[2:]):
                     meilleur = (x, s, t, s)
-                # Juste sous le seuil : candidate à un test silencieux (pour apprendre où sont les vraies)
-                ecart = pre_de.get(x, pre) - s
-                if 0 < ecart <= sonde_ecart and (sonde is None or ecart < sonde[2]):
-                    sonde = (x, s, ecart)
             if meilleur:
                 it["modele"], it["score"] = meilleur[:2]
                 alertes.append(it)
-            elif sonde:
-                it["modele"], it["score"], it["sonde"] = sonde[0], sonde[1], True
-                sondes.append(it)
         alertes.sort(key=lambda it: (titre_dit(it, it["modele"]), it["score"]), reverse=True)
         if len(alertes) > ia_max:
             print(f"{len(alertes) - ia_max} candidate(s) au-delà de {ia_max} non vérifiées ce passage")
             alertes = alertes[:ia_max]
         print(f"{len(alertes)} candidate(s) à vérifier")
-        # Tests silencieux : quelques annonces sous le seuil vérifiées par l'IA, rien n'est envoyé si NON
-        jour = time.strftime("%Y-%m-%d")
-        if etat.get("sonde_jour") != jour:
-            etat["sonde_jour"], etat["sonde_n"] = jour, {}
-        if not isinstance(etat.get("sonde_n"), dict):
-            etat["sonde_n"] = {}
-        if ia.dispo() and sondes:
-            sondes.sort(key=lambda it: pre_de[it["modele"]] - it["score"])
-            pris = 0
-            for it in sondes:
-                x = it["modele"]
-                total = etat.setdefault("sonde_total", {}).get(x, 0)
-                if pris >= 3 or total >= sonde_total_max or etat["sonde_n"].get(x, 0) >= sonde_jour_max:
-                    continue      # paire calibrée (90 tests faits) ou quota du jour atteint
-                etat["sonde_n"][x] = etat["sonde_n"].get(x, 0) + 1
-                etat["sonde_total"][x] = total + 1
-                if total + 1 == sonde_total_max:
-                    print(f"[auto] {x} calibrée : {sonde_total_max} tests faits, seuil {pre_de[x]:.3f}")
-                alertes.append(it)
-                pris += 1
-            if pris:
-                print(f"[auto] {pris} test(s) silencieux sous le seuil")
-
         # 4. Étape 2 : étiquette dans les autres photos, puis envoi
         for it in alertes:
             x = it["modele"]
@@ -409,6 +379,74 @@ def main():
                                "color": 0x2ECC71, "image": {"url": eti_url}})
             post(webhook, {"embeds": embeds})
 
+    # Calibrage sans prix : une recherche Jordan SANS prix max, de temps en temps. Les annonces juste sous
+    # le seuil d'une paire sont vérifiées en silence par l'IA pour apprendre son seuil. Jamais d'alerte ici.
+    base_c, purl_c = bot.page_url(pt.BASE_URL + "&brand_ids[]=2703")
+    calib_intervalle = int(os.environ.get("CALIB_INTERVALLE") or 900)
+
+    def calibrer():
+        jour = time.strftime("%Y-%m-%d")
+        if etat.get("sonde_jour") != jour or not isinstance(etat.get("sonde_n"), dict):
+            etat["sonde_jour"], etat["sonde_n"] = jour, {}
+        if etat.get("ia_jour") != jour:
+            etat["ia_jour"], etat["ia_n"] = jour, 0
+        besoin = [x for x in modeles if x in refs
+                  and etat.setdefault("sonde_total", {}).get(x, 0) < sonde_total_max
+                  and etat["sonde_n"].get(x, 0) < sonde_jour_max]
+        if not besoin or not ia.dispo() or etat["ia_n"] >= ia_jour_max:
+            return
+        try:
+            lot = bot.fetch_items(session, base_c, purl_c)
+        except Exception as e:
+            print(f"[calib] page illisible : {e}")
+            return
+        deja = set(etat.setdefault("calib_ids", []))
+        tests = []
+        for it in lot:
+            iid = str(it["id"])
+            if iid in deja or not it.get("photo") or autre_marque(it.get("title")):
+                continue
+            etat["calib_ids"].append(iid)
+            try:
+                img = Image.open(io.BytesIO(session.get(it["photo"], timeout=20).content)).convert("RGB")
+            except Exception:
+                continue
+            e = emb([img])
+            choix = None
+            for x in besoin:
+                s = float((e @ refs[x].T).max())
+                ecart = pre_de[x] - s
+                if 0 < ecart <= sonde_ecart and (choix is None or ecart < choix[2]):
+                    choix = (x, s, ecart)
+            if choix:
+                tests.append((it, choix[0], choix[1]))
+        etat["calib_ids"] = etat["calib_ids"][-5000:]
+        for it, x, s in sorted(tests, key=lambda t: pre_de[t[1]] - t[2])[:3]:
+            if etat["sonde_n"].get(x, 0) >= sonde_jour_max or etat["sonde_total"].get(x, 0) >= sonde_total_max:
+                continue
+            etat["sonde_n"][x] = etat["sonde_n"].get(x, 0) + 1
+            etat["sonde_total"][x] = etat["sonde_total"].get(x, 0) + 1
+            etat["ia_n"] += 1
+            try:
+                urls = pt.photos_annonce(session, it)
+            except Exception:
+                urls = []
+            photos = []
+            for u in (urls or [it["photo"]])[:4]:
+                try:
+                    photos.append(Image.open(io.BytesIO(session.get(u, timeout=20).content)).convert("RGB"))
+                except Exception:
+                    pass
+            if not photos:
+                continue
+            verdict = ia.verifier(x, pt.CODES.get(x, []), refs_img[x], photos, None, it.get("title", ""),
+                                  [m for m in pt.PRIX if m != x][:6])
+            print(f"[calib] {it['id']} {x} score {s:.3f} ({it.get('price')}) : {verdict}")
+            if not verdict.get("erreur"):
+                apprendre(x, s, verdict)
+            if etat["sonde_total"][x] == sonde_total_max:
+                print(f"[auto] {x} calibrée : {sonde_total_max} tests faits, seuil {pre_de[x]:.3f}")
+
     if rattrapage:
         try:
             passage(rattrapage, [x for x in nouveaux_modeles if x in refs])
@@ -418,12 +456,19 @@ def main():
     debut = time.time()
     dernier_git = time.time()
     nb_passages = 0
+    dernier_calib = 0
     while True:
         t0 = time.time()
         try:
             passage()
         except Exception as e:
             print(f"::warning::Erreur pendant le passage : {str(e)[:300]}")
+        if time.time() - dernier_calib >= calib_intervalle:
+            dernier_calib = time.time()
+            try:
+                calibrer()
+            except Exception as e:
+                print(f"::warning::Erreur pendant le calibrage : {str(e)[:300]}")
         sauver()
         nb_passages += 1
         if git_auto and time.time() - dernier_git > 300:
