@@ -48,8 +48,8 @@ jobs:
           IA_MODELE: ${{ vars.IA_MODELE || 'claude-haiku-5-5' }}
           IA_PRESELECTION: ${{ vars.IA_PRESELECTION || '0.70' }}
           IA_CONFIANCE: ${{ vars.IA_CONFIANCE || '70' }}
-          MODELES: ${{ vars.PHOTO_MODELES || 'Fire Red, Vivid Sulfur, Midnight Navy, Black Canvas' }}
-          PRIX: ${{ vars.PHOTO_PRIX || 'Fire Red=60; Vivid Sulfur=30; Midnight Navy=40; Black Canvas=40' }}
+          MODELES: ${{ vars.PHOTO_MODELES || 'Fire Red, Vivid Sulfur, Midnight Navy, Black Canvas, Fear' }}
+          PRIX: ${{ vars.PHOTO_PRIX || 'Fire Red=60; Vivid Sulfur=30; Midnight Navy=40; Black Canvas=40; Fear=50' }}
           SEUIL: ${{ vars.PHOTO_SEUIL || '0.84' }}
           INTERVALLE: ${{ vars.PHOTO_INTERVALLE || '90' }}
           DUREE: ${{ inputs.duree || '50' }}
