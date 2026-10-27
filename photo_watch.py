@@ -172,7 +172,8 @@ def main():
     import ia
     pre = float((os.environ.get("IA_PRESELECTION") or "0.70").replace(",", "."))   # 1er tri par la photo (gratuit)
     conf_min = int(os.environ.get("IA_CONFIANCE") or 70)
-    ia_max = int(os.environ.get("IA_MAX") or 15)                                     # vérifications IA max par passage
+    ia_max = int(os.environ.get("IA_MAX") or 15)
+    voir_refus = (os.environ.get("IA_VOIR_REFUS") or "1") == "1"                     # refus de l'IA envoyés en gris                                     # vérifications IA max par passage
     print("IA de vision : " + ("active" if ia.dispo() else "pas de clé ANTHROPIC_API_KEY, alertes par le titre seulement"))
     # Méthode de la Fire Red / Vivid Sulfur pour toutes les paires : ressemblance aux photos de référence,
     # seuil commun (SEUIL, 0.84 par défaut). Le classifieur du calibrage n'est plus utilisé.
@@ -276,6 +277,14 @@ def main():
                         continue
                     verdict = None
                 elif verdict["verdict"] != "oui" or verdict["confiance"] < conf_min:
+                    if voir_refus:      # montrer aussi les refus (en gris) pour juger l'IA
+                        post(webhook, {"embeds": [{
+                            "title": it["title"][:250], "url": it["url"], "color": 0x95A5A6,
+                            "author": {"name": f"IA : refusée ({x} ?)"},
+                            "fields": [{"name": "Prix", "value": it["price"], "inline": True},
+                                       {"name": "IA", "value": f"{verdict['verdict'].upper()} à {verdict['confiance']} %", "inline": True},
+                                       {"name": "Pourquoi", "value": (verdict.get("raison") or "-")[:200], "inline": False}],
+                            "thumbnail": {"url": it["photo"]}}]})
                     continue
                 elif verdict.get("code_lu"):
                     lu = verdict["code_lu"].upper().replace(" ", "-")
