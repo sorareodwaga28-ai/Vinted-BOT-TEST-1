@@ -17,7 +17,7 @@ MARQUES = ("adidas", "reebok", "new balance", "puma", "asics", "vans", "converse
 
 
 AUTRES_AIR_MAX = ("air max 90", "air max 95", "air max 97", "air max plus", "air max 270", "air max 180", "air max 2090",
-                  "air max 87", "airmax 90", "airmax 95", "airmax 97", "jordan", "j4", "aj4")
+                  "air max 87", "golf", "airmax 90", "airmax 95", "airmax 97", "jordan", "j4", "aj4")
 
 
 AUTRES_SACAI = ("ldwaffle", "ld waffle", "ldv", "magmascape", "pegasus", "jordan", "regasus", "kaws")
