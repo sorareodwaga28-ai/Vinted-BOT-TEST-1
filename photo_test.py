@@ -48,6 +48,7 @@ COLORIS = {
     "SB Pine Green": "Nike SB x Air Jordan 4 Pine Green sneakers, white and sail leather with pine green details, grey suede toe and gum rubber sole",
     "Lightning": "Air Jordan 4 Lightning sneakers, bright tour yellow nubuck with dark grey wings and heel, black mesh, white and dark grey midsole",
     "Craft Photon Dust": "Air Jordan 4 SE Craft Photon Dust sneakers, light grey hairy suede and leather with dark grey midsole details, pale yellow eyelets and sail midsole",
+    "Jordan 1 High Lost and Found": "Air Jordan 1 High OG Lost and Found sneakers, varsity red and sail cracked leather with black swoosh, grey collar and aged cream midsole",
     "autre Jordan": "Jordan sneakers of another model or colorway",
     "pas une paire": "a photo that does not show sneakers",
 }
@@ -55,10 +56,10 @@ COLORIS = {
 # Prix max de chaque paire (ceux du bot).
 PRIX = {"Vivid Sulfur": 30, "Fire Red": 60, "Infrared": 40, "Black Canvas": 40,
         "Midnight Navy": 40, "Seafoam": 50, "Canyon Purple": 50, "Craft Olive": 50, "Fear": 50, "Frozen Moments": 60,
-        "Air Max 1 Limeade": 40, "Sacai Vaporwaffle Villain Red": 70, "Sacai Vaporwaffle Sesame Blue Void": 50, "SB Pine Green": 60, "Lightning": 50, "Craft Photon Dust": 60}
+        "Air Max 1 Limeade": 40, "Sacai Vaporwaffle Villain Red": 70, "Sacai Vaporwaffle Sesame Blue Void": 50, "SB Pine Green": 60, "Lightning": 50, "Craft Photon Dust": 60, "Jordan 1 High Lost and Found": 60}
 
 # Code produit imprimé sur l'étiquette intérieure (doit correspondre exactement).
-CODES = {"Vivid Sulfur": ["AQ9129-101"], "Fire Red": ["DC7770-160"], "Midnight Navy": ["DH6927-140"], "Black Canvas": ["DH7138-006"], "Fear": ["FQ8138-002"], "Frozen Moments": ["AQ9129-001"], "Air Max 1 Limeade": ["CJ0609-300"], "Sacai Vaporwaffle Villain Red": ["DD3035-200"], "Sacai Vaporwaffle Sesame Blue Void": ["DD1875-200"], "SB Pine Green": ["DR5415-103"], "Lightning": ["CT8527-700"], "Craft Photon Dust": ["DV3770-001", "DV2262-021"]}
+CODES = {"Vivid Sulfur": ["AQ9129-101"], "Fire Red": ["DC7770-160"], "Midnight Navy": ["DH6927-140"], "Black Canvas": ["DH7138-006"], "Fear": ["FQ8138-002"], "Frozen Moments": ["AQ9129-001"], "Air Max 1 Limeade": ["CJ0609-300"], "Sacai Vaporwaffle Villain Red": ["DD3035-200"], "Sacai Vaporwaffle Sesame Blue Void": ["DD1875-200"], "SB Pine Green": ["DR5415-103"], "Lightning": ["CT8527-700"], "Craft Photon Dust": ["DV3770-001", "DV2262-021"], "Jordan 1 High Lost and Found": ["DZ5485-612"]}
 
 # Nom complet donné à l'IA de vision, et recherche Vinted de la famille (Jordan 4 par défaut).
 NOMS = {"Air Max 1 Limeade": "Nike Air Max 1 Premium \"Limeade\" (Powerwall, Pine Green)",
@@ -66,7 +67,8 @@ NOMS = {"Air Max 1 Limeade": "Nike Air Max 1 Premium \"Limeade\" (Powerwall, Pin
         "Sacai Vaporwaffle Sesame Blue Void": "Nike x Sacai Vaporwaffle \"Sesame / Blue Void\" (Sesame/Blue Void-White)",
         "SB Pine Green": "Nike SB x Air Jordan 4 Retro SP \"Pine Green\" (Sail/White-Pine Green)",
         "Lightning": "Air Jordan 4 Retro \"Lightning\" 2021 (Tour Yellow/Dark Blue Grey)",
-        "Craft Photon Dust": "Air Jordan 4 SE Craft \"Photon Dust\" (Photon Dust/Pale Vanilla, grey, NOT the olive Craft)"}
+        "Craft Photon Dust": "Air Jordan 4 SE Craft \"Photon Dust\" (Photon Dust/Pale Vanilla, grey, NOT the olive Craft)",
+        "Jordan 1 High Lost and Found": "Air Jordan 1 Retro High OG \"Lost and Found\" / Chicago Reimagined (Varsity Red/Black-Sail-Muslin)"}
 RECHERCHES = {"Air Max 1 Limeade": "&search_text=air+max+1", "Sacai Vaporwaffle Villain Red": "&search_text=sacai", "Sacai Vaporwaffle Sesame Blue Void": "&search_text=sacai"}
 
 
@@ -145,6 +147,7 @@ MOTS = {
     "SB Pine Green": "jordan + pine, jordan 4 + pine, jordan4 + pine, j4 + pine, aj4 + pine, jordan iv + pine, jordan + pinegreen, jordan 4 + pinegreen, jordan4 + pinegreen, j4 + pinegreen, aj4 + pinegreen, jordan iv + pinegreen, jordan + sb + green, jordan + sb + vert, jordan + sb + verte, jordan 4 + sb + green, jordan 4 + sb + vert, jordan 4 + sb + verte, jordan4 + sb + green, jordan4 + sb + vert, jordan4 + sb + verte, j4 + sb + green, j4 + sb + vert, j4 + sb + verte, aj4 + sb + green, aj4 + sb + vert, aj4 + sb + verte, jordan iv + sb + green, jordan iv + sb + vert, jordan iv + sb + verte, jordan + vert + sapin, jordan 4 + vert + sapin, jordan4 + vert + sapin, j4 + vert + sapin, aj4 + vert + sapin, jordan iv + vert + sapin",
     "Lightning": "jordan + lightning, jordan 4 + lightning, jordan4 + lightning, j4 + lightning, aj4 + lightning, jordan iv + lightning, jordan + lighting, jordan 4 + lighting, jordan4 + lighting, j4 + lighting, aj4 + lighting, jordan iv + lighting, jordan + lightening, jordan 4 + lightening, jordan4 + lightening, j4 + lightening, aj4 + lightening, jordan iv + lightening, jordan + lightnin, jordan 4 + lightnin, jordan4 + lightnin, j4 + lightnin, aj4 + lightnin, jordan iv + lightnin, jordan + tour + yellow, jordan 4 + tour + yellow, jordan4 + tour + yellow, j4 + tour + yellow, aj4 + tour + yellow, jordan iv + tour + yellow",
     "Craft Photon Dust": "jordan + craft + photon, jordan 4 + craft + photon, jordan4 + craft + photon, j4 + craft + photon, aj4 + craft + photon, jordan iv + craft + photon, jordan + photon + dust, jordan 4 + photon + dust, jordan4 + photon + dust, j4 + photon + dust, aj4 + photon + dust, jordan iv + photon + dust, jordan + photon, jordan 4 + photon, jordan4 + photon, j4 + photon, aj4 + photon, jordan iv + photon, jordan + craft + grey, jordan 4 + craft + grey, jordan4 + craft + grey, j4 + craft + grey, aj4 + craft + grey, jordan iv + craft + grey, jordan + craft + gris, jordan 4 + craft + gris, jordan4 + craft + gris, j4 + craft + gris, aj4 + craft + gris, jordan iv + craft + gris, jordan + craft + grise, jordan 4 + craft + grise, jordan4 + craft + grise, j4 + craft + grise, aj4 + craft + grise, jordan iv + craft + grise, jordan + craft + vanilla, jordan 4 + craft + vanilla, jordan4 + craft + vanilla, j4 + craft + vanilla, aj4 + craft + vanilla, jordan iv + craft + vanilla",
+    "Jordan 1 High Lost and Found": "jordan + lost + found, jordan 1 + lost + found, jordan1 + lost + found, j1 + lost + found, aj1 + lost + found, jordan one + lost + found, jordan + lost, jordan 1 + lost, jordan1 + lost, j1 + lost, aj1 + lost, jordan one + lost, jordan + chicago + reimagined, jordan 1 + chicago + reimagined, jordan1 + chicago + reimagined, j1 + chicago + reimagined, aj1 + chicago + reimagined, jordan one + chicago + reimagined, jordan + chicago + lost, jordan 1 + chicago + lost, jordan1 + chicago + lost, j1 + chicago + lost, aj1 + chicago + lost, jordan one + chicago + lost",
     "Air Max 1 Limeade": "air max 1 + limeade, am1 + limeade, air max one + limeade, air max + limeade, air max 1 + limead, air max 1 + powerwall + green, air max 1 + powerwall + vert, air max 1 + pine + green, am1 + pine + green, air max 1 + vert + sapin",
 }
 
