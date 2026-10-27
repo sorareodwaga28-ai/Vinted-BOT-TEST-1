@@ -50,13 +50,21 @@ def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=()):
     try:
         r = requests.post(API, timeout=60, headers={
             "x-api-key": os.environ["ANTHROPIC_API_KEY"].strip(), "anthropic-version": "2023-06-01", "content-type": "application/json"},
-            json={"model": os.environ.get("IA_MODELE") or "claude-haiku-5-5", "max_tokens": 200,
+            json={"model": os.environ.get("IA_MODELE") or "claude-haiku-5-5", "max_tokens": 600,
                   "messages": [{"role": "user", "content": contenu}]})
         if r.status_code != 200:
             return {"erreur": f"HTTP {r.status_code} {r.text[:200]}"}
         texte = "".join(b.get("text", "") for b in r.json().get("content", []))
         m = re.search(r"\{.*\}", texte, re.S)
-        d = json.loads(m.group(0)) if m else {}
+        try:
+            d = json.loads(m.group(0)) if m else {}
+        except ValueError:
+            d = {}
+        if not d:
+            # Réponse illisible : on la garde pour comprendre (affichée dans « Pourquoi »)
+            print(f"[IA] réponse illisible : {texte[:300]!r} · stop={r.json().get('stop_reason')}")
+            return {"verdict": "incertain", "confiance": 0, "code_lu": "",
+                    "raison": "réponse IA illisible : " + (texte.strip()[:150] or f"vide (stop={r.json().get('stop_reason')})")}
         v = str(d.get("verdict", "")).lower().strip()
         return {"verdict": v if v in ("oui", "non", "incertain") else "incertain",
                 "confiance": int(float(d.get("confiance") or 0)), "code_lu": str(d.get("code_lu") or "").strip(),
