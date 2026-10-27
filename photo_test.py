@@ -40,16 +40,17 @@ COLORIS = {
     "Canyon Purple": "Air Jordan 4 Canyon Purple sneakers, purple suede",
     "Craft Olive": "Air Jordan 4 Craft Olive sneakers, olive green and cream",
     "Fear": "Air Jordan 4 Fear sneakers, black and dark grey nubuck with white speckled midsole and white wings",
+    "Frozen Moments": "Air Jordan 4 Frozen Moments sneakers, light grey suede and patent leather with chrome silver wings and sail midsole",
     "autre Jordan": "Jordan sneakers of another model or colorway",
     "pas une paire": "a photo that does not show sneakers",
 }
 
 # Prix max de chaque paire (ceux du bot).
 PRIX = {"Vivid Sulfur": 30, "Fire Red": 60, "Infrared": 40, "Black Canvas": 40,
-        "Midnight Navy": 40, "Seafoam": 50, "Canyon Purple": 50, "Craft Olive": 50, "Fear": 50}
+        "Midnight Navy": 40, "Seafoam": 50, "Canyon Purple": 50, "Craft Olive": 50, "Fear": 50, "Frozen Moments": 60}
 
 # Code produit imprimé sur l'étiquette intérieure (doit correspondre exactement).
-CODES = {"Vivid Sulfur": ["AQ9129-101"], "Fire Red": ["DC7770-160"], "Midnight Navy": ["DH6927-140"], "Black Canvas": ["DH7138-006"], "Fear": ["FQ8138-002", "626969-030"]}
+CODES = {"Vivid Sulfur": ["AQ9129-101"], "Fire Red": ["DC7770-160"], "Midnight Navy": ["DH6927-140"], "Black Canvas": ["DH7138-006"], "Fear": ["FQ8138-002", "626969-030"], "Frozen Moments": ["AQ9129-001"]}
 
 # Lettres et chiffres que l'OCR confond souvent.
 CONFUS = {"0": "0OQD", "1": "1IL", "2": "2Z", "5": "5S", "8": "8B", "6": "6G",
@@ -113,6 +114,7 @@ MOTS = {
     "Canyon Purple": "jordan + canyon, jordan 4 + canyon, jordan4 + canyon, j4 + canyon, aj4 + canyon, jordan iv + canyon",
     "Craft Olive": "jordan + craft + olive, jordan 4 + craft + olive, jordan4 + craft + olive, j4 + craft + olive, aj4 + craft + olive, jordan iv + craft + olive",
     "Fear": "jordan + fear, jordan 4 + fear, jordan4 + fear, j4 + fear, aj4 + fear, jordan iv + fear",
+    "Frozen Moments": "jordan + frozen, jordan 4 + frozen, jordan4 + frozen, j4 + frozen, aj4 + frozen, jordan iv + frozen",
 }
 
 
