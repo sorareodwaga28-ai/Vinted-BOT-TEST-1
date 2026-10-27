@@ -29,6 +29,7 @@ on:
           - "Air Max 1 Watermelon"
           - "Air Max 1 Safari Cobblestone"
           - "Blank Canvas"
+          - "Wet Cement"
       prix_max:
         description: "Prix max en € (vide = le prix de la paire dans le bot, aucun = tous les prix)"
         required: false
