@@ -185,8 +185,6 @@ def main():
     conf_min = int(os.environ.get("IA_CONFIANCE") or 70)
     ia_max = int(os.environ.get("IA_MAX") or 15)
     ia_jour_max = int(os.environ.get("IA_MAX_JOUR") or 150)                         # appels IA max par jour (coût)
-    calib_ia_max = int(os.environ.get("CALIB_IA_MAX") or 60)     # dont calibrage max par jour (le reste : vraies annonces)
-    rattrapage_ia_max = int(os.environ.get("RATTRAPAGE_IA_MAX") or 30)   # IA max pour relire les annonces récentes
     marge = float((os.environ.get("MARGE") or "0.05").replace(",", "."))             # marge sous le seuil calculé
     pre_de = {}
     voir_refus = (os.environ.get("IA_VOIR_REFUS") or "0") == "1"                     # refus de l'IA envoyés en gris                                     # vérifications IA max par passage
@@ -261,6 +259,21 @@ def main():
     def titre_dit(it, x):
         return bot.matches_required(it, [g.strip() for g in pt.MOTS.get(x, "").split(",") if g.strip()])
 
+    GENERIQUES = set("jordan air max nike 1 4 sb high and sacai vaporwaffle".split()) | (set(pt.COURANTS.split()) - {"fire"})
+
+    def titre_nomme(it, x):
+        """Titre exact ET qui contient le vrai nom du coloris (thunder, pine, fire, limeade…), pas seulement des
+        couleurs (« noir + jaune ») : dans ce cas, pas besoin de l'IA."""
+        nom_mots = set(bot.tokens(x)) - GENERIQUES
+        toks = bot.tokens(it.get("title"))
+        txt = " " + " ".join(toks) + " "
+        for g in pt.MOTS.get(x, "").split(","):
+            mots = [bot.tokens(m) for m in g.split("+") if bot.tokens(m)]
+            if (mots and any(set(m) & nom_mots for m in mots)
+                    and all(f" {' '.join(m)} " in txt or ("".join(m) in toks) for m in mots)):
+                return True
+        return False
+
     def titre_exact(it, x):
         """Le titre contient les vrais mots de la paire, sans aucune faute tolérée (alerte sans IA)."""
         toks = bot.tokens(it.get("title"))
@@ -271,7 +284,7 @@ def main():
                 return True
         return False
 
-    def passage(items=None, mods=None, ia_limite=None):
+    def passage(items=None, mods=None):
         if items is None:
             items = nouvelles(premier=False)
         mods = [x for x in (mods or modeles) if x in refs]
@@ -309,7 +322,6 @@ def main():
             alertes = alertes[:ia_max]
         print(f"{len(alertes)} candidate(s) à vérifier")
         # 4. Étape 2 : étiquette dans les autres photos, puis envoi
-        ia_faites = 0
         for it in alertes:
             x = it["modele"]
             codes = pt.CODES.get(x, [])
@@ -347,15 +359,14 @@ def main():
             jour = time.strftime("%Y-%m-%d")
             if etat.get("ia_jour") != jour:
                 etat["ia_jour"], etat["ia_n"] = jour, 0
-            limite_relecture = ia_limite is not None and ia_faites >= ia_limite
-            if ia.dispo() and (etat["ia_n"] >= ia_jour_max or limite_relecture):
+            if titre_nomme(it, x):
+                sans_ia = "titre exact : pas besoin d'IA"     # le titre dit exactement le nom de la paire
+            elif ia.dispo() and etat["ia_n"] >= ia_jour_max:
                 if not titre_ok:
-                    continue      # plus d'IA : seulement les titres qui nomment la paire
-                sans_ia = (f"limite de la relecture atteinte ({ia_limite} vérifications)" if limite_relecture
-                           else f"plafond du jour atteint ({ia_jour_max} vérifications)")
+                    continue      # plafond du jour atteint : plus d'IA, seulement les titres qui nomment la paire
+                sans_ia = f"plafond du jour atteint ({ia_jour_max} vérifications)"
             elif ia.dispo():
                 etat["ia_n"] += 1
-                ia_faites += 1
                 photos = [im for _, _, u, im in sorted(notes, key=lambda t: urls.index(t[2]) if t[2] in urls else 99)
                           if u != eti_url][:4] or [Image.open(io.BytesIO(session.get(it["photo"], timeout=20).content)).convert("RGB")]
                 voisins = [m for m in pt.PRIX if m != x][:6]
@@ -396,14 +407,15 @@ def main():
             if verdict:
                 champs.insert(1, {"name": "IA", "value": f"OUI à {verdict['confiance']} %", "inline": True})
             else:   # trouvée par le titre seul : l'IA n'a PAS vérifié les photos
-                champs.append({"name": "IA", "value": f"NON VÉRIFIÉE ({sans_ia}) : regarde les photos avant d'acheter",
+                champs.append({"name": "IA", "value": f"non vérifiée ({sans_ia}) : regarde les photos et l'étiquette",
                                "inline": False})
             champs.append({"name": "Titre", "value": "dit le modèle" if titre_ok else "ne le dit pas (trouvée par la photo)", "inline": True})
             champs.append({"name": "Étiquette", "value": statut, "inline": False})
             embeds = [{
                 "title": it["title"][:250], "url": it["url"],
-                "author": {"name": f"IA : {x}" if verdict else f"Titre seul, sans IA : {x}"},
-                "color": 0x2ECC71 if verdict else 0xE67E22,
+                "author": {"name": f"IA : {x}" if verdict else
+                           (f"Titre exact : {x}" if sans_ia.startswith("titre exact") else f"Titre seul, sans IA : {x}")},
+                "color": 0x2ECC71 if verdict else (0x3498DB if sans_ia.startswith("titre exact") else 0xE67E22),
                 "fields": champs,
                 "image": {"url": it["photo"]},
             }]
@@ -424,15 +436,14 @@ def main():
     def calibrer():
         jour = time.strftime("%Y-%m-%d")
         if etat.get("sonde_jour") != jour or not isinstance(etat.get("sonde_n"), dict):
-            etat["sonde_jour"], etat["sonde_n"], etat["calib_ia_n"] = jour, {}, 0
+            etat["sonde_jour"], etat["sonde_n"] = jour, {}
         if etat.get("ia_jour") != jour:
             etat["ia_jour"], etat["ia_n"] = jour, 0
         besoin = [x for x in modeles if x in refs
                   and etat.setdefault("sonde_total", {}).get(x, 0) < sonde_total_max
                   and etat["sonde_n"].get(x, 0) < sonde_jour_max]
-        if (not besoin or not ia.dispo() or etat["ia_n"] >= ia_jour_max
-                or etat.get("calib_ia_n", 0) >= calib_ia_max):
-            return            # le calibrage n'a droit qu'à une part du plafond : les vraies annonces passent avant
+        if not besoin or not ia.dispo() or etat["ia_n"] >= ia_jour_max:
+            return
         lot = []
         for (base_c, purl_c), xs in recherches_c:
             if not any(x in besoin for x in xs):
@@ -467,9 +478,6 @@ def main():
         for it, x, s in sorted(tests, key=lambda t: pre_de[t[1]] - t[2])[:3]:
             if etat["sonde_n"].get(x, 0) >= sonde_jour_max or etat["sonde_total"].get(x, 0) >= sonde_total_max:
                 continue
-            if etat.get("calib_ia_n", 0) >= calib_ia_max or etat["ia_n"] >= ia_jour_max:
-                break
-            etat["calib_ia_n"] = etat.get("calib_ia_n", 0) + 1
             etat["sonde_n"][x] = etat["sonde_n"].get(x, 0) + 1
             etat["sonde_total"][x] = etat["sonde_total"].get(x, 0) + 1
             etat["ia_n"] += 1
@@ -495,7 +503,7 @@ def main():
 
     if rattrapage:
         try:
-            passage(rattrapage, [x for x in nouveaux_modeles if x in refs], ia_limite=rattrapage_ia_max)
+            passage(rattrapage, [x for x in nouveaux_modeles if x in refs])
         except Exception as e:
             print(f"::warning::Erreur pendant le rattrapage : {str(e)[:300]}")
 
