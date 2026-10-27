@@ -20,10 +20,16 @@ AUTRES_AIR_MAX = ("air max 90", "air max 95", "air max 97", "air max plus", "air
                   "air max 87", "airmax 90", "airmax 95", "airmax 97", "jordan", "j4", "aj4")
 
 
+AUTRES_SACAI = ("ldwaffle", "ld waffle", "ldv", "magmascape", "pegasus", "jordan", "regasus", "kaws")
+
+
 def autre_marque(titre, modele=""):
     """Le titre nomme une autre marque ou un autre modèle de basket que celui de la paire suivie
     (par défaut : une Jordan 4)."""
     t = norm_titre(titre)
+    if " sacai " in norm_titre(modele):      # Sacai : refuse les autres modèles Sacai (LDWaffle, Blazer, Cortez…)
+        return (any(f" {m} " in t for m in MARQUES)
+                or any(f" {m} " in t for m in AUTRES_SACAI))
     if " air max " in norm_titre(modele):
         return (any(f" {m} " in t for m in MARQUES if m not in ("air max", "airmax"))
                 or any(f" {m} " in t for m in AUTRES_AIR_MAX))

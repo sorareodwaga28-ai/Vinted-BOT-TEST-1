@@ -43,6 +43,7 @@ COLORIS = {
     "Fear": "Air Jordan 4 Fear sneakers, black and dark grey nubuck with white speckled midsole and white wings",
     "Frozen Moments": "Air Jordan 4 Frozen Moments sneakers, light grey suede and patent leather with chrome silver wings and sail midsole",
     "Air Max 1 Limeade": "Nike Air Max 1 Limeade sneakers, pine green with white Air logo print, cream laces and white midsole",
+    "Sacai Vaporwaffle Villain Red": "Nike x Sacai Vaporwaffle sneakers, grey mesh with burgundy red suede, green suede and green laces, black swoosh, double stacked white midsole",
     "autre Jordan": "Jordan sneakers of another model or colorway",
     "pas une paire": "a photo that does not show sneakers",
 }
@@ -50,14 +51,15 @@ COLORIS = {
 # Prix max de chaque paire (ceux du bot).
 PRIX = {"Vivid Sulfur": 30, "Fire Red": 60, "Infrared": 40, "Black Canvas": 40,
         "Midnight Navy": 40, "Seafoam": 50, "Canyon Purple": 50, "Craft Olive": 50, "Fear": 50, "Frozen Moments": 60,
-        "Air Max 1 Limeade": 40}
+        "Air Max 1 Limeade": 40, "Sacai Vaporwaffle Villain Red": 70}
 
 # Code produit imprimé sur l'étiquette intérieure (doit correspondre exactement).
-CODES = {"Vivid Sulfur": ["AQ9129-101"], "Fire Red": ["DC7770-160"], "Midnight Navy": ["DH6927-140"], "Black Canvas": ["DH7138-006"], "Fear": ["FQ8138-002"], "Frozen Moments": ["AQ9129-001"], "Air Max 1 Limeade": ["CJ0609-300"]}
+CODES = {"Vivid Sulfur": ["AQ9129-101"], "Fire Red": ["DC7770-160"], "Midnight Navy": ["DH6927-140"], "Black Canvas": ["DH7138-006"], "Fear": ["FQ8138-002"], "Frozen Moments": ["AQ9129-001"], "Air Max 1 Limeade": ["CJ0609-300"], "Sacai Vaporwaffle Villain Red": ["DD3035-200"]}
 
 # Nom complet donné à l'IA de vision, et recherche Vinted de la famille (Jordan 4 par défaut).
-NOMS = {"Air Max 1 Limeade": "Nike Air Max 1 Premium \"Limeade\" (Powerwall, Pine Green)"}
-RECHERCHES = {"Air Max 1 Limeade": "&search_text=air+max+1"}
+NOMS = {"Air Max 1 Limeade": "Nike Air Max 1 Premium \"Limeade\" (Powerwall, Pine Green)",
+        "Sacai Vaporwaffle Villain Red": "Nike x Sacai Vaporwaffle \"Villain Red / Neptune Green\" (String/Black-Villain Red)"}
+RECHERCHES = {"Air Max 1 Limeade": "&search_text=air+max+1", "Sacai Vaporwaffle Villain Red": "&search_text=sacai"}
 
 
 def nom(x):
@@ -130,6 +132,7 @@ MOTS = {
     "Craft Olive": "jordan + craft + olive, jordan 4 + craft + olive, jordan4 + craft + olive, j4 + craft + olive, aj4 + craft + olive, jordan iv + craft + olive",
     "Fear": "jordan + fear, jordan 4 + fear, jordan4 + fear, j4 + fear, aj4 + fear, jordan iv + fear",
     "Frozen Moments": "jordan + frozen, jordan 4 + frozen, jordan4 + frozen, j4 + frozen, aj4 + frozen, jordan iv + frozen",
+    "Sacai Vaporwaffle Villain Red": "sacai + villain, sacai + neptune, sakai + villain, sakai + neptune, vaporwaffle + villain, vaporwaffle + neptune, vapor waffle + villain, vapor waffle + neptune, sacai + rouge + vert, sacai + bordeaux + vert, sakai + rouge + vert, sakai + bordeaux + vert, vaporwaffle + rouge + vert, vaporwaffle + bordeaux + vert, sacai + red + green, sacai + burgundy + green, vaporwaffle + red + green, vaporwaffle + burgundy + green",
     "Air Max 1 Limeade": "air max 1 + limeade, am1 + limeade, air max one + limeade, air max + limeade, air max 1 + limead, air max 1 + powerwall + green, air max 1 + powerwall + vert, air max 1 + pine + green, am1 + pine + green, air max 1 + vert + sapin",
 }
 
