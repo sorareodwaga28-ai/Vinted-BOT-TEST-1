@@ -42,16 +42,30 @@ COLORIS = {
     "Craft Olive": "Air Jordan 4 Craft Olive sneakers, olive green and cream",
     "Fear": "Air Jordan 4 Fear sneakers, black and dark grey nubuck with white speckled midsole and white wings",
     "Frozen Moments": "Air Jordan 4 Frozen Moments sneakers, light grey suede and patent leather with chrome silver wings and sail midsole",
+    "Air Max 1 Limeade": "Nike Air Max 1 Limeade sneakers, pine green with white Air logo print, cream laces and white midsole",
     "autre Jordan": "Jordan sneakers of another model or colorway",
     "pas une paire": "a photo that does not show sneakers",
 }
 
 # Prix max de chaque paire (ceux du bot).
 PRIX = {"Vivid Sulfur": 30, "Fire Red": 60, "Infrared": 40, "Black Canvas": 40,
-        "Midnight Navy": 40, "Seafoam": 50, "Canyon Purple": 50, "Craft Olive": 50, "Fear": 50, "Frozen Moments": 60}
+        "Midnight Navy": 40, "Seafoam": 50, "Canyon Purple": 50, "Craft Olive": 50, "Fear": 50, "Frozen Moments": 60,
+        "Air Max 1 Limeade": 40}
 
 # Code produit imprimé sur l'étiquette intérieure (doit correspondre exactement).
-CODES = {"Vivid Sulfur": ["AQ9129-101"], "Fire Red": ["DC7770-160"], "Midnight Navy": ["DH6927-140"], "Black Canvas": ["DH7138-006"], "Fear": ["FQ8138-002"], "Frozen Moments": ["AQ9129-001"]}
+CODES = {"Vivid Sulfur": ["AQ9129-101"], "Fire Red": ["DC7770-160"], "Midnight Navy": ["DH6927-140"], "Black Canvas": ["DH7138-006"], "Fear": ["FQ8138-002"], "Frozen Moments": ["AQ9129-001"], "Air Max 1 Limeade": ["CJ0609-300"]}
+
+# Nom complet donné à l'IA de vision, et recherche Vinted de la famille (Jordan 4 par défaut).
+NOMS = {"Air Max 1 Limeade": "Nike Air Max 1 Premium \"Limeade\" (Powerwall, Pine Green)"}
+RECHERCHES = {"Air Max 1 Limeade": "&search_text=air+max+1"}
+
+
+def nom(x):
+    return NOMS.get(x, f"Air Jordan 4 \"{x}\"")
+
+
+def recherche(x):
+    return RECHERCHES.get(x, "&brand_ids[]=2703")
 
 # Lettres et chiffres que l'OCR confond souvent.
 CONFUS = {"0": "0OQD", "1": "1IL", "2": "2Z", "5": "5S", "8": "8B", "6": "6G",
@@ -116,6 +130,7 @@ MOTS = {
     "Craft Olive": "jordan + craft + olive, jordan 4 + craft + olive, jordan4 + craft + olive, j4 + craft + olive, aj4 + craft + olive, jordan iv + craft + olive",
     "Fear": "jordan + fear, jordan 4 + fear, jordan4 + fear, j4 + fear, aj4 + fear, jordan iv + fear",
     "Frozen Moments": "jordan + frozen, jordan 4 + frozen, jordan4 + frozen, j4 + frozen, aj4 + frozen, jordan iv + frozen",
+    "Air Max 1 Limeade": "air max 1 + limeade, am1 + limeade, air max one + limeade, air max + limeade, air max 1 + limead, air max 1 + powerwall + green, air max 1 + powerwall + vert, air max 1 + pine + green, am1 + pine + green, air max 1 + vert + sapin",
 }
 
 
@@ -209,7 +224,8 @@ def main():
     elif prix_max in ("aucun", "0"):
         prix_max = ""
     url = (BASE_URL + (f"&price_to={prix_max}" if prix_max else "")
-           + (f"&search_text={requests.utils.quote(recherche)}" if recherche else ""))
+           + (f"&search_text={requests.utils.quote(recherche)}" if recherche
+              else RECHERCHES.get(modele, "")))      # Air Max : texte « air max 1 » par défaut
     base, purl = bot.page_url(url)
     session = bot.get_session()
     items, ids = [], set()

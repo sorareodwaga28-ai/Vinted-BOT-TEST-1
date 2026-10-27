@@ -76,7 +76,7 @@ for n, (i, c) in enumerate(cas.items(), 1):
             photos.append(Image.open(io.BytesIO(session.get(u, timeout=20).content)).convert("RGB"))
     except Exception:
         pass
-    d = ia.verifier(MODELE, codes, refs_pil[:2], photos, None, c["titre"], voisins)
+    d = ia.verifier(pt.nom(MODELE), codes, refs_pil[:2], photos, None, c["titre"], [pt.nom(m) for m in voisins])
     if d.get("erreur"):
         print("ERREUR IA", d["erreur"])
         if "401" in d["erreur"] or "credit" in d["erreur"].lower() or "403" in d["erreur"]:

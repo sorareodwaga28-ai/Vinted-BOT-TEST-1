@@ -31,7 +31,7 @@ def _img(im, cote=768):
 def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=()):
     """refs / photos / etiquette : images PIL. Renvoie {"verdict", "confiance", "code_lu", "raison"} ou {"erreur"}."""
     code = ", ".join(codes) if codes else "inconnu"
-    contenu = [{"type": "text", "text": f"REFERENCE photos of a genuine Air Jordan 4 \"{modele}\" (style code {code}):"}]
+    contenu = [{"type": "text", "text": f"REFERENCE photos of a genuine {modele} (style code {code}):"}]
     contenu += [_img(r, 512) for r in refs[:2]]
     contenu.append({"type": "text", "text": f"PHOTOS from a second-hand listing titled \"{titre}\":"})
     contenu += [_img(p) for p in photos[:4]]
@@ -40,9 +40,10 @@ def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=()):
         contenu.append(_img(etiquette, 1024))
     autres = (" Be careful with look-alikes such as: " + ", ".join(voisins) + ".") if voisins else ""
     contenu.append({"type": "text", "text": (
-        f"Question: is the shoe in the listing photos exactly the Air Jordan 4 \"{modele}\" colorway shown in the references "
-        f"(same colors on upper, wings, eyelets, midsole, outsole, heel tab; not another Jordan 4 colorway, not another model, "
-        f"not a kids/GS size issue)?{autres} If a style code is readable on the size tag, read it: a different style code means NO. "
+        f"Question: is the shoe in the listing photos exactly the {modele} shown in the references "
+        f"(same model and same colors on every part: upper, overlays, laces, eyelets, midsole, outsole, heel; not another colorway, "
+        f"not another model, not a kids/GS size issue)?{autres} "
+        "If a style code is readable on the size tag, read it: a different style code means NO. "
         "Ignore wear, dirt, lighting and box. If the photos do not show the shoe well enough, answer \"incertain\".\n"
         "Reply with JSON only, no other text: "
         "{\"verdict\": \"oui\" | \"non\" | \"incertain\", \"confiance\": 0-100, \"code_lu\": \"style code read on the tag, or empty\", "

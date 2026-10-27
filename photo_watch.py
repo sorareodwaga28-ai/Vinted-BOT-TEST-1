@@ -108,7 +108,12 @@ def main():
     etat = json.loads(ETAT.read_text()) if ETAT.exists() else {"ids": [], "modeles": []}
     vus = set(etat["ids"])
     prix_haut = int(max(pt.PRIX[x] for x in modeles))
-    base, purl = bot.page_url(pt.BASE_URL + "&brand_ids[]=2703" + f"&price_to={prix_haut}")   # marque Jordan seulement
+    # Une recherche Vinted par famille (Jordan : marque Jordan ; Air Max 1 : texte « air max 1 »), au prix max le plus haut
+    familles = {}
+    for x in modeles:
+        familles.setdefault(pt.recherche(x), []).append(x)
+    recherches = [bot.page_url(pt.BASE_URL + f + f"&price_to={int(max(pt.PRIX[x] for x in xs))}")
+                  for f, xs in familles.items()]
     session = bot.get_session()
 
     def sauver():
@@ -117,6 +122,13 @@ def main():
 
     def nouvelles(premier, toutes=False):
         """toutes=True : relit les pages sans sauter le déjà vu (rattrapage d'un nouveau modèle)."""
+        items = []
+        for base, purl in recherches:
+            items += lire(base, purl, premier, toutes)
+        etat["ids"] = etat["ids"][-20000:]
+        return items
+
+    def lire(base, purl, premier, toutes):
         items, deja = [], False
         for pg in range(1, pages + 1):
             try:
@@ -138,7 +150,6 @@ def main():
             if (deja and not toutes) or premier:
                 break
             time.sleep(3)
-        etat["ids"] = etat["ids"][-20000:]
         return items
 
     nouveaux_modeles = [x for x in modeles if x not in etat["modeles"]]
@@ -259,7 +270,7 @@ def main():
         alertes = []
         for it in items:
             prix = bot.price_value(it) or 0
-            if autre_marque(it.get("title")):
+            if all(autre_marque(it.get("title"), x) for x in mods):
                 continue
             try:
                 img = Image.open(io.BytesIO(session.get(it["photo"], timeout=20).content)).convert("RGB")
@@ -269,7 +280,7 @@ def main():
             e = emb([img])
             meilleur = None
             for x in mods:
-                if prix > pt.PRIX[x]:
+                if prix > pt.PRIX[x] or autre_marque(it.get("title"), x):
                     continue
                 s = float((e @ refs[x].T).max())
                 if pieges.get(x) is not None and float((e @ pieges[x].T).max()) > s:
@@ -330,7 +341,7 @@ def main():
                 photos = [im for _, _, u, im in sorted(notes, key=lambda t: urls.index(t[2]) if t[2] in urls else 99)
                           if u != eti_url][:4] or [Image.open(io.BytesIO(session.get(it["photo"], timeout=20).content)).convert("RGB")]
                 voisins = [m for m in pt.PRIX if m != x][:6]
-                verdict = ia.verifier(x, codes, refs_img[x], photos, eti_img, it.get("title", ""), voisins)
+                verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos, eti_img, it.get("title", ""), [pt.nom(m) for m in voisins])
                 print(f"IA {it['id']} {x} : {verdict}")
                 if verdict.get("erreur"):
                     if not titre_ok:
@@ -381,7 +392,7 @@ def main():
 
     # Calibrage sans prix : une recherche Jordan SANS prix max, de temps en temps. Les annonces juste sous
     # le seuil d'une paire sont vérifiées en silence par l'IA pour apprendre son seuil. Jamais d'alerte ici.
-    base_c, purl_c = bot.page_url(pt.BASE_URL + "&brand_ids[]=2703")
+    recherches_c = [(bot.page_url(pt.BASE_URL + f), xs) for f, xs in familles.items()]
     calib_intervalle = int(os.environ.get("CALIB_INTERVALLE") or 900)
 
     def calibrer():
@@ -395,16 +406,19 @@ def main():
                   and etat["sonde_n"].get(x, 0) < sonde_jour_max]
         if not besoin or not ia.dispo() or etat["ia_n"] >= ia_jour_max:
             return
-        try:
-            lot = bot.fetch_items(session, base_c, purl_c)
-        except Exception as e:
-            print(f"[calib] page illisible : {e}")
-            return
+        lot = []
+        for (base_c, purl_c), xs in recherches_c:
+            if not any(x in besoin for x in xs):
+                continue
+            try:
+                lot += bot.fetch_items(session, base_c, purl_c)
+            except Exception as e:
+                print(f"[calib] page illisible : {e}")
         deja = set(etat.setdefault("calib_ids", []))
         tests = []
         for it in lot:
             iid = str(it["id"])
-            if iid in deja or not it.get("photo") or autre_marque(it.get("title")):
+            if iid in deja or not it.get("photo"):
                 continue
             etat["calib_ids"].append(iid)
             try:
@@ -414,6 +428,8 @@ def main():
             e = emb([img])
             choix = None
             for x in besoin:
+                if autre_marque(it.get("title"), x):
+                    continue
                 s = float((e @ refs[x].T).max())
                 ecart = pre_de[x] - s
                 if 0 < ecart <= sonde_ecart and (choix is None or ecart < choix[2]):
@@ -439,8 +455,8 @@ def main():
                     pass
             if not photos:
                 continue
-            verdict = ia.verifier(x, pt.CODES.get(x, []), refs_img[x], photos, None, it.get("title", ""),
-                                  [m for m in pt.PRIX if m != x][:6])
+            verdict = ia.verifier(pt.nom(x), pt.CODES.get(x, []), refs_img[x], photos, None, it.get("title", ""),
+                                  [pt.nom(m) for m in pt.PRIX if m != x][:6])
             print(f"[calib] {it['id']} {x} score {s:.3f} ({it.get('price')}) : {verdict}")
             if not verdict.get("erreur"):
                 apprendre(x, s, verdict)
