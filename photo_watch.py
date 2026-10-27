@@ -298,6 +298,9 @@ def main():
                 "fields": champs,
                 "image": {"url": it["photo"]},
             }]
+            # 2 autres photos de l'annonce (Discord les affiche en galerie avec la 1re), puis l'étiquette
+            for u in [u for u in urls if u != eti_url and u != it["photo"]][:2]:
+                embeds.append({"url": it["url"], "image": {"url": u}})
             if eti_url:
                 embeds.append({"url": it["url"], "image": {"url": eti_url}})
             post(webhook, {"embeds": embeds})
