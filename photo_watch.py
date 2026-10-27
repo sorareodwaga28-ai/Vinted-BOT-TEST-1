@@ -185,6 +185,8 @@ def main():
     conf_min = int(os.environ.get("IA_CONFIANCE") or 70)
     ia_max = int(os.environ.get("IA_MAX") or 15)
     ia_jour_max = int(os.environ.get("IA_MAX_JOUR") or 150)                         # appels IA max par jour (coût)
+    calib_ia_max = int(os.environ.get("CALIB_IA_MAX") or 60)     # dont calibrage max par jour (le reste : vraies annonces)
+    rattrapage_ia_max = int(os.environ.get("RATTRAPAGE_IA_MAX") or 30)   # IA max pour relire les annonces récentes
     marge = float((os.environ.get("MARGE") or "0.05").replace(",", "."))             # marge sous le seuil calculé
     pre_de = {}
     voir_refus = (os.environ.get("IA_VOIR_REFUS") or "0") == "1"                     # refus de l'IA envoyés en gris                                     # vérifications IA max par passage
@@ -259,7 +261,17 @@ def main():
     def titre_dit(it, x):
         return bot.matches_required(it, [g.strip() for g in pt.MOTS.get(x, "").split(",") if g.strip()])
 
-    def passage(items=None, mods=None):
+    def titre_exact(it, x):
+        """Le titre contient les vrais mots de la paire, sans aucune faute tolérée (alerte sans IA)."""
+        toks = bot.tokens(it.get("title"))
+        txt = " " + " ".join(toks) + " "
+        for g in pt.MOTS.get(x, "").split(","):
+            mots = [bot.tokens(m) for m in g.split("+") if bot.tokens(m)]
+            if mots and all(f" {' '.join(m)} " in txt or ("".join(m) in toks) for m in mots):
+                return True
+        return False
+
+    def passage(items=None, mods=None, ia_limite=None):
         if items is None:
             items = nouvelles(premier=False)
         mods = [x for x in (mods or modeles) if x in refs]
@@ -297,6 +309,7 @@ def main():
             alertes = alertes[:ia_max]
         print(f"{len(alertes)} candidate(s) à vérifier")
         # 4. Étape 2 : étiquette dans les autres photos, puis envoi
+        ia_faites = 0
         for it in alertes:
             x = it["modele"]
             codes = pt.CODES.get(x, [])
@@ -334,12 +347,15 @@ def main():
             jour = time.strftime("%Y-%m-%d")
             if etat.get("ia_jour") != jour:
                 etat["ia_jour"], etat["ia_n"] = jour, 0
-            if ia.dispo() and etat["ia_n"] >= ia_jour_max:
+            limite_relecture = ia_limite is not None and ia_faites >= ia_limite
+            if ia.dispo() and (etat["ia_n"] >= ia_jour_max or limite_relecture):
                 if not titre_ok:
-                    continue      # plafond du jour atteint : plus d'IA, seulement les titres qui nomment la paire
-                sans_ia = f"plafond du jour atteint ({ia_jour_max} vérifications)"
+                    continue      # plus d'IA : seulement les titres qui nomment la paire
+                sans_ia = (f"limite de la relecture atteinte ({ia_limite} vérifications)" if limite_relecture
+                           else f"plafond du jour atteint ({ia_jour_max} vérifications)")
             elif ia.dispo():
                 etat["ia_n"] += 1
+                ia_faites += 1
                 photos = [im for _, _, u, im in sorted(notes, key=lambda t: urls.index(t[2]) if t[2] in urls else 99)
                           if u != eti_url][:4] or [Image.open(io.BytesIO(session.get(it["photo"], timeout=20).content)).convert("RGB")]
                 voisins = [m for m in pt.PRIX if m != x][:6]
@@ -371,6 +387,9 @@ def main():
                     statut = f"lue par l'IA : {verdict['code_lu']} = " + ("BON CODE" if bon else "AUTRE CODE (à vérifier)")
             elif not titre_ok:
                 continue          # sans IA : plus d'alerte sur la photo seule (trop de fausses alertes)
+            if not verdict and not titre_exact(it, x):
+                print(f"Sans IA, titre pas exact : {it['id']} « {it.get('title')} » ({x}) non envoyée")
+                continue          # sans IA : seulement si le titre dit exactement la paire (pas de faute tolérée)
 
             champs = [{"name": "Prix", "value": it["price"], "inline": True},
                       {"name": "Taille · état", "value": it.get("details", "?"), "inline": True}]
@@ -405,14 +424,15 @@ def main():
     def calibrer():
         jour = time.strftime("%Y-%m-%d")
         if etat.get("sonde_jour") != jour or not isinstance(etat.get("sonde_n"), dict):
-            etat["sonde_jour"], etat["sonde_n"] = jour, {}
+            etat["sonde_jour"], etat["sonde_n"], etat["calib_ia_n"] = jour, {}, 0
         if etat.get("ia_jour") != jour:
             etat["ia_jour"], etat["ia_n"] = jour, 0
         besoin = [x for x in modeles if x in refs
                   and etat.setdefault("sonde_total", {}).get(x, 0) < sonde_total_max
                   and etat["sonde_n"].get(x, 0) < sonde_jour_max]
-        if not besoin or not ia.dispo() or etat["ia_n"] >= ia_jour_max:
-            return
+        if (not besoin or not ia.dispo() or etat["ia_n"] >= ia_jour_max
+                or etat.get("calib_ia_n", 0) >= calib_ia_max):
+            return            # le calibrage n'a droit qu'à une part du plafond : les vraies annonces passent avant
         lot = []
         for (base_c, purl_c), xs in recherches_c:
             if not any(x in besoin for x in xs):
@@ -447,6 +467,9 @@ def main():
         for it, x, s in sorted(tests, key=lambda t: pre_de[t[1]] - t[2])[:3]:
             if etat["sonde_n"].get(x, 0) >= sonde_jour_max or etat["sonde_total"].get(x, 0) >= sonde_total_max:
                 continue
+            if etat.get("calib_ia_n", 0) >= calib_ia_max or etat["ia_n"] >= ia_jour_max:
+                break
+            etat["calib_ia_n"] = etat.get("calib_ia_n", 0) + 1
             etat["sonde_n"][x] = etat["sonde_n"].get(x, 0) + 1
             etat["sonde_total"][x] = etat["sonde_total"].get(x, 0) + 1
             etat["ia_n"] += 1
@@ -472,7 +495,7 @@ def main():
 
     if rattrapage:
         try:
-            passage(rattrapage, [x for x in nouveaux_modeles if x in refs])
+            passage(rattrapage, [x for x in nouveaux_modeles if x in refs], ia_limite=rattrapage_ia_max)
         except Exception as e:
             print(f"::warning::Erreur pendant le rattrapage : {str(e)[:300]}")
 
