@@ -176,7 +176,7 @@ def main():
     ia_jour_max = int(os.environ.get("IA_MAX_JOUR") or 150)                         # appels IA max par jour (coût)
     marge = float((os.environ.get("MARGE") or "0.05").replace(",", "."))             # marge sous le seuil calculé
     pre_de = {}
-    voir_refus = (os.environ.get("IA_VOIR_REFUS") or "1") == "1"                     # refus de l'IA envoyés en gris                                     # vérifications IA max par passage
+    voir_refus = (os.environ.get("IA_VOIR_REFUS") or "0") == "1"                     # refus de l'IA envoyés en gris                                     # vérifications IA max par passage
     print("IA de vision : " + ("active" if ia.dispo() else "pas de clé ANTHROPIC_API_KEY, alertes par le titre seulement"))
     # Méthode de la Fire Red / Vivid Sulfur pour toutes les paires : ressemblance aux photos de référence,
     # seuil commun (SEUIL, 0.84 par défaut). Le classifieur du calibrage n'est plus utilisé.
