@@ -201,9 +201,12 @@ def main():
         e = charger(d / "etiquette")
         etis[x] = emb(e) if e else None
     print("Seuils par paire : " + ", ".join(f"{x} {v:.2f}" for x, v in pre_de.items()))
-    if premier_demarrage or nouveaux_modeles:
-        post(webhook, {"content": "Seuils de ressemblance calculés pour chaque paire : "
-                       + ", ".join(f"{x} {v:.2f}" for x, v in pre_de.items())})
+    relance_manuelle = os.environ.get("GITHUB_ACTOR", "") not in ("", "github-actions[bot]")
+    if premier_demarrage or nouveaux_modeles or relance_manuelle:
+        n_jour = etat.get("ia_n", 0) if etat.get("ia_jour") == time.strftime("%Y-%m-%d") else 0
+        post(webhook, {"content": "**Surveillance relancée** · IA " + ("active" if ia.dispo() else "INACTIVE (pas de clé)")
+                       + f" · {n_jour}/{ia_jour_max} vérifications IA aujourd'hui"
+                       + " · paires suivies (seuil) : " + ", ".join(f"{x} ≤ {pt.PRIX[x]:g} € ({v:.2f})" for x, v in pre_de.items())})
     with torch.no_grad():
         te = model.encode_text(tok(["a close-up photo of the size label tag inside a sneaker, with barcode and small printed text",
                                     "a photo of sneakers", "a photo of the sole of a sneaker", "a photo of a shoe box"]))
