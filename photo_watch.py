@@ -173,6 +173,8 @@ def main():
     pre = float((os.environ.get("IA_PRESELECTION") or "0.70").replace(",", "."))   # 1er tri par la photo (gratuit)
     conf_min = int(os.environ.get("IA_CONFIANCE") or 70)
     ia_max = int(os.environ.get("IA_MAX") or 15)
+    marge = float((os.environ.get("MARGE") or "0.05").replace(",", "."))             # marge sous le seuil calculé
+    pre_de = {}
     voir_refus = (os.environ.get("IA_VOIR_REFUS") or "1") == "1"                     # refus de l'IA envoyés en gris                                     # vérifications IA max par passage
     print("IA de vision : " + ("active" if ia.dispo() else "pas de clé ANTHROPIC_API_KEY, alertes par le titre seulement"))
     # Méthode de la Fire Red / Vivid Sulfur pour toutes les paires : ressemblance aux photos de référence,
@@ -185,10 +187,22 @@ def main():
             continue
         refs[x] = emb(r)
         refs_img[x] = r[:2]
+        # Seuil propre à la paire : ressemblance d'une vraie photo de la paire avec ses autres références
+        # (la moins bonne), moins une marge. Recalculé à chaque lancement à partir des photos de référence.
+        if len(r) >= 2:
+            m = refs[x] @ refs[x].T
+            m.fill_diagonal_(-1)
+            pre_de[x] = round(min(0.84, max(0.60, float(m.max(dim=1).values.min()) - marge)), 3)
+        else:
+            pre_de[x] = pre
         p = charger(d / "pas-ca")
         pieges[x] = emb(p) if p else None
         e = charger(d / "etiquette")
         etis[x] = emb(e) if e else None
+    print("Seuils par paire : " + ", ".join(f"{x} {v:.2f}" for x, v in pre_de.items()))
+    if premier_demarrage or nouveaux_modeles:
+        post(webhook, {"content": "Seuils de ressemblance calculés pour chaque paire : "
+                       + ", ".join(f"{x} {v:.2f}" for x, v in pre_de.items())})
     with torch.no_grad():
         te = model.encode_text(tok(["a close-up photo of the size label tag inside a sneaker, with barcode and small printed text",
                                     "a photo of sneakers", "a photo of the sole of a sneaker", "a photo of a shoe box"]))
@@ -226,7 +240,7 @@ def main():
                 if pieges.get(x) is not None and float((e @ pieges[x].T).max()) > s:
                     s = 0.0      # plus proche d'un piège (paire refusée par Bastien) que des références
                 t = titre_dit(it, x)
-                if (s >= pre or t) and (meilleur is None or (t, s) > meilleur[2:]):
+                if (s >= pre_de.get(x, pre) or t) and (meilleur is None or (t, s) > meilleur[2:]):
                     meilleur = (x, s, t, s)
             if meilleur:
                 it["modele"], it["score"] = meilleur[:2]
