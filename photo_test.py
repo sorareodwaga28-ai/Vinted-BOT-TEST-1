@@ -46,6 +46,7 @@ COLORIS = {
     "Sacai Vaporwaffle Villain Red": "Nike x Sacai Vaporwaffle sneakers, grey mesh with burgundy red suede, green suede and green laces, black swoosh, double stacked white midsole",
     "Sacai Vaporwaffle Sesame Blue Void": "Nike x Sacai Vaporwaffle sneakers, tan sesame suede and nylon with navy blue swoosh, white and navy laces, double stacked white midsole with navy layer",
     "SB Pine Green": "Nike SB x Air Jordan 4 Pine Green sneakers, white and sail leather with pine green details, grey suede toe and gum rubber sole",
+    "Lightning": "Air Jordan 4 Lightning sneakers, bright tour yellow nubuck with dark grey wings and heel, black mesh, white and dark grey midsole",
     "autre Jordan": "Jordan sneakers of another model or colorway",
     "pas une paire": "a photo that does not show sneakers",
 }
@@ -53,16 +54,17 @@ COLORIS = {
 # Prix max de chaque paire (ceux du bot).
 PRIX = {"Vivid Sulfur": 30, "Fire Red": 60, "Infrared": 40, "Black Canvas": 40,
         "Midnight Navy": 40, "Seafoam": 50, "Canyon Purple": 50, "Craft Olive": 50, "Fear": 50, "Frozen Moments": 60,
-        "Air Max 1 Limeade": 40, "Sacai Vaporwaffle Villain Red": 70, "Sacai Vaporwaffle Sesame Blue Void": 50, "SB Pine Green": 60}
+        "Air Max 1 Limeade": 40, "Sacai Vaporwaffle Villain Red": 70, "Sacai Vaporwaffle Sesame Blue Void": 50, "SB Pine Green": 60, "Lightning": 50}
 
 # Code produit imprimé sur l'étiquette intérieure (doit correspondre exactement).
-CODES = {"Vivid Sulfur": ["AQ9129-101"], "Fire Red": ["DC7770-160"], "Midnight Navy": ["DH6927-140"], "Black Canvas": ["DH7138-006"], "Fear": ["FQ8138-002"], "Frozen Moments": ["AQ9129-001"], "Air Max 1 Limeade": ["CJ0609-300"], "Sacai Vaporwaffle Villain Red": ["DD3035-200"], "Sacai Vaporwaffle Sesame Blue Void": ["DD1875-200"], "SB Pine Green": ["DR5415-103"]}
+CODES = {"Vivid Sulfur": ["AQ9129-101"], "Fire Red": ["DC7770-160"], "Midnight Navy": ["DH6927-140"], "Black Canvas": ["DH7138-006"], "Fear": ["FQ8138-002"], "Frozen Moments": ["AQ9129-001"], "Air Max 1 Limeade": ["CJ0609-300"], "Sacai Vaporwaffle Villain Red": ["DD3035-200"], "Sacai Vaporwaffle Sesame Blue Void": ["DD1875-200"], "SB Pine Green": ["DR5415-103"], "Lightning": ["CT8527-700"]}
 
 # Nom complet donné à l'IA de vision, et recherche Vinted de la famille (Jordan 4 par défaut).
 NOMS = {"Air Max 1 Limeade": "Nike Air Max 1 Premium \"Limeade\" (Powerwall, Pine Green)",
         "Sacai Vaporwaffle Villain Red": "Nike x Sacai Vaporwaffle \"Villain Red / Neptune Green\" (String/Black-Villain Red)",
         "Sacai Vaporwaffle Sesame Blue Void": "Nike x Sacai Vaporwaffle \"Sesame / Blue Void\" (Sesame/Blue Void-White)",
-        "SB Pine Green": "Nike SB x Air Jordan 4 Retro SP \"Pine Green\" (Sail/White-Pine Green)"}
+        "SB Pine Green": "Nike SB x Air Jordan 4 Retro SP \"Pine Green\" (Sail/White-Pine Green)",
+        "Lightning": "Air Jordan 4 Retro \"Lightning\" 2021 (Tour Yellow/Dark Blue Grey)"}
 RECHERCHES = {"Air Max 1 Limeade": "&search_text=air+max+1", "Sacai Vaporwaffle Villain Red": "&search_text=sacai", "Sacai Vaporwaffle Sesame Blue Void": "&search_text=sacai"}
 
 
@@ -139,6 +141,7 @@ MOTS = {
     "Sacai Vaporwaffle Sesame Blue Void": "sacai + sesame, sacai + blue + void, sacai + bleu + void, sakai + sesame, sakai + blue + void, sakai + bleu + void, vaporwaffle + sesame, vaporwaffle + blue + void, vaporwaffle + bleu + void, vapor waffle + sesame, vapor waffle + blue + void, vapor waffle + bleu + void, sacai + beige + bleu, sacai + beige + blue, sacai + beige + navy, sacai + marron + bleu, sacai + camel + bleu, sakai + beige + bleu, sakai + beige + blue, sakai + beige + navy, sakai + marron + bleu, sakai + camel + bleu, vaporwaffle + beige + bleu, vaporwaffle + beige + blue, vaporwaffle + beige + navy, vaporwaffle + marron + bleu, vaporwaffle + camel + bleu",
     "Sacai Vaporwaffle Villain Red": "sacai + villain, sacai + neptune, sakai + villain, sakai + neptune, vaporwaffle + villain, vaporwaffle + neptune, vapor waffle + villain, vapor waffle + neptune, sacai + rouge + vert, sacai + bordeaux + vert, sakai + rouge + vert, sakai + bordeaux + vert, vaporwaffle + rouge + vert, vaporwaffle + bordeaux + vert, sacai + red + green, sacai + burgundy + green, vaporwaffle + red + green, vaporwaffle + burgundy + green",
     "SB Pine Green": "jordan + pine, jordan 4 + pine, jordan4 + pine, j4 + pine, aj4 + pine, jordan iv + pine, jordan + pinegreen, jordan 4 + pinegreen, jordan4 + pinegreen, j4 + pinegreen, aj4 + pinegreen, jordan iv + pinegreen, jordan + sb + green, jordan + sb + vert, jordan + sb + verte, jordan 4 + sb + green, jordan 4 + sb + vert, jordan 4 + sb + verte, jordan4 + sb + green, jordan4 + sb + vert, jordan4 + sb + verte, j4 + sb + green, j4 + sb + vert, j4 + sb + verte, aj4 + sb + green, aj4 + sb + vert, aj4 + sb + verte, jordan iv + sb + green, jordan iv + sb + vert, jordan iv + sb + verte, jordan + vert + sapin, jordan 4 + vert + sapin, jordan4 + vert + sapin, j4 + vert + sapin, aj4 + vert + sapin, jordan iv + vert + sapin",
+    "Lightning": "jordan + lightning, jordan 4 + lightning, jordan4 + lightning, j4 + lightning, aj4 + lightning, jordan iv + lightning, jordan + lighting, jordan 4 + lighting, jordan4 + lighting, j4 + lighting, aj4 + lighting, jordan iv + lighting, jordan + lightening, jordan 4 + lightening, jordan4 + lightening, j4 + lightening, aj4 + lightening, jordan iv + lightening, jordan + lightnin, jordan 4 + lightnin, jordan4 + lightnin, j4 + lightnin, aj4 + lightnin, jordan iv + lightnin, jordan + tour + yellow, jordan 4 + tour + yellow, jordan4 + tour + yellow, j4 + tour + yellow, aj4 + tour + yellow, jordan iv + tour + yellow",
     "Air Max 1 Limeade": "air max 1 + limeade, am1 + limeade, air max one + limeade, air max + limeade, air max 1 + limead, air max 1 + powerwall + green, air max 1 + powerwall + vert, air max 1 + pine + green, am1 + pine + green, air max 1 + vert + sapin",
 }
 
