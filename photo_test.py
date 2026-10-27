@@ -56,6 +56,7 @@ COLORIS = {
     "Air Max 1 Anniversary Aqua": "Nike Air Max 1 Anniversary Aqua sneakers, white mesh and light grey suede with turquoise aqua mudguard and swoosh, purple accents",
     "Thunder": "Air Jordan 4 Thunder sneakers, black nubuck with bright tour yellow eyelets, mesh and midsole, black sole",
     "Nocta Glide White": "Nike x Nocta Glide sneakers, all white mesh and synthetic with chrome silver oval pods in the sole",
+    "Rare Air": "Air Jordan 4 Rare Air sneakers, black nubuck with dark grey suede toe, red eyelets, deep royal blue collar and heel tab with Nike Air logo, grey and red sole",
     "autre Jordan": "Jordan sneakers of another model or colorway",
     "pas une paire": "a photo that does not show sneakers",
 }
@@ -63,10 +64,10 @@ COLORIS = {
 # Prix max de chaque paire (ceux du bot).
 PRIX = {"Vivid Sulfur": 30, "Fire Red": 60, "Infrared": 40, "Black Canvas": 40,
         "Midnight Navy": 40, "Seafoam": 50, "Canyon Purple": 50, "Craft Olive": 50, "Fear": 50, "Frozen Moments": 60,
-        "Air Max 1 Limeade": 40, "Sacai Vaporwaffle Villain Red": 70, "Sacai Vaporwaffle Sesame Blue Void": 50, "SB Pine Green": 60, "Lightning": 50, "Craft Photon Dust": 60, "Jordan 1 High Lost and Found": 60, "Air Max 1 Watermelon": 50, "Air Max 1 Safari Cobblestone": 40, "Blank Canvas": 50, "Wet Cement": 60, "Air Max 1 Anniversary Aqua": 50, "Thunder": 60, "Nocta Glide White": 50}
+        "Air Max 1 Limeade": 40, "Sacai Vaporwaffle Villain Red": 70, "Sacai Vaporwaffle Sesame Blue Void": 50, "SB Pine Green": 60, "Lightning": 50, "Craft Photon Dust": 60, "Jordan 1 High Lost and Found": 60, "Air Max 1 Watermelon": 50, "Air Max 1 Safari Cobblestone": 40, "Blank Canvas": 50, "Wet Cement": 60, "Air Max 1 Anniversary Aqua": 50, "Thunder": 60, "Nocta Glide White": 50, "Rare Air": 50}
 
 # Code produit imprimé sur l'étiquette intérieure (doit correspondre exactement).
-CODES = {"Vivid Sulfur": ["AQ9129-101"], "Fire Red": ["DC7770-160"], "Midnight Navy": ["DH6927-140"], "Black Canvas": ["DH7138-006"], "Fear": ["FQ8138-002"], "Frozen Moments": ["AQ9129-001"], "Air Max 1 Limeade": ["CJ0609-300"], "Sacai Vaporwaffle Villain Red": ["DD3035-200"], "Sacai Vaporwaffle Sesame Blue Void": ["DD1875-200"], "SB Pine Green": ["DR5415-103"], "Lightning": ["CT8527-700"], "Craft Photon Dust": ["DV3770-001", "DV2262-021"], "Jordan 1 High Lost and Found": ["DZ5485-612"], "Air Max 1 Watermelon": ["AH8145-106"], "Air Max 1 Safari Cobblestone": ["DV3027-001"], "Blank Canvas": ["DQ4909-100"], "Wet Cement": ["FQ7928-001"], "Air Max 1 Anniversary Aqua": ["908375-105"], "Thunder": ["DH6927-017"], "Nocta Glide White": ["DM0879-100"]}
+CODES = {"Vivid Sulfur": ["AQ9129-101"], "Fire Red": ["DC7770-160"], "Midnight Navy": ["DH6927-140"], "Black Canvas": ["DH7138-006"], "Fear": ["FQ8138-002"], "Frozen Moments": ["AQ9129-001"], "Air Max 1 Limeade": ["CJ0609-300"], "Sacai Vaporwaffle Villain Red": ["DD3035-200"], "Sacai Vaporwaffle Sesame Blue Void": ["DD1875-200"], "SB Pine Green": ["DR5415-103"], "Lightning": ["CT8527-700"], "Craft Photon Dust": ["DV3770-001", "DV2262-021"], "Jordan 1 High Lost and Found": ["DZ5485-612"], "Air Max 1 Watermelon": ["AH8145-106"], "Air Max 1 Safari Cobblestone": ["DV3027-001"], "Blank Canvas": ["DQ4909-100"], "Wet Cement": ["FQ7928-001"], "Air Max 1 Anniversary Aqua": ["908375-105"], "Thunder": ["DH6927-017"], "Nocta Glide White": ["DM0879-100"], "Rare Air": ["FV5029-003"]}
 
 # Nom complet donné à l'IA de vision, et recherche Vinted de la famille (Jordan 4 par défaut).
 NOMS = {"Air Max 1 Limeade": "Nike Air Max 1 Premium \"Limeade\" (Powerwall, Pine Green)",
@@ -82,7 +83,8 @@ NOMS = {"Air Max 1 Limeade": "Nike Air Max 1 Premium \"Limeade\" (Powerwall, Pin
         "Wet Cement": "Air Jordan 4 Retro SE \"Wet Cement\" (Smoke Grey/Iron Grey, all grey — NOT White, Black or Fire Red Cement)",
         "Air Max 1 Anniversary Aqua": "Nike Air Max 1 Anniversary \"Aqua\" 2017 (White/Aqua-Neutral Grey-Hyper Grape, turquoise — NOT the red or royal blue Anniversary)",
         "Thunder": "Air Jordan 4 Retro \"Thunder\" 2023 (Black/White-Tour Yellow, mostly black with yellow — NOT the all-yellow Lightning)",
-        "Nocta Glide White": "Nike x Nocta Glide \"White Chrome\" (White/White-Chrome, all white — NOT the Black Chrome or Slime Green Glide)"}
+        "Nocta Glide White": "Nike x Nocta Glide \"White Chrome\" (White/White-Chrome, all white — NOT the Black Chrome or Slime Green Glide)",
+        "Rare Air": "Air Jordan 4 Retro \"Rare Air\" 2024 (Black/Fire Red-Deep Royal Blue)"}
 RECHERCHES = {"Nocta Glide White": "&search_text=nocta", "Air Max 1 Limeade": "&search_text=air+max+1", "Air Max 1 Anniversary Aqua": "&search_text=air+max+1", "Air Max 1 Watermelon": "&search_text=air+max+1", "Air Max 1 Safari Cobblestone": "&search_text=air+max+1", "Sacai Vaporwaffle Villain Red": "&search_text=sacai", "Sacai Vaporwaffle Sesame Blue Void": "&search_text=sacai"}
 
 
@@ -169,6 +171,7 @@ MOTS = {
     "Air Max 1 Anniversary Aqua": "air max 1 + aqua, am1 + aqua, air max one + aqua, air max + aqua, air max 1 + anniversary + turquoise, am1 + anniversary + turquoise, air max one + anniversary + turquoise, air max + anniversary + turquoise, air max 1 + anniversary + bleu + ciel, am1 + anniversary + bleu + ciel, air max one + anniversary + bleu + ciel, air max + anniversary + bleu + ciel, air max 1 + anniversary + teal, am1 + anniversary + teal, air max one + anniversary + teal, air max + anniversary + teal, air max 1 + anniversaire + aqua, am1 + anniversaire + aqua, air max one + anniversaire + aqua, air max + anniversaire + aqua, air max 1 + anniversaire + turquoise, am1 + anniversaire + turquoise, air max one + anniversaire + turquoise, air max + anniversaire + turquoise, air max 1 + turquoise + violet, am1 + turquoise + violet, air max one + turquoise + violet, air max + turquoise + violet",
     "Thunder": "jordan + thunder, jordan 4 + thunder, jordan4 + thunder, j4 + thunder, aj4 + thunder, jordan iv + thunder, jordan + thunders, jordan 4 + thunders, jordan4 + thunders, j4 + thunders, aj4 + thunders, jordan iv + thunders, jordan + noir + jaune, jordan 4 + noir + jaune, jordan4 + noir + jaune, j4 + noir + jaune, aj4 + noir + jaune, jordan iv + noir + jaune, jordan + noire + jaune, jordan 4 + noire + jaune, jordan4 + noire + jaune, j4 + noire + jaune, aj4 + noire + jaune, jordan iv + noire + jaune, jordan + black + yellow, jordan 4 + black + yellow, jordan4 + black + yellow, j4 + black + yellow, aj4 + black + yellow, jordan iv + black + yellow",
     "Nocta Glide White": "nocta + glide + white, nocta + glide + blanc, nocta + glide + blanche, nocta + glide + blanches, nocta + glide + triple + white, nocta + glid + white, nocta + glid + blanc, nocta + glid + blanche, nocta + glid + blanches, nocta + glid + triple + white, nocta + glides + white, nocta + glides + blanc, nocta + glides + blanche, nocta + glides + blanches, nocta + glides + triple + white",
+    "Rare Air": "jordan + rare + air, jordan 4 + rare + air, jordan4 + rare + air, j4 + rare + air, aj4 + rare + air, jordan iv + rare + air, jordan + rareair, jordan 4 + rareair, jordan4 + rareair, j4 + rareair, aj4 + rareair, jordan iv + rareair, jordan + rare, jordan 4 + rare, jordan4 + rare, j4 + rare, aj4 + rare, jordan iv + rare",
     "Air Max 1 Limeade": "air max 1 + limeade, am1 + limeade, air max one + limeade, air max + limeade, air max 1 + limead, air max 1 + powerwall + green, air max 1 + powerwall + vert, air max 1 + pine + green, am1 + pine + green, air max 1 + vert + sapin",
 }
 
