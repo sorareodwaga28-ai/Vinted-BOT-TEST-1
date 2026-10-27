@@ -179,7 +179,7 @@ def main():
     voir_refus = (os.environ.get("IA_VOIR_REFUS") or "0") == "1"                     # refus de l'IA envoyés en gris                                     # vérifications IA max par passage
     print("IA de vision : " + ("active" if ia.dispo() else "pas de clé ANTHROPIC_API_KEY, alertes par le titre seulement"))
     # Méthode de la Fire Red / Vivid Sulfur pour toutes les paires : ressemblance aux photos de référence,
-    # seuil commun (SEUIL, 0.84 par défaut). Le classifieur du calibrage n'est plus utilisé.
+    # seuil propre à chaque paire (entre 0,60 et 1). Le classifieur du calibrage n'est plus utilisé.
     for x in modeles:
         d = Path("references") / pt.slug(x)
         r = charger(d)
@@ -193,7 +193,7 @@ def main():
         if len(r) >= 2:
             m = refs[x] @ refs[x].T
             m.fill_diagonal_(-1)
-            pre_de[x] = round(min(0.84, max(0.60, float(m.max(dim=1).values.min()) - marge)), 3)
+            pre_de[x] = round(min(1.0, max(0.60, float(m.max(dim=1).values.min()) - marge)), 3)
         else:
             pre_de[x] = pre
         p = charger(d / "pas-ca")
