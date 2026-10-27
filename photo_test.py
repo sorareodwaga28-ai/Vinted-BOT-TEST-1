@@ -170,6 +170,13 @@ MOTS = {
 }
 
 
+# Couleurs et mots courants des titres : jamais pris pour une faute de frappe (pink ≠ pine, rose ≠ ...)
+COURANTS = ("pink rose black noir noire white blanc blanche blanche red rouge blue bleu bleue green vert verte "
+            "grey gray gris grise yellow jaune orange purple violet violette brown marron beige cream creme "
+            "gold silver dark light clair fonce fire high mid low retro nike air baskets basket sneakers "
+            "shoes chaussures taille homme femme enfant neuf neuve bon etat")
+bot.VOCAB.update(COURANTS.split())
+
 # Mots connus de toutes les paires : un mot du titre qui est lui-même le mot d'une autre paire
 # (black/blank…) n'est jamais pris pour une faute de frappe (comme dans le bot titre).
 for _g in MOTS.values():

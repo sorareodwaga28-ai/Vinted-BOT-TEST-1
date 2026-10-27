@@ -165,7 +165,7 @@ def main():
             git_sauver()
         post(webhook, {"content": "**Surveillance photo démarrée** : " + ", ".join(
             f"{x} (≤ {pt.PRIX[x]:g} €, seuil {seuil_de[x]:.2f})" for x in modeles)
-            + " · photo OU titre · vérification toutes les {pause} s"
+            + f" · photo OU titre · vérification toutes les {pause} s"
             + (f" · rattrapage de {len(rattrapage)} annonce(s) récentes pour " + ", ".join(nouveaux_modeles)
                if rattrapage else "") + "."})
 
@@ -330,12 +330,14 @@ def main():
 
             # Étape 2 : l'IA de vision regarde vraiment les photos
             verdict = None
+            sans_ia = "pas de clé IA"
             jour = time.strftime("%Y-%m-%d")
             if etat.get("ia_jour") != jour:
                 etat["ia_jour"], etat["ia_n"] = jour, 0
             if ia.dispo() and etat["ia_n"] >= ia_jour_max:
                 if not titre_ok:
                     continue      # plafond du jour atteint : plus d'IA, seulement les titres qui nomment la paire
+                sans_ia = f"plafond du jour atteint ({ia_jour_max} vérifications)"
             elif ia.dispo():
                 etat["ia_n"] += 1
                 photos = [im for _, _, u, im in sorted(notes, key=lambda t: urls.index(t[2]) if t[2] in urls else 99)
@@ -346,6 +348,7 @@ def main():
                 if verdict.get("erreur"):
                     if not titre_ok:
                         continue
+                    sans_ia = "erreur : " + str(verdict["erreur"])[:150]
                     verdict = None
                 else:
                     if not titre_ok:     # trouvée par la photo : sert à apprendre le seuil de la paire
@@ -373,11 +376,15 @@ def main():
                       {"name": "Taille · état", "value": it.get("details", "?"), "inline": True}]
             if verdict:
                 champs.insert(1, {"name": "IA", "value": f"OUI à {verdict['confiance']} %", "inline": True})
+            else:   # trouvée par le titre seul : l'IA n'a PAS vérifié les photos
+                champs.append({"name": "IA", "value": f"NON VÉRIFIÉE ({sans_ia}) : regarde les photos avant d'acheter",
+                               "inline": False})
             champs.append({"name": "Titre", "value": "dit le modèle" if titre_ok else "ne le dit pas (trouvée par la photo)", "inline": True})
             champs.append({"name": "Étiquette", "value": statut, "inline": False})
             embeds = [{
-                "title": it["title"][:250], "url": it["url"], "color": 0x2ECC71,
-                "author": {"name": f"{'IA' if verdict else 'Titre'} : {x}"},
+                "title": it["title"][:250], "url": it["url"],
+                "author": {"name": f"IA : {x}" if verdict else f"Titre seul, sans IA : {x}"},
+                "color": 0x2ECC71 if verdict else 0xE67E22,
                 "fields": champs,
                 "image": {"url": it["photo"]},
             }]
