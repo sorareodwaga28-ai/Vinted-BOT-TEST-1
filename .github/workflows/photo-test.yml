@@ -22,6 +22,7 @@ on:
           - "Air Max 1 Limeade"
           - "Sacai Vaporwaffle Villain Red"
           - "Sacai Vaporwaffle Sesame Blue Void"
+          - "SB Pine Green"
       prix_max:
         description: "Prix max en € (vide = le prix de la paire dans le bot, aucun = tous les prix)"
         required: false
