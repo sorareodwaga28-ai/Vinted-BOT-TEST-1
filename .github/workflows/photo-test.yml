@@ -31,6 +31,7 @@ on:
           - "Blank Canvas"
           - "Wet Cement"
           - "Air Max 1 Anniversary Aqua"
+          - "Thunder"
       prix_max:
         description: "Prix max en € (vide = le prix de la paire dans le bot, aucun = tous les prix)"
         required: false
