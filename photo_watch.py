@@ -108,7 +108,7 @@ def main():
     etat = json.loads(ETAT.read_text()) if ETAT.exists() else {"ids": [], "modeles": []}
     vus = set(etat["ids"])
     prix_haut = int(max(pt.PRIX[x] for x in modeles))
-    base, purl = bot.page_url(pt.BASE_URL + f"&price_to={prix_haut}")
+    base, purl = bot.page_url(pt.BASE_URL + "&brand_ids[]=2703" + f"&price_to={prix_haut}")   # marque Jordan seulement
     session = bot.get_session()
 
     def sauver():
