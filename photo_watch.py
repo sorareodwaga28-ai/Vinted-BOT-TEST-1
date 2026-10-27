@@ -204,9 +204,11 @@ def main():
         if etat.setdefault("auto_refs", {}).get(x) != len(r):
             etat["auto_refs"][x] = len(r)
             etat.setdefault("auto", {})[x] = []
+            etat.setdefault("sonde_total", {})[x] = 0     # calibrage à refaire
     base_de = dict(pre_de)
     sonde_ecart = float((os.environ.get("SONDE_ECART") or "0.10").replace(",", "."))   # zone testée sous le seuil
-    sonde_jour_max = int(os.environ.get("SONDE_MAX_JOUR") or 20)                       # tests silencieux max par jour
+    sonde_jour_max = int(os.environ.get("SONDE_PAR_JOUR") or 3)      # tests silencieux max par paire et par jour
+    sonde_total_max = int(os.environ.get("SONDE_TOTAL") or 90)       # tests par paire avant de la dire calibrée
 
     def seuil_auto(x):
         """Seuil appris : la plus basse vraie paire confirmée par l'IA (trouvée par la photo), moins 0,02.
@@ -293,14 +295,25 @@ def main():
         # Tests silencieux : quelques annonces sous le seuil vérifiées par l'IA, rien n'est envoyé si NON
         jour = time.strftime("%Y-%m-%d")
         if etat.get("sonde_jour") != jour:
-            etat["sonde_jour"], etat["sonde_n"] = jour, 0
+            etat["sonde_jour"], etat["sonde_n"] = jour, {}
+        if not isinstance(etat.get("sonde_n"), dict):
+            etat["sonde_n"] = {}
         if ia.dispo() and sondes:
             sondes.sort(key=lambda it: pre_de[it["modele"]] - it["score"])
-            n = max(0, min(3, sonde_jour_max - etat["sonde_n"]))
-            etat["sonde_n"] += min(n, len(sondes))
-            alertes += sondes[:n]
-            if n and sondes:
-                print(f"[auto] {min(n, len(sondes))} test(s) silencieux sous le seuil")
+            pris = 0
+            for it in sondes:
+                x = it["modele"]
+                total = etat.setdefault("sonde_total", {}).get(x, 0)
+                if pris >= 3 or total >= sonde_total_max or etat["sonde_n"].get(x, 0) >= sonde_jour_max:
+                    continue      # paire calibrée (90 tests faits) ou quota du jour atteint
+                etat["sonde_n"][x] = etat["sonde_n"].get(x, 0) + 1
+                etat["sonde_total"][x] = total + 1
+                if total + 1 == sonde_total_max:
+                    print(f"[auto] {x} calibrée : {sonde_total_max} tests faits, seuil {pre_de[x]:.3f}")
+                alertes.append(it)
+                pris += 1
+            if pris:
+                print(f"[auto] {pris} test(s) silencieux sous le seuil")
 
         # 4. Étape 2 : étiquette dans les autres photos, puis envoi
         for it in alertes:
