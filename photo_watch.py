@@ -540,6 +540,39 @@ def main():
             if etat["sonde_total"][x] == sonde_total_max:
                 print(f"[auto] {x} calibrée : {sonde_total_max} tests faits, seuil {pre_de[x]:.3f}")
 
+    # Mesure : score de vraies paires Vinted (fichier mesure.txt, une ligne « Paire | URL »).
+    # Résultats dans photo_seen.json → "mesures". Sert à savoir jusqu'où monter les seuils.
+    f_mesure = Path(__file__).with_name("mesure.txt")
+    if f_mesure.exists():
+        faites = etat.setdefault("mesures", {})
+        for ligne in f_mesure.read_text().splitlines():
+            if "|" not in ligne:
+                continue
+            x, url = (t.strip() for t in ligne.split("|", 1))
+            url = url.split("?")[0]
+            if x not in refs or url in faites:
+                continue
+            try:
+                page = session.get(url, timeout=30).text
+                m = re.search(r'<meta[^>]+property="og:image"[^>]+content="([^"]+)"', page) or \
+                    re.search(r'content="([^"]+)"[^>]+property="og:image"', page)
+                premiere = m.group(1).replace("&amp;", "&") if m else None
+                urls = pt.photos_annonce(session, {"id": url, "url": url, "photo": premiere}) if premiere else []
+                urls = urls or ([premiere] if premiere else [])
+                scores = []
+                for u in urls[:8]:
+                    im = Image.open(io.BytesIO(session.get(u, timeout=20).content)).convert("RGB")
+                    scores.append(round(float((emb([im]) @ refs[x].T).max()), 3))
+                faites[url] = {"paire": x, "seuil": pre_de[x], "photo1": scores[0] if scores else None,
+                               "toutes": scores}
+                print(f"[mesure] {x} {url} : {faites[url]}")
+            except Exception as ex:
+                faites[url] = {"paire": x, "erreur": str(ex)[:200]}
+                print(f"[mesure] {x} {url} : erreur {ex}")
+        sauver()
+        if git_auto:
+            git_sauver()
+
     if rattrapage:
         try:
             passage(rattrapage, [x for x in nouveaux_modeles if x in refs])
