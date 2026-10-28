@@ -327,11 +327,43 @@ def main():
                 return True
         return False
 
+    # Récap du soir (21h, heure de Paris) : compteurs de la journée dans photo_seen.json → "recap"
+    def rec(x=None):
+        jour = datetime.now(paris).strftime("%Y-%m-%d")
+        r = etat.get("recap")
+        if not r or r.get("jour") != jour:
+            r = etat["recap"] = {"jour": jour, "annonces": 0, "candidates": 0, "loupees": 0,
+                                 "vert": 0, "bleu": 0, "orange": 0, "calib": 0, "paires": {}}
+        if x:
+            return r["paires"].setdefault(x, {"ia": 0, "oui": 0, "non": 0, "incertain": 0, "loupees": 0})
+        return r
+
+    def recap():
+        r = rec()
+        if datetime.now(paris).hour < 21 or etat.get("recap_envoye") == r["jour"]:
+            return
+        lignes = [f"**Récap surveillance photo (IA)** du {r['jour']}",
+                  f"Annonces regardées : {r['annonces']} · ressemblantes (photo ou titre) : {r['candidates']}",
+                  f"Alertes : {r['vert']} vertes (IA OUI) · {r['bleu']} bleues (titre exact) · {r['orange']} oranges (titre, sans IA)",
+                  f"IA : {etat.get('ia_n', 0)}/{ia_jour_max} vérifications (dont {r['calib']} de calibrage)",
+                  f"**Loupées** (ressemblantes mais pas vérifiées : nuit, budget atteint ou trop d'un coup) : {r['loupees']}"]
+        for x in sorted(r["paires"], key=lambda k: -r["paires"][k]["ia"] - r["paires"][k]["loupees"]):
+            v = r["paires"][x]
+            lignes.append(f"- {x} : {v['ia']} vérifiées ({v['oui']} OUI, {v['non']} NON, {v['incertain']} incertain)"
+                          + (f", {v['loupees']} loupées" if v["loupees"] else "") + f" · seuil {pre_de.get(x, 0):.2f}")
+        if not r["paires"]:
+            lignes.append("Aucune annonce ressemblante aujourd'hui.")
+        texte = "\n".join(lignes)
+        for i in range(0, len(texte), 1900):
+            post(webhook, {"content": texte[i:i + 1900]})
+        etat["recap_envoye"] = r["jour"]
+
     def passage(items=None, mods=None):
         if items is None:
             items = nouvelles(premier=False)
         mods = [x for x in (mods or modeles) if x in refs]
         print(f"{time.strftime('%H:%M:%S')} : {len(items)} annonce(s) à juger ({', '.join(mods)})")
+        rec()["annonces"] += len(items)
         if not items or not mods:
             return
         # 3. Étape 1 (gratuite) : présélection par la photo ou par le titre, dans le prix
@@ -360,8 +392,13 @@ def main():
                 it["modele"], it["score"] = meilleur[:2]
                 alertes.append(it)
         alertes.sort(key=lambda it: (titre_dit(it, it["modele"]), it["score"]), reverse=True)
+        rec()["candidates"] += len(alertes)
         if len(alertes) > ia_max:
             print(f"{len(alertes) - ia_max} candidate(s) au-delà de {ia_max} non vérifiées ce passage")
+            for it in alertes[ia_max:]:
+                if not titre_dit(it, it["modele"]):
+                    rec()["loupees"] += 1
+                    rec(it["modele"])["loupees"] += 1
             alertes = alertes[:ia_max]
         print(f"{len(alertes)} candidate(s) à vérifier")
         # 4. Étape 2 : étiquette dans les autres photos, puis envoi
@@ -404,6 +441,8 @@ def main():
                 sans_ia = "titre exact : pas besoin d'IA"     # le titre dit exactement le nom de la paire
             elif ia.dispo() and not ia_ok:
                 if not titre_ok:
+                    rec()["loupees"] += 1
+                    rec(x)["loupees"] += 1
                     continue      # nuit ou budget de l'heure atteint : seulement les titres qui nomment la paire
                 sans_ia = ia_pourquoi
             elif ia.dispo():
@@ -413,6 +452,11 @@ def main():
                 voisins = [m for m in pt.PRIX if m != x][:6]
                 verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos, eti_img, it.get("title", ""), [pt.nom(m) for m in voisins])
                 print(f"IA {it['id']} {x} : {verdict}")
+                if not verdict.get("erreur"):
+                    rp = rec(x)
+                    rp["ia"] += 1
+                    ok = verdict["verdict"] == "oui" and verdict["confiance"] >= conf_min
+                    rp["oui" if ok else ("non" if verdict["verdict"] == "non" else "incertain")] += 1
                 if verdict.get("erreur"):
                     if not titre_ok:
                         continue
@@ -468,6 +512,7 @@ def main():
                 embeds.append({"url": it["url"] + "#etiquette", "title": "Étiquette",
                                "color": 0x2ECC71, "image": {"url": eti_url}})
             post(webhook, {"embeds": embeds})
+            rec()["vert" if verdict else ("bleu" if sans_ia.startswith("titre exact") else "orange")] += 1
 
     # Calibrage sans prix : une recherche Jordan SANS prix max, de temps en temps. Les annonces juste sous
     # le seuil d'une paire sont vérifiées en silence par l'IA pour apprendre son seuil. Jamais d'alerte ici.
@@ -536,6 +581,7 @@ def main():
             verdict = ia.verifier(pt.nom(x), pt.CODES.get(x, []), refs_img[x], photos, None, it.get("title", ""),
                                   [pt.nom(m) for m in pt.PRIX if m != x][:6])
             print(f"[calib] {it['id']} {x} score {s:.3f} ({it.get('price')}) : {verdict}")
+            rec()["calib"] += 1
             if not verdict.get("erreur"):
                 apprendre(x, s, verdict)
             if etat["sonde_total"][x] == sonde_total_max:
@@ -596,6 +642,10 @@ def main():
                 calibrer()
             except Exception as e:
                 print(f"::warning::Erreur pendant le calibrage : {str(e)[:300]}")
+        try:
+            recap()
+        except Exception as e:
+            print(f"::warning::Erreur pendant le récap : {str(e)[:300]}")
         sauver()
         nb_passages += 1
         if git_auto and time.time() - dernier_git > 300:
