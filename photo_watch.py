@@ -83,6 +83,52 @@ def git_sauver():
     print("::warning::sauvegarde impossible après 5 essais")
 
 
+ALERTES = Path(__file__).with_name("alertes.json")
+
+
+def publier_alerte(alerte):
+    """Ajoute l'alerte en tête de alertes.json et l'envoie tout de suite sur GitHub (lu par l'onglet COP sneakers)."""
+    import subprocess as sp
+    if os.environ.get("GIT_SAVE") != "1":
+        return
+    def run(*cmd):
+        return sp.run(list(cmd), capture_output=True, text=True, cwd=ALERTES.parent).returncode
+    for essai in range(4):
+        run("git", "fetch", "-q", "origin", "main")
+        run("git", "reset", "-q", "--hard", "origin/main")
+        try:
+            liste = json.loads(ALERTES.read_text()) if ALERTES.exists() else []
+        except ValueError:
+            liste = []
+        if not any(a.get("id") == alerte["id"] for a in liste):
+            liste.insert(0, alerte)
+        ALERTES.write_text(json.dumps(liste[:300], ensure_ascii=False, indent=1))
+        run("git", "add", ALERTES.name)
+        run("git", "commit", "-q", "-m", f"COP sneakers : {alerte['paire']} {alerte['prix']}")
+        if run("git", "push", "-q", "origin", "HEAD:main") == 0:
+            print(f"::notice::alerte publiée pour le site ({alerte['paire']})")
+            sauver_local()
+            return
+        time.sleep(2)
+    print("::warning::alerte non publiée pour le site après 4 essais")
+
+
+SAUVER_LOCAL = []
+
+
+def sauver_local():
+    """Après un reset git, réécrit l'état courant (photo_seen.json) qui vient d'être remplacé par celui du repo."""
+    for f in SAUVER_LOCAL:
+        f()
+
+
+def famille(x):
+    for f in ("Air Max 1", "Sacai", "Nocta", "Jordan 1"):
+        if x.startswith(f):
+            return f
+    return "Jordan 4"
+
+
 def main():
     m = re.search(r"https://(?:\w+\.)?discord(?:app)?\.com/api/webhooks/[\w/-]+",
                   os.environ.get("DISCORD_WEBHOOK", ""))
@@ -138,6 +184,7 @@ def main():
     def sauver():
         etat["modeles"] = sorted(set(etat["modeles"]) | set(modeles))
         ETAT.write_text(json.dumps(etat))
+    SAUVER_LOCAL.append(sauver)
 
     def nouvelles(premier, toutes=False):
         """toutes=True : relit les pages sans sauter le déjà vu (rattrapage d'un nouveau modèle)."""
@@ -547,6 +594,19 @@ def main():
             else:
                 post(webhook, {"embeds": embeds})
             rec()["vert" if verdict else ("bleu" if sans_ia.startswith("titre exact") else "orange")] += 1
+            try:      # même alerte pour l'onglet COP sneakers du site
+                taille, _, etat_paire = (it.get("details") or "?").partition(" · ")
+                publier_alerte({
+                    "id": str(it["id"]), "date": datetime.now(paris).isoformat(timespec="seconds"),
+                    "type": "vert" if verdict else ("bleu" if sans_ia.startswith("titre exact") else "orange"),
+                    "paire": x, "famille": famille(x), "titre": it.get("title", ""), "prix": it.get("price"),
+                    "taille": taille.strip() or "?", "etat": etat_paire.strip() or "?", "url": it["url"],
+                    "photos": (urls or [it["photo"]])[:20], "etiquette": eti_url,
+                    "ia": ({"verdict": verdict["verdict"], "confiance": verdict["confiance"]} if verdict else None),
+                    "ressemblance": round(float(it.get("score") or 0), 3), "seuil": pre_de.get(x),
+                    "titre_dit": bool(titre_ok), "vendeur": pt.vendeur(it["id"])})
+            except Exception as ex:
+                print(f"::warning::alerte non publiée pour le site : {str(ex)[:200]}")
 
     # Calibrage sans prix : une recherche Jordan SANS prix max, de temps en temps. Les annonces juste sous
     # le seuil d'une paire sont vérifiées en silence par l'IA pour apprendre son seuil. Jamais d'alerte ici.

@@ -227,6 +227,22 @@ def jeton(url):
     return m.group(1) if m else url
 
 
+PAGES = {}     # dernières pages d'annonce lues (id -> texte)
+
+
+def vendeur(item_id):
+    """Pseudo, nombre d'avis et note (sur 5) du vendeur, lus dans la page de l'annonce déjà ouverte."""
+    full = PAGES.get(str(item_id)) or ""
+    def cherche(cle, motif):
+        m = re.search(r'\\?"' + cle + r'\\?"\s*:\s*\\?"?(' + motif + ')', full)
+        return m.group(1) if m else None
+    rep = cherche("feedback_reputation", r"[0-9.]+")
+    nb = cherche("feedback_count", r"\d+")
+    login = cherche("login", r"[^\"\\]+")
+    return {"pseudo": login, "avis": int(nb) if nb else None,
+            "etoiles": round(float(rep) * 5, 1) if rep else None}
+
+
 def photos_annonce(session, item):
     """Toutes les photos d'une annonce (on ouvre sa page). Liste vide si échec."""
     r = session.get(item["url"], timeout=30)
@@ -241,6 +257,9 @@ def photos_annonce(session, item):
                 full += arr[1]
         except ValueError:
             pass
+    PAGES[str(item["id"])] = full          # gardée pour lire le vendeur (onglet COP sneakers)
+    while len(PAGES) > 50:
+        PAGES.pop(next(iter(PAGES)))
     cible = jeton(item["photo"])
     dec = json.JSONDecoder()
     for m in re.finditer(r'"photos":\[', full):
