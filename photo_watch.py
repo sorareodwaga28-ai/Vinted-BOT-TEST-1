@@ -22,6 +22,8 @@ import re
 import sys
 import time
 from pathlib import Path
+from zoneinfo import ZoneInfo
+from datetime import datetime
 
 import open_clip
 import requests
@@ -201,7 +203,25 @@ def main():
     pre = float((os.environ.get("IA_PRESELECTION") or "0.70").replace(",", "."))   # 1er tri par la photo (gratuit)
     conf_min = int(os.environ.get("IA_CONFIANCE") or 70)
     ia_max = int(os.environ.get("IA_MAX") or 15)
-    ia_jour_max = int(os.environ.get("IA_MAX_JOUR") or 150)                         # appels IA max par jour (coût)
+    ia_jour_max = int(os.environ.get("IA_MAX_JOUR") or 450)                         # appels IA max par jour (coût)
+    h_debut = int(os.environ.get("IA_HEURE_DEBUT") or 9)                             # IA de 9h à 23h (heure de Paris)
+    h_fin = int(os.environ.get("IA_HEURE_FIN") or 23)                                # rien la nuit (23h-9h)
+    paris = ZoneInfo("Europe/Paris")
+
+    def ia_budget():
+        """Budget IA réparti par heure de 9h à 23h (heure de Paris), 0 la nuit. Ce qui n'est pas utilisé
+        dans une heure se reporte sur les suivantes. Renvoie (possible, raison)."""
+        maintenant = datetime.now(paris)
+        jour = maintenant.strftime("%Y-%m-%d")
+        if etat.get("ia_jour") != jour:
+            etat["ia_jour"], etat["ia_n"] = jour, 0
+        h = maintenant.hour
+        if h < h_debut or h >= h_fin:
+            return False, f"nuit : pas d'IA de {h_fin}h à {h_debut}h"
+        permis = min(ia_jour_max, round(ia_jour_max * (h - h_debut + 1) / (h_fin - h_debut)))
+        if etat["ia_n"] >= permis:
+            return False, f"budget IA de l'heure atteint ({etat['ia_n']}/{permis} aujourd'hui)"
+        return True, ""
     marge = float((os.environ.get("MARGE") or "0.05").replace(",", "."))             # marge sous le seuil calculé
     pre_de = {}
     voir_refus = (os.environ.get("IA_VOIR_REFUS") or "0") == "1"                     # refus de l'IA envoyés en gris                                     # vérifications IA max par passage
@@ -262,7 +282,7 @@ def main():
     print("Seuils par paire : " + ", ".join(f"{x} {v:.2f}" for x, v in pre_de.items()))
     relance_manuelle = os.environ.get("GITHUB_ACTOR", "") not in ("", "github-actions[bot]")
     if premier_demarrage or nouveaux_modeles or relance_manuelle:
-        n_jour = etat.get("ia_n", 0) if etat.get("ia_jour") == time.strftime("%Y-%m-%d") else 0
+        n_jour = etat.get("ia_n", 0) if etat.get("ia_jour") == datetime.now(paris).strftime("%Y-%m-%d") else 0
         post(webhook, {"content": "**Surveillance relancée** · IA " + ("active" if ia.dispo() else "INACTIVE (pas de clé)")
                        + f" · {n_jour}/{ia_jour_max} vérifications IA aujourd'hui"
                        + " · paires suivies (seuil) : " + ", ".join(f"{x} ≤ {pt.PRIX[x]:g} € ({v:.2f})" for x, v in pre_de.items())})
@@ -375,15 +395,13 @@ def main():
             # Étape 2 : l'IA de vision regarde vraiment les photos
             verdict = None
             sans_ia = "pas de clé IA"
-            jour = time.strftime("%Y-%m-%d")
-            if etat.get("ia_jour") != jour:
-                etat["ia_jour"], etat["ia_n"] = jour, 0
+            ia_ok, ia_pourquoi = ia_budget()
             if titre_nomme(it, x):
                 sans_ia = "titre exact : pas besoin d'IA"     # le titre dit exactement le nom de la paire
-            elif ia.dispo() and etat["ia_n"] >= ia_jour_max:
+            elif ia.dispo() and not ia_ok:
                 if not titre_ok:
-                    continue      # plafond du jour atteint : plus d'IA, seulement les titres qui nomment la paire
-                sans_ia = f"plafond du jour atteint ({ia_jour_max} vérifications)"
+                    continue      # nuit ou budget de l'heure atteint : seulement les titres qui nomment la paire
+                sans_ia = ia_pourquoi
             elif ia.dispo():
                 etat["ia_n"] += 1
                 photos = [im for _, _, u, im in sorted(notes, key=lambda t: urls.index(t[2]) if t[2] in urls else 99)
@@ -456,12 +474,10 @@ def main():
         jour = time.strftime("%Y-%m-%d")
         if etat.get("sonde_jour") != jour or not isinstance(etat.get("sonde_n"), dict):
             etat["sonde_jour"], etat["sonde_n"] = jour, {}
-        if etat.get("ia_jour") != jour:
-            etat["ia_jour"], etat["ia_n"] = jour, 0
         besoin = [x for x in modeles if x in refs
                   and etat.setdefault("sonde_total", {}).get(x, 0) < sonde_total_max
                   and etat["sonde_n"].get(x, 0) < sonde_jour_max]
-        if not besoin or not ia.dispo() or etat["ia_n"] >= ia_jour_max:
+        if not besoin or not ia.dispo() or not ia_budget()[0]:
             return
         lot = []
         for (base_c, purl_c), xs in recherches_c:
@@ -495,7 +511,8 @@ def main():
                 tests.append((it, choix[0], choix[1]))
         etat["calib_ids"] = etat["calib_ids"][-5000:]
         for it, x, s in sorted(tests, key=lambda t: pre_de[t[1]] - t[2])[:3]:
-            if etat["sonde_n"].get(x, 0) >= sonde_jour_max or etat["sonde_total"].get(x, 0) >= sonde_total_max:
+            if (etat["sonde_n"].get(x, 0) >= sonde_jour_max or etat["sonde_total"].get(x, 0) >= sonde_total_max
+                    or not ia_budget()[0]):
                 continue
             etat["sonde_n"][x] = etat["sonde_n"].get(x, 0) + 1
             etat["sonde_total"][x] = etat["sonde_total"].get(x, 0) + 1

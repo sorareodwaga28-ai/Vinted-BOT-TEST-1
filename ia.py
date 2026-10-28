@@ -1,6 +1,7 @@
 """Vérification d'une annonce par une IA de vision (API Claude).
 
-L'IA reçoit 2 photos de référence de la paire + les photos de l'annonce (et l'étiquette si trouvée),
+L'IA reçoit 2 photos de référence (512 px) + la 1re photo de l'annonce (512 px) = niveau 1,
++ la photo d'étiquette (1024 px) si elle est trouvée = niveau 2,
 et répond : est-ce exactement ce coloris ? Avec la confiance, le code lu sur l'étiquette et une raison.
 
 Variables : ANTHROPIC_API_KEY (secret GitHub), IA_MODELE (défaut claude-haiku-5-5).
@@ -34,8 +35,8 @@ def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=()):
     contenu = [{"type": "text", "text": f"REFERENCE photos of a genuine {modele} (style code {code}):"}]
     contenu += [_img(r, 512) for r in refs[:2]]
     contenu.append({"type": "text", "text": f"PHOTOS from a second-hand listing titled \"{titre}\":"})
-    contenu += [_img(p) for p in photos[:4]]
-    if etiquette is not None:
+    contenu += [_img(p, 512) for p in photos[:1]]      # niveau 1 : la 1re photo de l'annonce, en 512 px
+    if etiquette is not None:                            # niveau 2 : + l'étiquette, en 1024 px pour lire le code
         contenu.append({"type": "text", "text": "Photo that may show the size tag inside the shoe:"})
         contenu.append(_img(etiquette, 1024))
     autres = (" Be careful with look-alikes such as: " + ", ".join(voisins) + ".") if voisins else ""
