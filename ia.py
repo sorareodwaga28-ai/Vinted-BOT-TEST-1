@@ -56,6 +56,9 @@ def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=()):
                   "messages": [{"role": "user", "content": contenu}]})
         if r.status_code != 200:
             return {"erreur": f"HTTP {r.status_code} {r.text[:200]}"}
+        u = r.json().get("usage") or {}
+        conso = {"entree": int(u.get("input_tokens") or 0) + int(u.get("cache_read_input_tokens") or 0)
+                 + int(u.get("cache_creation_input_tokens") or 0), "sortie": int(u.get("output_tokens") or 0)}
         texte = "".join(b.get("text", "") for b in r.json().get("content", []))
         m = re.search(r"\{.*\}", texte, re.S)
         try:
@@ -65,11 +68,11 @@ def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=()):
         if not d:
             # Réponse illisible : on la garde pour comprendre (affichée dans « Pourquoi »)
             print(f"[IA] réponse illisible : {texte[:300]!r} · stop={r.json().get('stop_reason')}")
-            return {"verdict": "incertain", "confiance": 0, "code_lu": "",
+            return {"verdict": "incertain", "confiance": 0, "code_lu": "", "conso": conso,
                     "raison": "réponse IA illisible : " + (texte.strip()[:150] or f"vide (stop={r.json().get('stop_reason')})")}
         v = str(d.get("verdict", "")).lower().strip()
         return {"verdict": v if v in ("oui", "non", "incertain") else "incertain",
                 "confiance": int(float(d.get("confiance") or 0)), "code_lu": str(d.get("code_lu") or "").strip(),
-                "raison": str(d.get("raison") or "").strip()[:200]}
+                "raison": str(d.get("raison") or "").strip()[:200], "conso": conso}
     except Exception as e:
         return {"erreur": str(e)[:200]}

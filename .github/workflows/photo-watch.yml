@@ -8,7 +8,7 @@ on:
       duree:
         description: "Durée du passage en minutes"
         required: false
-        default: "50"
+        default: "330"
 
 concurrency:
   group: photo-watch
@@ -21,7 +21,7 @@ permissions:
 jobs:
   watch:
     runs-on: ubuntu-latest
-    timeout-minutes: 58
+    timeout-minutes: 350
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -56,7 +56,7 @@ jobs:
           PRIX: ${{ vars.PHOTO_PRIX || 'Fire Red=60; Vivid Sulfur=30; Midnight Navy=40; Black Canvas=40; Fear=50; Frozen Moments=60; Air Max 1 Limeade=40; Sacai Vaporwaffle Villain Red=70; Sacai Vaporwaffle Sesame Blue Void=50; SB Pine Green=60; Lightning=50; Craft Photon Dust=60; Jordan 1 High Lost and Found=60; Air Max 1 Watermelon=50; Air Max 1 Safari Cobblestone=40; Blank Canvas=50; Wet Cement=60; Air Max 1 Anniversary Aqua=50; Thunder=60; Nocta Glide White=50; Rare Air=50' }}
           SEUIL: ${{ vars.PHOTO_SEUIL || '0.84' }}
           INTERVALLE: ${{ vars.PHOTO_INTERVALLE || '45' }}
-          DUREE: ${{ inputs.duree || '50' }}
+          DUREE: ${{ inputs.duree || '330' }}
           GIT_SAVE: "1"
         run: |
           set -o pipefail

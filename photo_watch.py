@@ -204,8 +204,11 @@ def main():
     conf_min = int(os.environ.get("IA_CONFIANCE") or 70)
     ia_max = int(os.environ.get("IA_MAX") or 15)
     ia_jour_max = int(os.environ.get("IA_MAX_JOUR") or 450)                         # appels IA max par jour (coût)
-    h_debut = int(os.environ.get("IA_HEURE_DEBUT") or 9)                             # IA de 9h à 23h (heure de Paris)
-    h_fin = int(os.environ.get("IA_HEURE_FIN") or 23)                                # rien la nuit (23h-9h)
+    h_debut = int(os.environ.get("IA_HEURE_DEBUT") or 0)                             # IA 24h/24 par défaut (heure de Paris)
+    h_fin = int(os.environ.get("IA_HEURE_FIN") or 24)
+    prix_entree = float(os.environ.get("IA_PRIX_ENTREE") or 0.10)                    # $ par million de tokens (Haiku 5.5)
+    prix_sortie = float(os.environ.get("IA_PRIX_SORTIE") or 0.50)
+    eur_par_usd = float(os.environ.get("EUR_PAR_USD") or 0.92)
     paris = ZoneInfo("Europe/Paris")
     lissage = (os.environ.get("IA_LISSAGE") or "1") != "0"                         # 0 = pas de lissage à la minute
     mention = (os.environ.get("DISCORD_MENTION") or "").strip()                      # mention sur les alertes vertes
@@ -340,9 +343,25 @@ def main():
         if not r or r.get("jour") != jour:
             r = etat["recap"] = {"jour": jour, "annonces": 0, "candidates": 0, "loupees": 0,
                                  "vert": 0, "bleu": 0, "orange": 0, "calib": 0, "paires": {}}
+        r.setdefault("tok_entree", 0)
+        r.setdefault("tok_sortie", 0)
+        r.setdefault("appels", 0)
         if x:
             return r["paires"].setdefault(x, {"ia": 0, "oui": 0, "non": 0, "incertain": 0, "loupees": 0})
         return r
+
+    def compter(verdict):
+        """Ajoute les tokens d'un appel IA au récap du jour (pour le coût réel)."""
+        c = (verdict or {}).get("conso")
+        if c:
+            r = rec()
+            r["tok_entree"] += c["entree"]
+            r["tok_sortie"] += c["sortie"]
+            r["appels"] += 1
+
+    def cout_centimes(r):
+        usd = r.get("tok_entree", 0) / 1e6 * prix_entree + r.get("tok_sortie", 0) / 1e6 * prix_sortie
+        return usd * eur_par_usd * 100
 
     def recap():
         r = rec()
@@ -350,6 +369,9 @@ def main():
             return
         lignes = [f"**Récap surveillance photo (IA)** du {r['jour']}",
                   f"Annonces regardées : {r['annonces']} · ressemblantes (photo ou titre) : {r['candidates']}",
+                  f"**Coût IA du jour : {cout_centimes(r):.1f} centimes** ({r.get('appels', 0)} vérifications"
+                  + (f", ~{cout_centimes(r) / r['appels']:.3f} centime chacune" if r.get("appels") else "")
+                  + ", de minuit à 21h, estimation d'après les tokens)",
                   f"Alertes : {r['vert']} vertes (IA OUI) · {r['bleu']} bleues (titre exact) · {r['orange']} oranges (titre, sans IA)",
                   f"IA : {etat.get('ia_n', 0)}/{ia_jour_max} vérifications (dont {r['calib']} de calibrage)",
                   f"**Loupées** (ressemblantes mais pas vérifiées : nuit, budget atteint ou trop d'un coup) : {r['loupees']}"]
@@ -457,6 +479,7 @@ def main():
                           if u != eti_url][:4] or [Image.open(io.BytesIO(session.get(it["photo"], timeout=20).content)).convert("RGB")]
                 voisins = [m for m in pt.PRIX if m != x][:6]
                 verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos, eti_img, it.get("title", ""), [pt.nom(m) for m in voisins])
+                compter(verdict)
                 print(f"IA {it['id']} {x} : {verdict}")
                 if not verdict.get("erreur"):
                     rp = rec(x)
@@ -590,6 +613,7 @@ def main():
                 continue
             verdict = ia.verifier(pt.nom(x), pt.CODES.get(x, []), refs_img[x], photos, None, it.get("title", ""),
                                   [pt.nom(m) for m in pt.PRIX if m != x][:6])
+            compter(verdict)
             print(f"[calib] {it['id']} {x} score {s:.3f} ({it.get('price')}) : {verdict}")
             rec()["calib"] += 1
             if not verdict.get("erreur"):
