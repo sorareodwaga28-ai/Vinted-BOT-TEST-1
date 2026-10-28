@@ -226,6 +226,7 @@ def main():
         return True, ""
     marge = float((os.environ.get("MARGE") or "0.05").replace(",", "."))             # marge sous le seuil calculé
     pre_de = {}
+    seuil_min = float((os.environ.get("SEUIL_MIN") or "0.72").replace(",", "."))      # seuil photo minimum, toutes paires
     voir_refus = (os.environ.get("IA_VOIR_REFUS") or "0") == "1"                     # refus de l'IA envoyés en gris                                     # vérifications IA max par passage
     print("IA de vision : " + ("active" if ia.dispo() else "pas de clé ANTHROPIC_API_KEY, alertes par le titre seulement"))
     # Méthode de la Fire Red / Vivid Sulfur pour toutes les paires : ressemblance aux photos de référence,
@@ -243,9 +244,9 @@ def main():
         if len(r) >= 2:
             m = refs[x] @ refs[x].T
             m.fill_diagonal_(-1)
-            pre_de[x] = round(min(1.0, max(0.60, float(m.max(dim=1).values.min()) - marge)), 3)
+            pre_de[x] = round(min(1.0, max(seuil_min, float(m.max(dim=1).values.min()) - marge)), 3)
         else:
-            pre_de[x] = pre
+            pre_de[x] = max(pre, seuil_min)
         p = charger(d / "pas-ca")
         pieges[x] = emb(p) if p else None
         e = charger(d / "etiquette")
@@ -268,7 +269,7 @@ def main():
             return base_de[x]
         bas = min(oui) - 0.02
         if bas < base_de[x] or len(oui) >= 3:
-            return round(min(1.0, max(0.60, bas)), 3)
+            return round(min(1.0, max(seuil_min, bas)), 3)
         return base_de[x]
 
     def apprendre(x, score, verdict):
