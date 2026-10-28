@@ -303,12 +303,15 @@ def main():
     def titre_dit(it, x):
         return bot.matches_required(it, [g.strip() for g in pt.MOTS.get(x, "").split(",") if g.strip()])
 
-    GENERIQUES = set("jordan air max nike 1 4 sb high and sacai vaporwaffle".split()) | (set(pt.COURANTS.split()) - {"fire"})
+    # « aqua » seul est trop courant (plein d'Air Max 1 aqua, contrefaçons) : l'alerte bleue sans IA exige « anniversary »
+    GENERIQUES = set("jordan air max nike 1 4 sb high and sacai vaporwaffle aqua".split()) | (set(pt.COURANTS.split()) - {"fire"})
+    SYNONYMES = {"anniversary": {"anniversaire"}}
 
     def titre_nomme(it, x):
         """Titre exact ET qui contient le vrai nom du coloris (thunder, pine, fire, limeade…), pas seulement des
         couleurs (« noir + jaune ») : dans ce cas, pas besoin de l'IA."""
         nom_mots = set(bot.tokens(x)) - GENERIQUES
+        nom_mots |= {v for m in list(nom_mots) for v in SYNONYMES.get(m, ())}
         toks = bot.tokens(it.get("title"))
         txt = " " + " ".join(toks) + " "
         for g in pt.MOTS.get(x, "").split(","):
