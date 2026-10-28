@@ -262,6 +262,7 @@ def main():
             etat["auto_refs"][x] = len(r)
             etat.setdefault("auto", {})[x] = []
             etat.setdefault("sonde_total", {})[x] = 0     # calibrage à refaire
+    pre_de = {x: seuil_min for x in pre_de}     # décision du 28/10 : toutes les paires partent du plancher (0,72)
     base_de = dict(pre_de)
     sonde_ecart = float((os.environ.get("SONDE_ECART") or "0.10").replace(",", "."))   # zone testée sous le seuil
     sonde_jour_max = int(os.environ.get("SONDE_PAR_JOUR") or 3)      # tests silencieux max par paire et par jour
@@ -557,6 +558,7 @@ def main():
         if etat.get("sonde_jour") != jour or not isinstance(etat.get("sonde_n"), dict):
             etat["sonde_jour"], etat["sonde_n"] = jour, {}
         besoin = [x for x in modeles if x in refs
+                  and pre_de[x] > seuil_min      # au plancher, le calibrage ne peut rien faire descendre
                   and etat.setdefault("sonde_total", {}).get(x, 0) < sonde_total_max
                   and etat["sonde_n"].get(x, 0) < sonde_jour_max]
         if not besoin or not ia.dispo() or not ia_budget()[0]:
