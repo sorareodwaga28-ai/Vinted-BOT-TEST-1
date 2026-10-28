@@ -207,6 +207,8 @@ def main():
     h_debut = int(os.environ.get("IA_HEURE_DEBUT") or 9)                             # IA de 9h à 23h (heure de Paris)
     h_fin = int(os.environ.get("IA_HEURE_FIN") or 23)                                # rien la nuit (23h-9h)
     paris = ZoneInfo("Europe/Paris")
+    lissage = (os.environ.get("IA_LISSAGE") or "1") != "0"                         # 0 = pas de lissage à la minute
+    mention = (os.environ.get("DISCORD_MENTION") or "").strip()                      # mention sur les alertes vertes
 
     def ia_budget():
         """Budget IA réparti par heure de 9h à 23h (heure de Paris), 0 la nuit. Ce qui n'est pas utilisé
@@ -220,7 +222,8 @@ def main():
             return False, f"nuit : pas d'IA de {h_fin}h à {h_debut}h"
         # Lissé à la minute : le budget se remplit en continu (~1 toutes les 2 min), le non-utilisé se reporte
         minutes = (h - h_debut) * 60 + maintenant.minute + 1
-        permis = min(ia_jour_max, int(ia_jour_max * minutes / ((h_fin - h_debut) * 60)) + 1)
+        permis = (min(ia_jour_max, int(ia_jour_max * minutes / ((h_fin - h_debut) * 60)) + 1)
+                  if lissage else ia_jour_max)
         if etat["ia_n"] >= permis:
             return False, f"budget IA du moment atteint ({etat['ia_n']}/{permis} aujourd'hui)"
         return True, ""
@@ -463,7 +466,7 @@ def main():
                     sans_ia = "erreur : " + str(verdict["erreur"])[:150]
                     verdict = None
                 else:
-                    if not titre_ok:     # trouvée par la photo : sert à apprendre le seuil de la paire
+                    if it.get("score", 0) > 0:     # tous les verdicts IA servent à apprendre le seuil de la paire
                         apprendre(x, it["score"], verdict)
                     if it.get("sonde") and (verdict["verdict"] != "oui" or verdict["confiance"] < conf_min):
                         continue         # test silencieux refusé : rien sur Discord
@@ -511,7 +514,11 @@ def main():
             if eti_url:
                 embeds.append({"url": it["url"] + "#etiquette", "title": "Étiquette",
                                "color": 0x2ECC71, "image": {"url": eti_url}})
-            post(webhook, {"embeds": embeds})
+            if verdict and mention:      # vraie alerte vérifiée par l'IA : notification Discord
+                post(webhook, {"content": f"{mention} {x} à {it['price']}", "embeds": embeds,
+                               "allowed_mentions": {"parse": ["everyone", "users", "roles"]}})
+            else:
+                post(webhook, {"embeds": embeds})
             rec()["vert" if verdict else ("bleu" if sans_ia.startswith("titre exact") else "orange")] += 1
 
     # Calibrage sans prix : une recherche Jordan SANS prix max, de temps en temps. Les annonces juste sous
