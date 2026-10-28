@@ -11,7 +11,7 @@ Réglages (variables d'environnement) :
   PRIX      prix max propres à la surveillance, ex. "Vivid Sulfur=30; Fire Red=60"
             (sinon le prix du bot)
   PAGES     pages max lues par passage (défaut 3) ; on s'arrête dès qu'on retombe sur du déjà vu
-  INTERVALLE secondes entre deux vérifications (défaut 90)
+  INTERVALLE secondes entre deux vérifications (défaut 45 via le workflow)
   DUREE     minutes de surveillance continue (défaut 0 = un seul passage)
   GIT_SAVE  1 = enregistrer photo_seen.json dans le repo toutes les 5 min
 """
