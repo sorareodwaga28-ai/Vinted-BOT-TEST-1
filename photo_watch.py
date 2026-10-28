@@ -218,9 +218,11 @@ def main():
         h = maintenant.hour
         if h < h_debut or h >= h_fin:
             return False, f"nuit : pas d'IA de {h_fin}h à {h_debut}h"
-        permis = min(ia_jour_max, round(ia_jour_max * (h - h_debut + 1) / (h_fin - h_debut)))
+        # Lissé à la minute : le budget se remplit en continu (~1 toutes les 2 min), le non-utilisé se reporte
+        minutes = (h - h_debut) * 60 + maintenant.minute + 1
+        permis = min(ia_jour_max, int(ia_jour_max * minutes / ((h_fin - h_debut) * 60)) + 1)
         if etat["ia_n"] >= permis:
-            return False, f"budget IA de l'heure atteint ({etat['ia_n']}/{permis} aujourd'hui)"
+            return False, f"budget IA du moment atteint ({etat['ia_n']}/{permis} aujourd'hui)"
         return True, ""
     marge = float((os.environ.get("MARGE") or "0.05").replace(",", "."))             # marge sous le seuil calculé
     pre_de = {}
@@ -280,6 +282,7 @@ def main():
     for x in pre_de:
         pre_de[x] = seuil_auto(x)
     print("Seuils par paire : " + ", ".join(f"{x} {v:.2f}" for x, v in pre_de.items()))
+    etat["seuils"] = {x: {"depart": base_de[x], "actuel": pre_de[x]} for x in pre_de}   # lisible dans photo_seen.json
     relance_manuelle = os.environ.get("GITHUB_ACTOR", "") not in ("", "github-actions[bot]")
     if premier_demarrage or nouveaux_modeles or relance_manuelle:
         n_jour = etat.get("ia_n", 0) if etat.get("ia_jour") == datetime.now(paris).strftime("%Y-%m-%d") else 0
