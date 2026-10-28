@@ -162,6 +162,23 @@ def matches_required(item, groups):
     return any(all(has_term(toks, t) for t in g.split("+")) for g in groups)
 
 
+SITE = []     # alertes envoyées pendant ce passage, ajoutées à alertes.json (onglet COP sneakers du site)
+FAMILLES = ["Air Max 1", "Jordan 4", "Jordan 1", "Sacai", "Nocta", "NB 2002R", "Hot Step"]
+
+
+def pour_site(item):
+    nom = re.sub(r"\s*\d+\s*€\s*$", "", item.get("search", "")).strip()
+    fam = next((f for f in FAMILLES if f.lower() in nom.lower()), "Autre")
+    if "patta" in nom.lower():
+        fam = "Air Max 1"
+    taille, _, etat = (item.get("details") or "?").partition(" · ")
+    SITE.append({"id": str(item.get("id")), "date": datetime.now(TZ).isoformat(timespec="seconds"), "type": "titre",
+                 "paire": nom or "?", "famille": fam, "titre": item.get("title", ""), "prix": item.get("price"),
+                 "taille": taille.strip() or "?", "etat": etat.strip() or "?", "url": item.get("url"),
+                 "photos": [item["photo"]] if item.get("photo") else [], "etiquette": None, "ia": None,
+                 "ressemblance": None, "seuil": None, "titre_dit": True, "vendeur": None})
+
+
 def send_discord(webhook, item):
     photo = item.get("photo")
     embed = {
@@ -416,6 +433,10 @@ def main():
                 continue
             item["search"] = name
             send_discord(webhook, item)
+            try:
+                pour_site(item)
+            except Exception as e:
+                print(f"alerte non préparée pour le site : {e}")
             sent += 1
             d = stats["day"].setdefault(name, {})
             d["alerts"] = d.get("alerts", 0) + 1
@@ -447,6 +468,8 @@ def main():
         stats["day"] = {}
         print("Récap du jour envoyé.")
     STATS_FILE.write_text(json.dumps(stats))
+    if SITE:
+        Path("/tmp/alertes_titre.json").write_text(json.dumps(SITE, ensure_ascii=False))
 
     state["alertes"] = state["alertes"] + new_ids
     state.pop("ids", None)

@@ -52,6 +52,16 @@ jobs:
           json.dump({"alertes": alertes, "searches": searches, "max_id": max_id}, open("seen.json", "w"))
           EOF
             [ -f /tmp/stats.json ] && cp /tmp/stats.json stats.json
+            if [ -f /tmp/alertes_titre.json ]; then
+              python - <<'EOF'
+          import json, os
+          liste = json.load(open("alertes.json")) if os.path.exists("alertes.json") else []
+          ids = {a.get("id") for a in liste}
+          nouv = [a for a in json.load(open("/tmp/alertes_titre.json")) if a["id"] not in ids]
+          json.dump((nouv[::-1] + liste)[:300], open("alertes.json", "w"), ensure_ascii=False, indent=1)
+          EOF
+              git add alertes.json
+            fi
             git add seen.json
             [ -f stats.json ] && git add stats.json
             git diff --cached --quiet && exit 0
