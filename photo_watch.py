@@ -286,6 +286,8 @@ def main():
         txt = " " + " ".join(toks) + " "
         for g in pt.MOTS.get(x, "").split(","):
             mots = [bot.tokens(m) for m in g.split("+") if bot.tokens(m)]
+            if mots and mots[0] == ["jordan"]:
+                continue      # « jordan + pine » peut être une autre Jordan (Legacy 312…) : seulement via l'IA
             if (mots and any(set(m) & nom_mots for m in mots)
                     and all(f" {' '.join(m)} " in txt or ("".join(m) in toks) for m in mots)):
                 return True
