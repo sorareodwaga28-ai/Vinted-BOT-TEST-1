@@ -34,10 +34,17 @@ AUTRES_JORDAN_1 = ("jordan 3", "jordan 4", "jordan 5", "jordan 6", "jordan 11", 
                    "aj3", "aj11", "low", "mid")
 
 
+# Autres coloris qui contiennent le nom d'une paire suivie (ex. « White Thunder » ≠ Thunder) : refusés pour cette paire
+AUTRES_COLORIS = {"Thunder": ("white thunder", "thunder white", "blanc thunder", "thunder blanc", "thunder blanche",
+                              "orange thunder", "fq8138")}
+
+
 def autre_marque(titre, modele=""):
     """Le titre nomme une autre marque ou un autre modèle de basket que celui de la paire suivie
     (par défaut : une Jordan 4)."""
     t = norm_titre(titre)
+    if any(f" {m} " in t for m in AUTRES_COLORIS.get(modele, ())):
+        return True
     if " nocta " in norm_titre(modele):      # Nocta Glide : refuse les autres modèles Nocta et la Glide noire/verte
         return (any(f" {m} " in t for m in MARQUES)
                 or any(f" {m} " in t for m in AUTRES_NOCTA))
