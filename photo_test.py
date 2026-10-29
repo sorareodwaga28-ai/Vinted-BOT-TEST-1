@@ -56,7 +56,7 @@ COLORIS = {
     "Blank Canvas": "Air Jordan 4 Blank Canvas sneakers, all sail cream canvas with frayed edges, small blue and red accents on the outsole",
     "Wet Cement": "Air Jordan 4 Wet Cement sneakers, all smoke grey nubuck and suede with dark iron grey midsole and sole, tonal grey",
     "Air Max 1 Anniversary Aqua": "Nike Air Max 1 Anniversary Aqua sneakers, white mesh and light grey suede with turquoise aqua mudguard and swoosh, purple accents",
-    "Thunder": "Air Jordan 4 Thunder sneakers, black nubuck with bright tour yellow eyelets, mesh and midsole, black sole",
+    "Thunder": "Air Jordan 4 Thunder sneakers, black nubuck with tour yellow, red or white eyelets, mesh and midsole accents",
     "Nocta Glide White": "Nike x Nocta Glide sneakers, all white mesh and synthetic with chrome silver oval pods in the sole",
     "Bred Reimagined": "Air Jordan 4 Bred Reimagined sneakers, black tumbled leather upper (not nubuck), cement grey wings, eyelets and midsole, fire red heel lining and outsole, Nike Air logo on heel",
     "Shimmer": "Air Jordan 4 Shimmer sneakers, pale pink-beige suede upper, cream wings and lace, darker orange-brown leather heel and midsole panel, white midsole, translucent orange-pink outsole",
@@ -71,7 +71,7 @@ PRIX = {"Vivid Sulfur": 30, "Fire Red": 60, "Infrared": 40, "Black Canvas": 40,
         "Air Max 1 Limeade": 40, "Sacai Vaporwaffle Villain Red": 70, "Sacai Vaporwaffle Sesame Blue Void": 50, "SB Pine Green": 60, "Lightning": 50, "Craft Photon Dust": 60, "Jordan 1 High Lost and Found": 60, "Air Max 1 Watermelon": 50, "Air Max 1 Safari Cobblestone": 40, "Blank Canvas": 50, "Wet Cement": 60, "Air Max 1 Anniversary Aqua": 50, "Thunder": 60, "Nocta Glide White": 50, "Rare Air": 50, "Shimmer": 40, "Bred Reimagined": 40, "Air Max 1 Curry": 40, "Air Max 1 Patta Waves Noise Aqua": 60}
 
 # Code produit imprimé sur l'étiquette intérieure (doit correspondre exactement).
-CODES = {"Vivid Sulfur": ["AQ9129-101"], "Fire Red": ["DC7770-160"], "Midnight Navy": ["DH6927-140"], "Black Canvas": ["DH7138-006"], "Fear": ["FQ8138-002"], "Frozen Moments": ["AQ9129-001"], "Air Max 1 Limeade": ["CJ0609-300"], "Sacai Vaporwaffle Villain Red": ["DD3035-200"], "Sacai Vaporwaffle Sesame Blue Void": ["DD1875-200"], "SB Pine Green": ["DR5415-103"], "Lightning": ["CT8527-700"], "Craft Photon Dust": ["DV3770-001", "DV2262-021"], "Jordan 1 High Lost and Found": ["DZ5485-612"], "Air Max 1 Watermelon": ["AH8145-106"], "Air Max 1 Safari Cobblestone": ["DV3027-001"], "Blank Canvas": ["DQ4909-100"], "Wet Cement": ["FQ7928-001"], "Air Max 1 Anniversary Aqua": ["908375-105"], "Thunder": ["DH6927-017"], "Nocta Glide White": ["DM0879-100"], "Rare Air": ["FV5029-003"], "Shimmer": ["DJ0675-200"], "Bred Reimagined": ["FV5029-006"], "Air Max 1 Curry": ["908366-700"], "Air Max 1 Patta Waves Noise Aqua": ["DH1348-004"]}
+CODES = {"Vivid Sulfur": ["AQ9129-101"], "Fire Red": ["DC7770-160"], "Midnight Navy": ["DH6927-140"], "Black Canvas": ["DH7138-006"], "Fear": ["FQ8138-002"], "Frozen Moments": ["AQ9129-001"], "Air Max 1 Limeade": ["CJ0609-300"], "Sacai Vaporwaffle Villain Red": ["DD3035-200"], "Sacai Vaporwaffle Sesame Blue Void": ["DD1875-200"], "SB Pine Green": ["DR5415-103"], "Lightning": ["CT8527-700"], "Craft Photon Dust": ["DV3770-001", "DV2262-021"], "Jordan 1 High Lost and Found": ["DZ5485-612"], "Air Max 1 Watermelon": ["AH8145-106"], "Air Max 1 Safari Cobblestone": ["DV3027-001"], "Blank Canvas": ["DQ4909-100"], "Wet Cement": ["FQ7928-001"], "Air Max 1 Anniversary Aqua": ["908375-105"], "Thunder": ["DH6927-017", "CT8527-016", "FQ8138-001"], "Nocta Glide White": ["DM0879-100"], "Rare Air": ["FV5029-003"], "Shimmer": ["DJ0675-200"], "Bred Reimagined": ["FV5029-006"], "Air Max 1 Curry": ["908366-700"], "Air Max 1 Patta Waves Noise Aqua": ["DH1348-004"]}
 
 # Nom complet donné à l'IA de vision, et recherche Vinted de la famille (Jordan 4 par défaut).
 NOMS = {"Air Max 1 Limeade": "Nike Air Max 1 Premium \"Limeade\" (Powerwall, Pine Green)",
@@ -88,7 +88,7 @@ NOMS = {"Air Max 1 Limeade": "Nike Air Max 1 Premium \"Limeade\" (Powerwall, Pin
         "Blank Canvas": "Air Jordan 4 Retro \"Blank Canvas\" (women's, Sail/Sail-Cement Grey-Fire Red, all cream canvas — NOT the Black Canvas)",
         "Wet Cement": "Air Jordan 4 Retro SE \"Wet Cement\" (Smoke Grey/Iron Grey, all grey — NOT White, Black or Fire Red Cement)",
         "Air Max 1 Anniversary Aqua": "Nike Air Max 1 Anniversary \"Aqua\" 2017 (White/Aqua-Neutral Grey-Hyper Grape, turquoise — NOT the red or royal blue Anniversary)",
-        "Thunder": "Air Jordan 4 Retro \"Thunder\" 2023 (Black/White-Tour Yellow, mostly black with yellow — NOT the all-yellow Lightning)",
+        "Thunder": "Air Jordan 4 Retro Thunder family — any of: \"Thunder\" 2023 (black/tour yellow), \"Red Thunder\" (black/crimson red) or \"White Thunder\" (black/white, sail/orange accents). All three count as YES. NOT the all-yellow Lightning, NOT the Bred",
         "Nocta Glide White": "Nike x Nocta Glide \"White Chrome\" (White/White-Chrome, all white — NOT the Black Chrome or Slime Green Glide)",
         "Rare Air": "Air Jordan 4 Retro \"Rare Air\" 2024 (Black/Fire Red-Deep Royal Blue)",
         "Shimmer": "Air Jordan 4 Retro WMNS \"Shimmer\" 2021 (Shimmer/Metallic Silver, pink-beige suede, NOT a custom or the beige Craft)",

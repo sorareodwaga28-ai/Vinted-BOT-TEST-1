@@ -35,8 +35,7 @@ AUTRES_JORDAN_1 = ("jordan 3", "jordan 4", "jordan 5", "jordan 6", "jordan 11", 
 
 
 # Autres coloris qui contiennent le nom d'une paire suivie (ex. « White Thunder » ≠ Thunder) : refusés pour cette paire
-AUTRES_COLORIS = {"Thunder": ("white thunder", "thunder white", "blanc thunder", "thunder blanc", "thunder blanche",
-                              "orange thunder", "fq8138")}
+AUTRES_COLORIS = {}      # la paire « Thunder » couvre la jaune, la Red Thunder et la White Thunder (choix de Bastien)
 
 
 def autre_marque(titre, modele=""):
