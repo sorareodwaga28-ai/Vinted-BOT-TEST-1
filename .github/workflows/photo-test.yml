@@ -34,6 +34,7 @@ on:
           - "Thunder"
           - "Nocta Glide White"
           - "Rare Air"
+          - "Shimmer"
       prix_max:
         description: "Prix max en € (vide = le prix de la paire dans le bot, aucun = tous les prix)"
         required: false
