@@ -179,26 +179,55 @@ def pour_site(item):
                  "ressemblance": None, "seuil": None, "titre_dit": True, "vendeur": None})
 
 
+def lien_achat(item_id):
+    """Page de paiement Vinted de l'annonce (Bastien confirme lui-même le paiement)."""
+    return ("https://www.vinted.fr/transaction/buy/new?source_screen=item&transaction%5Bitem_id%5D="
+            + str(item_id))
+
+
+def boutons(item):
+    """Boutons sous l'alerte : Acheter (page de paiement) + Voir l'annonce."""
+    b = []
+    if item.get("id"):
+        b.append({"type": 2, "style": 5, "label": "Acheter", "url": lien_achat(item["id"])})
+    if item.get("url"):
+        b.append({"type": 2, "style": 5, "label": "Voir l'annonce", "url": item["url"]})
+    return [{"type": 1, "components": b}] if b else []
+
+
+def envoyer(webhook, payload):
+    """Envoie sur Discord avec les boutons ; si Discord les refuse, renvoie sans boutons (l'alerte part quand même)."""
+    url = webhook + ("&" if "?" in webhook else "?") + "with_components=true" if payload.get("components") else webhook
+    for _ in range(2):
+        r = requests.post(url, json=payload, timeout=20)
+        if r.status_code == 429:
+            time.sleep(float(r.json().get("retry_after", 2)))
+            continue
+        if r.status_code >= 400 and payload.get("components"):
+            print(f"::warning::boutons refusés par Discord ({r.status_code}) : {r.text[:200]}")
+            payload = {k: v for k, v in payload.items() if k != "components"}
+            url = webhook
+            continue
+        break
+    time.sleep(1)
+
+
 def send_discord(webhook, item):
     photo = item.get("photo")
+    nom = re.sub(r"\s*\d+\s*€\s*$", "", item.get("search", "")).strip() or "Vinted"
     embed = {
-        "title": item.get("title", "Annonce")[:250],
+        "title": nom[:250],
         "url": item.get("url"),
-        "color": 0x007782,
-        "author": {"name": item.get("search", "Vinted")},
+        "color": 0x9B59B6,
+        "author": {"name": "Trouvée par le bot titre (pas de contrôle photo)"},
         "fields": [
             {"name": "Prix", "value": item["price"], "inline": True},
             {"name": "Taille · état", "value": item["details"], "inline": True},
-            {"name": "Marque", "value": item["brand"], "inline": True},
         ],
     }
     if photo:
         embed["image"] = {"url": photo}
-    r = requests.post(webhook, json={"embeds": [embed]}, timeout=20)
-    if r.status_code == 429:
-        time.sleep(float(r.json().get("retry_after", 2)))
-        requests.post(webhook, json={"embeds": [embed]}, timeout=20)
-    time.sleep(1)
+    envoyer(webhook, {"embeds": [embed], "components": boutons(item)})
 
 
 def parse_searches(raw):

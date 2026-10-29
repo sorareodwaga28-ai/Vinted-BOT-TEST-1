@@ -564,20 +564,33 @@ def main():
                 print(f"Sans IA, titre pas exact : {it['id']} « {it.get('title')} » ({x}) non envoyée")
                 continue          # sans IA : seulement si le titre dit exactement la paire (pas de faute tolérée)
 
-            champs = [{"name": "Prix", "value": it["price"], "inline": True},
-                      {"name": "Taille · état", "value": it.get("details", "?"), "inline": True}]
+            bleu = sans_ia.startswith("titre exact")
             if verdict:
-                champs.insert(1, {"name": "IA", "value": f"OUI à {verdict['confiance']} %", "inline": True})
-            else:   # trouvée par le titre seul : l'IA n'a PAS vérifié les photos
-                champs.append({"name": "IA", "value": f"non vérifiée ({sans_ia}) : regarde les photos et l'étiquette",
-                               "inline": False})
-            champs.append({"name": "Titre", "value": "dit le modèle" if titre_ok else "ne le dit pas (trouvée par la photo)", "inline": True})
-            champs.append({"name": "Étiquette", "value": statut, "inline": False})
+                origine = "Trouvée par le bot IA (photos vérifiées)"
+            elif bleu:
+                origine = "Trouvée par le bot titre (titre exact, pas de contrôle IA)"
+            else:
+                origine = f"Trouvée par le bot titre, sans IA ({sans_ia})"
+            vend = pt.vendeur(it["id"]) or {}
+            if vend.get("avis") is not None:
+                avis = f"{vend['avis']} avis" + (f" · {vend['etoiles']}/5" if vend.get("etoiles") is not None else "")
+            else:
+                avis = "?"
+            champs = [{"name": "Prix", "value": it["price"], "inline": True},
+                      {"name": "Taille · état", "value": it.get("details", "?"), "inline": True},
+                      {"name": "Avis vendeur", "value": avis, "inline": True}]
+            if verdict:
+                champs.append({"name": "IA", "value": f"OUI à {verdict['confiance']} % (seuil {conf_min} %)",
+                               "inline": True})
+            else:
+                champs.append({"name": "IA", "value": "non vérifiée : regarde les photos", "inline": True})
+            if it.get("score"):
+                champs.append({"name": "Ressemblance photo",
+                               "value": f"{it['score']:.2f} (seuil {pre_de.get(x, pre):.2f})", "inline": True})
             embeds = [{
-                "title": it["title"][:250], "url": it["url"],
-                "author": {"name": f"IA : {x}" if verdict else
-                           (f"Titre exact : {x}" if sans_ia.startswith("titre exact") else f"Titre seul, sans IA : {x}")},
-                "color": 0x2ECC71 if verdict else (0x3498DB if sans_ia.startswith("titre exact") else 0xE67E22),
+                "title": x, "url": it["url"],
+                "author": {"name": origine},
+                "color": 0x2ECC71 if verdict else (0x3498DB if bleu else 0xE67E22),
                 "fields": champs,
                 "image": {"url": it["photo"]},
             }]
@@ -588,11 +601,13 @@ def main():
             if eti_url:
                 embeds.append({"url": it["url"] + "#etiquette", "title": "Étiquette",
                                "color": 0x2ECC71, "image": {"url": eti_url}})
+            comps = bot.boutons(it)
             if verdict and mention:      # vraie alerte vérifiée par l'IA : notification Discord
-                post(webhook, {"content": f"{mention} {x} à {it['price']}", "embeds": embeds,
-                               "allowed_mentions": {"parse": ["everyone", "users", "roles"]}})
+                bot.envoyer(webhook, {"content": f"{mention} {x} à {it['price']}", "embeds": embeds,
+                                      "components": comps,
+                                      "allowed_mentions": {"parse": ["everyone", "users", "roles"]}})
             else:
-                post(webhook, {"embeds": embeds})
+                bot.envoyer(webhook, {"embeds": embeds, "components": comps})
             rec()["vert" if verdict else ("bleu" if sans_ia.startswith("titre exact") else "orange")] += 1
             try:      # même alerte pour l'onglet COP sneakers du site
                 taille, _, etat_paire = (it.get("details") or "?").partition(" · ")
