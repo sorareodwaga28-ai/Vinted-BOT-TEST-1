@@ -1,5 +1,37 @@
 [
  {
+  "id": "10583854060",
+  "date": "2026-10-29T15:30:10+01:00",
+  "type": "vert",
+  "paire": "Rare Air",
+  "famille": "Jordan 4",
+  "titre": "Jordan numero 40",
+  "prix": "50.00 EUR",
+  "taille": "40",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10583854060-jordan-numero-40",
+  "photos": [
+   "https://images1.vinted.net/t/05_02091_ChVRrxZMsqFZWH6ytNfG8GE9/f800/759c242b.webp?s=2e549ebbdaab91ae9f5630e93e72aa90a2b1c11e",
+   "https://images1.vinted.net/t/05_01c99_5HNQYGKWHQcKnAQbMv8QRMYd/f800/6abe1d7c.webp?s=4c0747af4b67e31b45503e2604f0bdb686b16a5f",
+   "https://images1.vinted.net/t/06_005a3_edUpyXJMCBtHiPhdgsGMhxxn/f800/7cde5d31.webp?s=0edf259f8bab7370456f9d3999b38aa2f43171a6",
+   "https://images1.vinted.net/t/01_0124c_dCDjJmHur4VrMLWoDzyfZ2EY/f800/a260d3f2.webp?s=08e6d76460f45c359c3ecc39b944881c1c28357f",
+   "https://images1.vinted.net/t/06_01e9a_LGSBE9HrJhBL9YUnU9mNSJ2x/f800/cddc796f.webp?s=1ea601e134ef652833e5dac7573bf9d288cfa729"
+  ],
+  "etiquette": "https://images1.vinted.net/t/06_01e9a_LGSBE9HrJhBL9YUnU9mNSJ2x/f800/cddc796f.webp?s=1ea601e134ef652833e5dac7573bf9d288cfa729",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 85
+  },
+  "ressemblance": 0.778,
+  "seuil": 0.72,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "avis": 2,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "9761128992",
   "date": "2026-10-29T14:11:53+01:00",
   "type": "vert",
