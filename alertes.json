@@ -1,5 +1,37 @@
 [
  {
+  "id": "10574134376",
+  "date": "2026-10-29T16:10:03+01:00",
+  "type": "vert",
+  "paire": "Craft Photon Dust",
+  "famille": "Jordan 4",
+  "titre": "Air Jordan 4",
+  "prix": "40.00 EUR",
+  "taille": "38",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10574134376-air-jordan-4",
+  "photos": [
+   "https://images1.vinted.net/t/04_02547_B453ZhN77dLWTudBjKnppJpK/f800/b4f40ac8.webp?s=3b70518bc8e84428b92e51a405a00276b65abcf4",
+   "https://images1.vinted.net/t/06_023b3_224G5iGkkWmRpkGE9CQPjyea/f800/06333f2b.webp?s=fd247fa99bc39d35da91598cb80fde5ce78e2453",
+   "https://images1.vinted.net/t/02_0205f_3mcmsEP6bKr9L46rPTut7NcQ/f800/bbae54d3.webp?s=ac804eeced470f5a82ba6fd07cddcd683cf56ae9",
+   "https://images1.vinted.net/t/05_0221f_SJVWkZkLsPEq9XPDvoMepFdk/f800/8488d510.webp?s=d6c9e8aabe9a1fa2ad2eeb56769d9fed791db0f0",
+   "https://images1.vinted.net/t/06_0115f_WaGKm1jHXr7EEtMNVV6mnpqM/f800/7fcc9530.webp?s=440e1ba0f0d68fde7748a62cf402b502523867d7"
+  ],
+  "etiquette": "https://images1.vinted.net/t/02_0205f_3mcmsEP6bKr9L46rPTut7NcQ/f800/bbae54d3.webp?s=ac804eeced470f5a82ba6fd07cddcd683cf56ae9",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 78
+  },
+  "ressemblance": 0.786,
+  "seuil": 0.72,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "avis": 60,
+   "etoiles": 4.4
+  }
+ },
+ {
   "id": "10583854060",
   "date": "2026-10-29T15:30:10+01:00",
   "type": "vert",
