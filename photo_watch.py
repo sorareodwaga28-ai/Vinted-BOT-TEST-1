@@ -23,7 +23,7 @@ import sys
 import time
 from pathlib import Path
 from zoneinfo import ZoneInfo
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import open_clip
 import requests
@@ -253,6 +253,9 @@ def main():
     ia_jour_max = int(os.environ.get("IA_MAX_JOUR") or 450)                         # appels IA max par jour (coût)
     h_debut = int(os.environ.get("IA_HEURE_DEBUT") or 0)                             # IA 24h/24 par défaut (heure de Paris)
     h_fin = int(os.environ.get("IA_HEURE_FIN") or 24)
+    ia_nuit_max = int(os.environ.get("IA_MAX_NUIT") or 1500)                           # appels réservés à la nuit
+    nuit_debut = int(os.environ.get("IA_NUIT_DEBUT") or 23)                            # nuit de 23h à 9h (heure de Paris)
+    nuit_fin = int(os.environ.get("IA_NUIT_FIN") or 9)
     prix_entree = float(os.environ.get("IA_PRIX_ENTREE") or 0.10)                    # $ par million de tokens (Haiku 5.5)
     prix_sortie = float(os.environ.get("IA_PRIX_SORTIE") or 0.50)
     eur_par_usd = float(os.environ.get("EUR_PAR_USD") or 0.92)
@@ -270,6 +273,20 @@ def main():
         h = maintenant.hour
         if h < h_debut or h >= h_fin:
             return False, f"nuit : pas d'IA de {h_fin}h à {h_debut}h"
+        # Budget de nuit (23h-9h) à part : la nuit ne peut pas manger le budget de la journée, et inversement
+        nuit = h >= nuit_debut or h < nuit_fin
+        if not nuit:
+            cle = "J" + jour
+        elif h >= nuit_debut:
+            cle = "N" + jour
+        else:      # entre minuit et 9h : même nuit que la veille au soir
+            cle = "N" + (maintenant - timedelta(days=1)).strftime("%Y-%m-%d")
+        if etat.get("ia_periode") != cle:
+            premiere = etat.get("ia_periode") is None
+            etat["ia_periode"], etat["ia_np"] = cle, (etat["ia_n"] if premiere and not nuit else 0)
+        limite = ia_nuit_max if nuit else ia_jour_max - ia_nuit_max
+        if etat.get("ia_np", 0) >= limite:
+            return False, ("budget IA de la nuit" if nuit else "budget IA de la journée") + f" atteint ({limite})"
         # Lissé à la minute : le budget se remplit en continu (~1 toutes les 2 min), le non-utilisé se reporte
         minutes = (h - h_debut) * 60 + maintenant.minute + 1
         permis = (min(ia_jour_max, int(ia_jour_max * minutes / ((h_fin - h_debut) * 60)) + 1)
@@ -353,6 +370,7 @@ def main():
         n_jour = etat.get("ia_n", 0) if etat.get("ia_jour") == datetime.now(paris).strftime("%Y-%m-%d") else 0
         post(webhook, {"content": "**Surveillance relancée** · IA " + ("active" if ia.dispo() else "INACTIVE (pas de clé)")
                        + f" · {n_jour}/{ia_jour_max} vérifications IA aujourd'hui"
+                       + f" (nuit 23h-9h : {ia_nuit_max}, journée 9h-23h : {ia_jour_max - ia_nuit_max})"
                        + " · paires suivies (seuil) : " + ", ".join(f"{x} ≤ {pt.PRIX[x]:g} € ({v:.2f})" for x, v in pre_de.items())})
     with torch.no_grad():
         te = model.encode_text(tok(["a close-up photo of the size label tag inside a sneaker, with barcode and small printed text",
@@ -616,6 +634,7 @@ def main():
                 continue          # cette paire a eu sa part d'IA aujourd'hui : on garde le budget pour les autres
             elif ia.dispo():
                 etat["ia_n"] += 1
+                etat["ia_np"] = etat.get("ia_np", 0) + 1
                 photos = [im for _, _, u, im in sorted(notes, key=lambda t: urls.index(t[2]) if t[2] in urls else 99)
                           if u != eti_url][:4] or [Image.open(io.BytesIO(session.get(it["photo"], timeout=20).content)).convert("RGB")]
                 voisins = [m for m in pt.PRIX if m != x][:6]
@@ -772,6 +791,7 @@ def main():
             etat["sonde_n"][x] = etat["sonde_n"].get(x, 0) + 1
             etat["sonde_total"][x] = etat["sonde_total"].get(x, 0) + 1
             etat["ia_n"] += 1
+            etat["ia_np"] = etat.get("ia_np", 0) + 1
             try:
                 urls = pt.photos_annonce(session, it)
             except Exception:
