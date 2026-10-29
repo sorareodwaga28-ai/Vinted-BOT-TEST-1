@@ -280,6 +280,7 @@ def main():
     marge = float((os.environ.get("MARGE") or "0.05").replace(",", "."))             # marge sous le seuil calculé
     pre_de = {}
     seuil_min = float((os.environ.get("SEUIL_MIN") or "0.72").replace(",", "."))      # seuil photo minimum, toutes paires
+    ia_paire_max = int(os.environ.get("IA_MAX_PAIRE_JOUR") or 250)                   # une paire ne vide pas le budget des autres
     voir_refus = (os.environ.get("IA_VOIR_REFUS") or "0") == "1"                     # refus de l'IA envoyés en gris                                     # vérifications IA max par passage
     print("IA de vision : " + ("active" if ia.dispo() else "pas de clé ANTHROPIC_API_KEY, alertes par le titre seulement"))
     # Méthode de la Fire Red / Vivid Sulfur pour toutes les paires : ressemblance aux photos de référence,
@@ -315,16 +316,25 @@ def main():
     sonde_jour_max = int(os.environ.get("SONDE_PAR_JOUR") or 3)      # tests silencieux max par paire et par jour
     sonde_total_max = int(os.environ.get("SONDE_TOTAL") or 90)       # tests par paire avant de la dire calibrée
 
+    non_min = int(os.environ.get("SEUIL_NON_MIN") or 40)                                # NON avant de monter le seuil
+    non_part = float((os.environ.get("SEUIL_NON_PART") or "0.60").replace(",", "."))   # part des NON coupés
+    non_plafond = float((os.environ.get("SEUIL_NON_PLAFOND") or "0.80").replace(",", "."))   # sans OUI connu
+
     def seuil_auto(x):
-        """Seuil appris : la plus basse vraie paire confirmée par l'IA (trouvée par la photo), moins 0,02.
-        Descend dès qu'une vraie est vue plus bas ; ne monte au-dessus du seuil de départ qu'après 3 vraies."""
-        oui = [o["s"] for o in etat.get("auto", {}).get(x, []) if o["v"] == "oui" and o["c"] >= conf_min]
-        if not oui:
-            return base_de[x]
-        bas = min(oui) - 0.02
-        if bas < base_de[x] or len(oui) >= 3:
-            return round(min(1.0, max(seuil_min, bas)), 3)
-        return base_de[x]
+        """Seuil appris. Les OUI : la plus basse vraie paire confirmée, moins 0,02 (jamais au-dessus).
+        Les NON (29/10) : après 40 NON, le seuil monte pour couper les 60 % de NON les moins ressemblants,
+        sans dépasser 0,80 tant qu'aucun OUI n'est connu. Le calibrage silencieux vérifie ensuite juste en dessous."""
+        obs = etat.get("auto", {}).get(x, [])
+        oui = [o["s"] for o in obs if o["v"] == "oui" and o["c"] >= conf_min]
+        non = sorted(o["s"] for o in obs if o["v"] == "non" and o["c"] >= conf_min)
+        s = base_de[x]
+        if oui:
+            bas = min(oui) - 0.02
+            if bas < base_de[x] or len(oui) >= 3:
+                s = bas
+        if len(non) >= non_min:
+            s = max(s, min(non[int(non_part * len(non))], (min(oui) - 0.02) if oui else non_plafond))
+        return round(min(1.0, max(seuil_min, s)), 3)
 
     def apprendre(x, score, verdict):
         obs = etat.setdefault("auto", {}).setdefault(x, [])
@@ -415,6 +425,80 @@ def main():
         usd = r.get("tok_entree", 0) / 1e6 * prix_entree + r.get("tok_sortie", 0) / 1e6 * prix_sortie
         return usd * eur_par_usd * 100
 
+    def envoyer_incertaine(it, x, verdict, urls, eti_url):
+        """L'IA hésite : alerte jaune sur Discord. Bastien dit oui / non / fake, Claude l'écrit dans
+        verdicts/bastien.json, et le bot s'en sert pour son seuil, ses références et ses pièges."""
+        iid = str(it["id"])
+        a = etat.setdefault("a_trancher", {})
+        a[iid] = {"paire": x, "s": round(float(it.get("score") or 0), 3), "photo": it["photo"],
+                  "date": datetime.now(paris).isoformat(timespec="minutes")}
+        for k in list(a)[:-300]:
+            del a[k]
+        rec(x)["envoyees_incertaines"] = rec(x).get("envoyees_incertaines", 0) + 1
+        vend = pt.vendeur(it["id"]) or {}
+        avis = (f"{vend['avis']} avis" + (f" · {vend['etoiles']}/5" if vend.get("etoiles") is not None else "")
+                if vend.get("avis") is not None else "?")
+        champs = [{"name": "Prix", "value": it["price"], "inline": True},
+                  {"name": "Taille · état", "value": it.get("details", "?"), "inline": True},
+                  {"name": "Avis vendeur", "value": avis, "inline": True},
+                  {"name": "IA", "value": f"{verdict['verdict'].upper()} à {verdict['confiance']} % (seuil {conf_min} %)",
+                   "inline": True},
+                  {"name": "Ressemblance photo",
+                   "value": f"{float(it.get('score') or 0):.2f} (seuil {pre_de.get(x, pre):.2f})", "inline": True},
+                  {"name": "Pourquoi", "value": (verdict.get("raison") or "-")[:200], "inline": False}]
+        embeds = [{"title": f"{x} ?", "url": it["url"], "color": 0xF1C40F,
+                   "author": {"name": "IA incertaine : à toi de trancher (oui / non / fake)"},
+                   "fields": champs, "image": {"url": it["photo"]},
+                   "footer": {"text": f"Réf {iid} · dis à Claude « {iid} oui » ou « {iid} non »"}}]
+        for u in [u for u in urls if pt.jeton(u) != pt.jeton(it["photo"])][:2]:
+            embeds.append({"url": it["url"], "image": {"url": u}})
+        if eti_url:
+            embeds.append({"url": it["url"] + "#etiquette", "title": "Étiquette", "color": 0xF1C40F,
+                           "image": {"url": eti_url}})
+        bot.envoyer(webhook, {"embeds": embeds, "components": bot.boutons(it)})
+
+    f_bastien = Path(__file__).parent / "verdicts" / "bastien.json"
+
+    def appliquer_bastien():
+        """Réponses de Bastien aux incertaines (verdicts/bastien.json, {"id": "oui" | "non" | "fake"}).
+        oui -> compte comme un OUI sûr pour le seuil + photo ajoutée aux références de la paire ;
+        non (autre coloris / autre modèle) -> NON sûr + photo ajoutée aux pièges de la paire ;
+        fake (contrefaçon) -> NON sûr seulement (une fausse ressemble à la vraie : pas de piège)."""
+        try:
+            rep_b = json.loads(f_bastien.read_text()) if f_bastien.exists() else {}
+        except ValueError:
+            return
+        faits = etat.setdefault("bastien_faits", [])
+        for iid, v in rep_b.items():
+            iid, v = str(iid), str(v).lower().strip()
+            info = etat.get("a_trancher", {}).get(iid)
+            if iid in faits or not info or v not in ("oui", "non", "fake") or info["paire"] not in refs:
+                continue
+            x = info["paire"]
+            faits.append(iid)
+            if info["s"] > 0:
+                apprendre(x, info["s"], {"verdict": "oui" if v == "oui" else "non", "confiance": 100})
+            if v in ("oui", "non"):
+                try:
+                    im = Image.open(io.BytesIO(session.get(info["photo"], timeout=20).content)).convert("RGB")
+                    f = emb([im])
+                except Exception as ex:
+                    print(f"[bastien] photo {iid} illisible : {ex}")
+                    continue
+                cle = "refs_bastien" if v == "oui" else "pieges_bastien"
+                etat.setdefault(cle, {}).setdefault(x, []).append([round(t, 5) for t in f[0].tolist()])
+                cible = refs if v == "oui" else pieges
+                cible[x] = f if cible.get(x) is None else torch.cat([cible[x], f])
+            print(f"[bastien] {iid} {x} : {v} (seuil {pre_de[x]:.3f})")
+        del faits[:-1000]
+
+    # Réponses déjà données par Bastien les jours précédents : remises en mémoire au démarrage
+    for cle, cible in (("refs_bastien", refs), ("pieges_bastien", pieges)):
+        for x, liste in etat.get(cle, {}).items():
+            if x in refs and liste:
+                t = torch.tensor(liste, dtype=refs[x].dtype)
+                cible[x] = t if cible.get(x) is None else torch.cat([cible[x], t])
+
     def recap():
         r = rec()
         if datetime.now(paris).hour < 21 or etat.get("recap_envoye") == r["jour"]:
@@ -426,11 +510,13 @@ def main():
                   + ", de minuit à 21h, estimation d'après les tokens)",
                   f"Alertes : {r['vert']} vertes (IA OUI) · {r['bleu']} bleues (titre exact) · {r['orange']} oranges (titre, sans IA)",
                   f"IA : {etat.get('ia_n', 0)}/{ia_jour_max} vérifications (dont {r['calib']} de calibrage)",
-                  f"**Loupées** (ressemblantes mais pas vérifiées : nuit, budget atteint ou trop d'un coup) : {r['loupees']}"]
+                  f"**Loupées** (ressemblantes mais pas vérifiées : budget IA du jour atteint, ou plus de {ia_max} d'un coup) : {r['loupees']}"]
         for x in sorted(r["paires"], key=lambda k: -r["paires"][k]["ia"] - r["paires"][k]["loupees"]):
             v = r["paires"][x]
             lignes.append(f"- {x} : {v['ia']} vérifiées ({v['oui']} OUI, {v['non']} NON, {v['incertain']} incertain)"
-                          + (f", {v['loupees']} loupées" if v["loupees"] else "") + f" · seuil {pre_de.get(x, 0):.2f}")
+                          + (f", {v['loupees']} loupées" if v["loupees"] else "")
+                          + (f", {v['plafond']} non vérifiées (plafond {ia_paire_max}/jour)" if v.get("plafond") else "")
+                          + f" · seuil {pre_de.get(x, 0):.2f}")
         if not r["paires"]:
             lignes.append("Aucune annonce ressemblante aujourd'hui.")
         texte = "\n".join(lignes)
@@ -525,6 +611,9 @@ def main():
                     rec(x)["loupees"] += 1
                     continue      # nuit ou budget de l'heure atteint : seulement les titres qui nomment la paire
                 sans_ia = ia_pourquoi
+            elif ia.dispo() and rec(x)["ia"] >= ia_paire_max and not titre_ok:
+                rec(x)["plafond"] = rec(x).get("plafond", 0) + 1
+                continue          # cette paire a eu sa part d'IA aujourd'hui : on garde le budget pour les autres
             elif ia.dispo():
                 etat["ia_n"] += 1
                 photos = [im for _, _, u, im in sorted(notes, key=lambda t: urls.index(t[2]) if t[2] in urls else 99)
@@ -549,6 +638,9 @@ def main():
                     if it.get("sonde") and (verdict["verdict"] != "oui" or verdict["confiance"] < conf_min):
                         continue         # test silencieux refusé : rien sur Discord
                 if verdict and (verdict["verdict"] != "oui" or verdict["confiance"] < conf_min):
+                    if not it.get("sonde") and (verdict["verdict"] == "incertain" or verdict["verdict"] == "oui"):
+                        envoyer_incertaine(it, x, verdict, urls, eti_url)
+                        continue
                     if voir_refus:      # montrer aussi les refus (en gris) pour juger l'IA
                         post(webhook, {"embeds": [{
                             "title": it["title"][:250], "url": it["url"], "color": 0x95A5A6,
@@ -747,6 +839,10 @@ def main():
     dernier_calib = 0
     while True:
         t0 = time.time()
+        try:
+            appliquer_bastien()
+        except Exception as e:
+            print(f"::warning::Erreur réponses de Bastien : {str(e)[:300]}")
         try:
             passage()
         except Exception as e:
