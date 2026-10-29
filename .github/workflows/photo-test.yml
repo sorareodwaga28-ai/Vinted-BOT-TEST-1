@@ -37,6 +37,7 @@ on:
           - "Shimmer"
           - "Bred Reimagined"
           - "Air Max 1 Curry"
+          - "Air Max 1 Patta Waves Noise Aqua"
       prix_max:
         description: "Prix max en € (vide = le prix de la paire dans le bot, aucun = tous les prix)"
         required: false

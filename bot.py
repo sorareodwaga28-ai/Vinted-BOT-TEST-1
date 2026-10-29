@@ -395,7 +395,10 @@ def main():
         suivies = {" ".join(tokens(c)) for c in cles} - {" ".join(tokens(c)) for c in ("Infrared", "Seafoam",
                                                                                      "Canyon Purple", "Craft Olive")}
         avant = len(searches)
-        searches = [x for x in searches if not any(f" {c} " in " " + " ".join(tokens(x[0])) + " " for c in suivies)]
+        def suivie(nom):
+            n = " ".join(t for t in tokens(re.sub(r"\d+\s*€", "", nom)))
+            return any(f" {c} " in f" {n} " or (len(n.split()) >= 2 and f" {n} " in f" {c} ") for c in suivies)
+        searches = [x for x in searches if not suivie(x[0])]
         print(f"[diag] {avant - len(searches)} recherche(s) laissée(s) à la surveillance photo, {len(searches)} gardée(s)")
     except Exception as e:
         print(f"[diag] liste de la surveillance photo illisible : {e}")
