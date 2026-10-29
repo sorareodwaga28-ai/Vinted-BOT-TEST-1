@@ -243,16 +243,37 @@ PAGES = {}     # dernières pages d'annonce lues (id -> texte)
 
 
 def vendeur(item_id):
-    """Pseudo, nombre d'avis et note (sur 5) du vendeur, lus dans la page de l'annonce déjà ouverte."""
+    """Pseudo, id, lien du profil, nombre d'avis et note (sur 5) du vendeur, lus dans la page de
+    l'annonce déjà ouverte. On cherche d'abord le bloc « user » de l'annonce (id + login proches),
+    pour ne pas prendre le pseudo d'un autre membre affiché sur la page."""
     full = PAGES.get(str(item_id)) or ""
-    def cherche(cle, motif):
-        m = re.search(r'\\?"' + cle + r'\\?"\s*:\s*\\?"?(' + motif + ')', full)
+    q = r'\\?"'
+    def cherche(cle, motif, texte):
+        m = re.search(q + cle + q + r'\s*:\s*\\?"?(' + motif + ')', texte)
         return m.group(1) if m else None
-    rep = cherche("feedback_reputation", r"[0-9.]+")
-    nb = cherche("feedback_count", r"\d+")
-    login = cherche("login", r"[^\"\\]+")
-    return {"pseudo": login, "avis": int(nb) if nb else None,
+    bloc, uid = full, None
+    m = re.search(q + "user" + q + r"\s*:\s*\{\s*" + q + "id" + q + r"\s*:\s*(\d+)", full)
+    if m:
+        uid, bloc = m.group(1), full[m.start():m.start() + 4000]
+    else:
+        uid = cherche("user_id", r"\d+", full)
+    rep = cherche("feedback_reputation", r"[0-9.]+", bloc) or cherche("feedback_reputation", r"[0-9.]+", full)
+    nb = cherche("feedback_count", r"\d+", bloc) or cherche("feedback_count", r"\d+", full)
+    login = cherche("login", r'[^"\\]+', bloc) or cherche("login", r'[^"\\]+', full)
+    return {"pseudo": login, "id": uid,
+            "profil": f"https://www.vinted.fr/member/{uid}" if uid else None,
+            "avis": int(nb) if nb else None,
             "etoiles": round(float(rep) * 5, 1) if rep else None}
+
+
+def champ_vendeur(vend):
+    """Texte du champ « Vendeur » des alertes Discord : pseudo cliquable (profil) + avis."""
+    vend = vend or {}
+    nom = vend.get("pseudo") or "profil"
+    lien = f"[{nom}]({vend['profil']})" if vend.get("profil") else (vend.get("pseudo") or "?")
+    if vend.get("avis") is not None:
+        lien += f"\n{vend['avis']} avis" + (f" · {vend['etoiles']}/5" if vend.get("etoiles") is not None else "")
+    return lien
 
 
 def photos_annonce(session, item):
