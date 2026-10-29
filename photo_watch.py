@@ -297,7 +297,7 @@ def main():
     marge = float((os.environ.get("MARGE") or "0.05").replace(",", "."))             # marge sous le seuil calculé
     pre_de = {}
     seuil_min = float((os.environ.get("SEUIL_MIN") or "0.72").replace(",", "."))      # seuil photo minimum, toutes paires
-    ia_paire_max = int(os.environ.get("IA_MAX_PAIRE_JOUR") or 250)                   # une paire ne vide pas le budget des autres
+    ia_paire_max = int(os.environ.get("IA_MAX_PAIRE_JOUR") or 0)   # 0 = budget du jour divisé par le nombre de paires
     voir_refus = (os.environ.get("IA_VOIR_REFUS") or "0") == "1"                     # refus de l'IA envoyés en gris                                     # vérifications IA max par passage
     print("IA de vision : " + ("active" if ia.dispo() else "pas de clé ANTHROPIC_API_KEY, alertes par le titre seulement"))
     # Méthode de la Fire Red / Vivid Sulfur pour toutes les paires : ressemblance aux photos de référence,
@@ -327,6 +327,9 @@ def main():
             etat["auto_refs"][x] = len(r)
             etat.setdefault("auto", {})[x] = []
             etat.setdefault("sonde_total", {})[x] = 0     # calibrage à refaire
+    if not ia_paire_max:      # part égale pour chaque paire (choix du 29/10) : 8000 / nombre de paires
+        ia_paire_max = max(1, ia_jour_max // max(1, len(refs)))
+    print(f"Plafond IA par paire : {ia_paire_max} vérifications par jour ({len(refs)} paires)")
     pre_de = {x: seuil_min for x in pre_de}     # décision du 28/10 : toutes les paires partent du plancher (0,72)
     base_de = dict(pre_de)
     sonde_ecart = float((os.environ.get("SONDE_ECART") or "0.10").replace(",", "."))   # zone testée sous le seuil
@@ -370,7 +373,7 @@ def main():
         n_jour = etat.get("ia_n", 0) if etat.get("ia_jour") == datetime.now(paris).strftime("%Y-%m-%d") else 0
         post(webhook, {"content": "**Surveillance relancée** · IA " + ("active" if ia.dispo() else "INACTIVE (pas de clé)")
                        + f" · {n_jour}/{ia_jour_max} vérifications IA aujourd'hui"
-                       + f" (nuit 23h-9h : {ia_nuit_max}, journée 9h-23h : {ia_jour_max - ia_nuit_max})"
+                       + f" (nuit 23h-9h : {ia_nuit_max}, journée 9h-23h : {ia_jour_max - ia_nuit_max}, {ia_paire_max} max par paire)"
                        + " · paires suivies (seuil) : " + ", ".join(f"{x} ≤ {pt.PRIX[x]:g} € ({v:.2f})" for x, v in pre_de.items())})
     with torch.no_grad():
         te = model.encode_text(tok(["a close-up photo of the size label tag inside a sneaker, with barcode and small printed text",
