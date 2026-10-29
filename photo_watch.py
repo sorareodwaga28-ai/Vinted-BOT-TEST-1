@@ -194,6 +194,17 @@ def main():
         etat["ids"] = etat["ids"][-20000:]
         return items
 
+    t_min = float(os.environ.get("TAILLE_MIN") or 40)
+    t_max = float(os.environ.get("TAILLE_MAX") or 46)
+
+    def bonne_taille(it):
+        """Taille lue dans « 42,5 · Très bon état ». Taille illisible -> gardée (on ne veut rien rater)."""
+        m = re.match(r"\s*(?:EU\s*)?(\d{2})(?:[.,](\d))?", (it.get("details") or ""), re.I)
+        if not m:
+            return True
+        t = float(m.group(1) + "." + (m.group(2) or "0"))
+        return t_min <= t <= t_max
+
     def lire(base, purl, premier, toutes):
         items, deja = [], False
         for pg in range(1, pages + 1):
@@ -206,12 +217,12 @@ def main():
                 iid = str(it["id"])
                 if iid in vus:
                     deja = True
-                    if toutes and it.get("photo"):
+                    if toutes and it.get("photo") and bonne_taille(it):
                         items.append(it)
                     continue
                 vus.add(iid)
                 etat["ids"].append(iid)
-                if it.get("photo"):
+                if it.get("photo") and bonne_taille(it):
                     items.append(it)
             if (deja and not toutes) or premier:
                 break
