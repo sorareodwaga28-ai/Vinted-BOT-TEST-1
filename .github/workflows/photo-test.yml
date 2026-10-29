@@ -40,6 +40,7 @@ on:
           - "Air Max 1 Patta Waves Noise Aqua"
           - "Air Max 1 Patta Waves Monarch"
           - "Air Max 1 Patta Waves Rush Maroon"
+          - "Air Max 1 Patta Waves Black"
       prix_max:
         description: "Prix max en € (vide = le prix de la paire dans le bot, aucun = tous les prix)"
         required: false
