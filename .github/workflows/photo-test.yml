@@ -35,6 +35,7 @@ on:
           - "Nocta Glide White"
           - "Rare Air"
           - "Shimmer"
+          - "Bred Reimagined"
       prix_max:
         description: "Prix max en € (vide = le prix de la paire dans le bot, aucun = tous les prix)"
         required: false

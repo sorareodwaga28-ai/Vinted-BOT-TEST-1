@@ -365,6 +365,10 @@ def main():
         nom_mots |= {v for m in list(nom_mots) for v in SYNONYMES.get(m, ())}
         toks = bot.tokens(it.get("title"))
         txt = " " + " ".join(toks) + " "
+        # Le titre contient aussi le nom d'une autre paire suivie (ex. « Bred Reimagined … fire red ») : l'IA tranche
+        for y in pt.PRIX:
+            if y != x and (set(bot.tokens(y)) - GENERIQUES - nom_mots) & set(toks):
+                return False
         for g in pt.MOTS.get(x, "").split(","):
             mots = [bot.tokens(m) for m in g.split("+") if bot.tokens(m)]
             if mots and mots[0] == ["jordan"]:
