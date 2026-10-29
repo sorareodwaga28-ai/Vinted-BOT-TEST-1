@@ -470,7 +470,7 @@ def main():
         embeds = [{"title": f"{x} ?", "url": it["url"], "color": 0xF1C40F,
                    "author": {"name": "IA incertaine : à toi de trancher (oui / non / fake)"},
                    "fields": champs, "image": {"url": it["photo"]},
-                   "footer": {"text": f"Réf {iid} · dis à Claude « {iid} oui » ou « {iid} non »"}}]
+                   "footer": {"text": f"Réf {iid} · réponds à ce message : oui / non / fake"}}]
         for u in [u for u in urls if pt.jeton(u) != pt.jeton(it["photo"])][:2]:
             embeds.append({"url": it["url"], "image": {"url": u}})
         if eti_url:
@@ -488,7 +488,8 @@ def main():
         try:
             rep_b = json.loads(f_bastien.read_text()) if f_bastien.exists() else {}
         except ValueError:
-            return
+            rep_b = {}
+        rep_b = {**etat.get("verdicts_discord", {}), **rep_b}
         faits = etat.setdefault("bastien_faits", [])
         for iid, v in rep_b.items():
             iid, v = str(iid), str(v).lower().strip()
@@ -512,6 +513,62 @@ def main():
                 cible[x] = f if cible.get(x) is None else torch.cat([cible[x], f])
             print(f"[bastien] {iid} {x} : {v} (seuil {pre_de[x]:.3f})")
         del faits[:-1000]
+
+    jeton_bot = os.environ.get("DISCORD_BOT_TOKEN", "").strip()
+    salon = {}
+
+    def lire_discord():
+        """Réponses de Bastien directement dans le salon Discord (bot Discord, secret DISCORD_BOT_TOKEN) :
+        « oui / non / fake » en réponse à une alerte jaune (on lit « Réf <id> » dans son pied),
+        ou « <id> oui » écrit seul. ✅ = pris en compte, ❓ = pas compris / annonce inconnue."""
+        if not jeton_bot:
+            return
+        if not salon:
+            salon["id"] = requests.get(webhook, timeout=20).json()["channel_id"]
+        api = f"https://discord.com/api/v10/channels/{salon['id']}/messages"
+        h = {"Authorization": f"Bot {jeton_bot}"}
+        dernier = etat.get("discord_dernier")
+        r = requests.get(api, headers=h, timeout=20, params={"limit": 100, **({"after": dernier} if dernier else {})})
+        if r.status_code != 200:
+            print(f"::warning::Lecture Discord : HTTP {r.status_code} {r.text[:200]}")
+            return
+        msgs = sorted(r.json(), key=lambda m: int(m["id"]))
+        if not dernier:
+            # 1er démarrage : on ne relit que les 30 dernières minutes
+            limite = (int(time.time() * 1000) - 1420070400000 - 30 * 60 * 1000) << 22
+            msgs = [m for m in msgs if int(m["id"]) > limite]
+        for m in msgs:
+            etat["discord_dernier"] = m["id"]
+            if m["author"].get("bot") or m.get("webhook_id"):
+                continue
+            txt = m.get("content", "").lower()
+            mot = re.search(r"\b(oui|non|fake)\b", txt)
+            if not mot:
+                continue
+            iid = None
+            ref = m.get("referenced_message") or {}
+            for e in ref.get("embeds", []):
+                f = re.search(r"Réf (\d+)", (e.get("footer") or {}).get("text", ""))
+                if f:
+                    iid = f.group(1)
+                    break
+            if not iid:
+                f = re.search(r"(\d{6,})", txt)
+                iid = f.group(1) if f else None
+            if not iid:
+                continue  # message normal du salon : on ne touche à rien
+            ok = bool(iid) and iid in etat.get("a_trancher", {})
+            if ok:
+                etat.setdefault("verdicts_discord", {})[iid] = mot.group(1)
+                d = etat["verdicts_discord"]
+                for k in list(d)[:-500]:
+                    del d[k]
+                print(f"[discord] {iid} : {mot.group(1)}")
+            emoji = "%E2%9C%85" if ok else "%E2%9D%93"
+            try:
+                requests.put(f"{api}/{m['id']}/reactions/{emoji}/@me", headers=h, timeout=20)
+            except Exception:
+                pass
 
     # Réponses déjà données par Bastien les jours précédents : remises en mémoire au démarrage
     for cle, cible in (("refs_bastien", refs), ("pieges_bastien", pieges)):
@@ -862,6 +919,10 @@ def main():
     dernier_calib = 0
     while True:
         t0 = time.time()
+        try:
+            lire_discord()
+        except Exception as e:
+            print(f"::warning::Erreur lecture Discord : {str(e)[:300]}")
         try:
             appliquer_bastien()
         except Exception as e:
