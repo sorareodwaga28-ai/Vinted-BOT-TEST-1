@@ -392,7 +392,7 @@ def main():
     try:
         cles = re.findall(r'"([^"]+)": \d+', re.search(r"^PRIX = \{(.*?)\}", Path(__file__).with_name(
             "photo_test.py").read_text(), re.S | re.M).group(1))
-        suivies = {" ".join(tokens(c)) for c in cles} - {" ".join(tokens(c)) for c in ("Infrared", "Seafoam")}
+        suivies = {" ".join(tokens(c)) for c in cles} - {" ".join(tokens(c)) for c in ("Infrared",)}
         avant = len(searches)
         def suivie(nom):
             n = " ".join(t for t in tokens(re.sub(r"\d+\s*€", "", nom)))
