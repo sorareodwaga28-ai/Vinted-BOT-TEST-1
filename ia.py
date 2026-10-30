@@ -35,8 +35,8 @@ def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=()):
     contenu = [{"type": "text", "text": f"REFERENCE photos of a genuine {modele} (style code {code}):"}]
     contenu += [_img(r, 512) for r in refs[:2]]
     contenu.append({"type": "text", "text": f"PHOTOS from a second-hand listing titled \"{titre}\":"})
-    # Photos de l'annonce en 512 px (5 par défaut depuis le 31/10, la plus ressemblante en 1re ; avant : 1 seule)
-    contenu += [_img(p, 512) for p in photos[:int(os.environ.get("IA_PHOTOS") or 5)]]
+    # Photos de l'annonce en 512 px (toutes, 20 max, depuis le 31/10, la plus ressemblante en 1re ; avant : 1 seule)
+    contenu += [_img(p, 512) for p in photos[:int(os.environ.get("IA_PHOTOS") or 20)]]
     if etiquette is not None:                            # niveau 2 : + l'étiquette, en 1024 px pour lire le code
         contenu.append({"type": "text", "text": "Photo that may show the size tag inside the shoe:"})
         contenu.append(_img(etiquette, 1024))
