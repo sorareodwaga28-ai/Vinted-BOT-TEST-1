@@ -16,9 +16,7 @@ on:
           - "Midnight Navy"
           - "Seafoam"
           - "Canyon Purple"
-          - "Seafoam"
           - "Craft Olive"
-          - "Canyon Purple"
           - "Fear"
           - "Frozen Moments"
           - "Air Max 1 Limeade"
@@ -44,7 +42,7 @@ on:
           - "Air Max 1 Patta Waves Rush Maroon"
           - "Air Max 1 Patta Waves Black"
           - "Air Max 1 Patta Waves White"
-          - "Craft Olive"
+          - "Air Max 1 Lemonade"
       prix_max:
         description: "Prix max en € (vide = le prix de la paire dans le bot, aucun = tous les prix)"
         required: false

@@ -393,8 +393,11 @@ def main():
 
     from titres import autre_marque
 
+    def exclu(it, x):
+        return bool(set(bot.tokens(it.get("title"))) & set(pt.EXCLUS.get(x, ())))
+
     def titre_dit(it, x):
-        return bot.matches_required(it, [g.strip() for g in pt.MOTS.get(x, "").split(",") if g.strip()])
+        return not exclu(it, x) and bot.matches_required(it, [g.strip() for g in pt.MOTS.get(x, "").split(",") if g.strip()])
 
     # « aqua » seul est trop courant (plein d'Air Max 1 aqua, contrefaçons) : l'alerte bleue sans IA exige « anniversary »
     GENERIQUES = set("jordan air max nike 1 4 sb high and sacai vaporwaffle aqua".split()) | (set(pt.COURANTS.split()) - {"fire"})
@@ -403,6 +406,8 @@ def main():
     def titre_nomme(it, x):
         """Titre exact ET qui contient le vrai nom du coloris (thunder, pine, fire, limeade…), pas seulement des
         couleurs (« noir + jaune ») : dans ce cas, pas besoin de l'IA."""
+        if exclu(it, x):
+            return False
         nom_mots = set(bot.tokens(x)) - GENERIQUES
         nom_mots |= {v for m in list(nom_mots) for v in SYNONYMES.get(m, ())}
         toks = bot.tokens(it.get("title"))
@@ -422,6 +427,8 @@ def main():
 
     def titre_exact(it, x):
         """Le titre contient les vrais mots de la paire, sans aucune faute tolérée (alerte sans IA)."""
+        if exclu(it, x):
+            return False
         toks = bot.tokens(it.get("title"))
         txt = " " + " ".join(toks) + " "
         for g in pt.MOTS.get(x, "").split(","):
