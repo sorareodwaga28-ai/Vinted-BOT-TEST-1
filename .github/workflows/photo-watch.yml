@@ -34,6 +34,11 @@ jobs:
             ~/.cache/huggingface
             ~/.EasyOCR
           key: clip-v2
+      - uses: actions/cache@v4
+        with:
+          path: cache_pieges
+          key: pieges-${{ github.run_id }}
+          restore-keys: pieges-
       - name: Préparer git
         run: |
           git config user.name "vinted-bot"
@@ -58,7 +63,7 @@ jobs:
           TAILLE_MIN: ${{ vars.TAILLE_MIN || '40' }}
           TAILLE_MAX: ${{ vars.TAILLE_MAX || '46' }}
           SEUIL: ${{ vars.PHOTO_SEUIL || '0.84' }}
-          INTERVALLE: ${{ vars.PHOTO_INTERVALLE || '45' }}
+          INTERVALLE: ${{ vars.PHOTO_INTERVALLE || '30' }}
           DUREE: ${{ inputs.duree || '330' }}
           GIT_SAVE: "1"
         run: |
