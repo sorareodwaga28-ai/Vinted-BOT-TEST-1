@@ -619,8 +619,6 @@ def main():
                    f"{r.get('test_bleues_oui', 0)}/{r['test_bleues']} reconnues"
                    + (" · ratées : " + ", ".join(r.get("test_bleues_ratees", [])[:10]) if r.get("test_bleues_ratees") else "")
                    if r.get("test_bleues") else "Test de l'IA sur les alertes bleues : aucune bleue aujourd'hui"),
-                  f"Trouvées grâce à la 2e photo : {r.get('photo2', 0)} · écartées sans IA (ressemblent à un refus déjà vu) : "
-                  f"{r.get('ecartees_non', 0)} · doublons (remises en vente) ignorés : {r.get('doublons', 0)}",
                   f"**Loupées** (ressemblantes mais pas vérifiées : budget IA du jour atteint, ou plus de {ia_max} d'un coup) : {r['loupees']}"]
         for x in sorted(r["paires"], key=lambda k: -r["paires"][k]["ia"] - r["paires"][k]["loupees"]):
             v = r["paires"][x]
