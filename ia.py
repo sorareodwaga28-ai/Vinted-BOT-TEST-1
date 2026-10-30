@@ -52,7 +52,7 @@ def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=()):
     try:
         r = requests.post(API, timeout=60, headers={
             "x-api-key": os.environ["ANTHROPIC_API_KEY"].strip(), "anthropic-version": "2023-06-01", "content-type": "application/json"},
-            json={"model": os.environ.get("IA_MODELE") or "claude-haiku-5-5", "max_tokens": 600,
+            json={"model": os.environ.get("IA_MODELE") or "claude-haiku-5-5", "max_tokens": int(os.environ.get("IA_MAX_TOKENS") or 1500),
                   "messages": [{"role": "user", "content": contenu}]})
         if r.status_code != 200:
             return {"erreur": f"HTTP {r.status_code} {r.text[:200]}"}
@@ -65,6 +65,13 @@ def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=()):
             d = json.loads(m.group(0)) if m else {}
         except ValueError:
             d = {}
+        if not d:
+            # Réponse coupée (max_tokens) : on récupère au moins le verdict et la confiance s'ils sont écrits
+            v0 = re.search(r'"verdict"\s*:\s*"(oui|non|incertain)"', texte)
+            c0 = re.search(r'"confiance"\s*:\s*(\d+)', texte)
+            if v0 and (c0 or v0.group(1) == "non"):
+                d = {"verdict": v0.group(1), "confiance": int(c0.group(1)) if c0 else 70,
+                     "raison": "réponse IA coupée, verdict récupéré"}
         if not d:
             # Réponse illisible : on la garde pour comprendre (affichée dans « Pourquoi »)
             print(f"[IA] réponse illisible : {texte[:300]!r} · stop={r.json().get('stop_reason')}")
