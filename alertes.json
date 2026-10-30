@@ -1,5 +1,39 @@
 [
  {
+  "id": "10601515867",
+  "date": "2026-10-30T23:21:52+01:00",
+  "type": "vert",
+  "paire": "Fear",
+  "famille": "Jordan 4",
+  "titre": "Basket Jordan",
+  "prix": "45.00 EUR",
+  "taille": "45",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10601515867-basket-jordan",
+  "photos": [
+   "https://images1.vinted.net/t/02_0249d_Kb2KWpLfHzdrkt3Mvhxh21V1/f800/49e2ad6b.webp?s=9f492366a2ae7248ab5abc1231e83710e36669fd",
+   "https://images1.vinted.net/t/05_00262_6AYcfoT3higT5hJsLPqaV3Gw/f800/1213d63b.webp?s=bee4b033c1acce01f5942e1e492c897c69b0aeea",
+   "https://images1.vinted.net/t/02_012bd_Bzew4mcLGFSkCeEufKkfxZhs/f800/ededfd2f.webp?s=eb1951ad9f95788489d6a133eef3a582cddbdff5",
+   "https://images1.vinted.net/t/02_00abd_65XMag6T11a6XWdcCVY2FmHa/f800/6a11a8a6.webp?s=cdc5afa898da749be33225a40fb4baf325329434",
+   "https://images1.vinted.net/t/06_0247b_4Ni9AM6YU5tgqRLCsZdLhGrY/f800/0dc9166a.webp?s=b93b14128533e24fb37762a7a6e8068a504c422c"
+  ],
+  "etiquette": "https://images1.vinted.net/t/02_012bd_Bzew4mcLGFSkCeEufKkfxZhs/f800/ededfd2f.webp?s=eb1951ad9f95788489d6a133eef3a582cddbdff5",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 75
+  },
+  "ressemblance": 0.789,
+  "seuil": 0.769,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": null,
+   "profil": null,
+   "avis": 330,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10600813158",
   "date": "2026-10-30T21:55:26+01:00",
   "type": "bleu",
