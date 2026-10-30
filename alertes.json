@@ -1,5 +1,35 @@
 [
  {
+  "id": "10598432537",
+  "date": "2026-10-30T18:25:03+01:00",
+  "type": "vert",
+  "paire": "Fear",
+  "famille": "Jordan 4",
+  "titre": "Nike Air Jordan 4 Retro – Schwarz/Grau",
+  "prix": "45.00 EUR",
+  "taille": "45",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10598432537-nike-air-jordan-4-retro-schwarzgrau",
+  "photos": [
+   "https://images1.vinted.net/t/06_02709_yMNS4BAyRNwb7rPriG9hBZeT/f800/6a7ab47f.webp?s=cb61875c1767512e9d7c500f528b84182d62ac7b"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 78
+  },
+  "ressemblance": 0.835,
+  "seuil": 0.756,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": null,
+   "profil": null,
+   "avis": null,
+   "etoiles": null
+  }
+ },
+ {
   "id": "10598096881",
   "date": "2026-10-30T17:57:57+01:00",
   "type": "bleu",
