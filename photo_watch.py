@@ -738,7 +738,7 @@ def main():
     def photos_pour_ia(notes, eti_url):
         """La photo qui ressemble le plus aux références en premier (l'IA regarde la 1re) :
         si la 1re photo de l'annonce est la boîte ou la semelle, l'IA voit quand même la paire."""
-        return [t[3] for t in sorted(notes, key=lambda t: -t[4]) if t[2] != eti_url][:4]
+        return [t[3] for t in sorted(notes, key=lambda t: -t[4]) if t[2] != eti_url][:int(os.environ.get("IA_PHOTOS") or 5)]
 
     def cle_doublon(it, x):
         """Même paire, même prix, même taille, même vendeur (ou même titre) : une remise en vente."""
