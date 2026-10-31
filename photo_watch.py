@@ -421,6 +421,9 @@ def main():
         nom_mots |= {v for m in list(nom_mots) for v in SYNONYMES.get(m, ())}
         toks = bot.tokens(it.get("title"))
         txt = " " + " ".join(toks) + " "
+        # « low » dans le titre alors que la paire n'est pas une low (ex. Pine Green Low) : l'IA tranche
+        if "low" in toks and "low" not in bot.tokens(x):
+            return False
         # Le titre contient aussi le nom d'une autre paire suivie (ex. « Bred Reimagined … fire red ») : l'IA tranche
         for y in pt.PRIX:
             if y != x and (set(bot.tokens(y)) - GENERIQUES - nom_mots) & set(toks):
@@ -480,7 +483,7 @@ def main():
         a = etat.setdefault("a_trancher", {})
         a[iid] = {"paire": x, "s": round(float(it.get("score") or 0), 3), "photo": it["photo"],
                   "date": datetime.now(paris).isoformat(timespec="minutes")}
-        for k in list(a)[:-300]:
+        for k in list(a)[:-500]:
             del a[k]
         rec(x)["envoyees_incertaines"] = rec(x).get("envoyees_incertaines", 0) + 1
         vend = pt.vendeur(it["id"]) or {}
@@ -546,7 +549,7 @@ def main():
 
     def lire_discord():
         """Réponses de Bastien directement dans le salon Discord (bot Discord, secret DISCORD_BOT_TOKEN) :
-        « oui / non / fake » en réponse à une alerte jaune (on lit « Réf <id> » dans son pied),
+        « oui / non / fake » en réponse à une alerte verte, bleue, jaune ou orange (on lit « Réf <id> » dans son pied),
         ou « <id> oui » écrit seul. ✅ = pris en compte, ❓ = pas compris / annonce inconnue."""
         if not jeton_bot:
             return
@@ -933,6 +936,7 @@ def main():
             embeds = [{
                 "title": x, "url": it["url"],
                 "author": {"name": origine},
+                "footer": {"text": f"Réf {it['id']} · ton avis : réponds oui / non / fake"},
                 "color": 0x2ECC71 if verdict else (0x3498DB if bleu else 0xE67E22),
                 "fields": champs,
                 "image": {"url": it["photo"]},
@@ -953,6 +957,13 @@ def main():
                 bot.envoyer(webhook, {"embeds": embeds, "components": comps})
             rec()["vert" if verdict else ("bleu" if sans_ia.startswith("titre exact") else "orange")] += 1
             etat["alertes_cles"][cle] = time.time()
+            # Bastien peut aussi répondre oui / non / fake aux vertes, bleues et oranges (même traitement que les jaunes)
+            a_t = etat.setdefault("a_trancher", {})
+            a_t[str(it["id"])] = {"paire": x, "s": round(float(it.get("score") or 0), 3), "photo": it["photo"],
+                                  "date": datetime.now(paris).isoformat(timespec="minutes"),
+                                  "type": "vert" if verdict else ("bleu" if bleu else "orange")}
+            for k in list(a_t)[:-500]:
+                del a_t[k]
             if bleu and test_bleues and ia.dispo() and ia_budget()[0]:
                 tester_bleue(it, x, codes, notes, eti_url, eti_img)
             try:      # même alerte pour l'onglet COP sneakers du site
