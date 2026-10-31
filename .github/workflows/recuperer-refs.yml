@@ -1,0 +1,39 @@
+name: Récupérer photos de référence
+
+on:
+  workflow_dispatch:
+    inputs:
+      slug:
+        description: "Dossier de la paire (ex. white-thunder)"
+        required: true
+      liens:
+        description: "Liens d'annonces Vinted (séparés par des espaces)"
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: recuperer-refs
+  cancel-in-progress: false
+
+jobs:
+  recuperer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests pillow
+      - env:
+          SLUG: ${{ inputs.slug }}
+          LIENS: ${{ inputs.liens }}
+        run: python recuperer_refs.py
+      - run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add a_trier
+          git commit -m "photos à trier : ${{ inputs.slug }}" || exit 0
+          for i in 1 2 3 4 5; do git pull --rebase -q && git push -q && break; sleep 5; done
