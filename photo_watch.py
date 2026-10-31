@@ -53,7 +53,6 @@ def post(webhook, payload):
     if r.status_code == 429:
         time.sleep(float(r.json().get("retry_after", 2)))
         requests.post(webhook, json=payload, timeout=20)
-    time.sleep(1)
 
 
 def git_sauver():

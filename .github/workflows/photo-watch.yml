@@ -63,7 +63,7 @@ jobs:
           TAILLE_MIN: ${{ vars.TAILLE_MIN || '40' }}
           TAILLE_MAX: ${{ vars.TAILLE_MAX || '46' }}
           SEUIL: ${{ vars.PHOTO_SEUIL || '0.84' }}
-          INTERVALLE: ${{ vars.PHOTO_INTERVALLE || '30' }}
+          INTERVALLE: '15'    # 15 s entre deux passages (décision de Bastien, 31/10)
           DUREE: ${{ inputs.duree || '330' }}
           GIT_SAVE: "1"
         run: |

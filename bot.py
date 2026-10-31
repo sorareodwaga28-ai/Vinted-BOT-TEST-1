@@ -208,8 +208,7 @@ def envoyer(webhook, payload):
             payload = {k: v for k, v in payload.items() if k != "components"}
             url = webhook
             continue
-        break
-    time.sleep(1)
+        break      # plus de pause après l'envoi : Discord renvoie 429 s'il faut ralentir (géré ci-dessus)
 
 
 def send_discord(webhook, item):
