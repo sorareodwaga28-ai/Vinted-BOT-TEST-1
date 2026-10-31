@@ -35,7 +35,7 @@ AUTRES_JORDAN_1 = ("jordan 3", "jordan 4", "jordan 5", "jordan 6", "jordan 11", 
 
 
 # Autres coloris qui contiennent le nom d'une paire suivie (ex. « White Thunder » ≠ Thunder) : refusés pour cette paire
-AUTRES_COLORIS = {}      # la paire « Thunder » couvre la jaune, la Red Thunder et la White Thunder (choix de Bastien)
+AUTRES_COLORIS = {"A Ma Maniere Phantom": ("violet ore", "violet")}      # la paire « Thunder » couvre la jaune, la Red Thunder et la White Thunder (choix de Bastien)
 
 
 AUTRES_JORDAN_3 = ("jordan 4", "j4", "aj4", "jordan iv", "low", "mid", "black cement", "noir ciment", "black cat")
