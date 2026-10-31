@@ -123,7 +123,7 @@ def sauver_local():
 
 
 def famille(x):
-    for f in ("Air Max 1", "Sacai", "Nocta", "Jordan 1"):
+    for f in ("Air Max 1", "Sacai", "Nocta", "Jordan 1", "Jordan 3"):
         if x.startswith(f):
             return f
     return "Jordan 4"
@@ -409,7 +409,7 @@ def main():
         return not exclu(it, x) and bot.matches_required(it, [g.strip() for g in pt.MOTS.get(x, "").split(",") if g.strip()])
 
     # « aqua » seul est trop courant (plein d'Air Max 1 aqua, contrefaçons) : l'alerte bleue sans IA exige « anniversary »
-    GENERIQUES = set("jordan air max nike 1 4 sb high and sacai vaporwaffle aqua".split()) | (set(pt.COURANTS.split()) - {"fire"})
+    GENERIQUES = set("jordan air max nike 1 3 4 sb high and sacai vaporwaffle aqua".split()) | (set(pt.COURANTS.split()) - {"fire"})
     SYNONYMES = {"anniversary": {"anniversaire"}}
 
     def titre_nomme(it, x):

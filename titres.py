@@ -38,6 +38,9 @@ AUTRES_JORDAN_1 = ("jordan 3", "jordan 4", "jordan 5", "jordan 6", "jordan 11", 
 AUTRES_COLORIS = {}      # la paire « Thunder » couvre la jaune, la Red Thunder et la White Thunder (choix de Bastien)
 
 
+AUTRES_JORDAN_3 = ("jordan 4", "j4", "aj4", "jordan iv", "low", "mid", "black cement", "noir ciment", "black cat")
+
+
 def autre_marque(titre, modele=""):
     """Le titre nomme une autre marque ou un autre modèle de basket que celui de la paire suivie
     (par défaut : une Jordan 4)."""
@@ -50,6 +53,9 @@ def autre_marque(titre, modele=""):
     if " jordan 1 " in norm_titre(modele):   # Jordan 1 High : refuse les autres Jordan, les Low et les Mid
         return (any(f" {m} " in t for m in MARQUES if m not in ("jordan 1", "aj1", "j1"))
                 or any(f" {m} " in t for m in AUTRES_JORDAN_1))
+    if " jordan 3 " in norm_titre(modele):   # Jordan 3 : refuse les autres Jordan et les autres coloris connus
+        return (any(f" {m} " in t for m in MARQUES if m not in ("jordan 3", "aj3", "j3"))
+                or any(f" {m} " in t for m in AUTRES_JORDAN_3))
     if " sacai " in norm_titre(modele):      # Sacai : refuse les autres modèles Sacai (LDWaffle, Blazer, Cortez…)
         return (any(f" {m} " in t for m in MARQUES)
                 or any(f" {m} " in t for m in AUTRES_SACAI))
