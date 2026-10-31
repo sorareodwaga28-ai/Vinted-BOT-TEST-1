@@ -476,6 +476,18 @@ def main():
         usd = r.get("tok_entree", 0) / 1e6 * prix_entree + r.get("tok_sortie", 0) / 1e6 * prix_sortie
         return usd * eur_par_usd * 100
 
+    def resume(it, x, couleur, verdict=None):
+        """Texte court en tête du message : c'est lui qui s'affiche dans la notification de l'iPhone.
+        Bot IA : nom de la paire ; titre exact (sans IA) : titre de l'annonce. Puis prix, taille, IA et photo."""
+        taille = (it.get("details") or "?").partition(" · ")[0].strip() or "?"
+        nom = x if couleur in ("VERT", "JAUNE") else (it.get("title") or x)[:80]
+        bouts = [couleur, nom + (" ?" if couleur == "JAUNE" else ""), str(it.get("price", "?")), f"T{taille}"]
+        if verdict:
+            bouts.append(f"IA {verdict['verdict'].upper()} {verdict['confiance']} %")
+        if it.get("score"):
+            bouts.append(f"photo {float(it['score']):.2f} (seuil {pre_de.get(x, pre):.2f})")
+        return " · ".join(bouts)
+
     def envoyer_incertaine(it, x, verdict, urls, eti_url):
         """L'IA hésite : alerte jaune sur Discord. Bastien dit oui / non / fake, Claude l'écrit dans
         verdicts/bastien.json, et le bot s'en sert pour son seuil, ses références et ses pièges."""
@@ -506,7 +518,7 @@ def main():
         if eti_url:
             embeds.append({"url": it["url"] + "#etiquette", "title": "Étiquette", "color": 0xF1C40F,
                            "image": {"url": eti_url}})
-        bot.envoyer(webhook, {"embeds": embeds, "components": bot.boutons(it)})
+        bot.envoyer(webhook, {"content": resume(it, x, "JAUNE", verdict), "embeds": embeds, "components": bot.boutons(it)})
 
     f_bastien = Path(__file__).parent / "verdicts" / "bastien.json"
 
@@ -950,11 +962,12 @@ def main():
                                "color": 0x2ECC71, "image": {"url": eti_url}})
             comps = bot.boutons(it)
             if verdict and mention:      # vraie alerte vérifiée par l'IA : notification Discord
-                bot.envoyer(webhook, {"content": f"{mention} {x} à {it['price']}", "embeds": embeds,
+                bot.envoyer(webhook, {"content": resume(it, x, "VERT", verdict) + f" {mention}", "embeds": embeds,
                                       "components": comps,
                                       "allowed_mentions": {"parse": ["everyone", "users", "roles"]}})
             else:
-                bot.envoyer(webhook, {"embeds": embeds, "components": comps})
+                bot.envoyer(webhook, {"content": resume(it, x, "VERT" if verdict else ("BLEU" if bleu else "ORANGE"), verdict),
+                                      "embeds": embeds, "components": comps})
             rec()["vert" if verdict else ("bleu" if sans_ia.startswith("titre exact") else "orange")] += 1
             etat["alertes_cles"][cle] = time.time()
             # Bastien peut aussi répondre oui / non / fake aux vertes, bleues et oranges (même traitement que les jaunes)
