@@ -24,6 +24,9 @@ AUTRES_AIR_MAX = ("air max 90", "air max 95", "air max 97", "air max plus", "air
 
 
 AUTRES_SACAI = ("ldwaffle", "ld waffle", "ldv", "magmascape", "pegasus", "jordan", "regasus", "kaws")
+# Sacai LDWaffle : refuse la Vaporwaffle et les autres LDWaffle (Fragment, Undercover bordeaux…)
+AUTRES_SACAI_LD = ("vaporwaffle", "vapor waffle", "magmascape", "pegasus", "jordan", "regasus", "kaws", "fragment",
+                   "maroon", "bordeaux", "royal", "pine", "nylon", "clot", "blazer", "cortez", "sesame", "villain")
 
 
 AUTRES_NOCTA = ("hot step", "hotstep", "terra", "running", "opal", "zoom", "drive", "jordan", "black", "noir", "noire",
@@ -61,7 +64,7 @@ def autre_marque(titre, modele=""):
                 or any(f" {m} " in t for m in AUTRES_JORDAN_3))
     if " sacai " in norm_titre(modele):      # Sacai : refuse les autres modèles Sacai (LDWaffle, Blazer, Cortez…)
         return (any(f" {m} " in t for m in MARQUES)
-                or any(f" {m} " in t for m in AUTRES_SACAI))
+                or any(f" {m} " in t for m in (AUTRES_SACAI_LD if " ldwaffle " in norm_titre(modele) else AUTRES_SACAI)))
     if " air max " in norm_titre(modele):
         return (any(f" {m} " in t for m in MARQUES if m not in ("air max", "airmax"))
                 or any(f" {m} " in t for m in AUTRES_AIR_MAX))
