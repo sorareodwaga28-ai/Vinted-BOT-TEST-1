@@ -41,6 +41,7 @@ AUTRES_JORDAN_1 = ("jordan 3", "jordan 4", "jordan 5", "jordan 6", "jordan 11", 
 AUTRES_COLORIS = {"A Ma Maniere Phantom": ("violet ore", "violet"),
                   "Jordan 3 J Balvin Rio": ("medellin", "medellín"),
                   "Jordan 3 Fire Red": ("cardinal",),
+                  "Jordan 3 Dark Iris": ("court purple", "court",),
                   "Jordan 3 Racer Blue": ('wizard', 'wizards', 'copper', 'cuivre', 'true blue'),
                   "Jordan 3 Wizards": ('racer',),
                   # Red Thunder suivie à part depuis le 31/10 : la paire « Thunder » = jaune (+ White Thunder)
