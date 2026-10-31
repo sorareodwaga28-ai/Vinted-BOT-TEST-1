@@ -670,7 +670,7 @@ def main():
     photo2_max = int(os.environ.get("PHOTO2_MAX") or 15)          # annonces douteuses dont on lit la 2e photo, par passage
     photo2_zone = float((os.environ.get("PHOTO2_ZONE") or "0.08").replace(",", "."))   # « presque au seuil »
     piege_marge = float((os.environ.get("PIEGE_IA_MARGE") or "0.04").replace(",", "."))
-    piege_max = int(os.environ.get("PIEGE_IA_MAX") or 80)          # photos refusées gardées par paire
+    piege_max = int(os.environ.get("PIEGE_IA_MAX") or 200)         # photos refusées gardées par paire
 
     def pas_une_chaussure(e):
         """La 1re photo ressemble plus à une étiquette, une semelle ou une boîte qu'à une paire de baskets."""
