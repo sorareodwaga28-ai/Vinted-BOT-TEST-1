@@ -39,6 +39,7 @@ AUTRES_JORDAN_1 = ("jordan 3", "jordan 4", "jordan 5", "jordan 6", "jordan 11", 
 
 # Autres coloris qui contiennent le nom d'une paire suivie (ex. « White Thunder » ≠ Thunder) : refusés pour cette paire
 AUTRES_COLORIS = {"A Ma Maniere Phantom": ("violet ore", "violet"),
+                  "Jordan 3 J Balvin Rio": ("medellin", "medellín"),
                   # Red Thunder suivie à part depuis le 31/10 : la paire « Thunder » = jaune (+ White Thunder)
                   "Thunder": ("red thunder", "rouge thunder", "thunder red", "thunder rouge", "redthunder", "crimson"),
                   "Red Thunder": ("yellow", "jaune", "white thunder", "thunder white", "tour yellow")}
