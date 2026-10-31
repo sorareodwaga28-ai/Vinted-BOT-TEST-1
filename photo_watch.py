@@ -409,7 +409,7 @@ def main():
 
     # « aqua » seul est trop courant (plein d'Air Max 1 aqua, contrefaçons) : l'alerte bleue sans IA exige « anniversary »
     GENERIQUES = set("a ma j jordan air max nike 1 3 4 sb high and sacai vaporwaffle ldwaffle aqua".split()) | (set(pt.COURANTS.split()) - {"fire"})
-    SYNONYMES = {"anniversary": {"anniversaire"}, "maniere": {"amm", "amamaniere", "sleeping"}, "cement": {"ciment"}, "neon": {"volt", "fluo"}, "oxidized": {"oxydized", "oxidised", "oxydised", "oxide", "oxyde", "oxydee", "oxydize", "oxidize"}}
+    SYNONYMES = {"anniversary": {"anniversaire"}, "maniere": {"amm", "amamaniere", "sleeping"}, "cement": {"ciment"}, "neon": {"volt", "fluo"}, "nina": {"abney", "bicoastal", "channel"}, "oxidized": {"oxydized", "oxidised", "oxydised", "oxide", "oxyde", "oxydee", "oxydize", "oxidize"}}
 
     def titre_nomme(it, x):
         """Titre exact ET qui contient le vrai nom du coloris (thunder, pine, fire, limeade…), pas seulement des
