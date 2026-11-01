@@ -44,6 +44,14 @@ def sous_verrou():
         verrou.release()
 
 
+def avec_verrou(fn):
+    """Lance fn sous le verrou, sauf si ce fil le tient déjà."""
+    if getattr(_fil, "tient", False):
+        return fn()
+    with sous_verrou():
+        return fn()
+
+
 @contextmanager
 def hors_verrou():
     if not getattr(_fil, "tient", False):
@@ -154,7 +162,7 @@ SAUVER_LOCAL = []
 def sauver_local():
     """Après un reset git, réécrit l'état courant (photo_seen.json) qui vient d'être remplacé par celui du repo."""
     for f in SAUVER_LOCAL:
-        f()
+        avec_verrou(f)
 
 
 def famille(x):
@@ -224,12 +232,18 @@ def main():
         ETAT.write_text(json.dumps(etat))
     SAUVER_LOCAL.append(sauver)
 
+    from concurrent.futures import ThreadPoolExecutor as _Pool
+    pool_rech = _Pool(max(1, len(recherches)))
+    verrou_vus = threading.Lock()
+
     def nouvelles(premier, toutes=False):
-        """toutes=True : relit les pages sans sauter le déjà vu (rattrapage d'un nouveau modèle)."""
+        """toutes=True : relit les pages sans sauter le déjà vu (rattrapage d'un nouveau modèle).
+        1/11 : toutes les recherches partent EN MÊME TEMPS (avant : l'une après l'autre)."""
         items = []
-        for base, purl in recherches:
-            items += lire(base, purl, premier, toutes)
-        etat["ids"] = etat["ids"][-20000:]
+        for lot in pool_rech.map(lambda r: lire(r[0], r[1], premier, toutes), recherches):
+            items += lot
+        with verrou_vus:
+            etat["ids"] = etat["ids"][-20000:]
         return items
 
     t_min = float(os.environ.get("TAILLE_MIN") or 40)
@@ -253,13 +267,16 @@ def main():
                 break
             for it in lot:
                 iid = str(it["id"])
-                if iid in vus:
+                with verrou_vus:      # plusieurs recherches en même temps : une annonce n'est prise qu'une fois
+                    nouveau = iid not in vus
+                    if nouveau:
+                        vus.add(iid)
+                        etat["ids"].append(iid)
+                if not nouveau:
                     deja = True
                     if toutes and it.get("photo") and bonne_taille(it):
                         items.append(it)
                     continue
-                vus.add(iid)
-                etat["ids"].append(iid)
                 if it.get("photo") and bonne_taille(it):
                     items.append(it)
             if (deja and not toutes) or premier:
@@ -686,6 +703,18 @@ def main():
     from concurrent.futures import ThreadPoolExecutor
     pool = ThreadPoolExecutor(8)
     pool_cand = ThreadPoolExecutor(int(os.environ.get("CANDIDATES_PARALLELE") or 5))   # candidates vérifiées en même temps
+    a_publier = []      # alertes en attente pour l'onglet COP sneakers du site
+
+    def publier_en_attente():
+        """Envoie sur GitHub, en une fois, les alertes du site accumulées (hors verrou : git est lent)."""
+        with sous_verrou():
+            lot = a_publier[:]
+            del a_publier[:]
+        if lot:
+            try:
+                publier_alertes(lot)
+            except Exception as ex:
+                print(f"::warning::alertes non publiées pour le site : {str(ex)[:200]}")
 
     def _img(u):
         try:
@@ -808,7 +837,8 @@ def main():
 
     def passage(items=None, mods=None):
         if items is None:
-            items = nouvelles(premier=False)
+            with hors_verrou():
+                items = nouvelles(premier=False)
         mods = [x for x in (mods or modeles) if x in refs]
         print(f"{time.strftime('%H:%M:%S')} : {len(items)} annonce(s) à juger ({', '.join(mods)})")
         rec()["annonces"] += len(items)
@@ -817,7 +847,8 @@ def main():
         # 3. Étape 1 (gratuite) : présélection par la photo ou par le titre, dans le prix.
         # Photos téléchargées en parallèle et comparées d'un coup (plus rapide).
         a_juger = [it for it in items if not all(autre_marque(it.get("title"), x) for x in mods)]
-        imgs = telecharger([it["photo"] for it in a_juger])
+        with hors_verrou():
+            imgs = telecharger([it["photo"] for it in a_juger])
         ok = [(it, im) for it, im in zip(a_juger, imgs) if im is not None]
         embs = emb_lots([im for _, im in ok])
         alertes, douteuses = [], []
@@ -834,12 +865,14 @@ def main():
         douteuses.sort(key=lambda it: -it.get("proche_s", 0))
         for it in douteuses[:photo2_max]:
             try:
-                it["urls"] = pt.photos_annonce(session, it)
+                with hors_verrou():
+                    it["urls"] = pt.photos_annonce(session, it)
             except Exception as ex:
                 print(f"Annonce illisible {it['id']} : {ex}")
                 continue
             autres = [u for u in it["urls"] if pt.jeton(u) != pt.jeton(it["photo"])][:1]
-            im2 = telecharger(autres)
+            with hors_verrou():
+                im2 = telecharger(autres)
             if not im2 or im2[0] is None:
                 continue
             e = torch.cat([it["e1"], emb([im2[0]])])
@@ -863,8 +896,6 @@ def main():
         # 1/11 : jusqu'à 5 candidates vérifiées EN MÊME TEMPS (avant : l'une après l'autre).
         # Les parties lentes (page de l'annonce, photos, IA) tournent en parallèle ; le reste
         # (CLIP, compteurs, envoi Discord) passe une candidate à la fois grâce au verrou.
-        a_publier = []
-
         def _traiter(it):
             x = it["modele"]
             codes = pt.CODES.get(x, [])
@@ -1049,12 +1080,9 @@ def main():
             except Exception as ex:
                 print(f"::warning::Erreur sur l'annonce {it.get('id')} : {str(ex)[:300]}")
 
-        list(pool_cand.map(traiter, alertes))
-        if a_publier:      # même alertes pour l'onglet COP sneakers du site, en un seul envoi GitHub
-            try:
-                publier_alertes(a_publier)
-            except Exception as ex:
-                print(f"::warning::alertes non publiées pour le site : {str(ex)[:200]}")
+        # 1/11 : on n'attend plus la fin des vérifications ; la boucle repart chercher tout de suite
+        for it in alertes:
+            pool_cand.submit(traiter, it)
 
 
     # Calibrage sans prix : une recherche Jordan SANS prix max, de temps en temps. Les annonces juste sous
@@ -1168,7 +1196,7 @@ def main():
 
     if rattrapage:
         try:
-            passage(rattrapage, [x for x in nouveaux_modeles if x in refs])
+            avec_verrou(lambda: passage(rattrapage, [x for x in nouveaux_modeles if x in refs]))
         except Exception as e:
             print(f"::warning::Erreur pendant le rattrapage : {str(e)[:300]}")
 
@@ -1178,39 +1206,45 @@ def main():
     dernier_calib = 0
     while True:
         t0 = time.time()
+        # 1/11 : chaque étape qui touche l'état passe sous le verrou (les vérifications IA tournent
+        # en arrière-plan en même temps) ; les recherches et téléchargements, eux, le relâchent.
         try:
-            lire_discord()
+            avec_verrou(lire_discord)
         except Exception as e:
             print(f"::warning::Erreur lecture Discord : {str(e)[:300]}")
         try:
-            appliquer_bastien()
+            avec_verrou(appliquer_bastien)
         except Exception as e:
             print(f"::warning::Erreur réponses de Bastien : {str(e)[:300]}")
         try:
-            passage()
+            avec_verrou(passage)
         except Exception as e:
             print(f"::warning::Erreur pendant le passage : {str(e)[:300]}")
         if time.time() - dernier_calib >= calib_intervalle:
             dernier_calib = time.time()
             try:
-                calibrer()
+                avec_verrou(calibrer)
             except Exception as e:
                 print(f"::warning::Erreur pendant le calibrage : {str(e)[:300]}")
         try:
-            recap()
+            avec_verrou(recap)
         except Exception as e:
             print(f"::warning::Erreur pendant le récap : {str(e)[:300]}")
-        sauver()
-        sauver_pieges()
+        avec_verrou(sauver)
+        avec_verrou(sauver_pieges)
         nb_passages += 1
+        publier_en_attente()
         if git_auto and time.time() - dernier_git > 300:
             print(f"::notice::{nb_passages} passages, {len(etat['ids'])} annonces vues")
             git_sauver()
             dernier_git = time.time()
         if time.time() - debut + pause > duree:
             break
-        time.sleep(max(5, pause - (time.time() - t0)))
-    sauver_pieges()
+        time.sleep(max(3, pause - (time.time() - t0)))
+    pool_cand.shutdown(wait=True)      # fin du passage : on laisse finir les vérifications en cours
+    publier_en_attente()
+    avec_verrou(sauver)
+    avec_verrou(sauver_pieges)
     if git_auto:
         git_sauver()
 
