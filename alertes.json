@@ -1,5 +1,39 @@
 [
  {
+  "id": "10620046066",
+  "date": "2026-11-01T14:30:33+01:00",
+  "type": "vert",
+  "paire": "Thunder",
+  "famille": "Jordan 4",
+  "titre": "Scarpe Jordan",
+  "prix": "60.00 EUR",
+  "taille": "42",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10620046066-scarpe-jordan",
+  "photos": [
+   "https://images1.vinted.net/t/02_0081a_Q2q87uCAWjQ5txqR1t4GgERD/f800/1232d742.webp?s=41b911e0eb8d16f7fdd77843c5829f29b627ca1f",
+   "https://images1.vinted.net/t/02_00297_Fv1gcpTv76z97KBPRTJQPAVz/f800/04fc972f.webp?s=8640f012b992995ed23308b418f9f5dfc5b33382",
+   "https://images1.vinted.net/t/05_000a8_93KgFw6ZcuhtyeoVkzJ5Xhpf/f800/570e336c.webp?s=ffcdb0f972d7a2556afb8e222b6076a65292647d",
+   "https://images1.vinted.net/t/03_01ea8_Vo13WNZdiLGKtmwXXYBKz5D3/f800/5d433c27.webp?s=d49eb30565cb478cf0b98149b60a1468d372bbeb",
+   "https://images1.vinted.net/t/04_02058_qqZnvpdUsFXWxt1cb4Z2Ypr7/f800/ec5e3c14.webp?s=1f03cd09758720272c8bac61888f4a0fdb1be541"
+  ],
+  "etiquette": "https://images1.vinted.net/t/04_02058_qqZnvpdUsFXWxt1cb4Z2Ypr7/f800/ec5e3c14.webp?s=1f03cd09758720272c8bac61888f4a0fdb1be541",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.809,
+  "seuil": 0.72,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": null,
+   "profil": null,
+   "avis": 0,
+   "etoiles": 0.0
+  }
+ },
+ {
   "id": "10619717318",
   "date": "2026-11-01T14:12:13+01:00",
   "type": "bleu",
