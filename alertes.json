@@ -1,5 +1,35 @@
 [
  {
+  "id": "10616946469",
+  "date": "2026-11-01T11:21:55+01:00",
+  "type": "vert",
+  "paire": "Air Max 1 Patta Waves White",
+  "famille": "Air Max 1",
+  "titre": "Nike air Patta",
+  "prix": "30.00 EUR",
+  "taille": "42,5",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10616946469-nike-air-patta",
+  "photos": [
+   "https://images1.vinted.net/t/02_014fb_x4bcnfj5hSoCYS4Eebc6xTEX/f800/66f06c16.webp?s=843cccab970a2a2e10e857b2eb2c9633f867dfc0"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 72
+  },
+  "ressemblance": 0.816,
+  "seuil": 0.796,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": null,
+   "profil": null,
+   "avis": 149,
+   "etoiles": 4.4
+  }
+ },
+ {
   "id": "10616576367",
   "date": "2026-11-01T10:55:38+01:00",
   "type": "vert",
