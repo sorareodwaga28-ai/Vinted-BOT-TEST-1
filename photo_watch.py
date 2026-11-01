@@ -628,6 +628,7 @@ def main():
                 if vend.get("avis") is not None else "?")
         champs = [{"name": "Prix", "value": prix_champ(it), "inline": True},
                   {"name": "Taille · état", "value": it.get("details", "?"), "inline": True},
+                      {"name": "Boîte", "value": pt.boite(it["id"], it.get("title", "")), "inline": True},
                   {"name": "Vendeur", "value": pt.champ_vendeur(vend), "inline": True},
                   {"name": "IA", "value": f"{verdict['verdict'].upper()} à {verdict['confiance']} % (seuil {conf_min} %)",
                    "inline": True},
@@ -1142,6 +1143,7 @@ def main():
                 avis = "?"
             champs = [{"name": "Prix", "value": prix_champ(it), "inline": True},
                       {"name": "Taille · état", "value": it.get("details", "?"), "inline": True},
+                      {"name": "Boîte", "value": pt.boite(it["id"], it.get("title", "")), "inline": True},
                       {"name": "Vendeur", "value": pt.champ_vendeur(vend), "inline": True}]
             if verdict:
                 champs.append({"name": "IA", "value": f"OUI à {verdict['confiance']} % (seuil {conf_min} %)",

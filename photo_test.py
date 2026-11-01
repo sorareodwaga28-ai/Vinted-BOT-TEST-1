@@ -354,6 +354,25 @@ def vendeur(item_id):
             "etoiles": round(float(rep) * 5, 1) if rep else None}
 
 
+def boite(item_id, titre=""):
+    """1/11 : boîte d'après le titre et la description de l'annonce (gratuit, sans IA).
+    Renvoie « Og Box », « Boîte de remplacement », « No box » ou « Non précisé »."""
+    full = PAGES.get(str(item_id)) or ""
+    desc = ""
+    m = re.search(r'\\?"description\\?"\s*:\s*\\?"(.{0,1500}?)\\?"\s*,', full, re.S)
+    if m:
+        desc = m.group(1).replace("\\n", " ")
+    t = " " + re.sub(r"[^a-z0-9]+", " ", bot.norm(f"{titre} {desc}")) + " "
+    if re.search(r" (sans|pas de|pas d|no|without|aucune|plus de) (la |de |d )?(boite|box|boxe) ", t) \
+            or re.search(r" (boite|box) (absente|manquante|perdue|non fournie) ", t) or " nobox " in t:
+        return "No box"
+    if re.search(r" (boite|box) (de )?(remplacement|generique|autre|pas d origine|non d origine) ", t):
+        return "Boîte de remplacement"
+    if re.search(r" (boite|box|boxe|og box|double box) ", t):
+        return "Og Box"
+    return "Non précisé"
+
+
 def publiee_le(item_id):
     """V4 : heure de publication de l'annonce (secondes depuis 1970), lue dans sa page déjà ouverte.
     On prend la date la plus récente entre la création et une éventuelle remise en avant. None si introuvable."""
