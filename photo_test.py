@@ -14,6 +14,7 @@ import io
 import json
 import os
 import re
+from datetime import datetime
 import sys
 import time
 from pathlib import Path
@@ -337,6 +338,42 @@ def vendeur(item_id):
             "profil": f"https://www.vinted.fr/member/{uid}" if uid else None,
             "avis": int(nb) if nb else None,
             "etoiles": round(float(rep) * 5, 1) if rep else None}
+
+
+def publiee_le(item_id):
+    """V4 : heure de publication de l'annonce (secondes depuis 1970), lue dans sa page déjà ouverte.
+    On prend la date la plus récente entre la création et une éventuelle remise en avant. None si introuvable."""
+    full = PAGES.get(str(item_id)) or ""
+    if not full:
+        return None
+    q = r'\\?"'
+    # Zone de l'annonce elle-même (la page contient aussi d'autres annonces « similaires »)
+    zones = []
+    for m in re.finditer(q + r"id" + q + r"\s*:\s*" + str(item_id) + r"\b", full):
+        zones.append(full[max(0, m.start() - 3000):m.start() + 6000])
+    zones.append(full)
+    cles = ("created_at_ts", "createdAt", "created_at", "last_push_up_at", "pushed_up_at")
+    for zone in zones:
+        dates = []
+        for cle in cles:
+            for m in re.finditer(q + cle + q + r"\s*:\s*\\?\"?([0-9T:\-+.Z ]{10,32})", zone):
+                v = m.group(1).strip()
+                try:
+                    if v.isdigit():
+                        t = int(v) / (1000 if len(v) > 11 else 1)
+                    else:
+                        t = datetime.fromisoformat(v.replace("Z", "+00:00")).timestamp()
+                    if 1.6e9 < t < 2.2e9:
+                        dates.append(t)
+                except ValueError:
+                    pass
+                break       # 1re valeur de chaque clé dans la zone
+        if dates:
+            return max(dates)
+    i = full.find("created")
+    print(f"[délai] {item_id} : date introuvable (extrait : {full[max(0, i - 60):i + 120]!r})" if i >= 0
+          else f"[délai] {item_id} : aucun champ « created » dans la page")
+    return None
 
 
 def champ_vendeur(vend):

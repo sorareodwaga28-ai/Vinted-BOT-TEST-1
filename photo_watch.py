@@ -73,7 +73,10 @@ from PIL import Image
 import bot
 import photo_test as pt
 
-ETAT = Path(__file__).with_name("photo_seen.json")
+# V4 (1/11) : plusieurs bots en même temps (matrice GitHub). Bot 1 = principal (récap, messages de démarrage).
+BOT = int(os.environ.get("BOT") or 1)
+BOTS = int(os.environ.get("BOTS") or 1)
+ETAT = Path(__file__).with_name("photo_seen.json" if BOT == 1 else f"photo_seen_{BOT}.json")
 IMG = (".jpg", ".jpeg", ".png", ".webp")
 
 
@@ -196,6 +199,14 @@ def main():
     if not modeles:
         sys.exit("Aucun modèle valide dans MODELES.")
 
+    principal = ETAT.with_name("photo_seen.json")
+    if BOT > 1 and not ETAT.exists() and principal.exists():
+        # Nouveau bot : il part de la mémoire du bot principal (seuils appris, pièges, annonces vues)…
+        etat = json.loads(principal.read_text())
+        for k in ("recap", "ia_n", "ia_np", "ia_jour", "ia_periode", "recap_envoye"):
+            etat.pop(k, None)      # …mais avec ses propres compteurs du jour
+        ETAT.write_text(json.dumps(etat))
+        print(f"[bot {BOT}] mémoire copiée depuis photo_seen.json")
     etat = json.loads(ETAT.read_text()) if ETAT.exists() else {"ids": [], "modeles": []}
     vus = set(etat["ids"])
     prix_haut = int(max(pt.PRIX[x] for x in modeles))
@@ -226,6 +237,27 @@ def main():
             familles = {f.replace(pt.NIKE, ""): xs for f, xs in familles.items()}
             recherches = [bot.page_url(pt.BASE_URL + f + f"&price_to={prix_famille(f, xs)}")
                           for f, xs in familles.items()]
+
+    # V4 : chaque bot ne fait que SES recherches (BOT_RECHERCHES : « marque » = la grosse recherche
+    # Jordan + Nike sans mot-clé, sinon les mots-clés, ex. « air+max+1,patta »).
+    choix = [c.strip() for c in (os.environ.get("BOT_RECHERCHES") or "").split(",") if c.strip()]
+    if choix:
+        def garde(f):
+            return any(("search_text=" not in f) if c == "marque" else (f"search_text={c}" in f) for c in choix)
+        familles = {f: xs for f, xs in familles.items() if garde(f)}
+        recherches = [bot.page_url(pt.BASE_URL + f + f"&price_to={prix_famille(f, xs)}")
+                      for f, xs in familles.items()]
+    # Paires jugées : toutes pour le bot de la grosse recherche (annonces mal titrées « Basket Nike »),
+    # sinon seulement celles de ses recherches.
+    if any("search_text=" not in f for f in familles):
+        modeles_juges = list(modeles)
+    else:
+        modeles_juges = [x for xs in familles.values() for x in xs]
+    # Titres pris en charge par les autres bots : ignorés ici (évite les doublons d'alerte et d'IA)
+    mots_exclus = [m.strip() for m in (os.environ.get("EXCLURE_TITRES") or "").split(",") if m.strip()]
+    exclure_re = re.compile(r"\b(" + "|".join(r"\s*".join(map(re.escape, m.split())) for m in mots_exclus) + r")\b") if mots_exclus else None
+    print(f"[bot {BOT}/{BOTS}] recherches : {len(recherches)} · paires jugées : {len(modeles_juges)}"
+          + (f" · titres laissés aux autres bots : {', '.join(mots_exclus)}" if mots_exclus else ""))
 
     def sauver():
         etat["modeles"] = sorted(set(etat["modeles"]) | set(modeles))
@@ -295,7 +327,8 @@ def main():
         sauver()
         if git_auto:
             git_sauver()
-        post(webhook, {"content": "**Surveillance photo démarrée** : " + ", ".join(
+        if BOT == 1:
+          post(webhook, {"content": "**Surveillance photo démarrée** : " + ", ".join(
             f"{x} (≤ {pt.PRIX[x]:g} €, seuil {seuil_de[x]:.2f})" for x in modeles)
             + f" · photo OU titre · vérification toutes les {pause} s"
             + (f" · rattrapage de {len(rattrapage)} annonce(s) récentes pour " + ", ".join(nouveaux_modeles)
@@ -394,7 +427,7 @@ def main():
             etat.setdefault("auto", {})[x] = []
             etat.setdefault("sonde_total", {})[x] = 0     # calibrage à refaire
     if not ia_paire_max:      # part égale pour chaque paire (choix du 29/10) : 8000 / nombre de paires
-        ia_paire_max = max(1, ia_jour_max // max(1, len(refs)))
+        ia_paire_max = max(1, ia_jour_max // max(1, len([x for x in modeles_juges if x in refs])))
     print(f"Plafond IA par paire : {ia_paire_max} vérifications par jour ({len(refs)} paires)")
     pre_de = {x: seuil_min for x in pre_de}     # décision du 28/10 : toutes les paires partent du plancher (0,72)
     base_de = dict(pre_de)
@@ -441,7 +474,7 @@ def main():
     print("Seuils par paire : " + ", ".join(f"{x} {v:.2f}" for x, v in pre_de.items()))
     etat["seuils"] = {x: {"depart": base_de[x], "actuel": pre_de[x]} for x in pre_de}   # lisible dans photo_seen.json
     relance_manuelle = os.environ.get("GITHUB_ACTOR", "") not in ("", "github-actions[bot]")
-    if premier_demarrage or nouveaux_modeles or relance_manuelle:
+    if BOT == 1 and (premier_demarrage or nouveaux_modeles or relance_manuelle):
         n_jour = etat.get("ia_n", 0) if etat.get("ia_jour") == datetime.now(paris).strftime("%Y-%m-%d") else 0
         post(webhook, {"content": "**Surveillance relancée** · IA " + ("active" if ia.dispo() else "INACTIVE (pas de clé)")
                        + f" · {n_jour}/{ia_jour_max} vérifications IA aujourd'hui"
@@ -538,7 +571,26 @@ def main():
             bouts.append(f"IA {verdict['verdict'].upper()} {verdict['confiance']} %")
         if it.get("score"):
             bouts.append(f"photo {float(it['score']):.2f} (seuil {pre_de.get(x, pre):.2f})")
+        d = noter_delai(it)
+        if d is not None:
+            bouts.append(f"publiée il y a {d} s")
         return " · ".join(bouts)
+
+    def noter_delai(it):
+        """V4 : secondes entre la publication de l'annonce (lue sur sa page) et maintenant (envoi de l'alerte).
+        Notée une seule fois par annonce dans le récap ; ignorée au-delà d'une heure (remise en avant, vieille annonce)."""
+        if "delai" not in it:
+            pub = pt.publiee_le(it["id"])
+            it["delai"] = None
+            if pub:
+                d = int(time.time() - pub)
+                if 0 <= d <= 3600:
+                    it["delai"] = d
+                    dl = rec().setdefault("delais", [])
+                    dl.append(d)
+                    del dl[:-3000]
+            print(f"[délai] {it['id']} : {it['delai']} s" + ("" if pub else " (heure de publication introuvable)"))
+        return it["delai"]
 
     def envoyer_incertaine(it, x, verdict, urls, eti_url):
         """L'IA hésite : alerte jaune sur Discord. Bastien dit oui / non / fake, Claude l'écrit dans
@@ -659,6 +711,8 @@ def main():
                 for k in list(d)[:-500]:
                     del d[k]
                 print(f"[discord] {iid} : {mot.group(1)}")
+            if not ok and BOTS > 1:
+                continue      # alerte d'un autre bot : c'est lui qui répondra ✅
             emoji = "%E2%9C%85" if ok else "%E2%9D%93"
             try:
                 requests.put(f"{api}/{m['id']}/reactions/{emoji}/@me", headers=h, timeout=20)
@@ -674,15 +728,16 @@ def main():
 
     def recap():
         r = rec()
-        if datetime.now(paris).hour < 21 or etat.get("recap_envoye") == r["jour"]:
+        if BOT != 1 or datetime.now(paris).hour < 21 or etat.get("recap_envoye") == r["jour"]:
             return
+        r = combiner_bots(r)
         lignes = [f"**Récap surveillance photo (IA)** du {r['jour']}",
                   f"Annonces regardées : {r['annonces']} · ressemblantes (photo ou titre) : {r['candidates']}",
                   f"**Coût IA du jour : {cout_centimes(r):.1f} centimes** ({r.get('appels', 0)} vérifications"
                   + (f", ~{cout_centimes(r) / r['appels']:.3f} centime chacune" if r.get("appels") else "")
                   + ", de minuit à 21h, estimation d'après les tokens)",
                   f"Alertes : {r['vert']} vertes (IA OUI) · {r['bleu']} bleues (titre exact) · {r['orange']} oranges (titre, sans IA)",
-                  f"IA : {etat.get('ia_n', 0)}/{ia_jour_max} vérifications",
+                  f"IA : {r.get('ia_n_total', etat.get('ia_n', 0))} vérifications" + (f" ({BOTS} bots)" if BOTS > 1 else f"/{ia_jour_max}"),
                   (f"**Test de l'IA sur les alertes bleues** (vraies paires, IA sans le titre) : "
                    f"{r.get('test_bleues_oui', 0)}/{r['test_bleues']} reconnues"
                    + (" · ratées : " + ", ".join(r.get("test_bleues_ratees", [])[:10]) if r.get("test_bleues_ratees") else "")
@@ -696,10 +751,54 @@ def main():
                           + f" · seuil {pre_de.get(x, 0):.2f}")
         if not r["paires"]:
             lignes.append("Aucune annonce ressemblante aujourd'hui.")
+        lignes.insert(1, texte_delais(r.get("delais") or []))
         texte = "\n".join(lignes)
         for i in range(0, len(texte), 1900):
             post(webhook, {"content": texte[i:i + 1900]})
         etat["recap_envoye"] = r["jour"]
+
+
+    def texte_delais(dl):
+        """Ligne du récap : délai publication -> alerte (V4)."""
+        if not dl:
+            return "**Vitesse** : pas encore de délai mesuré aujourd'hui"
+        t = sorted(dl)
+        neuf = t[min(len(t) - 1, int(0.9 * len(t)))]
+        return (f"**Vitesse ({len(t)} alertes mesurées)** : délai moyen publication -> alerte **{sum(t) / len(t):.0f} s**"
+                f" · le plus rapide {t[0]} s · le plus lent {t[-1]} s · 9 fois sur 10 : {neuf} s ou moins")
+
+    def combiner_bots(r):
+        """Bot principal : ajoute au récap les compteurs du jour des autres bots (lus sur GitHub)."""
+        import copy
+        import subprocess as sp
+        r = copy.deepcopy(r)
+        r["ia_n_total"] = etat.get("ia_n", 0)
+        if BOTS < 2:
+            return r
+        sp.run(["git", "fetch", "-q", "origin", "main"], capture_output=True, cwd=ETAT.parent)
+        for b in range(2, BOTS + 1):
+            out = sp.run(["git", "show", f"origin/main:photo_seen_{b}.json"], capture_output=True, text=True, cwd=ETAT.parent)
+            try:
+                autre = json.loads(out.stdout) if out.returncode == 0 else {}
+            except ValueError:
+                autre = {}
+            ra = autre.get("recap") or {}
+            if ra.get("jour") != r["jour"]:
+                continue
+            r["ia_n_total"] += autre.get("ia_n", 0) if autre.get("ia_jour") == r["jour"] else 0
+            for k, v in ra.items():
+                if k in ("jour", "paires"):
+                    continue
+                if isinstance(v, (int, float)) and not isinstance(v, bool):
+                    r[k] = r.get(k, 0) + v
+                elif isinstance(v, list):
+                    r[k] = (r.get(k) or []) + v
+            for x, vp in (ra.get("paires") or {}).items():
+                cible = r["paires"].setdefault(x, {"ia": 0, "oui": 0, "non": 0, "incertain": 0, "loupees": 0})
+                for k, v in vp.items():
+                    if isinstance(v, (int, float)):
+                        cible[k] = cible.get(k, 0) + v
+        return r
 
     from concurrent.futures import ThreadPoolExecutor
     pool = ThreadPoolExecutor(8)
@@ -793,7 +892,7 @@ def main():
         except Exception as ex:
             print(f"::warning::mémoire des refus IA non sauvée : {ex}")
 
-    test_bleues = (os.environ.get("TEST_BLEUES") or "1") == "1"
+    test_bleues = (os.environ.get("TEST_BLEUES") or "0") == "1"      # V4 : plus d'IA sur les bleues (Bastien)
 
     def tester_bleue(it, x, codes, notes, eti_url, eti_img):
         """Test silencieux (remplace le calibrage) : une alerte bleue est une vraie paire (titre exact).
@@ -840,7 +939,9 @@ def main():
         if items is None:
             with hors_verrou():
                 items = nouvelles(premier=False)
-        mods = [x for x in (mods or modeles) if x in refs]
+        mods = [x for x in (mods or modeles_juges) if x in refs]
+        if exclure_re:
+            items = [it for it in items if not exclure_re.search(bot.norm(it.get("title") or ""))]
         print(f"{time.strftime('%H:%M:%S')} : {len(items)} annonce(s) à juger ({', '.join(mods)})")
         rec()["annonces"] += len(items)
         if not items or not mods:
@@ -919,8 +1020,12 @@ def main():
                 print(f"[doublon] {it['id']} {x} : déjà alertée (remise en vente), ignorée")
                 return
             notes = []
-            with hors_verrou():
-                imgs_annonce = telecharger(urls[:20])
+            bleu_direct = titre_nomme(it, x)      # V4 : titre exact -> envoi direct, sans photos ni IA
+            if bleu_direct:
+                imgs_annonce = []
+            else:
+                with hors_verrou():
+                    imgs_annonce = telecharger(urls[:20])
             lus = [(u, im) for u, im in zip(urls[:20], imgs_annonce) if im is not None]
             if lus:
                 # Toutes les photos de l'annonce analysées d'un coup (1/11 : plus rapide qu'une par une)
@@ -1204,12 +1309,15 @@ def main():
     dernier_git = time.time()
     nb_passages = 0
     dernier_calib = 0
+    dernier_discord = [0.0]
     while True:
         t0 = time.time()
         # 1/11 : chaque étape qui touche l'état passe sous le verrou (les vérifications IA tournent
         # en arrière-plan en même temps) ; les recherches et téléchargements, eux, le relâchent.
         try:
-            avec_verrou(lire_discord)
+            if BOT == 1 or time.time() - dernier_discord[0] >= 20:     # bots 2 et 3 : Discord lu toutes les 20 s
+                dernier_discord[0] = time.time()
+                avec_verrou(lire_discord)
         except Exception as e:
             print(f"::warning::Erreur lecture Discord : {str(e)[:300]}")
         try:
@@ -1240,7 +1348,7 @@ def main():
             dernier_git = time.time()
         if time.time() - debut + pause > duree:
             break
-        time.sleep(max(3, pause - (time.time() - t0)))
+        time.sleep(max(1, pause - (time.time() - t0)))
     pool_cand.shutdown(wait=True)      # fin du passage : on laisse finir les vérifications en cours
     publier_en_attente()
     avec_verrou(sauver)

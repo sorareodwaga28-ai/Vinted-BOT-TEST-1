@@ -22,6 +22,30 @@ jobs:
   watch:
     runs-on: ubuntu-latest
     timeout-minutes: 350
+    # V4 (1/11) : 3 bots en même temps, chacun sur sa machine (adresse différente) avec ses propres recherches.
+    # Bot 1 : grosse recherche Jordan + Nike (toutes les 3 s) ; bot 2 : Air Max 1 + Patta ; bot 3 : Sacai + Nocta (toutes les 5 s).
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - bot: 1
+            recherches: "marque"
+            intervalle: "3"
+            exclure: "air max 1,airmax 1,patta,sacai,nocta"
+            ia_jour: "6000"
+            ia_nuit: "1100"
+          - bot: 2
+            recherches: "air+max+1,patta"
+            intervalle: "5"
+            exclure: ""
+            ia_jour: "1200"
+            ia_nuit: "250"
+          - bot: 3
+            recherches: "sacai,nocta"
+            intervalle: "5"
+            exclure: ""
+            ia_jour: "800"
+            ia_nuit: "150"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -37,8 +61,10 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: cache_pieges
-          key: pieges-${{ github.run_id }}
-          restore-keys: pieges-
+          key: pieges-${{ matrix.bot }}-${{ github.run_id }}
+          restore-keys: |
+            pieges-${{ matrix.bot }}-
+            pieges-
       - name: Préparer git
         run: |
           git config user.name "vinted-bot"
@@ -54,7 +80,12 @@ jobs:
           IA_MODELE: ${{ vars.IA_MODELE || 'claude-haiku-5-5' }}
           IA_PRESELECTION: ${{ vars.IA_PRESELECTION || '0.70' }}
           IA_CONFIANCE: ${{ vars.IA_CONFIANCE || '70' }}
-          IA_MAX_JOUR: ${{ vars.IA_MAX_JOUR || '8000' }}
+          IA_MAX_JOUR: ${{ matrix.ia_jour }}    # total des 3 bots = 8000 comme avant
+          IA_MAX_NUIT: ${{ matrix.ia_nuit }}
+          BOT: ${{ matrix.bot }}
+          BOTS: "3"
+          BOT_RECHERCHES: ${{ matrix.recherches }}
+          EXCLURE_TITRES: ${{ matrix.exclure }}
           IA_LISSAGE: ${{ vars.IA_LISSAGE || '0' }}
           IA_MAX: ${{ vars.IA_MAX || '40' }}
           DISCORD_MENTION: ''    # plus de @everyone sur les vertes (Bastien reçoit déjà toutes les alertes, 31/10)
@@ -63,7 +94,7 @@ jobs:
           TAILLE_MIN: ${{ vars.TAILLE_MIN || '40' }}
           TAILLE_MAX: ${{ vars.TAILLE_MAX || '46' }}
           SEUIL: ${{ vars.PHOTO_SEUIL || '0.84' }}
-          INTERVALLE: '10'    # 10 s entre deux passages (décision de Bastien, 01/11 ; avant 15 s)
+          INTERVALLE: ${{ matrix.intervalle }}    # V4 : 3 s (bot 1) / 5 s (bots 2 et 3) ; V3 : 10 s ; avant 15 s
           DUREE: ${{ inputs.duree || '330' }}
           GIT_SAVE: "1"
         run: |
@@ -76,15 +107,17 @@ jobs:
       - name: Sauvegarder les annonces vues
         if: always()
         run: |
-          [ -f photo_seen.json ] || exit 0
+          F=photo_seen.json
+          [ "${{ matrix.bot }}" = "1" ] || F=photo_seen_${{ matrix.bot }}.json
+          [ -f "$F" ] || exit 0
           git config user.name "vinted-bot"
           git config user.email "bot@users.noreply.github.com"
-          cp photo_seen.json /tmp/photo_seen.json
+          cp "$F" /tmp/etat_bot.json
           for i in 1 2 3 4 5; do
             git fetch -q origin main
             git reset -q --hard origin/main
-            cp /tmp/photo_seen.json photo_seen.json
-            git add photo_seen.json
+            cp /tmp/etat_bot.json "$F"
+            git add "$F"
             git diff --cached --quiet && exit 0
             git commit -q -m "maj annonces vues (photo)"
             git push -q origin HEAD:main && exit 0
@@ -92,7 +125,7 @@ jobs:
           done
           exit 1
       - name: Lancer le passage suivant
-        if: always()
+        if: always() && matrix.bot == 1
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run photo-watch.yml --ref main -R "$GITHUB_REPOSITORY" || true
