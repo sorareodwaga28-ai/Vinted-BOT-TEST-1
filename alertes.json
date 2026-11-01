@@ -1,5 +1,35 @@
 [
  {
+  "id": "7360979468",
+  "date": "2026-11-01T21:08:06+01:00",
+  "type": "vert",
+  "paire": "Fire Red",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4",
+  "prix": "30.00 EUR",
+  "taille": "42",
+  "etat": "Neuf sans étiquette",
+  "url": "https://www.vinted.fr/items/7360979468-jordan-4",
+  "photos": [
+   "https://images1.vinted.net/t/03_007cf_A9b14BkB3YvMNGoHAH59q3ka/f800/c91276c7.webp?s=11d1b6a88359d6699148d64df65c73de5191afb9"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 70
+  },
+  "ressemblance": 0.8,
+  "seuil": 0.733,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": null,
+   "profil": null,
+   "avis": 6,
+   "etoiles": 4.2
+  }
+ },
+ {
   "id": "10627159240",
   "date": "2026-11-01T20:46:23+01:00",
   "type": "vert",
