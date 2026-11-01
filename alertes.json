@@ -1,5 +1,43 @@
 [
  {
+  "id": "10620255553",
+  "date": "2026-11-01T14:42:08+01:00",
+  "type": "vert",
+  "paire": "Blank Canvas",
+  "famille": "Jordan 4",
+  "titre": "Air Jordan 4 Retro - White Canvas",
+  "prix": "20.00 EUR",
+  "taille": "42",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10620255553-air-jordan-4-retro-white-canvas",
+  "photos": [
+   "https://images1.vinted.net/t/06_02621_NjPHy1d6sfpLuLHyv4GuPHBB/f800/8ce3ed56.webp?s=3557d209c3622856c4919ca317a73a51eb558a82",
+   "https://images1.vinted.net/t/05_01bf7_fsnmrGqPevicrxQvRWP5jLPG/f800/ab626cbe.webp?s=0a62fb76144d6c0c2814cf08fe1f36609e006e6b",
+   "https://images1.vinted.net/t/02_02319_WoGVEVDMci7wUdw9PtAgkxB9/f800/7f38bc29.webp?s=665a991d7ed0adfa45dc8bf5199ac50c616b8424",
+   "https://images1.vinted.net/t/04_0011d_aArHRR27z3cN8WJy7iXm1YoZ/f800/94e2dc35.webp?s=eaf35a4dcd96086077c5e3066165df1a56d08d45",
+   "https://images1.vinted.net/t/05_02130_htoCBof93uB2QmPaaZJZpAg1/f800/e9e177ec.webp?s=3ded8a4ef14bf0dcc4c42f388e2ae9d270572351",
+   "https://images1.vinted.net/t/05_0033f_DhEXB7jzjvQCeK4TthQu7kfU/f800/8ff2c460.webp?s=ec79c000d18889b332d83c2fed0eedecb9cc9401",
+   "https://images1.vinted.net/t/02_0066b_GTWX79xy4o9WqLcqaaZwGgHh/f800/49a06256.webp?s=19bc80fa29d14f702508c641b27aabd422977a3c",
+   "https://images1.vinted.net/t/04_00163_WyZ3m5W4oX8bqBF8vVQDD1YT/f800/dda924db.webp?s=85f7a66bbf88d2398541966448e5018e6562dc55",
+   "https://images1.vinted.net/t/06_02503_Vk6g1h77tpcQEZ2nv4NaYiub/f800/75bd0dd6.webp?s=10e76cfdedbf7b991d3cec4d47d37200e1088e3d"
+  ],
+  "etiquette": "https://images1.vinted.net/t/04_00163_WyZ3m5W4oX8bqBF8vVQDD1YT/f800/dda924db.webp?s=85f7a66bbf88d2398541966448e5018e6562dc55",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.858,
+  "seuil": 0.765,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": null,
+   "profil": null,
+   "avis": 6,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10620046066",
   "date": "2026-11-01T14:30:33+01:00",
   "type": "vert",
