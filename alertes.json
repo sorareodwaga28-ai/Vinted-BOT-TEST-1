@@ -1,5 +1,42 @@
 [
  {
+  "id": "10620426057",
+  "date": "2026-11-01T14:51:03+01:00",
+  "type": "vert",
+  "paire": "Infrared",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4",
+  "prix": "15.00 EUR",
+  "taille": "43",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10620426057-jordan-4",
+  "photos": [
+   "https://images1.vinted.net/t/02_0241d_sCJNEYuDd29JhysKCkKXfXtU/f800/fb0f6264.webp?s=8547e14db5ac383a40fb44ac691f27b438da0753",
+   "https://images1.vinted.net/t/02_00782_RWP2xkTiDGqaKninMqxQ2cG6/f800/28add9cc.webp?s=a622181be885d235db4bdf8a2232d48e29ed2f32",
+   "https://images1.vinted.net/t/05_01eb8_jdaEDXW4J8QeXk8B9qqdzK2Z/f800/43bb0d73.webp?s=05373ca6b0887100ebdcdbfb819cbf687e4e2f09",
+   "https://images1.vinted.net/t/06_01ea5_PCZoEUnx2f8KNHYjnNERDS9s/f800/02d1b0b0.webp?s=c4ed438b278d0055c377cce87fccf1a3f6cd823a",
+   "https://images1.vinted.net/t/06_016f9_ANHGvr81XeyJWYiubETFTDd9/f800/d37cb641.webp?s=cfcb7e471f29c48c909bcb8742d29897edd93e52",
+   "https://images1.vinted.net/t/02_0031f_rUVKnQzqzFnSxZrnwkGQVqhC/f800/28d0404f.webp?s=12c9e88d7e6228380c4f821920f7d8bea965be61",
+   "https://images1.vinted.net/t/06_01c40_C5oC6hVWJ6xvkDJDbKvvhv2t/f800/8f86456f.webp?s=c13d7f90c7f44ae256ebf3db1a9679837e650164",
+   "https://images1.vinted.net/t/04_0046a_zaiuqM6ob9FgPok9NA5A1aZ8/f800/645f1c1f.webp?s=a267e00c6fb4c73fcc0c07fced0f57ad393fdf6b"
+  ],
+  "etiquette": "https://images1.vinted.net/t/04_0046a_zaiuqM6ob9FgPok9NA5A1aZ8/f800/645f1c1f.webp?s=a267e00c6fb4c73fcc0c07fced0f57ad393fdf6b",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 85
+  },
+  "ressemblance": 0.871,
+  "seuil": 0.817,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": null,
+   "profil": null,
+   "avis": 27,
+   "etoiles": 4.3
+  }
+ },
+ {
   "id": "10620255553",
   "date": "2026-11-01T14:42:08+01:00",
   "type": "vert",
