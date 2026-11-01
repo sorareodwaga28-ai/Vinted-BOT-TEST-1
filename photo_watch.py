@@ -589,7 +589,7 @@ def main():
         bouts = [nom + (" ?" if couleur == "JAUNE" else ""), str(it.get("price", "?")), f"T{taille}{score}"]
         try:
             p = float(str(it.get("price", "")).split()[0].replace(",", "."))
-            bouts.append(f"-> {(p + FRAIS_PORT) * COEF_REVENTE:.2f} €")
+            bouts.append(f"-> {(p + PROT_FIXE + p * PROT_PCT / 100 + FRAIS_PORT) * COEF_REVENTE:.2f} €")   # prix avec frais x 1,6
         except (ValueError, IndexError):
             pass
         d = noter_delai(it)
