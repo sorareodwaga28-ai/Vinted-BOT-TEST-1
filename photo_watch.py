@@ -563,16 +563,22 @@ def main():
         usd = r.get("tok_entree", 0) / 1e6 * prix_entree + r.get("tok_sortie", 0) / 1e6 * prix_sortie
         return usd * eur_par_usd * 100
 
+    FRAIS_PORT = float((os.environ.get("FRAIS_PORT") or "6").replace(",", "."))          # port estimé ajouté au prix
+    COEF_REVENTE = float((os.environ.get("COEF_REVENTE") or "1.6").replace(",", "."))   # revente visée = (prix + port) x 1,6
+
     def resume(it, x, couleur, verdict=None):
         """Texte court en tête du message : c'est lui qui s'affiche dans la notification de l'iPhone.
         Bot IA : nom de la paire ; titre exact (sans IA) : titre de l'annonce. Puis prix, taille, IA et photo."""
         taille = (it.get("details") or "?").partition(" · ")[0].strip() or "?"
         nom = x if couleur in ("VERT", "JAUNE") else (it.get("title") or x)[:80]
-        bouts = [couleur, nom + (" ?" if couleur == "JAUNE" else ""), str(it.get("price", "?")), f"T{taille}"]
-        if verdict:
-            bouts.append(f"IA {verdict['verdict'].upper()} {verdict['confiance']} %")
-        if it.get("score"):
-            bouts.append(f"photo {float(it['score']):.2f} (seuil {pre_de.get(x, pre):.2f})")
+        # 1/11 (Bastien) : couleur · paire · prix · taille (ressemblance) · (prix + port) x 1,6 · délai
+        score = f" ({float(it['score']):.2f})" if it.get("score") else ""
+        bouts = [couleur, nom + (" ?" if couleur == "JAUNE" else ""), str(it.get("price", "?")), f"T{taille}{score}"]
+        try:
+            p = float(str(it.get("price", "")).split()[0].replace(",", "."))
+            bouts.append(f"-> {(p + FRAIS_PORT) * COEF_REVENTE:.2f} €")
+        except (ValueError, IndexError):
+            pass
         d = noter_delai(it)
         if d is not None:
             bouts.append(f"publiée il y a {d} s")
