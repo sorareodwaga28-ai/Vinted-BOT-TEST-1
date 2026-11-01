@@ -29,6 +29,9 @@ def _img(im, cote=768):
     return {"type": "image", "source": {"type": "base64", "media_type": "image/jpeg", "data": base64.b64encode(b.getvalue()).decode()}}
 
 
+_AMORCE = os.environ.get("IA_AMORCE", "1") == "1"
+
+
 def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=()):
     """refs / photos / etiquette : images PIL. Renvoie {"verdict", "confiance", "code_lu", "raison"} ou {"erreur"}."""
     code = ", ".join(codes) if codes else "inconnu"
@@ -50,17 +53,35 @@ def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=()):
         "Reply with JSON only, no other text: "
         "{\"verdict\": \"oui\" | \"non\" | \"incertain\", \"confiance\": 0-100, \"code_lu\": \"style code read on the tag, or empty\", "
         "\"raison\": \"at most 15 words, in French\"}")})
+    global _AMORCE
     try:
-        r = requests.post(API, timeout=60, headers={
-            "x-api-key": os.environ["ANTHROPIC_API_KEY"].strip(), "anthropic-version": "2023-06-01", "content-type": "application/json"},
-            json={"model": os.environ.get("IA_MODELE") or "claude-haiku-5-5", "max_tokens": int(os.environ.get("IA_MAX_TOKENS") or 1500),
-                  "messages": [{"role": "user", "content": contenu}]})
+        # 1/11 (V3) : réponse courte. L'IA commence directement par « { » (amorce) et s'arrête au « } »
+        # de fin : plus de texte autour du JSON (avant : ~300 mots-machine écrits par vérification, ~60 utiles).
+        def appel(amorce):
+            msgs = [{"role": "user", "content": contenu}]
+            if amorce:
+                msgs.append({"role": "assistant", "content": "{"})
+            return requests.post(API, timeout=60, headers={
+                "x-api-key": os.environ["ANTHROPIC_API_KEY"].strip(), "anthropic-version": "2023-06-01", "content-type": "application/json"},
+                json={"model": os.environ.get("IA_MODELE") or "claude-haiku-5-5",
+                      "max_tokens": int(os.environ.get("IA_MAX_TOKENS") or 300),
+                      "stop_sequences": ["}"], "messages": msgs})
+        amorce = _AMORCE
+        r = appel(amorce)
+        if r.status_code == 400 and amorce:      # modèle qui refuse l'amorce : on continue sans, pour de bon
+            print(f"[IA] amorce refusée, on continue sans : {r.text[:200]}")
+            _AMORCE = amorce = False
+            r = appel(False)
         if r.status_code != 200:
             return {"erreur": f"HTTP {r.status_code} {r.text[:200]}"}
         u = r.json().get("usage") or {}
         conso = {"entree": int(u.get("input_tokens") or 0) + int(u.get("cache_read_input_tokens") or 0)
                  + int(u.get("cache_creation_input_tokens") or 0), "sortie": int(u.get("output_tokens") or 0)}
         texte = "".join(b.get("text", "") for b in r.json().get("content", []))
+        if amorce:
+            texte = "{" + texte
+        if r.json().get("stop_reason") == "stop_sequence":
+            texte += "}"
         m = re.search(r"\{.*\}", texte, re.S)
         try:
             d = json.loads(m.group(0)) if m else {}
