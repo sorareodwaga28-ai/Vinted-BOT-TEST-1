@@ -373,7 +373,32 @@ def publiee_le(item_id):
     i = full.find("created")
     print(f"[délai] {item_id} : date introuvable (extrait : {full[max(0, i - 60):i + 120]!r})" if i >= 0
           else f"[délai] {item_id} : aucun champ « created » dans la page")
+    diag_publication(item_id, full)
     return None
+
+
+DIAG = Path(__file__).with_name("diag_publication.txt")
+
+
+def diag_publication(item_id, full):
+    """Une fois : relève dans la page tous les champs qui ressemblent à une date ou une heure (noms + valeurs courtes),
+    enregistré dans diag_publication.txt (envoyé sur GitHub avec la sauvegarde) pour trouver où Vinted met l'heure."""
+    if DIAG.exists():
+        return
+    motif = (r'\\?"([A-Za-z_]*(?:time|Time|date|Date|created|Created|updated|Updated|push|Push|_at|_ts|At|ago|Ago)[A-Za-z_]*)'
+             r'\\?"\s*:\s*\\?"?([^",}\\]{0,40})')
+    vus, lignes = set(), []
+    for m in re.finditer(motif, full):
+        k = (m.group(1), m.group(2)[:40])
+        if k not in vus:
+            vus.add(k)
+            pos = m.start()
+            lignes.append(f"{m.group(1)} = {m.group(2)[:40]}   (position {pos})")
+        if len(lignes) >= 400:
+            break
+    pos_id = [m.start() for m in re.finditer(str(item_id), full)][:20]
+    DIAG.write_text(f"annonce {item_id} · page de {len(full)} caractères · id trouvé aux positions {pos_id}\n"
+                    + "\n".join(lignes), encoding="utf-8")
 
 
 def champ_vendeur(vend):

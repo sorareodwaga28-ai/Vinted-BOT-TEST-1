@@ -114,6 +114,8 @@ def git_sauver():
         run("git", "reset", "-q", "--hard", "origin/main")
         shutil.copy(tmp, ETAT)
         run("git", "add", ETAT.name)
+        if pt.DIAG.exists():      # V4 : relevé des champs date de la page Vinted (une fois)
+            run("git", "add", pt.DIAG.name)
         if run("git", "diff", "--cached", "--quiet") == 0:
             print(f"::notice::sauvegarde : rien de nouveau ({time.strftime('%H:%M:%S')})")
             return
