@@ -1,5 +1,37 @@
 [
  {
+  "id": "10621431668",
+  "date": "2026-11-01T15:45:04+01:00",
+  "type": "bleu",
+  "paire": "Oxidized Green",
+  "famille": "Jordan 4",
+  "titre": "Air Jordan 4 Retro Oxidized Green",
+  "prix": "28.00 EUR",
+  "taille": "40",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10621431668-air-jordan-4-retro-oxidized-green",
+  "photos": [
+   "https://images1.vinted.net/t/02_017c3_Kgkhdvr62mL5Wk3euQ2XyApz/f800/f5c72be5.webp?s=dd74a021627c423ce3d224e6b1508501cffffbd3",
+   "https://images1.vinted.net/t/02_019a6_KuZTEqyQpcHscmrNoy6iHzZT/f800/dbccf30c.webp?s=eb60b59cbee08aa671b3069dd58e7a46f097671f",
+   "https://images1.vinted.net/t/02_01361_uWbDQoS7fbAdLuVaU26qPJjV/f800/66c0f20c.webp?s=2edc065169899b39d101113af1b8e099e8265c3b",
+   "https://images1.vinted.net/t/05_017b4_d76eJ3t6eNsFXWb7f2q37wze/f800/f126e373.webp?s=1ca2f7a603f178968bf67483f4c0a840ab7566bb",
+   "https://images1.vinted.net/t/02_00a36_UPaVkE25to8xSNYBLJ6ZbDac/f800/669aabce.webp?s=72523fd77eb773218dc579e9acff656d7ece579a",
+   "https://images1.vinted.net/t/01_0063e_Y85QTeoWBbZswbaBPsxRzWH5/f800/398a53cd.webp?s=3d0813bf7f4273923110d426733cf5f6b372cc14"
+  ],
+  "etiquette": "https://images1.vinted.net/t/01_0063e_Y85QTeoWBbZswbaBPsxRzWH5/f800/398a53cd.webp?s=3d0813bf7f4273923110d426733cf5f6b372cc14",
+  "ia": null,
+  "ressemblance": 0.867,
+  "seuil": 0.757,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": null,
+   "profil": null,
+   "avis": 0,
+   "etoiles": 0.0
+  }
+ },
+ {
   "id": "10621276468",
   "date": "2026-11-01T15:35:11+01:00",
   "type": "vert",
