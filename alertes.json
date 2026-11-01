@@ -1,5 +1,39 @@
 [
  {
+  "id": "10626299176",
+  "date": "2026-11-01T19:57:33+01:00",
+  "type": "vert",
+  "paire": "Lightning",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4 rétro yellow",
+  "prix": "55.00 EUR",
+  "taille": "42",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10626299176-jordan-4-retro-yellow",
+  "photos": [
+   "https://images1.vinted.net/t/04_021eb_x1jHFrfAGkAicsSHAWYb8Y7h/f800/047e3df2.webp?s=76da24d2245d3e48b023d1070ae4fb43e91276cb",
+   "https://images1.vinted.net/t/06_01438_Tjg1479uZbLwxXMnTBWP2A3f/f800/29ee38f8.webp?s=b8918cef18115164b3771018b62a3cdc16b4e420",
+   "https://images1.vinted.net/t/01_007a4_2KzhLhv6AkQvizKYb22pPTAd/f800/bec58799.webp?s=13e2a84a3bc9d2bbd01faad6577a93b6f4eb2eff",
+   "https://images1.vinted.net/t/06_013f4_JfRB5k3FQX6yzcX3DweohQhD/f800/8e8c8723.webp?s=42918d7afe856cd68a44082460e0cd2f0f0a26b1",
+   "https://images1.vinted.net/t/05_004d7_93wDYEg4ZtfeGHR8v64ZCX5U/f800/95df29f3.webp?s=6145c1fd54d42464e5c197648897e3f5a9bfd96c"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.805,
+  "seuil": 0.744,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": null,
+   "profil": null,
+   "avis": 2,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10626236958",
   "date": "2026-11-01T19:51:35+01:00",
   "type": "bleu",
