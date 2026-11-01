@@ -1,5 +1,38 @@
 [
  {
+  "id": "10608586981",
+  "date": "2026-11-01T07:33:52+01:00",
+  "type": "vert",
+  "paire": "Black Canvas",
+  "famille": "Jordan 4",
+  "titre": "Baskets homme Air Jordan pointure 41",
+  "prix": "40.00 EUR",
+  "taille": "41",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10608586981-baskets-homme-air-jordan-pointure-41",
+  "photos": [
+   "https://images1.vinted.net/t/01_01dc9_NrKxE5ookD9qRzj6W4U7Zjyv/f800/2db870c2.webp?s=6fddffbf73528438abe3edea24ed63ce38cf8124",
+   "https://images1.vinted.net/t/06_022f2_G5eXAC4wmm8WdSWSLwaaptZp/f800/cbc53de5.webp?s=67842f9307cf3645aecaab95f9be9859ef5529b4",
+   "https://images1.vinted.net/t/06_022d3_MauWgope96W49bu2vV7emBjg/f800/17a3fc90.webp?s=361d897ace3995aba359e2ad992c923c582eb403",
+   "https://images1.vinted.net/t/05_007d2_9kAnSdSTUc5jzZckFarL7p24/f800/94defb62.webp?s=b3619d67232df10a901b5f426849bbe7251256c2"
+  ],
+  "etiquette": "https://images1.vinted.net/t/05_007d2_9kAnSdSTUc5jzZckFarL7p24/f800/94defb62.webp?s=b3619d67232df10a901b5f426849bbe7251256c2",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 85
+  },
+  "ressemblance": 0.887,
+  "seuil": 0.758,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": null,
+   "profil": null,
+   "avis": 112,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10607635271",
   "date": "2026-11-01T00:24:03+01:00",
   "type": "bleu",
