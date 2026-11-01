@@ -1,5 +1,41 @@
 [
  {
+  "id": "10628334535",
+  "date": "2026-11-01T22:02:32+01:00",
+  "type": "vert",
+  "paire": "Infrared",
+  "famille": "Jordan 4",
+  "titre": "Air Jordan 4s InfraRed",
+  "prix": "30.00 EUR",
+  "taille": "45",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10628334535-air-jordan-4s-infrared",
+  "photos": [
+   "https://images1.vinted.net/t/02_01cba_tg4omGjtE5eNK3SAt6ReMsAM/f800/6130c5eb.webp?s=b17ca648a984d22d954fbff3344df1c26ceab462",
+   "https://images1.vinted.net/t/02_025e2_ci7irz3U4XWmWxz5D4Wx6DUg/f800/f51f4ac5.webp?s=79e7b2ca886ef8e7588f9849a3f313f985cb028e",
+   "https://images1.vinted.net/t/02_02393_MQ9Up2BqhQfX2qLdthBQ4akF/f800/ab80d3e5.webp?s=157864b2fe5337aa47aa3838ac2d5af4e274a40e",
+   "https://images1.vinted.net/t/06_009b0_ys7GYUfvbYjrzdWUoMSjt3oB/f800/15b8ae1d.webp?s=4042daccb00196f972239bfc216585d4fb72b396",
+   "https://images1.vinted.net/t/05_014c7_XefMy3Cq4oDvoMxai5uszMMu/f800/8dd90791.webp?s=51353041479d10c6f1871cf9ee0a96283a0e7a4a",
+   "https://images1.vinted.net/t/02_01633_Z9XpQCGq9ABoLV9m5PGxNKih/f800/eb66d783.webp?s=2afbe629035ede9ea19a066e6542edf65323c4e5",
+   "https://images1.vinted.net/t/02_01f6f_2DWMVDXwFByZSFjSFPiBwjvN/f800/71365bcd.webp?s=f53c4689072ff48a3bb85531efc93bb36d1cb8e0"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 70
+  },
+  "ressemblance": 0.834,
+  "seuil": 0.813,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": null,
+   "profil": null,
+   "avis": 0,
+   "etoiles": 0.0
+  }
+ },
+ {
   "id": "10628200177",
   "date": "2026-11-01T21:52:58+01:00",
   "type": "bleu",
