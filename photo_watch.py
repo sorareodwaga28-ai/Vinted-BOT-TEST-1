@@ -572,8 +572,9 @@ def main():
         taille = (it.get("details") or "?").partition(" · ")[0].strip() or "?"
         nom = x if couleur in ("VERT", "JAUNE") else (it.get("title") or x)[:80]
         # 1/11 (Bastien) : couleur · paire · prix · taille (ressemblance) · (prix + port) x 1,6 · délai
-        score = f" ({float(it['score']):.2f})" if it.get("score") else ""
-        bouts = [couleur, nom + (" ?" if couleur == "JAUNE" else ""), str(it.get("price", "?")), f"T{taille}{score}"]
+        # pas de couleur dans la notification (Bastien, 1/11) : elle reste visible dans l'alerte
+        score = f" ({float(it['score']):.2f} / seuil {pre_de.get(x, pre):.2f})" if it.get("score") else ""
+        bouts = [nom + (" ?" if couleur == "JAUNE" else ""), str(it.get("price", "?")), f"T{taille}{score}"]
         try:
             p = float(str(it.get("price", "")).split()[0].replace(",", "."))
             bouts.append(f"-> {(p + FRAIS_PORT) * COEF_REVENTE:.2f} €")
