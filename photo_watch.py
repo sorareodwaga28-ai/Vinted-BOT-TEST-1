@@ -566,6 +566,18 @@ def main():
     FRAIS_PORT = float((os.environ.get("FRAIS_PORT") or "6").replace(",", "."))          # port estimé ajouté au prix
     COEF_REVENTE = float((os.environ.get("COEF_REVENTE") or "1.6").replace(",", "."))   # revente visée = (prix + port) x 1,6
 
+    PROT_FIXE = float((os.environ.get("PROTECTION_FIXE") or "0.70").replace(",", "."))   # protection acheteur Vinted
+    PROT_PCT = float((os.environ.get("PROTECTION_PCT") or "5").replace(",", "."))        # … 0,70 € + 5 % du prix
+
+    def prix_champ(it):
+        """Champ « Prix » de l'alerte : prix affiché, et en dessous le prix avec frais (protection acheteur + port)."""
+        try:
+            p = float(str(it.get("price", "")).split()[0].replace(",", "."))
+        except (ValueError, IndexError):
+            return str(it.get("price", "?"))
+        total = p + PROT_FIXE + p * PROT_PCT / 100 + FRAIS_PORT
+        return f"{it['price']}\n({total:.2f} € avec frais)"
+
     def resume(it, x, couleur, verdict=None):
         """Texte court en tête du message : c'est lui qui s'affiche dans la notification de l'iPhone.
         Bot IA : nom de la paire ; titre exact (sans IA) : titre de l'annonce. Puis prix, taille, IA et photo."""
@@ -614,7 +626,7 @@ def main():
         vend = pt.vendeur(it["id"]) or {}
         avis = (f"{vend['avis']} avis" + (f" · {vend['etoiles']}/5" if vend.get("etoiles") is not None else "")
                 if vend.get("avis") is not None else "?")
-        champs = [{"name": "Prix", "value": it["price"], "inline": True},
+        champs = [{"name": "Prix", "value": prix_champ(it), "inline": True},
                   {"name": "Taille · état", "value": it.get("details", "?"), "inline": True},
                   {"name": "Vendeur", "value": pt.champ_vendeur(vend), "inline": True},
                   {"name": "IA", "value": f"{verdict['verdict'].upper()} à {verdict['confiance']} % (seuil {conf_min} %)",
@@ -1102,7 +1114,7 @@ def main():
                         post(webhook, {"embeds": [{
                             "title": it["title"][:250], "url": it["url"], "color": 0x95A5A6,
                             "author": {"name": f"IA : refusée ({x} ?)"},
-                            "fields": [{"name": "Prix", "value": it["price"], "inline": True},
+                            "fields": [{"name": "Prix", "value": prix_champ(it), "inline": True},
                                        {"name": "IA", "value": f"{verdict['verdict'].upper()} à {verdict['confiance']} %", "inline": True}],
                             "thumbnail": {"url": it["photo"]}}]})
                     return
@@ -1128,7 +1140,7 @@ def main():
                 avis = f"{vend['avis']} avis" + (f" · {vend['etoiles']}/5" if vend.get("etoiles") is not None else "")
             else:
                 avis = "?"
-            champs = [{"name": "Prix", "value": it["price"], "inline": True},
+            champs = [{"name": "Prix", "value": prix_champ(it), "inline": True},
                       {"name": "Taille · état", "value": it.get("details", "?"), "inline": True},
                       {"name": "Vendeur", "value": pt.champ_vendeur(vend), "inline": True}]
             if verdict:
