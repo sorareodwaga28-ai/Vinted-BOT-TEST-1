@@ -334,6 +334,20 @@ def vendeur(item_id):
     rep = cherche("feedback_reputation", r"[0-9.]+", bloc) or cherche("feedback_reputation", r"[0-9.]+", full)
     nb = cherche("feedback_count", r"\d+", bloc) or cherche("feedback_count", r"\d+", full)
     login = cherche("login", r'[^"\\]+', bloc) or cherche("login", r'[^"\\]+', full)
+    # 1/11 : le pseudo et l'id ne sont plus sous « login » / « user » : autres noms possibles
+    for cle in ("userLogin", "user_login", "username", "userName", "sellerLogin", "seller_login"):
+        if login:
+            break
+        login = cherche(cle, r'[^"\\]+', full)
+    for cle in ("userId", "seller_id", "sellerId", "owner_id", "ownerId"):
+        if uid:
+            break
+        uid = cherche(cle, r"\d+", full)
+    if not uid:      # lien du profil écrit dans la page : /member/123456-pseudo
+        m = re.search(r"/member/(\d+)(?:-([A-Za-z0-9_.\-]+))?", full)
+        if m:
+            uid = m.group(1)
+            login = login or m.group(2)
     return {"pseudo": login, "id": uid,
             "profil": f"https://www.vinted.fr/member/{uid}" if uid else None,
             "avis": int(nb) if nb else None,
@@ -385,7 +399,7 @@ def diag_publication(item_id, full):
     enregistré dans diag_publication.txt (envoyé sur GitHub avec la sauvegarde) pour trouver où Vinted met l'heure."""
     if DIAG.exists():
         return
-    motif = (r'\\?"([A-Za-z_]*(?:time|Time|date|Date|created|Created|updated|Updated|push|Push|_at|_ts|At|ago|Ago)[A-Za-z_]*)'
+    motif = (r'\\?"([A-Za-z_]*(?:time|Time|date|Date|created|Created|updated|Updated|push|Push|_at|_ts|At|ago|Ago|login|Login|user|User|seller|Seller|member|Member|owner|Owner)[A-Za-z_]*)'
              r'\\?"\s*:\s*\\?"?([^",}\\]{0,40})')
     vus, lignes = set(), []
     for m in re.finditer(motif, full):
@@ -396,6 +410,7 @@ def diag_publication(item_id, full):
             lignes.append(f"{m.group(1)} = {m.group(2)[:40]}   (position {pos})")
         if len(lignes) >= 400:
             break
+    lignes += [f"lien profil : {u}" for u in list(dict.fromkeys(re.findall(r"/member/[0-9]+[A-Za-z0-9_.-]*", full)))[:10]]
     pos_id = [m.start() for m in re.finditer(str(item_id), full)][:20]
     DIAG.write_text(f"annonce {item_id} · page de {len(full)} caractères · id trouvé aux positions {pos_id}\n"
                     + "\n".join(lignes), encoding="utf-8")
