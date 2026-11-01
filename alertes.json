@@ -1,5 +1,35 @@
 [
  {
+  "id": "10621041643",
+  "date": "2026-11-01T15:23:24+01:00",
+  "type": "vert",
+  "paire": "Thunder",
+  "famille": "Jordan 4",
+  "titre": "Bascket montante",
+  "prix": "35.00 EUR",
+  "taille": "Autre",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10621041643-bascket-montante",
+  "photos": [
+   "https://images1.vinted.net/t/05_01af8_peE4EGkA7kAwjYGgD3mT2yQK/f800/1b12da35.webp?s=8f8d1f6324655b56991eb77f7504b2bf1e874807"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 70
+  },
+  "ressemblance": 0.819,
+  "seuil": 0.72,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": null,
+   "profil": null,
+   "avis": 16,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10620744086",
   "date": "2026-11-01T15:08:11+01:00",
   "type": "bleu",
