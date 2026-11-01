@@ -559,8 +559,7 @@ def main():
                   {"name": "IA", "value": f"{verdict['verdict'].upper()} à {verdict['confiance']} % (seuil {conf_min} %)",
                    "inline": True},
                   {"name": "Ressemblance photo",
-                   "value": f"{float(it.get('score') or 0):.2f} (seuil {pre_de.get(x, pre):.2f})", "inline": True},
-                  {"name": "Pourquoi", "value": (verdict.get("raison") or "-")[:200], "inline": False}]
+                   "value": f"{float(it.get('score') or 0):.2f} (seuil {pre_de.get(x, pre):.2f})", "inline": True}]      # 1/11 : plus de « Pourquoi » (l'IA ne donne plus de raison)
         embeds = [{"title": f"{x} ?", "url": it["url"], "color": 0xF1C40F,
                    "author": {"name": "IA incertaine : à toi de trancher (oui / non / fake)"},
                    "fields": champs, "image": {"url": it["photo"]},
@@ -988,8 +987,7 @@ def main():
                             "title": it["title"][:250], "url": it["url"], "color": 0x95A5A6,
                             "author": {"name": f"IA : refusée ({x} ?)"},
                             "fields": [{"name": "Prix", "value": it["price"], "inline": True},
-                                       {"name": "IA", "value": f"{verdict['verdict'].upper()} à {verdict['confiance']} %", "inline": True},
-                                       {"name": "Pourquoi", "value": (verdict.get("raison") or "-")[:200], "inline": False}],
+                                       {"name": "IA", "value": f"{verdict['verdict'].upper()} à {verdict['confiance']} %", "inline": True}],
                             "thumbnail": {"url": it["photo"]}}]})
                     return
                 elif verdict and verdict.get("code_lu"):

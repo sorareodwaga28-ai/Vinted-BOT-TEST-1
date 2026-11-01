@@ -51,8 +51,7 @@ def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=()):
         "If a style code is readable on the size tag, read it: a different style code means NO. "
         "Ignore wear, dirt, lighting and box. If the photos do not show the shoe well enough, answer \"incertain\".\n"
         "Reply with JSON only, no other text: "
-        "{\"verdict\": \"oui\" | \"non\" | \"incertain\", \"confiance\": 0-100, \"code_lu\": \"style code read on the tag, or empty\", "
-        "\"raison\": \"at most 15 words, in French\"}")})
+        "{\"verdict\": \"oui\" | \"non\" | \"incertain\", \"confiance\": 0-100, \"code_lu\": \"style code read on the tag, or empty\"}")})
     global _AMORCE
     try:
         # 1/11 (V3) : réponse courte. L'IA commence directement par « { » (amorce) et s'arrête au « } »
