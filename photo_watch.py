@@ -563,7 +563,7 @@ def main():
         usd = r.get("tok_entree", 0) / 1e6 * prix_entree + r.get("tok_sortie", 0) / 1e6 * prix_sortie
         return usd * eur_par_usd * 100
 
-    FRAIS_PORT = float((os.environ.get("FRAIS_PORT") or "6").replace(",", "."))          # port estimé ajouté au prix
+    FRAIS_PORT = float((os.environ.get("FRAIS_PORT") or "4.50").replace(",", "."))          # port estimé ajouté au prix
     COEF_REVENTE = float((os.environ.get("COEF_REVENTE") or "1.6").replace(",", "."))   # revente visée = (prix + port) x 1,6
 
     PROT_FIXE = float((os.environ.get("PROTECTION_FIXE") or "0.70").replace(",", "."))   # protection acheteur Vinted
