@@ -559,7 +559,9 @@ def main():
                   {"name": "IA", "value": f"{verdict['verdict'].upper()} à {verdict['confiance']} % (seuil {conf_min} %)",
                    "inline": True},
                   {"name": "Ressemblance photo",
-                   "value": f"{float(it.get('score') or 0):.2f} (seuil {pre_de.get(x, pre):.2f})", "inline": True}]      # 1/11 : plus de « Pourquoi » (l'IA ne donne plus de raison)
+                   "value": f"{float(it.get('score') or 0):.2f} (seuil {pre_de.get(x, pre):.2f})", "inline": True}]
+        if verdict.get("raison"):      # seulement quand la réponse de l'IA était illisible ou coupée (pour comprendre)
+            champs.append({"name": "Problème IA", "value": verdict["raison"][:200], "inline": False})
         embeds = [{"title": f"{x} ?", "url": it["url"], "color": 0xF1C40F,
                    "author": {"name": "IA incertaine : à toi de trancher (oui / non / fake)"},
                    "fields": champs, "image": {"url": it["photo"]},

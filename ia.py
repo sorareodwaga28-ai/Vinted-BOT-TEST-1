@@ -63,7 +63,7 @@ def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=()):
             return requests.post(API, timeout=60, headers={
                 "x-api-key": os.environ["ANTHROPIC_API_KEY"].strip(), "anthropic-version": "2023-06-01", "content-type": "application/json"},
                 json={"model": os.environ.get("IA_MODELE") or "claude-haiku-5-5",
-                      "max_tokens": int(os.environ.get("IA_MAX_TOKENS") or 300),
+                      "max_tokens": int(os.environ.get("IA_MAX_TOKENS") or 1500),   # 1/11 : 300 coupait la réponse (INCERTAIN 0 %)
                       "stop_sequences": ["}"], "messages": msgs})
         amorce = _AMORCE
         r = appel(amorce)
