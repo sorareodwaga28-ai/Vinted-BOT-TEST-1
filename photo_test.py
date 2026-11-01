@@ -364,8 +364,11 @@ def photos_annonce(session, item):
         except ValueError:
             pass
     PAGES[str(item["id"])] = full          # gardée pour lire le vendeur (onglet COP sneakers)
-    while len(PAGES) > 50:
-        PAGES.pop(next(iter(PAGES)))
+    while len(PAGES) > 50:      # plusieurs annonces lues en même temps : on ignore une clé déjà retirée
+        try:
+            PAGES.pop(next(iter(PAGES)), None)
+        except RuntimeError:
+            break
     cible = jeton(item["photo"])
     dec = json.JSONDecoder()
     for m in re.finditer(r'"photos":\[', full):

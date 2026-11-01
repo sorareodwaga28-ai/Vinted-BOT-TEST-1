@@ -24,6 +24,38 @@ import time
 from pathlib import Path
 from zoneinfo import ZoneInfo
 from datetime import datetime, timedelta
+import threading
+from contextlib import contextmanager
+
+# Verrou des candidates vérifiées en parallèle : une seule à la fois touche l'état, CLIP et Discord ;
+# hors_verrou() le relâche pendant les attentes réseau (page Vinted, photos, IA).
+verrou = threading.Lock()
+_fil = threading.local()
+
+
+@contextmanager
+def sous_verrou():
+    verrou.acquire()
+    _fil.tient = True
+    try:
+        yield
+    finally:
+        _fil.tient = False
+        verrou.release()
+
+
+@contextmanager
+def hors_verrou():
+    if not getattr(_fil, "tient", False):
+        yield
+        return
+    _fil.tient = False
+    verrou.release()
+    try:
+        yield
+    finally:
+        verrou.acquire()
+        _fil.tient = True
 
 import open_clip
 import requests
@@ -86,7 +118,11 @@ ALERTES = Path(__file__).with_name("alertes.json")
 
 
 def publier_alerte(alerte):
-    """Ajoute l'alerte en tête de alertes.json et l'envoie tout de suite sur GitHub (lu par l'onglet COP sneakers)."""
+    publier_alertes([alerte])
+
+
+def publier_alertes(alertes):
+    """Ajoute les alertes en tête de alertes.json et les envoie sur GitHub en une fois (lu par l'onglet COP sneakers)."""
     import subprocess as sp
     if os.environ.get("GIT_SAVE") != "1":
         return
@@ -99,13 +135,13 @@ def publier_alerte(alerte):
             liste = json.loads(ALERTES.read_text()) if ALERTES.exists() else []
         except ValueError:
             liste = []
-        if not any(a.get("id") == alerte["id"] for a in liste):
-            liste.insert(0, alerte)
+        ids = {a.get("id") for a in liste}
+        liste = [a for a in alertes if a["id"] not in ids] + liste
         ALERTES.write_text(json.dumps(liste[:300], ensure_ascii=False, indent=1))
         run("git", "add", ALERTES.name)
-        run("git", "commit", "-q", "-m", f"COP sneakers : {alerte['paire']} {alerte['prix']}")
+        run("git", "commit", "-q", "-m", "COP sneakers : " + ", ".join(f"{a['paire']} {a['prix']}" for a in alertes)[:200])
         if run("git", "push", "-q", "origin", "HEAD:main") == 0:
-            print(f"::notice::alerte publiée pour le site ({alerte['paire']})")
+            print(f"::notice::{len(alertes)} alerte(s) publiée(s) pour le site")
             sauver_local()
             return
         time.sleep(2)
@@ -649,6 +685,7 @@ def main():
 
     from concurrent.futures import ThreadPoolExecutor
     pool = ThreadPoolExecutor(8)
+    pool_cand = ThreadPoolExecutor(int(os.environ.get("CANDIDATES_PARALLELE") or 5))   # candidates vérifiées en même temps
 
     def _img(u):
         try:
@@ -736,8 +773,9 @@ def main():
         photos = photos_pour_ia(notes, eti_url)
         if not photos:
             return
-        v = ia.verifier(pt.nom(x), codes, refs_img[x], photos, eti_img, "",
-                        [pt.nom(m) for m in pt.PRIX if m != x][:6])      # sans le titre : on juge la photo seule
+        with hors_verrou():
+            v = ia.verifier(pt.nom(x), codes, refs_img[x], photos, eti_img, "",
+                            [pt.nom(m) for m in pt.PRIX if m != x][:6])      # sans le titre : on juge la photo seule
         compter(v)
         if v.get("erreur"):
             return
@@ -822,33 +860,44 @@ def main():
             alertes = alertes[:ia_max]
         print(f"{len(alertes)} candidate(s) à vérifier")
         # 4. Étape 2 : étiquette dans les autres photos, puis envoi
-        for it in alertes:
+        # 1/11 : jusqu'à 5 candidates vérifiées EN MÊME TEMPS (avant : l'une après l'autre).
+        # Les parties lentes (page de l'annonce, photos, IA) tournent en parallèle ; le reste
+        # (CLIP, compteurs, envoi Discord) passe une candidate à la fois grâce au verrou.
+        a_publier = []
+
+        def _traiter(it):
             x = it["modele"]
             codes = pt.CODES.get(x, [])
             eti_url, statut = None, "pas de photo d'étiquette : à demander au vendeur"
             urls = it.get("urls") or []
             for essai in range(0 if urls else 2):      # 2e essai si la page de l'annonce n'a pas donné ses photos
                 try:
-                    urls = pt.photos_annonce(session, it)
+                    with hors_verrou():
+                        urls = pt.photos_annonce(session, it)
                 except Exception as ex:
                     print(f"Annonce illisible {it['id']} : {ex}")
                 if urls:
                     break
-                time.sleep(3)
+                with hors_verrou():
+                    time.sleep(3)
             print(f"[diag] annonce {it['id']} : {len(urls)} photo(s) lue(s)")
             cle = cle_doublon(it, x)
             if deja_alertee(cle):
                 rec()["doublons"] = rec().get("doublons", 0) + 1
                 print(f"[doublon] {it['id']} {x} : déjà alertée (remise en vente), ignorée")
-                continue
+                return
             notes = []
-            for u, im in zip(urls[:20], telecharger(urls[:20])):
-                if im is None:
-                    continue
-                f = emb([im])
-                p_eti = float((100 * f @ te.T).softmax(dim=-1)[0][0])
-                s_eti = float((f @ etis[x].T).max()) if etis.get(x) is not None else 0
-                notes.append((max(p_eti, s_eti), p_eti >= 0.5 or s_eti >= 0.80, u, im, float((f @ refs[x].T).max())))
+            with hors_verrou():
+                imgs_annonce = telecharger(urls[:20])
+            lus = [(u, im) for u, im in zip(urls[:20], imgs_annonce) if im is not None]
+            if lus:
+                # Toutes les photos de l'annonce analysées d'un coup (1/11 : plus rapide qu'une par une)
+                F = emb_lots([im for _, im in lus])
+                p_etis = (100 * F @ te.T).softmax(dim=-1)[:, 0].tolist()
+                s_etis = (F @ etis[x].T).max(dim=1).values.tolist() if etis.get(x) is not None else [0] * len(lus)
+                s_refs = (F @ refs[x].T).max(dim=1).values.tolist()
+                for (u, im), p_eti, s_eti, s_ref in zip(lus, p_etis, s_etis, s_refs):
+                    notes.append((max(p_eti, s_eti), p_eti >= 0.5 or s_eti >= 0.80, u, im, float(s_ref)))
             notes.sort(key=lambda t: t[0], reverse=True)
             eti_img = None
             if notes and notes[0][1]:
@@ -866,17 +915,18 @@ def main():
                 if not titre_ok:
                     rec()["loupees"] += 1
                     rec(x)["loupees"] += 1
-                    continue      # nuit ou budget de l'heure atteint : seulement les titres qui nomment la paire
+                    return      # nuit ou budget de l'heure atteint : seulement les titres qui nomment la paire
                 sans_ia = ia_pourquoi
             elif ia.dispo() and rec(x)["ia"] >= ia_paire_max and not titre_ok:
                 rec(x)["plafond"] = rec(x).get("plafond", 0) + 1
-                continue          # cette paire a eu sa part d'IA aujourd'hui : on garde le budget pour les autres
+                return          # cette paire a eu sa part d'IA aujourd'hui : on garde le budget pour les autres
             elif ia.dispo():
                 etat["ia_n"] += 1
                 etat["ia_np"] = etat.get("ia_np", 0) + 1
-                photos = photos_pour_ia(notes, eti_url) or [Image.open(io.BytesIO(session.get(it["photo"], timeout=20).content)).convert("RGB")]
                 voisins = [m for m in pt.PRIX if m != x][:6]
-                verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos, eti_img, it.get("title", ""), [pt.nom(m) for m in voisins])
+                with hors_verrou():
+                    photos = photos_pour_ia(notes, eti_url) or [Image.open(io.BytesIO(session.get(it["photo"], timeout=20).content)).convert("RGB")]
+                    verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos, eti_img, it.get("title", ""), [pt.nom(m) for m in voisins])
                 compter(verdict)
                 print(f"IA {it['id']} {x} : {verdict}")
                 if not verdict.get("erreur"):
@@ -886,7 +936,7 @@ def main():
                     rp["oui" if ok else ("non" if verdict["verdict"] == "non" else "incertain")] += 1
                 if verdict.get("erreur"):
                     if not titre_ok:
-                        continue
+                        return
                     sans_ia = "erreur : " + str(verdict["erreur"])[:150]
                     verdict = None
                 else:
@@ -896,12 +946,12 @@ def main():
                             and it.get("e_best") is not None):
                         retenir_non(x, it["e_best"])
                     if it.get("sonde") and (verdict["verdict"] != "oui" or verdict["confiance"] < conf_min):
-                        continue         # test silencieux refusé : rien sur Discord
+                        return         # test silencieux refusé : rien sur Discord
                 if verdict and (verdict["verdict"] != "oui" or verdict["confiance"] < conf_min):
                     if not it.get("sonde") and (verdict["verdict"] == "incertain" or verdict["verdict"] == "oui"):
                         envoyer_incertaine(it, x, verdict, urls, eti_url)
                         etat["alertes_cles"][cle] = time.time()
-                        continue
+                        return
                     if voir_refus:      # montrer aussi les refus (en gris) pour juger l'IA
                         post(webhook, {"embeds": [{
                             "title": it["title"][:250], "url": it["url"], "color": 0x95A5A6,
@@ -910,16 +960,16 @@ def main():
                                        {"name": "IA", "value": f"{verdict['verdict'].upper()} à {verdict['confiance']} %", "inline": True},
                                        {"name": "Pourquoi", "value": (verdict.get("raison") or "-")[:200], "inline": False}],
                             "thumbnail": {"url": it["photo"]}}]})
-                    continue
+                    return
                 elif verdict and verdict.get("code_lu"):
                     lu = verdict["code_lu"].upper().replace(" ", "-")
                     bon = any(c.replace("-", "") in lu.replace("-", "") for c in codes)
                     statut = f"lue par l'IA : {verdict['code_lu']} = " + ("BON CODE" if bon else "AUTRE CODE (à vérifier)")
             elif not titre_ok:
-                continue          # sans IA : plus d'alerte sur la photo seule (trop de fausses alertes)
+                return          # sans IA : plus d'alerte sur la photo seule (trop de fausses alertes)
             if not verdict and not titre_exact(it, x):
                 print(f"Sans IA, titre pas exact : {it['id']} « {it.get('title')} » ({x}) non envoyée")
-                continue          # sans IA : seulement si le titre dit exactement la paire (pas de faute tolérée)
+                return          # sans IA : seulement si le titre dit exactement la paire (pas de faute tolérée)
 
             bleu = sans_ia.startswith("titre exact")
             if verdict:
@@ -980,7 +1030,7 @@ def main():
                 tester_bleue(it, x, codes, notes, eti_url, eti_img)
             try:      # même alerte pour l'onglet COP sneakers du site
                 taille, _, etat_paire = (it.get("details") or "?").partition(" · ")
-                publier_alerte({
+                a_publier.append({
                     "id": str(it["id"]), "date": datetime.now(paris).isoformat(timespec="seconds"),
                     "type": "vert" if verdict else ("bleu" if sans_ia.startswith("titre exact") else "orange"),
                     "paire": x, "famille": famille(x), "titre": it.get("title", ""), "prix": it.get("price"),
@@ -991,6 +1041,21 @@ def main():
                     "titre_dit": bool(titre_ok), "vendeur": pt.vendeur(it["id"])})
             except Exception as ex:
                 print(f"::warning::alerte non publiée pour le site : {str(ex)[:200]}")
+
+        def traiter(it):
+            try:
+                with sous_verrou():
+                    _traiter(it)
+            except Exception as ex:
+                print(f"::warning::Erreur sur l'annonce {it.get('id')} : {str(ex)[:300]}")
+
+        list(pool_cand.map(traiter, alertes))
+        if a_publier:      # même alertes pour l'onglet COP sneakers du site, en un seul envoi GitHub
+            try:
+                publier_alertes(a_publier)
+            except Exception as ex:
+                print(f"::warning::alertes non publiées pour le site : {str(ex)[:200]}")
+
 
     # Calibrage sans prix : une recherche Jordan SANS prix max, de temps en temps. Les annonces juste sous
     # le seuil d'une paire sont vérifiées en silence par l'IA pour apprendre son seuil. Jamais d'alerte ici.
