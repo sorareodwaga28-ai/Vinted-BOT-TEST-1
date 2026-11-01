@@ -1,5 +1,38 @@
 [
  {
+  "id": "10621393831",
+  "date": "2026-11-01T17:35:11+01:00",
+  "type": "vert",
+  "paire": "Seafoam",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4",
+  "prix": "30.00 EUR",
+  "taille": "40",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10621393831-jordan-4",
+  "photos": [
+   "https://images1.vinted.net/t/06_01bd5_vJ3Fj5Nor5D37oHXW3j7qVoj/f800/239968ea.webp?s=da523b15922b45e85dfa4f3c32f2aa71a75c5e55",
+   "https://images1.vinted.net/t/06_00f6c_V2Mw2kpHm7FuyZms9H6XwATv/f800/98fc6787.webp?s=3e5745f24d1e46d400ae34fe0b0c9946de37c271",
+   "https://images1.vinted.net/t/02_01366_Hz9uWDHxaXAHimS84mvgG6fk/f800/5a079e04.webp?s=20cde03d216c5e3fc85857b369c50b32fd4bfaed",
+   "https://images1.vinted.net/t/04_01923_wMnWnffdf6deSTZCHmSoti6p/f800/efb7790b.webp?s=4a363ed04f2bc71a72c7e8cdb26a03872831f3c0"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.851,
+  "seuil": 0.72,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": null,
+   "profil": null,
+   "avis": 52,
+   "etoiles": 3.9
+  }
+ },
+ {
   "id": "10623575303",
   "date": "2026-11-01T17:28:10+01:00",
   "type": "bleu",
