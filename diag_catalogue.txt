@@ -1,0 +1,103 @@
+{
+ "id": 10641832178,
+ "productItem": {
+  "id": 10641832178,
+  "title": "Jordan 1 Tan Clair",
+  "url": "/items/10641832178-jordan-1-tan-clair",
+  "favouriteCount": 0,
+  "priceWithDiscount": null,
+  "price": {
+   "amount": "55.00",
+   "currencyCode": "EUR"
+  },
+  "serviceFee": {
+   "amount": "3.45",
+   "currencyCode": "EUR"
+  },
+  "totalItemPrice": {
+   "amount": "58.45",
+   "currencyCode": "EUR"
+  },
+  "isPromoted": false,
+  "isFavourite": false,
+  "thumbnailUrl": "https://images1.vinted.net/t/06_00953_1ZZWGLV5inzhuZYGhCxuk52X/310x430/463ba305.webp?s=4c46d880c2cb3af26d5b68796bb0c405c2568e04",
+  "thumbnailUrls": [
+   "https://images1.vinted.net/t/06_00953_1ZZWGLV5inzhuZYGhCxuk52X/310x430/463ba305.webp?s=4c46d880c2cb3af26d5b68796bb0c405c2568e04"
+  ],
+  "dominantColor": "#D9D6D0",
+  "user": {
+   "id": 80409491,
+   "photo": null,
+   "thumbnailUrl": null,
+   "isBusiness": false
+  },
+  "photos": [
+   {
+    "url": "https://images1.vinted.net/t/06_00953_1ZZWGLV5inzhuZYGhCxuk52X/f800/463ba305.webp?s=18b068f1b62915d62cb8abb6d1bf4eacfa43287f",
+    "thumbnails": [
+     {
+      "height": 100,
+      "original_size": null,
+      "type": "thumb70x100",
+      "url": "https://images1.vinted.net/t/06_00953_1ZZWGLV5inzhuZYGhCxuk52X/70x100/463ba305.webp?s=f9ef448c7007c692115843650a98f2c36f6da261",
+      "width": 70
+     },
+     {
+      "height": 210,
+      "original_size": null,
+      "type": "thumb150x210",
+      "url": "https://images1.vinted.net/t/06_00953_1ZZWGLV5inzhuZYGhCxuk52X/150x210/463ba305.webp?s=498d890c73ad3ce26f23cda4074cdad2f29bae40",
+      "width": 150
+     },
+     {
+      "height": 430,
+      "original_size": null,
+      "type": "thumb310x430",
+      "url": "https://images1.vinted.net/t/06_00953_1ZZWGLV5inzhuZYGhCxuk52X/310x430/463ba305.webp?s=4c46d880c2cb3af26d5b68796bb0c405c2568e04",
+      "width": 310
+     },
+     {
+      "height": 428,
+      "original_size": true,
+      "type": "thumb428x624",
+      "url": "https://images1.vinted.net/t/06_00953_1ZZWGLV5inzhuZYGhCxuk52X/f800/463ba305.webp?s=18b068f1b62915d62cb8abb6d1bf4eacfa43287f",
+      "width": 240
+     },
+     {
+      "height": 624,
+      "original_size": true,
+      "type": "thumb624x428",
+      "url": "https://images1.vinted.net/t/06_00953_1ZZWGLV5inzhuZYGhCxuk52X/f800/463ba305.webp?s=18b068f1b62915d62cb8abb6d1bf4eacfa43287f",
+      "width": 351
+     },
+     {
+      "height": 364,
+      "original_size": true,
+      "type": "thumb364x428",
+      "url": "https://images1.vinted.net/t/06_00953_1ZZWGLV5inzhuZYGhCxuk52X/f800/463ba305.webp?s=18b068f1b62915d62cb8abb6d1bf4eacfa43287f",
+      "width": 204
+     }
+    ],
+    "isMain": true,
+    "imageNo": 1
+   }
+  ],
+  "itemBox": {
+   "firstLine": "Nike",
+   "secondLine": "44,5 · Neuf sans étiquette",
+   "exposure": "$undefined",
+   "exposures": [],
+   "ffExposures": [],
+   "accessibilityLabel": "Jordan 1 Tan Clair, Marque: Nike, État: Neuf sans étiquette, Taille: 44,5, 55.00 €, 58.45 €",
+   "badge": "$undefined",
+   "actions": "$undefined",
+   "itemId": "10641832178"
+  }
+ },
+ "catalogTracking": {
+  "contentSource": "catalog",
+  "ownerId": 80409491,
+  "searchScore": 1.0000983476638794,
+  "searchSignals": "$undefined"
+ }
+}
