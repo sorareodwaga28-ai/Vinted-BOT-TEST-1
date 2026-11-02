@@ -1,5 +1,37 @@
 [
  {
+  "id": "10642500893",
+  "date": "2026-11-02T22:26:55+01:00",
+  "type": "bleu",
+  "paire": "Taupe Haze",
+  "famille": "Jordan 4",
+  "titre": "Air Jordan 4 Retro Taupe Haze",
+  "prix": "40.00 EUR",
+  "taille": "43",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10642500893-air-jordan-4-retro-taupe-haze",
+  "photos": [
+   "https://images1.vinted.net/t/01_002b7_uPwh2tdvWU7nNh64oTzJ5Dfi/f800/5f260ce4.webp?s=21603e53251d9f30da0fefd62eda47ffe4e2ae9d",
+   "https://images1.vinted.net/t/04_00e9a_cCkPRxqNBFXGRhpxZizXN9k8/f800/12b17ee3.webp?s=46a51b911875082cc0ba2780176f7626d89dd3be",
+   "https://images1.vinted.net/t/04_01146_VFeoVzZYVDTEHgS1QmksDv6G/f800/8e0043fa.webp?s=c24f3b8f635277c07cb61b2d17fa8fdc7de99bbd",
+   "https://images1.vinted.net/t/06_01836_uFtRMbBkLGgSmrRWNKRAAqEZ/f800/41d7734d.webp?s=93b2de332a489c0425a5f4058132cf28a5b01c9c",
+   "https://images1.vinted.net/t/02_00e95_nqdyk3uYknXLHAzeB2PKfB7o/f800/e6376d9d.webp?s=a9f028739a479af6f971ec690c0a83e8c76469e7",
+   "https://images1.vinted.net/t/02_0117c_NKj7UescMVPj56eqQipMhVzj/f800/be15e2b7.webp?s=bd87586d1b0f6f4ee11dc48e43a88f90839e070b"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.827,
+  "seuil": 0.76,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "josinho.l",
+   "id": "157558958",
+   "profil": "https://www.vinted.fr/member/157558958",
+   "avis": 7,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10641788272",
   "date": "2026-11-02T21:31:40+01:00",
   "type": "bleu",
