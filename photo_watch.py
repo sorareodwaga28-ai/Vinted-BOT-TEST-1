@@ -116,6 +116,7 @@ def git_sauver():
         run("git", "add", ETAT.name)
         if pt.DIAG.exists():      # V4 : relevé des champs date de la page Vinted (une fois)
             run("git", "add", pt.DIAG.name)
+        run("git", "add", "references")      # 2/11 : étiquettes fake (references/<paire>/etiquette-fake/)
         if bot.DIAG_CATALOGUE.exists():      # 2/11 : une annonce brute du résultat de recherche (heure de publication)
             run("git", "add", bot.DIAG_CATALOGUE.name)
         if run("git", "diff", "--cached", "--quiet") == 0:
@@ -357,6 +358,7 @@ def main():
         return f / f.norm(dim=-1, keepdim=True)
 
     refs, etis, pieges, clfs, refs_img = {}, {}, {}, {}, {}
+    etis_img, fakes_eti = {}, {}
     import ia
     pre = float((os.environ.get("IA_PRESELECTION") or "0.70").replace(",", "."))   # 1er tri par la photo (gratuit)
     conf_min = int(os.environ.get("IA_CONFIANCE") or 70)
@@ -433,6 +435,8 @@ def main():
         pieges[x] = emb(p) if p else None
         e = charger(d / "etiquette")
         etis[x] = emb(e) if e else None
+        etis_img[x] = e[:3]
+        fakes_eti[x] = charger(d / "etiquette-fake")[-3:]      # 2/11 : étiquettes fake confirmées par Bastien
         # Apprentissage : on repart de zéro si les photos de référence ont changé (les scores ne sont plus comparables)
         if etat.setdefault("auto_refs", {}).get(x) != len(r):
             etat["auto_refs"][x] = len(r)
@@ -676,13 +680,90 @@ def main():
             print(f"[délai] {it['id']} : {it['delai']} s" + ("" if pub else " (heure de publication introuvable)"))
         return it["delai"]
 
+    # 2/11 : contrôle de l'étiquette. Tailles Nike homme : US -> (UK, EUR, CM)
+    TAILLES_H = {6: (5.5, 38.5, 24), 6.5: (6, 39, 24.5), 7: (6, 40, 25), 7.5: (6.5, 40.5, 25.5), 8: (7, 41, 26),
+                 8.5: (7.5, 42, 26.5), 9: (8, 42.5, 27), 9.5: (8.5, 43, 27.5), 10: (9, 44, 28), 10.5: (9.5, 44.5, 28.5),
+                 11: (10, 45, 29), 11.5: (10.5, 45.5, 29.5), 12: (11, 46, 30), 12.5: (11.5, 47, 30.5), 13: (12, 47.5, 31)}
+    typo_min = int(os.environ.get("TYPO_FAKES_MIN") or 3)      # test de typographie à partir de 3 étiquettes fake
+
+    def coherence_tailles(txt):
+        """Texte des tailles lu par l'IA (« US 9 UK 8 EUR 42.5 CM 27 ») -> message si incohérent, '' si OK ou illisible."""
+        t = (txt or "").upper().replace(",", ".")
+        if not t or re.search(r"\bUS\s*[\d.]+\s*[WYC]\b|WMNS|\bW\b", t):
+            return ""      # tailles femme / enfant : pas de table fiable
+        def val(cle):
+            m = re.search(cle + r"\s*:?\s*(\d+(?:\.\d)?)", t)
+            return float(m.group(1)) if m else None
+        us, uk, eur, cm = val(r"\bUS"), val(r"\bUK"), val(r"\bEU[R]?"), val(r"\bCM")
+        if us is None or us not in TAILLES_H:
+            return ""
+        a_uk, a_eur, a_cm = TAILLES_H[us]
+        faux = [f"{n} {v:g} (attendu {a:g})" for n, v, a in (("UK", uk, a_uk), ("EUR", eur, a_eur), ("CM", cm, a_cm))
+                if v is not None and abs(v - a) > 0.01]
+        return ("tailles incohérentes pour US " + f"{us:g} : " + ", ".join(faux)) if faux else ""
+
+    def controle_etiquette(it, x, codes, eti_img, verdict):
+        """Texte du champ « Étiquette » de l'alerte (ou None). Résultat du test gardé dans it["eti_test"]."""
+        bouts = []
+        inco = coherence_tailles((verdict or {}).get("tailles"))
+        if inco:
+            bouts.append("SUSPECTE : " + inco)
+            rec()["eti_incoherentes"] = rec().get("eti_incoherentes", 0) + 1
+        if eti_img is not None and len(fakes_eti.get(x) or []) >= typo_min and etis_img.get(x) and ia.dispo():
+            etat["ia_n"] += 1
+            with hors_verrou():
+                v = ia.etiquette(pt.nom(x), codes, etis_img[x], fakes_eti[x], eti_img)
+            compter(v)
+            print(f"[typo] {it['id']} {x} : {v}")
+            if not v.get("erreur"):
+                it["eti_test"] = v["verdict"]
+                r = rec()
+                r["typo"] = r.get("typo", 0) + 1
+                r["typo_fake"] = r.get("typo_fake", 0) + (v["verdict"] == "fake")
+                mot = {"vraie": "ressemble aux vraies", "fake": "FAKE PROBABLE", "incertain": "incertain"}[v["verdict"]]
+                bouts.append(f"typo (test) : {mot} à {v['confiance']} %" + (f" · {v['raison']}" if v.get("raison") else ""))
+        return " · ".join(bouts)[:1000] or None
+
+    def garder_etiquette_fake(iid, info):
+        """Réponse « fake » de Bastien : l'étiquette de l'annonce va dans references/<paire>/etiquette-fake/."""
+        x = info["paire"]
+        dossier = Path("references") / pt.slug(x) / "etiquette-fake"
+        im = None
+        try:
+            if info.get("eti"):
+                im = Image.open(io.BytesIO(session.get(info["eti"], timeout=20).content)).convert("RGB")
+            else:      # alerte sans étiquette repérée (bleue…) : on la cherche dans les photos de l'annonce
+                url = info.get("url") or f"https://www.vinted.fr/items/{iid}"
+                urls = pt.photos_annonce(session, {"id": iid, "url": url, "photo": info.get("photo")})
+                ims = [i for i in telecharger(urls[:20]) if i is not None]
+                if ims and etis.get(x) is not None:
+                    F = emb_lots(ims)
+                    sc = [max(p, s2) for p, s2 in zip((100 * F @ te.T).softmax(dim=-1)[:, 0].tolist(),
+                                                     (F @ etis[x].T).max(dim=1).values.tolist())]
+                    k = max(range(len(sc)), key=lambda i: sc[i])
+                    im = ims[k] if sc[k] >= 0.5 else None
+        except Exception as ex:
+            print(f"[fake] étiquette {iid} illisible : {ex}")
+        if im is None:
+            print(f"[fake] {iid} {x} : pas d'étiquette trouvée dans l'annonce")
+            return
+        dossier.mkdir(parents=True, exist_ok=True)
+        im.save(dossier / f"{iid}.jpg", "JPEG", quality=90)
+        fakes_eti[x] = (fakes_eti.get(x) or []) + [im]
+        fakes_eti[x] = fakes_eti[x][-3:]
+        n = len(list(dossier.glob("*.jpg")))
+        print(f"[fake] {iid} {x} : étiquette gardée ({n} fake pour cette paire)")
+        if n == typo_min:
+            post(webhook, {"content": f"**{x}** : {n} étiquettes fake enregistrées, le test de typographie démarre pour cette paire."})
+
     def envoyer_incertaine(it, x, verdict, urls, eti_url):
         """L'IA hésite : alerte jaune sur Discord. Bastien dit oui / non / fake, Claude l'écrit dans
         verdicts/bastien.json, et le bot s'en sert pour son seuil, ses références et ses pièges."""
         iid = str(it["id"])
         a = etat.setdefault("a_trancher", {})
         a[iid] = {"paire": x, "s": round(float(it.get("score") or 0), 3), "photo": it["photo"],
-                  "date": datetime.now(paris).isoformat(timespec="minutes")}
+                  "date": datetime.now(paris).isoformat(timespec="minutes"), "url": it["url"], "eti": eti_url,
+                  "eti_test": it.get("eti_test")}
         for k in list(a)[:-500]:
             del a[k]
         rec(x)["envoyees_incertaines"] = rec(x).get("envoyees_incertaines", 0) + 1
@@ -697,6 +778,8 @@ def main():
                    "inline": True},
                   {"name": "Ressemblance photo",
                    "value": f"{float(it.get('score') or 0):.2f} (seuil {pre_de.get(x, pre):.2f})", "inline": True}]
+        if it.get("eti_champ"):
+            champs.append({"name": "Étiquette", "value": it["eti_champ"], "inline": False})
         if verdict.get("raison"):      # seulement quand la réponse de l'IA était illisible ou coupée (pour comprendre)
             champs.append({"name": "Problème IA", "value": verdict["raison"][:200], "inline": False})
         embeds = [{"title": f"{x} ?", "url": it["url"], "color": 0xF1C40F,
@@ -730,6 +813,12 @@ def main():
                 continue
             x = info["paire"]
             faits.append(iid)
+            if v == "fake":
+                garder_etiquette_fake(iid, info)
+            if info.get("eti_test") in ("vraie", "fake") and v in ("oui", "fake"):
+                r = rec()
+                r["typo_compare"] = r.get("typo_compare", 0) + 1
+                r["typo_accord"] = r.get("typo_accord", 0) + ((info["eti_test"] == "fake") == (v == "fake"))
             if info["s"] > 0:
                 apprendre(x, info["s"], {"verdict": "oui" if v == "oui" else "non", "confiance": 100})
             if v in ("oui", "non"):
@@ -838,6 +927,11 @@ def main():
         if not r["paires"]:
             lignes.append("Aucune annonce ressemblante aujourd'hui.")
         lignes.insert(1, texte_delais(r.get("delais") or []))
+        lignes.append(f"**Étiquettes** : {r.get('eti_incoherentes', 0)} avec tailles incohérentes"
+                      + (f" · test de typographie : {r.get('typo', 0)} jugées, {r.get('typo_fake', 0)} fake probables"
+                         if r.get("typo") else "")
+                      + (f" · d'accord avec toi {r.get('typo_accord', 0)}/{r['typo_compare']}" if r.get("typo_compare") else "")
+                      + " · étiquettes fake gardées : " + (", ".join(f"{x} {len(v)}" for x, v in fakes_eti.items() if v) or "aucune"))
         texte = "\n".join(lignes)
         for i in range(0, len(texte), 1900):
             post(webhook, {"content": texte[i:i + 1900]})
@@ -1178,6 +1272,8 @@ def main():
                         retenir_non(x, it["e_best"])
                     if it.get("sonde") and (verdict["verdict"] != "oui" or verdict["confiance"] < conf_min):
                         return         # test silencieux refusé : rien sur Discord
+                if verdict and verdict["verdict"] in ("oui", "incertain") and not it.get("sonde"):
+                    it["eti_champ"] = controle_etiquette(it, x, codes, eti_img, verdict)
                 if verdict and (verdict["verdict"] != "oui" or verdict["confiance"] < conf_min):
                     if not it.get("sonde") and (verdict["verdict"] == "incertain" or verdict["verdict"] == "oui"):
                         envoyer_incertaine(it, x, verdict, urls, eti_url)
@@ -1222,6 +1318,8 @@ def main():
                                "inline": True})
             else:
                 champs.append({"name": "IA", "value": "non vérifiée : regarde les photos", "inline": True})
+            if it.get("eti_champ"):
+                champs.append({"name": "Étiquette", "value": it["eti_champ"], "inline": False})
             if it.get("score"):
                 champs.append({"name": "Ressemblance photo",
                                "value": f"{it['score']:.2f} (seuil {pre_de.get(x, pre):.2f})", "inline": True})
@@ -1253,7 +1351,8 @@ def main():
             # Bastien peut aussi répondre oui / non / fake aux vertes, bleues et oranges (même traitement que les jaunes)
             a_t = etat.setdefault("a_trancher", {})
             a_t[str(it["id"])] = {"paire": x, "s": round(float(it.get("score") or 0), 3), "photo": it["photo"],
-                                  "date": datetime.now(paris).isoformat(timespec="minutes"),
+                                  "date": datetime.now(paris).isoformat(timespec="minutes"), "url": it["url"],
+                                  "eti": eti_url, "eti_test": it.get("eti_test"),
                                   "type": "vert" if verdict else ("bleu" if bleu else "orange")}
             for k in list(a_t)[:-500]:
                 del a_t[k]

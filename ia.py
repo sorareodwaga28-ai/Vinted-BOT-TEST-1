@@ -51,7 +51,8 @@ def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=()):
         "If a style code is readable on the size tag, read it: a different style code means NO. "
         "Ignore wear, dirt, lighting and box. If the photos do not show the shoe well enough, answer \"incertain\".\n"
         "Reply with JSON only, no other text: "
-        "{\"verdict\": \"oui\" | \"non\" | \"incertain\", \"confiance\": 0-100, \"code_lu\": \"style code read on the tag, or empty\"}")})
+        "{\"verdict\": \"oui\" | \"non\" | \"incertain\", \"confiance\": 0-100, \"code_lu\": \"style code read on the tag, or empty\", "
+        "\"tailles\": \"sizes printed on the tag exactly as read, e.g. US 9 UK 8 EUR 42.5 CM 27, or empty\"}")})
     global _AMORCE
     try:
         # 1/11 (V3) : réponse courte. L'IA commence directement par « { » (amorce) et s'arrête au « } »
@@ -101,6 +102,48 @@ def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=()):
         v = str(d.get("verdict", "")).lower().strip()
         return {"verdict": v if v in ("oui", "non", "incertain") else "incertain",
                 "confiance": int(float(d.get("confiance") or 0)), "code_lu": str(d.get("code_lu") or "").strip(),
+                "tailles": str(d.get("tailles") or "").strip()[:80],
                 "raison": str(d.get("raison") or "").strip()[:200], "conso": conso}
+    except Exception as e:
+        return {"erreur": str(e)[:200]}
+
+
+def etiquette(modele, codes, vraies, fakes, photo):
+    """2/11 : test de typographie. vraies / fakes : étiquettes de référence (PIL), photo : étiquette de l'annonce.
+    Renvoie {"verdict": "vraie" | "fake" | "incertain", "confiance", "raison", "conso"} ou {"erreur"}."""
+    code = ", ".join(codes) if codes else "inconnu"
+    contenu = [{"type": "text", "text": f"GENUINE size tags of the {modele} (style code {code}):"}]
+    contenu += [_img(v, 1024) for v in vraies[:3]]
+    contenu.append({"type": "text", "text": f"COUNTERFEIT size tags of the same shoe ({modele}), confirmed fakes:"})
+    contenu += [_img(f, 1024) for f in fakes[:3]]
+    contenu.append({"type": "text", "text": "Size tag from a second-hand listing:"})
+    contenu.append(_img(photo, 1024))
+    contenu.append({"type": "text", "text": (
+        "Question: is the listing's size tag genuine or counterfeit? Compare only the printing: font shape, font weight "
+        "(boldness), letter size, letter and line spacing, alignment of the columns, position of the text blocks, "
+        "barcode and logo. Genuine tags can vary slightly between factories; decide by which group the listing tag "
+        "matches best. If the tag is blurry, cut off or another kind of label, answer \"incertain\".\n"
+        "Reply with JSON only: {\"verdict\": \"vraie\" | \"fake\" | \"incertain\", \"confiance\": 0-100, "
+        "\"raison\": \"main difference seen, in French, max 12 words\"}")})
+    try:
+        r = requests.post(API, timeout=90, headers={
+            "x-api-key": os.environ["ANTHROPIC_API_KEY"].strip(), "anthropic-version": "2023-06-01", "content-type": "application/json"},
+            json={"model": os.environ.get("IA_MODELE") or "claude-haiku-5-5", "max_tokens": 1500,
+                  "messages": [{"role": "user", "content": contenu}]})
+        if r.status_code != 200:
+            return {"erreur": f"HTTP {r.status_code} {r.text[:200]}"}
+        u = r.json().get("usage") or {}
+        conso = {"entree": int(u.get("input_tokens") or 0) + int(u.get("cache_read_input_tokens") or 0)
+                 + int(u.get("cache_creation_input_tokens") or 0), "sortie": int(u.get("output_tokens") or 0)}
+        texte = "".join(b.get("text", "") for b in r.json().get("content", []))
+        m = re.search(r"\{.*\}", texte, re.S)
+        try:
+            d = json.loads(m.group(0)) if m else {}
+        except ValueError:
+            d = {}
+        v = str(d.get("verdict", "")).lower().strip()
+        return {"verdict": v if v in ("vraie", "fake", "incertain") else "incertain",
+                "confiance": int(float(d.get("confiance") or 0)), "raison": str(d.get("raison") or "").strip()[:120],
+                "conso": conso}
     except Exception as e:
         return {"erreur": str(e)[:200]}
