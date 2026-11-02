@@ -114,6 +114,11 @@ def git_sauver():
         run("git", "reset", "-q", "--hard", "origin/main")
         shutil.copy(tmp, ETAT)
         run("git", "add", ETAT.name)
+        try:      # 3/11 : petit résumé pour l'onglet Stats du site (les photo_seen*.json font ~800 Ko)
+            ecrire_stats(tmp)
+            run("git", "add", f"stats_bot{BOT}.json")
+        except Exception as ex:
+            print(f"::warning::stats du site non écrites : {str(ex)[:200]}")
         if pt.DIAG.exists():      # V4 : relevé des champs date de la page Vinted (une fois)
             run("git", "add", pt.DIAG.name)
         run("git", "add", "references")      # 2/11 : étiquettes fake (references/<paire>/etiquette-fake/)
@@ -128,6 +133,30 @@ def git_sauver():
             return
         time.sleep(3)
     print("::warning::sauvegarde impossible après 5 essais")
+
+
+def ecrire_stats(chemin_etat):
+    """3/11 : stats_bot<N>.json, lu par l'onglet Stats d'Odwagasnkrs : compteurs du jour et de la veille,
+    coût IA, et les réponses oui / non / fake de Bastien (avec la couleur de l'alerte)."""
+    e = json.loads(Path(chemin_etat).read_text())
+    pe = float(os.environ.get("IA_PRIX_ENTREE") or 0.10)
+    ps = float(os.environ.get("IA_PRIX_SORTIE") or 0.50)
+    eur = float(os.environ.get("EUR_PAR_USD") or 0.92)
+
+    def resume(r):
+        if not r:
+            return None
+        return {"jour": r.get("jour"), "annonces": r.get("annonces", 0), "candidates": r.get("candidates", 0),
+                "appels": r.get("appels", 0), "vert": r.get("vert", 0), "bleu": r.get("bleu", 0),
+                "orange": r.get("orange", 0), "loupees": r.get("loupees", 0),
+                "cout_centimes": round((r.get("tok_entree", 0) / 1e6 * pe + r.get("tok_sortie", 0) / 1e6 * ps) * eur * 100, 1)}
+    at = e.get("a_trancher", {})
+    rep = [{"id": i, "v": v, "type": at[i].get("type", "jaune"), "paire": at[i].get("paire"), "date": at[i].get("date")}
+           for i, v in (e.get("verdicts_discord") or {}).items() if i in at]
+    Path(__file__).with_name(f"stats_bot{BOT}.json").write_text(json.dumps(
+        {"bot": BOT, "maj": datetime.now(ZoneInfo("Europe/Paris")).isoformat(timespec="seconds"),
+         "aujourdhui": resume(e.get("recap")), "hier": resume(e.get("recap_hier")), "reponses": rep},
+        ensure_ascii=False, indent=1))
 
 
 ALERTES = Path(__file__).with_name("alertes.json")
