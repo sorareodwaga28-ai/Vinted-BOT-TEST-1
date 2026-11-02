@@ -63,6 +63,44 @@ def extract_items(html):
     return arr
 
 
+DIAG_CATALOGUE = Path(__file__).with_name("diag_catalogue.txt")
+CLES_DATE = ("timestamp", "created_at_ts", "createdAt", "created_at", "publishedAt", "published_at",
+             "pushed_up_at", "last_push_up_at", "uploadedAt")
+
+
+def date_publication(x):
+    """2/11 : heure de mise en ligne lue dans les données de l'annonce du résultat de recherche
+    (dans la page de l'annonce, Vinted ne la donne pas). On prend la plus récente trouvée. None si rien."""
+    trouve = []
+
+    def fouiller(o, prof=0):
+        if prof > 6:
+            return
+        if isinstance(o, dict):
+            for k, v in o.items():
+                if k in CLES_DATE and isinstance(v, (int, float, str)):
+                    try:
+                        t = float(v) if str(v).replace(".", "", 1).isdigit() else \
+                            datetime.fromisoformat(str(v).replace("Z", "+00:00")).timestamp()
+                        t = t / 1000 if t > 1e11 else t
+                        if 1.6e9 < t < 2.2e9:
+                            trouve.append(t)
+                    except ValueError:
+                        pass
+                else:
+                    fouiller(v, prof + 1)
+        elif isinstance(o, list):
+            for v in o[:10]:
+                fouiller(v, prof + 1)
+    fouiller(x)
+    if not DIAG_CATALOGUE.exists():      # une fois : une annonce brute, pour voir où Vinted met l'heure
+        try:
+            DIAG_CATALOGUE.write_text(json.dumps(x, ensure_ascii=False, indent=1)[:20000])
+        except Exception:
+            pass
+    return max(trouve) if trouve else None
+
+
 def fetch_items(session, base, url):
     r = session.get(url, timeout=30)
     print(f"[diag] page recherche : HTTP {r.status_code} | {len(r.text)} caractères")
@@ -86,6 +124,7 @@ def fetch_items(session, base, url):
             "brand": box.get("firstLine") or "?",
             "details": box.get("secondLine") or "?",
             "photo": (photos[0].get("url") if photos else None) or p.get("thumbnailUrl"),
+            "pub": date_publication(x),
         })
     return items
 

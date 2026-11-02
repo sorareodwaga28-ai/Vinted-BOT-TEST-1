@@ -116,6 +116,8 @@ def git_sauver():
         run("git", "add", ETAT.name)
         if pt.DIAG.exists():      # V4 : relevé des champs date de la page Vinted (une fois)
             run("git", "add", pt.DIAG.name)
+        if bot.DIAG_CATALOGUE.exists():      # 2/11 : une annonce brute du résultat de recherche (heure de publication)
+            run("git", "add", bot.DIAG_CATALOGUE.name)
         if run("git", "diff", "--cached", "--quiet") == 0:
             print(f"::notice::sauvegarde : rien de nouveau ({time.strftime('%H:%M:%S')})")
             return
@@ -441,6 +443,12 @@ def main():
     non_part = float((os.environ.get("SEUIL_NON_PART") or "0.60").replace(",", "."))   # part des NON coupés
     non_plafond = float((os.environ.get("SEUIL_NON_PLAFOND") or "0.80").replace(",", "."))   # sans OUI connu
 
+    # 2/11 (Bastien) : une paire avec moins de 10 vérifications IA dans la journée (3 bots ensemble)
+    # voit son seuil baisser de 0,02 le lendemain, cumulable, sans descendre sous 0,68.
+    baisse_min_verif = int(os.environ.get("BAISSE_MIN_VERIF") or 10)
+    baisse_pas = float((os.environ.get("BAISSE_PAS") or "0.02").replace(",", "."))
+    plancher_baisse = float((os.environ.get("BAISSE_PLANCHER") or "0.68").replace(",", "."))
+
     def seuil_auto(x):
         """Seuil appris. Les OUI : la plus basse vraie paire confirmée, moins 0,02 (jamais au-dessus).
         Les NON (29/10) : après 40 NON, le seuil monte pour couper les 60 % de NON les moins ressemblants,
@@ -461,7 +469,11 @@ def main():
             if vraies:
                 plafond = min(plafond, min(vraies) - 0.02)
             s = max(s, min(non[int(non_part * len(non))], plafond))
-        return round(min(1.0, max(seuil_min, s)), 3)
+        r = min(1.0, max(seuil_min, s))
+        b = etat.get("baisse", {}).get(x, 0)
+        if b:       # 2/11 (Bastien) : paire calme la veille -> seuil baissé, jamais sous le plancher de la baisse
+            r = max(plancher_baisse, r - b)
+        return round(r, 3)
 
     def apprendre(x, score, verdict):
         obs = etat.setdefault("auto", {}).setdefault(x, [])
@@ -536,11 +548,54 @@ def main():
                 return True
         return False
 
+    def verifs_hier(r):
+        """Vérifications IA par paire pour la journée de r, les 3 bots ensemble (fichiers des autres lus sur GitHub)."""
+        import subprocess as sp
+        n = {x: v.get("ia", 0) for x, v in (r.get("paires") or {}).items()}
+        if BOTS < 2:
+            return n
+        sp.run(["git", "fetch", "-q", "origin", "main"], capture_output=True, cwd=ETAT.parent)
+        for b in range(1, BOTS + 1):
+            if b == BOT:
+                continue
+            f = "photo_seen.json" if b == 1 else f"photo_seen_{b}.json"
+            out = sp.run(["git", "show", f"origin/main:{f}"], capture_output=True, text=True, cwd=ETAT.parent)
+            try:
+                autre = json.loads(out.stdout) if out.returncode == 0 else {}
+            except ValueError:
+                autre = {}
+            ra = next((c for c in (autre.get("recap"), autre.get("recap_hier"))
+                       if c and c.get("jour") == r.get("jour")), {})
+            for x, v in (ra.get("paires") or {}).items():
+                n[x] = n.get(x, 0) + v.get("ia", 0)
+        return n
+
+    def baisser_seuils(r, jour):
+        """Changement de jour : -0,02 pour chaque paire qui a eu moins de 10 vérifications IA la veille."""
+        etat["baisse_jour"] = jour
+        try:
+            n = verifs_hier(r)
+        except Exception as ex:
+            print(f"::warning::baisse des seuils impossible : {str(ex)[:200]}")
+            return
+        b = etat.setdefault("baisse", {})
+        for x in list(pre_de):
+            if n.get(x, 0) < baisse_min_verif:
+                avant = pre_de[x]
+                if avant <= plancher_baisse:
+                    continue
+                b[x] = round(b.get(x, 0) + baisse_pas, 3)
+                pre_de[x] = seuil_auto(x)
+                print(f"[baisse] {x} : {n.get(x, 0)} vérifications le {r['jour']} -> seuil {avant:.3f} -> {pre_de[x]:.3f}")
+
     # Récap du soir (21h, heure de Paris) : compteurs de la journée dans photo_seen.json → "recap"
     def rec(x=None):
         jour = datetime.now(paris).strftime("%Y-%m-%d")
         r = etat.get("recap")
         if not r or r.get("jour") != jour:
+            if r and r.get("jour") and etat.get("baisse_jour") != jour:
+                etat["recap_hier"] = r
+                baisser_seuils(r, jour)
             r = etat["recap"] = {"jour": jour, "annonces": 0, "candidates": 0, "loupees": 0,
                                  "vert": 0, "bleu": 0, "orange": 0, "calib": 0, "paires": {}}
         r.setdefault("tok_entree", 0)
@@ -601,7 +656,7 @@ def main():
         """V4 : secondes entre la publication de l'annonce (lue sur sa page) et maintenant (envoi de l'alerte).
         Notée une seule fois par annonce dans le récap ; ignorée au-delà d'une heure (remise en avant, vieille annonce)."""
         if "delai" not in it:
-            pub = pt.publiee_le(it["id"])
+            pub = it.get("pub") or pt.publiee_le(it["id"])
             it["delai"] = None
             if pub:
                 d = int(time.time() - pub)
