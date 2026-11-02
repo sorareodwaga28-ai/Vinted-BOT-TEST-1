@@ -718,6 +718,56 @@ def main():
             print(f"[délai] {it['id']} : {it['delai']} s" + ("" if pub else " (heure de publication introuvable)"))
         return it["delai"]
 
+    # 3/11 : notifications du site Odwagasnkrs (Web Push). Même texte que la notification Discord ;
+    # la toucher ouvre la fiche de la paire dans l'onglet COP sneakers. Secret GitHub VAPID_PRIVATE.
+    vapid = (os.environ.get("VAPID_PRIVATE") or "").strip()
+    site = (os.environ.get("SITE_URL") or "https://odwagasnkrs.netlify.app").rstrip("/")
+
+    def push_envoyer(payload):
+        if not vapid:
+            return
+        try:
+            from pywebpush import webpush, WebPushException
+        except ImportError:
+            print("::warning::pywebpush absent : pas de notification du site")
+            return
+        for abo in list(etat.get("push_abos") or []):
+            try:
+                webpush(abo, json.dumps(payload, ensure_ascii=False), vapid_private_key=vapid,
+                        vapid_claims={"sub": "mailto:bot@users.noreply.github.com"}, timeout=10)
+            except WebPushException as ex:
+                code = getattr(ex.response, "status_code", None)
+                print(f"::warning::notification du site refusée ({code}) : {str(ex)[:150]}")
+                if code in (404, 410):      # abonnement expiré (icône supprimée, données effacées)
+                    with verrou_push:
+                        etat["push_abos"] = [a for a in etat.get("push_abos", []) if a.get("endpoint") != abo.get("endpoint")]
+            except Exception as ex:
+                print(f"::warning::notification du site impossible : {str(ex)[:150]}")
+
+    verrou_push = threading.Lock()
+
+    def notifier_site(texte, it, x, couleur, urls, eti_url=None, verdict=None):
+        """texte = le résumé Discord (resume()). Titre = 1re partie (paire ou titre), corps = le reste."""
+        if not vapid or not etat.get("push_abos"):
+            return
+        import base64
+        titre, _, corps = texte.partition(" · ")
+        taille, _, etat_p = (it.get("details") or "?").partition(" · ")
+        fiche = {"paire": x, "titre": it.get("title", ""), "prix": it.get("price"), "taille": taille.strip() or "?",
+                 "etat": etat_p.strip() or "?", "type": {"VERT": "vert", "BLEU": "bleu", "ORANGE": "orange", "JAUNE": "jaune"}.get(couleur, "vert"),
+                 "famille": famille(x), "url": it["url"], "etiquette": eti_url,
+                 "ia": ({"verdict": verdict["verdict"], "confiance": verdict["confiance"]} if verdict else None),
+                 "ressemblance": round(float(it.get("score") or 0), 3), "seuil": pre_de.get(x),
+                 "date": datetime.now(paris).isoformat(timespec="seconds"), "vendeur": pt.vendeur(it["id"])}
+        for n in (5, 3, 1, 0):      # une notification Apple fait 4 Ko max : moins de photos si besoin
+            fiche["photos"] = (urls or [it["photo"]])[:n]
+            d = base64.urlsafe_b64encode(json.dumps(fiche, ensure_ascii=False, separators=(",", ":")).encode()).decode().rstrip("=")
+            payload = {"title": (("? " if couleur == "JAUNE" else "") + titre)[:120], "body": corps[:300], "id": str(it["id"]),
+                       "url": f"{site}/?alerte={it['id']}&d={d}"}
+            if len(json.dumps(payload, ensure_ascii=False).encode()) < 3300:
+                break
+        pool.submit(push_envoyer, payload)
+
     # 2/11 : contrôle de l'étiquette. Tailles Nike homme : US -> (UK, EUR, CM)
     TAILLES_H = {6: (5.5, 38.5, 24), 6.5: (6, 39, 24.5), 7: (6, 40, 25), 7.5: (6.5, 40.5, 25.5), 8: (7, 41, 26),
                  8.5: (7.5, 42, 26.5), 9: (8, 42.5, 27), 9.5: (8.5, 43, 27.5), 10: (9, 44, 28), 10.5: (9.5, 44.5, 28.5),
@@ -829,7 +879,9 @@ def main():
         if eti_url:
             embeds.append({"url": it["url"] + "#etiquette", "title": "Étiquette", "color": 0xF1C40F,
                            "image": {"url": eti_url}})
-        bot.envoyer(webhook, {"content": resume(it, x, "JAUNE", verdict), "embeds": embeds, "components": bot.boutons(it)})
+        txt = resume(it, x, "JAUNE", verdict)
+        bot.envoyer(webhook, {"content": txt, "embeds": embeds, "components": bot.boutons(it)})
+        notifier_site(txt, it, x, "JAUNE", urls, eti_url, verdict)
 
     f_bastien = Path(__file__).parent / "verdicts" / "bastien.json"
 
@@ -900,7 +952,30 @@ def main():
             etat["discord_dernier"] = m["id"]
             if m["author"].get("bot") or m.get("webhook_id"):
                 continue
-            txt = m.get("content", "").lower()
+            brut = m.get("content", "").strip()
+            if brut.lower().startswith("abonnement "):      # 3/11 : code copié depuis le site (Activer les notifications)
+                ok_abo = False
+                try:
+                    import base64
+                    b = brut.split(None, 1)[1].strip()
+                    abo = json.loads(base64.b64decode(b + "=" * (-len(b) % 4)).decode())
+                    if abo.get("endpoint") and (abo.get("keys") or {}).get("p256dh"):
+                        abos = [a for a in etat.get("push_abos", []) if a.get("endpoint") != abo["endpoint"]]
+                        etat["push_abos"] = (abos + [{"endpoint": abo["endpoint"], "keys": abo["keys"]}])[-5:]
+                        ok_abo = True
+                        print(f"[push] abonnement enregistré ({len(etat['push_abos'])} téléphone(s))")
+                        if BOT == 1:
+                            pool.submit(push_envoyer, {"title": "Notifications activées",
+                                                       "body": "Les alertes du bot arriveront aussi ici.", "url": site + "/"})
+                except Exception as ex:
+                    print(f"[push] abonnement illisible : {ex}")
+                if BOT == 1 or ok_abo:
+                    try:
+                        requests.put(f"{api}/{m['id']}/reactions/{'%E2%9C%85' if ok_abo else '%E2%9D%93'}/@me", headers=h, timeout=20)
+                    except Exception:
+                        pass
+                continue
+            txt = brut.lower()
             mot = re.search(r"\b(oui|non|fake)\b", txt)
             if not mot:
                 continue
@@ -1384,6 +1459,8 @@ def main():
             else:
                 bot.envoyer(webhook, {"content": resume(it, x, "VERT" if verdict else ("BLEU" if bleu else "ORANGE"), verdict),
                                       "embeds": embeds, "components": comps})
+            coul = "VERT" if verdict else ("BLEU" if bleu else "ORANGE")
+            notifier_site(resume(it, x, coul, verdict), it, x, coul, urls, eti_url, verdict)
             rec()["vert" if verdict else ("bleu" if sans_ia.startswith("titre exact") else "orange")] += 1
             etat["alertes_cles"][cle] = time.time()
             # Bastien peut aussi répondre oui / non / fake aux vertes, bleues et oranges (même traitement que les jaunes)
