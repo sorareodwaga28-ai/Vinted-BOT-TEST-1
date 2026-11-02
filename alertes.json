@@ -1,5 +1,41 @@
 [
  {
+  "id": "10632295303",
+  "date": "2026-11-02T10:18:34+01:00",
+  "type": "vert",
+  "paire": "Seafoam",
+  "famille": "Jordan 4",
+  "titre": "Air Jordan n41",
+  "prix": "40.00 EUR",
+  "taille": "41",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10632295303-air-jordan-n41",
+  "photos": [
+   "https://images1.vinted.net/t/04_00770_Tf6EQwPKQY1W6eyzb3T5Pah9/f800/2b1bf2d2.webp?s=7063594a6623f1a981ff049a7c44f0941ada4393",
+   "https://images1.vinted.net/t/06_00ca5_1gwZ95kfjnNjqbjVuyVhdQfA/f800/2f82dc66.webp?s=e3f313b85d0151df1051895d6a7347a1cd86726e",
+   "https://images1.vinted.net/t/02_006a9_JJbcNp4tmBoDcAEUAqfwMX6U/f800/216a8142.webp?s=d9c98926dffae874bc212e81fa5a2b470d23d130",
+   "https://images1.vinted.net/t/02_01c9f_XSkngUZiB8cu1RMNoxnLvwdt/f800/3c95afd4.webp?s=42dd1455b0840ce439d76143a3979f42a05a1801",
+   "https://images1.vinted.net/t/02_01e07_EjChupCktov3gBRkQKFcgRpA/f800/624d61f3.webp?s=145c367031384b5d63ed3d50e8e3e55377f47c9d",
+   "https://images1.vinted.net/t/04_01442_W2wZGudTSQvCBaRXxotqpunU/f800/1c09d6bf.webp?s=7386d69b7dc433aee6a662a348730fc1765fa9a6",
+   "https://images1.vinted.net/t/05_021fc_jPgxK6QzHvpDgiPZ9N4gB3MD/f800/a15376da.webp?s=3f0f7212bd5752509a04fe050751098b9402fc10"
+  ],
+  "etiquette": "https://images1.vinted.net/t/05_021fc_jPgxK6QzHvpDgiPZ9N4gB3MD/f800/a15376da.webp?s=3f0f7212bd5752509a04fe050751098b9402fc10",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 88
+  },
+  "ressemblance": 0.825,
+  "seuil": 0.805,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "seremag1992",
+   "id": "58466593",
+   "profil": "https://www.vinted.fr/member/58466593",
+   "avis": 277,
+   "etoiles": 4.8
+  }
+ },
+ {
   "id": "10631923735",
   "date": "2026-11-02T09:32:27+01:00",
   "type": "bleu",
