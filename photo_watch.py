@@ -192,6 +192,14 @@ def main():
             if nom in pt.PRIX:
                 pt.PRIX[nom] = float(val.replace(",", "."))
     modeles = [x for x in modeles if x in pt.PRIX]
+    # 2/11 (Bastien) : prix max SANS la boîte d'origine. PRIX = prix max avec boîte (Og Box).
+    # Une annonce entre les deux n'est gardée que si l'annonce dit qu'il y a la boîte d'origine.
+    PRIX_SANS = {}
+    for morceau in re.split(r"[;\n]", os.environ.get("PRIX_SANS_BOITE") or ""):
+        if "=" in morceau:
+            nom, val = (t.strip() for t in morceau.split("=", 1))
+            if nom in pt.PRIX:
+                PRIX_SANS[nom] = float(val.replace(",", "."))
     seuil = float((os.environ.get("SEUIL") or "0.84").replace(",", "."))
     f_seuils = Path(__file__).with_name("seuils.json")
     appris = json.loads(f_seuils.read_text()) if f_seuils.exists() else {}
@@ -825,6 +833,7 @@ def main():
             lignes.append(f"- {x} : {v['ia']} vérifiées ({v['oui']} OUI, {v['non']} NON, {v['incertain']} incertain)"
                           + (f", {v['loupees']} loupées" if v["loupees"] else "")
                           + (f", {v['plafond']} non vérifiées (plafond {ia_paire_max}/jour)" if v.get("plafond") else "")
+                          + (f", {v['sans_boite']} trop chères sans boîte" if v.get("sans_boite") else "")
                           + f" · seuil {pre_de.get(x, 0):.2f}")
         if not r["paires"]:
             lignes.append("Aucune annonce ressemblante aujourd'hui.")
@@ -1096,6 +1105,14 @@ def main():
                 rec()["doublons"] = rec().get("doublons", 0) + 1
                 print(f"[doublon] {it['id']} {x} : déjà alertée (remise en vente), ignorée")
                 return
+            sans = PRIX_SANS.get(x)
+            if sans is not None and (bot.price_value(it) or 0) > sans:
+                bx = pt.boite(it["id"], it.get("title", ""))
+                if bx != "Og Box":      # « Non précisé » compte comme sans boîte
+                    rec()["sans_boite"] = rec().get("sans_boite", 0) + 1
+                    rec(x)["sans_boite"] = rec(x).get("sans_boite", 0) + 1
+                    print(f"[boîte] {it['id']} {x} : {bot.price_value(it)} € > {sans:g} € sans boîte, boîte : {bx} -> ignorée")
+                    return
             notes = []
             bleu_direct = titre_nomme(it, x)      # V4 : titre exact -> envoi direct, sans photos ni IA
             if bleu_direct:
