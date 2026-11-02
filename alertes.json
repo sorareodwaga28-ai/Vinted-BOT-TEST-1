@@ -1,5 +1,45 @@
 [
  {
+  "id": "10640687635",
+  "date": "2026-11-02T20:18:07+01:00",
+  "type": "vert",
+  "paire": "Lightning",
+  "famille": "Jordan 4",
+  "titre": "jordan 4 lighting",
+  "prix": "50.00 EUR",
+  "taille": "44",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10640687635-jordan-4-lighting",
+  "photos": [
+   "https://images1.vinted.net/t/05_00a68_2tbCyhEp74A1rF5S5EojLthM/f800/207efdb4.webp?s=26fec56f6ea037c76a516d4d7bbb0c81618f81c1",
+   "https://images1.vinted.net/t/06_00762_yfto5imzNAbpsB1E6CYqoEWC/f800/57e5fa6f.webp?s=8332163b4d85e0aa2bd6326d6d73af16bd3482c5",
+   "https://images1.vinted.net/t/05_003f1_Qj3BokVubkdNjRMujWaiFiWW/f800/5cebfea7.webp?s=09852f3afc6648183beb60022463b68b06aeacc4",
+   "https://images1.vinted.net/t/05_007c1_8DX21zqP3bbmQUMqZ8JsGwu3/f800/94914aab.webp?s=e0df45add484581f08aa97a317335b1c40bb20af",
+   "https://images1.vinted.net/t/02_01eeb_bskV1Zvvfuk1vYb5CxARh5u9/f800/152ce536.webp?s=459e87325bbfd9212fa9a9d1be320d4b50628672",
+   "https://images1.vinted.net/t/02_01dde_qNhexV8FY88YrvEFdnweYeQj/f800/aff33e8c.webp?s=601addf7cafec1df204fd468031d04332d1d44bf",
+   "https://images1.vinted.net/t/06_02578_sx5WxKN5gSrnjCZNzBTLEZmm/f800/82c5f13d.webp?s=9162cb87d9609c68d15c3d382d2def042a75e667",
+   "https://images1.vinted.net/t/02_00e66_QitMr9EgXSDhoJ8PSKyM1NCR/f800/0e66f67b.webp?s=a86cef7966c8928b13419f313da422409ea0b6fc",
+   "https://images1.vinted.net/t/06_01dd9_JXxkAUQu8JHFSDW9LSicFm87/f800/3e9e2ef7.webp?s=fdd6d76705d1e4479f59bfba3652c13f5df5d670",
+   "https://images1.vinted.net/t/05_01961_yVoQYjyXovPn7ev4cnmyBkvR/f800/774c5b22.webp?s=3c26dd75fefd174f00931efc466cd4c5188e1cbd",
+   "https://images1.vinted.net/t/02_00e89_nQth9Vew6nfNDjQbF9deb1fa/f800/26d8df09.webp?s=2a55e129af4c8dc920b057d4a2361b61389b2d32"
+  ],
+  "etiquette": "https://images1.vinted.net/t/02_00e89_nQth9Vew6nfNDjQbF9deb1fa/f800/26d8df09.webp?s=2a55e129af4c8dc920b057d4a2361b61389b2d32",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.775,
+  "seuil": 0.744,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "3178718728",
+   "profil": "https://www.vinted.fr/member/3178718728",
+   "avis": 2,
+   "etoiles": 3.5
+  }
+ },
+ {
   "id": "10639582779",
   "date": "2026-11-02T19:05:54+01:00",
   "type": "bleu",
