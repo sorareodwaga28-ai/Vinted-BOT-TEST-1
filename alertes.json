@@ -1,5 +1,37 @@
 [
  {
+  "id": "10638738993",
+  "date": "2026-11-02T18:11:19+01:00",
+  "type": "vert",
+  "paire": "SB Pine Green",
+  "famille": "Jordan 4",
+  "titre": "Scarpe jordan 4 - Taglia 43",
+  "prix": "50.00 EUR",
+  "taille": "43",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10638738993-scarpe-jordan-4-taglia-43",
+  "photos": [
+   "https://images1.vinted.net/t/05_001d4_68Zezh1c1K3VnstcACJQ73LH/f800/fe63d767.webp?s=44b0e1dcf2cc4b616cb97f6f3ba59076f7fc66b4",
+   "https://images1.vinted.net/t/06_00f77_1RcVYWA3ABH788DyNoeqnfgP/f800/fe8ac7d1.webp?s=85f20b4b8c3d2aeee86c39f3675a94a3e062619b",
+   "https://images1.vinted.net/t/06_00fd4_m27H2C7JmXUX9g1rUWBP6KPu/f800/30fc9da5.webp?s=15c0ce61d89a5f5ab421494c40b85de50586ec1d"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 75
+  },
+  "ressemblance": 0.822,
+  "seuil": 0.745,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "3203447849",
+   "profil": "https://www.vinted.fr/member/3203447849",
+   "avis": 0,
+   "etoiles": 0.0
+  }
+ },
+ {
   "id": "10638537314",
   "date": "2026-11-02T18:01:45+01:00",
   "type": "bleu",
