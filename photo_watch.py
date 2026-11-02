@@ -173,6 +173,15 @@ def sauver_local():
         avec_verrou(f)
 
 
+def voisins_de(x, n=6):
+    """3/11 : paires qui ressemblent à x (même famille d'abord) pour prévenir l'IA. Avant : toujours les
+    6 premières paires de la liste (des Jordan 4), même pour une Air Max 1 ou une Sacai."""
+    mots = set(bot.tokens(x))
+    meme = [m for m in pt.PRIX if m != x and famille(m) == famille(x)]
+    meme.sort(key=lambda m: -len(mots & set(bot.tokens(m))))      # Thunder -> Red Thunder en premier
+    return meme[:n]      # les autres familles (Air Max pour une Jordan…) ne se confondent pas : inutile de les citer
+
+
 def famille(x):
     for f in ("Air Max 1", "Sacai", "Nocta", "Jordan 1", "Jordan 3"):
         if x.startswith(f):
@@ -1084,7 +1093,7 @@ def main():
             return
         with hors_verrou():
             v = ia.verifier(pt.nom(x), codes, refs_img[x], photos, eti_img, "",
-                            [pt.nom(m) for m in pt.PRIX if m != x][:6])      # sans le titre : on juge la photo seule
+                            [pt.nom(m) for m in voisins_de(x)])      # sans le titre : on juge la photo seule
         compter(v)
         if v.get("erreur"):
             return
@@ -1248,7 +1257,7 @@ def main():
             elif ia.dispo():
                 etat["ia_n"] += 1
                 etat["ia_np"] = etat.get("ia_np", 0) + 1
-                voisins = [m for m in pt.PRIX if m != x][:6]
+                voisins = voisins_de(x)
                 with hors_verrou():
                     photos = photos_pour_ia(notes, eti_url) or [Image.open(io.BytesIO(session.get(it["photo"], timeout=20).content)).convert("RGB")]
                     verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos, eti_img, it.get("title", ""), [pt.nom(m) for m in voisins])
@@ -1451,7 +1460,7 @@ def main():
             if not photos:
                 continue
             verdict = ia.verifier(pt.nom(x), pt.CODES.get(x, []), refs_img[x], photos, None, it.get("title", ""),
-                                  [pt.nom(m) for m in pt.PRIX if m != x][:6])
+                                  [pt.nom(m) for m in voisins_de(x)])
             compter(verdict)
             print(f"[calib] {it['id']} {x} score {s:.3f} ({it.get('price')}) : {verdict}")
             rec()["calib"] += 1

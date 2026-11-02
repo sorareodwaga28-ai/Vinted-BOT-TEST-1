@@ -363,8 +363,14 @@ def boite(item_id, titre=""):
     if m:
         desc = m.group(1).replace("\\n", " ")
     t = " " + re.sub(r"[^a-z0-9]+", " ", bot.norm(f"{titre} {desc}")) + " "
-    if re.search(r" (sans|pas de|pas d|no|without|aucune|plus de) (la |de |d )?(boite|box|boxe) ", t) \
-            or re.search(r" (boite|box) (absente|manquante|perdue|non fournie) ", t) or " nobox " in t:
+    # 3/11 : « envoi soigné dans une boîte / un carton » parle de l'emballage, pas de la boîte d'origine
+    t = re.sub(r" (envoi|envoye|envoyee|envoyees|expedie|expediee|expediees|expedition|emballe|emballee|emballees"
+               r"|livre|livree|livrees|colis|protege|protegee|protegees)(?: (?!boite|box|carton|avec)[a-z]+){0,3}? (dans|en) (une |un |sa |la |leur )?"
+               r"(boite|box|carton) ", " ", t)
+    if re.search(r" (sans|pas de|pas d|no|without|aucune|plus de|pas la|pas sa|plus la|plus sa|sans sa|sans la|sans leur"
+                 r"|pas avec la|pas avec sa|no og) (la |de |d |sa |og )?(boite|box|boxe) ", t) \
+            or re.search(r" (boite|box) (absente|manquante|perdue|jetee|non fournie|non incluse|non inclus|pas incluse"
+                         r"|pas inclus|pas fournie|not included|non livree|non disponible) ", t) or " nobox " in t:
         return "No box"
     if re.search(r" (boite|box) (de )?(remplacement|generique|autre|pas d origine|non d origine) ", t):
         return "Boîte de remplacement"
