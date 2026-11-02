@@ -1,5 +1,43 @@
 [
  {
+  "id": "10632539134",
+  "date": "2026-11-02T10:43:19+01:00",
+  "type": "vert",
+  "paire": "SB Pine Green",
+  "famille": "Jordan 4",
+  "titre": "Nike air Jordan SB",
+  "prix": "50.00 EUR",
+  "taille": "42",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10632539134-nike-air-jordan-sb",
+  "photos": [
+   "https://images1.vinted.net/t/06_016c4_M6kwEh6WkokHSvaW9Fa3dfic/f800/ca7bf94a.webp?s=77bd0931dbe1f033f24c3d5f683393537cf1c66e",
+   "https://images1.vinted.net/t/02_007e9_oWtYTqFyqWiumfiPAHaGdB4T/f800/76e4daf5.webp?s=7e1ab987184d21de38b1f5d4abd12c310b0cfcda",
+   "https://images1.vinted.net/t/06_025cd_p11W3gVFqNbCUJswACQg3664/f800/83124ff1.webp?s=1386e45088fe85ec85f8aa11531b8fe92c477f57",
+   "https://images1.vinted.net/t/01_01366_Zomu5qEapjPwDhwdwRvem2zo/f800/7c69e24a.webp?s=1c2b3f1571552ad9f65bbbae9b55df492da387b2",
+   "https://images1.vinted.net/t/02_02334_pMsWAPwoN5pNuK1APrrhr448/f800/4ad80d51.webp?s=b30a7ee70f7d4b458795d757849010db316a06e1",
+   "https://images1.vinted.net/t/06_007eb_N81JMyKuL1bf26VRtWhau14J/f800/f589b1e0.webp?s=9af9de31b2b2665a328f71105c75dbd04dc144fa",
+   "https://images1.vinted.net/t/06_01f6f_9LhTuhkULqvXyKvxxW1JR5GZ/f800/1ea08474.webp?s=d07b9438192ea57c3ab09e5cd31fa98388027239",
+   "https://images1.vinted.net/t/02_00f65_GnRWGpiPMJpH1EQFSS9iNYDD/f800/18658d3a.webp?s=0e74818acfaff593639b47b05fabb12faa1c2dbd",
+   "https://images1.vinted.net/t/02_00b01_x7aNUmwmdyVHopZ1oo7N8FZt/f800/d15e212f.webp?s=d6c980f1e78ac1983bd3299b2a3e16c09da0a056"
+  ],
+  "etiquette": "https://images1.vinted.net/t/06_007eb_N81JMyKuL1bf26VRtWhau14J/f800/f589b1e0.webp?s=9af9de31b2b2665a328f71105c75dbd04dc144fa",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 85
+  },
+  "ressemblance": 0.824,
+  "seuil": 0.756,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "85776720",
+   "profil": "https://www.vinted.fr/member/85776720",
+   "avis": 18,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10632295303",
   "date": "2026-11-02T10:18:34+01:00",
   "type": "vert",
