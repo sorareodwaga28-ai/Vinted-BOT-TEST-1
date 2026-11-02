@@ -1,5 +1,43 @@
 [
  {
+  "id": "10628294655",
+  "date": "2026-11-02T15:43:55+01:00",
+  "type": "vert",
+  "paire": "Shimmer",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4 Shimer",
+  "prix": "40.00 EUR",
+  "taille": "40",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10628294655-jordan-4-shimer",
+  "photos": [
+   "https://images1.vinted.net/t/05_01060_SkkCb9uTXTgwYzVkWahonMmr/f800/487747f3.webp?s=57bef203d08e749fa1b472d2e951b55f21696721",
+   "https://images1.vinted.net/t/02_00973_Pw6a6UA69qMzaEPFpsw9TwzW/f800/e5aeb1af.webp?s=fc4f5b2dee14e6fd541b1a5eb7b3c9750e5b0702",
+   "https://images1.vinted.net/t/04_01012_SYLZYhLuzcbu148VLaLiNYAc/f800/5bc48c70.webp?s=50f14efd489a933ea88ea0e4e3a286ed778dc106",
+   "https://images1.vinted.net/t/01_016bd_2D11zM4vTwR8E8Li9yHyUV4A/f800/768e956f.webp?s=a717e802631034f5eca354a9e15b5fd3bf25f52e",
+   "https://images1.vinted.net/t/02_00607_imaEX71D5RDDKT7HJZTx6cr2/f800/a6e13445.webp?s=800c1fe816ebbc3670d8e8a81369816df24de2d9",
+   "https://images1.vinted.net/t/06_002de_gAVYWccA3rvQMGsQXfTG6Ufi/f800/c69ffc57.webp?s=57492625946718cc2a169011ee0a4f1c1996c8e3",
+   "https://images1.vinted.net/t/06_00358_7sfXRchSNE5pt8oQvhmT9LWA/f800/d5554bd4.webp?s=2c1fdc2373f8e4c74db6d65c6352918f75140fae",
+   "https://images1.vinted.net/t/01_00ede_tc82TvRMoPK1CF5TrbsK9CFk/f800/1e2184c9.webp?s=e2cc8c4cb2561e5500362ee450fcbb7e418b6250",
+   "https://images1.vinted.net/t/02_02300_C9JekNaDNtVFZp8WfHL2ZFdz/f800/623cc7f3.webp?s=2374603cb3594926996080ad433e0efe8fc836ba"
+  ],
+  "etiquette": "https://images1.vinted.net/t/02_02300_C9JekNaDNtVFZp8WfHL2ZFdz/f800/623cc7f3.webp?s=2374603cb3594926996080ad433e0efe8fc836ba",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.851,
+  "seuil": 0.805,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "7twlv",
+   "id": "238296741",
+   "profil": "https://www.vinted.fr/member/238296741",
+   "avis": 117,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10635938848",
   "date": "2026-11-02T15:07:54+01:00",
   "type": "bleu",
