@@ -1,5 +1,36 @@
 [
  {
+  "id": "10631114530",
+  "date": "2026-11-02T05:22:50+01:00",
+  "type": "vert",
+  "paire": "Seafoam",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4 oil green",
+  "prix": "15.00 EUR",
+  "taille": "43",
+  "etat": "Satisfaisant",
+  "url": "https://www.vinted.fr/items/10631114530-jordan-4-oil-green",
+  "photos": [
+   "https://images1.vinted.net/t/06_021dd_AJL3C79fgWbwSrS7aM7TpLBZ/f800/5a7bbbbf.webp?s=a712e3a77c61693ef97ab8a0df2709b0dd266fab",
+   "https://images1.vinted.net/t/03_0150d_xqaDVQzTGZBdKKqhEaK64oR7/f800/8898196f.webp?s=121fccdaa3923b345d6759b7f5137a94722947ab"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 72
+  },
+  "ressemblance": 0.829,
+  "seuil": 0.809,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "hakim.23",
+   "id": "18329426",
+   "profil": "https://www.vinted.fr/member/18329426",
+   "avis": 19,
+   "etoiles": 4.7
+  }
+ },
+ {
   "id": "10629727195",
   "date": "2026-11-02T00:19:18+01:00",
   "type": "vert",
