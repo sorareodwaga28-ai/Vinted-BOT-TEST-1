@@ -1,5 +1,33 @@
 [
  {
+  "id": "10639582779",
+  "date": "2026-11-02T19:05:54+01:00",
+  "type": "bleu",
+  "paire": "Jordan 1 High Hyper Royal",
+  "famille": "Jordan 1",
+  "titre": "Baskets Air Jordan 1 High OG Hyper Royal / Suede Bleu - Taille 41",
+  "prix": "25.00 EUR",
+  "taille": "41",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10639582779-baskets-air-jordan-1-high-og-hyper-royal-suede-bleu-taille-41",
+  "photos": [
+   "https://images1.vinted.net/t/05_00f90_RVaip1qUQnsR3hvjdgT2TnH2/f800/6e961db3.webp?s=4bfc5572fc6ffd0a3caebd0629bcb60310b5a86b",
+   "https://images1.vinted.net/t/02_02008_WcMVg7dzAvjMX7fw8SUiUixX/f800/6605306a.webp?s=99f9e4095aa8bdef2251af6de791409692201f45"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.827,
+  "seuil": 0.792,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "fatri",
+   "id": "63948962",
+   "profil": "https://www.vinted.fr/member/63948962",
+   "avis": 60,
+   "etoiles": 4.6
+  }
+ },
+ {
   "id": "10639526040",
   "date": "2026-11-02T19:02:14+01:00",
   "type": "bleu",
