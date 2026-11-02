@@ -928,6 +928,29 @@ def main():
     jeton_bot = os.environ.get("DISCORD_BOT_TOKEN", "").strip()
     salon = {}
 
+    def lire_abonnement(m, api, h):
+        brut = m.get("content", "").strip()
+        ok_abo = False
+        try:
+            import base64
+            b = brut.split(None, 1)[1].strip()
+            abo = json.loads(base64.b64decode(b + "=" * (-len(b) % 4)).decode())
+            if abo.get("endpoint") and (abo.get("keys") or {}).get("p256dh"):
+                abos = [a for a in etat.get("push_abos", []) if a.get("endpoint") != abo["endpoint"]]
+                etat["push_abos"] = (abos + [{"endpoint": abo["endpoint"], "keys": abo["keys"]}])[-5:]
+                ok_abo = True
+                print(f"[push] abonnement enregistré ({len(etat['push_abos'])} téléphone(s))")
+                if BOT == 1:
+                    pool.submit(push_envoyer, {"title": "Notifications activées",
+                                               "body": "Les alertes du bot arriveront aussi ici.", "url": site + "/"})
+        except Exception as ex:
+            print(f"[push] abonnement illisible : {ex}")
+        if BOT == 1 or ok_abo:
+            try:
+                requests.put(f"{api}/{m['id']}/reactions/{'%E2%9C%85' if ok_abo else '%E2%9D%93'}/@me", headers=h, timeout=20)
+            except Exception:
+                pass
+
     def lire_discord():
         """Réponses de Bastien directement dans le salon Discord (bot Discord, secret DISCORD_BOT_TOKEN) :
         « oui / non / fake » en réponse à une alerte verte, bleue, jaune ou orange (on lit « Réf <id> » dans son pied),
@@ -939,6 +962,19 @@ def main():
         api = f"https://discord.com/api/v10/channels/{salon['id']}/messages"
         h = {"Authorization": f"Bot {jeton_bot}"}
         dernier = etat.get("discord_dernier")
+        if not salon.get("abo_relu"):
+            # 3/11 : au démarrage, relit les 100 derniers messages pour un « abonnement … » envoyé pendant
+            # qu'un ancien code tournait (il l'avait ignoré mais avait déjà avancé discord_dernier)
+            salon["abo_relu"] = True
+            try:
+                vieux = requests.get(api, headers=h, timeout=20, params={"limit": 100})
+                for m in sorted(vieux.json() if vieux.status_code == 200 else [], key=lambda m: int(m["id"])):
+                    if (not m["author"].get("bot") and not m.get("webhook_id")
+                            and m.get("content", "").strip().lower().startswith("abonnement ")
+                            and (not dernier or int(m["id"]) <= int(dernier))):
+                        lire_abonnement(m, api, h)
+            except Exception as ex:
+                print(f"[push] relecture des abonnements impossible : {ex}")
         r = requests.get(api, headers=h, timeout=20, params={"limit": 100, **({"after": dernier} if dernier else {})})
         if r.status_code != 200:
             print(f"::warning::Lecture Discord : HTTP {r.status_code} {r.text[:200]}")
@@ -954,26 +990,7 @@ def main():
                 continue
             brut = m.get("content", "").strip()
             if brut.lower().startswith("abonnement "):      # 3/11 : code copié depuis le site (Activer les notifications)
-                ok_abo = False
-                try:
-                    import base64
-                    b = brut.split(None, 1)[1].strip()
-                    abo = json.loads(base64.b64decode(b + "=" * (-len(b) % 4)).decode())
-                    if abo.get("endpoint") and (abo.get("keys") or {}).get("p256dh"):
-                        abos = [a for a in etat.get("push_abos", []) if a.get("endpoint") != abo["endpoint"]]
-                        etat["push_abos"] = (abos + [{"endpoint": abo["endpoint"], "keys": abo["keys"]}])[-5:]
-                        ok_abo = True
-                        print(f"[push] abonnement enregistré ({len(etat['push_abos'])} téléphone(s))")
-                        if BOT == 1:
-                            pool.submit(push_envoyer, {"title": "Notifications activées",
-                                                       "body": "Les alertes du bot arriveront aussi ici.", "url": site + "/"})
-                except Exception as ex:
-                    print(f"[push] abonnement illisible : {ex}")
-                if BOT == 1 or ok_abo:
-                    try:
-                        requests.put(f"{api}/{m['id']}/reactions/{'%E2%9C%85' if ok_abo else '%E2%9D%93'}/@me", headers=h, timeout=20)
-                    except Exception:
-                        pass
+                lire_abonnement(m, api, h)
                 continue
             txt = brut.lower()
             mot = re.search(r"\b(oui|non|fake)\b", txt)
