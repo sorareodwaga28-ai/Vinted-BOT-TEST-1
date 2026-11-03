@@ -1,5 +1,40 @@
 [
  {
+  "id": "10652416797",
+  "date": "2026-11-03T18:24:57+01:00",
+  "type": "vert",
+  "paire": "Air Max 1 Curry",
+  "famille": "Air Max 1",
+  "titre": "Air Max 1",
+  "prix": "22.00 EUR",
+  "taille": "44,5",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10652416797-air-max-1",
+  "photos": [
+   "https://images1.vinted.net/t/05_00a60_MSmDHr69gAfPfcTMr6GsCkTy/f800/bd9c734f.webp?s=0acd23d6fe69461125581948475e21f872e370de",
+   "https://images1.vinted.net/t/05_00381_8BJGTdr16ZTMwwaVfbmGBZju/f800/b5890a5e.webp?s=1ce6c3921cda9b69217109e95e0c1c5d80543e16",
+   "https://images1.vinted.net/t/04_01394_tDLywh2y18cGkd9Xo6yFQ8wB/f800/bb81d1e7.webp?s=82eedde57c46c45c0ceced1179a5bb4260909cab",
+   "https://images1.vinted.net/t/02_01008_48txZPAkKBe1Gt5GmoBDpnfc/f800/14080fae.webp?s=f5e772a93b284a5529fd4da4685d3c238db4d4ea",
+   "https://images1.vinted.net/t/06_01b0a_jRnQWWgbfC3tcXEr5UKrBBbU/f800/cb5a1ab8.webp?s=44d5030d4902eb5644bfec4eee767950476d2df9",
+   "https://images1.vinted.net/t/04_0011b_pkASi19Duf9edJimJYpY9VcQ/f800/4c80bb94.webp?s=6429167a58829ec8ad89d3d33de4c703f902a78d"
+  ],
+  "etiquette": "https://images1.vinted.net/t/02_01008_48txZPAkKBe1Gt5GmoBDpnfc/f800/14080fae.webp?s=f5e772a93b284a5529fd4da4685d3c238db4d4ea",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 85
+  },
+  "ressemblance": 0.851,
+  "seuil": 0.745,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "mat_1604",
+   "id": "65432888",
+   "profil": "https://www.vinted.fr/member/65432888",
+   "avis": 42,
+   "etoiles": 4.6
+  }
+ },
+ {
   "id": "10649691114",
   "date": "2026-11-03T15:14:31+01:00",
   "type": "bleu",
