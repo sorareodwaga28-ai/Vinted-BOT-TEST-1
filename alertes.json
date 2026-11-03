@@ -1,5 +1,38 @@
 [
  {
+  "id": "10647964090",
+  "date": "2026-11-03T12:59:55+01:00",
+  "type": "vert",
+  "paire": "SB Pine Green",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4",
+  "prix": "30.00 EUR",
+  "taille": "43",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10647964090-jordan-4",
+  "photos": [
+   "https://images1.vinted.net/t/04_003ab_RrruA7ABXzbc5mwiNf8DNEpH/f800/2bf5f4d8.webp?s=8170238e89b42812e90e68f88ec919424cf7e8f0",
+   "https://images1.vinted.net/t/01_0144f_AZQ4oFkKLZ3DcnsWaTiSpeuP/f800/102902f6.webp?s=d98be6a80db7be3d2dcc25a93c54c35fcb4d94f0",
+   "https://images1.vinted.net/t/04_009ba_13uSQr2U5xmRwNMyuRAsJwKG/f800/e5934ad9.webp?s=5b0a7f81abd1dcab0745a0186d03f83c7d948053",
+   "https://images1.vinted.net/t/06_00d65_osnSn6zQSDdTzPCW4vdJ5FCV/f800/64cd1d86.webp?s=bc34202a7b317a6878a4bc0fa9556f42d428389c"
+  ],
+  "etiquette": "https://images1.vinted.net/t/06_00d65_osnSn6zQSDdTzPCW4vdJ5FCV/f800/64cd1d86.webp?s=bc34202a7b317a6878a4bc0fa9556f42d428389c",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.855,
+  "seuil": 0.745,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "ldk1231",
+   "id": "197787938",
+   "profil": "https://www.vinted.fr/member/197787938",
+   "avis": 18,
+   "etoiles": 4.6
+  }
+ },
+ {
   "id": "10646612632",
   "date": "2026-11-03T10:59:10+01:00",
   "type": "vert",
