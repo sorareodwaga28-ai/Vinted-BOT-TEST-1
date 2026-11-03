@@ -1,27 +1,27 @@
 {
  "bot": 1,
- "maj": "2026-11-03T23:55:06+01:00",
+ "maj": "2026-11-04T00:00:10+01:00",
  "aujourdhui": {
+  "jour": "2026-11-04",
+  "annonces": 0,
+  "candidates": 0,
+  "appels": 0,
+  "vert": 0,
+  "bleu": 0,
+  "orange": 0,
+  "loupees": 0,
+  "cout_centimes": 0.0
+ },
+ "hier": {
   "jour": "2026-11-03",
-  "annonces": 10178,
-  "candidates": 804,
+  "annonces": 10197,
+  "candidates": 805,
   "appels": 581,
   "vert": 8,
   "bleu": 4,
   "orange": 0,
   "loupees": 0,
   "cout_centimes": 23.2
- },
- "hier": {
-  "jour": "2026-11-02",
-  "annonces": 11678,
-  "candidates": 978,
-  "appels": 914,
-  "vert": 14,
-  "bleu": 14,
-  "orange": 0,
-  "loupees": 0,
-  "cout_centimes": 32.3
  },
  "reponses": [
   {
