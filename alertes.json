@@ -1,5 +1,41 @@
 [
  {
+  "id": "10655418732",
+  "date": "2026-11-03T21:50:39+01:00",
+  "type": "vert",
+  "paire": "Rare Air",
+  "famille": "Jordan 4",
+  "titre": "Air Jordan four retros size 42 1/2",
+  "prix": "26.00 EUR",
+  "taille": "42,5",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10655418732-air-jordan-four-retros-size-42-12",
+  "photos": [
+   "https://images1.vinted.net/t/02_007b1_FXvRBioGSmUzc3DEVYW2i2ee/f800/a73bd9d2.webp?s=1cefe372459ecdc5773eeefdaf3ce71025d7fbea",
+   "https://images1.vinted.net/t/05_0264d_MEHDF8fvyRiFD6KmyBBTN8LF/f800/19390abc.webp?s=741b2000c3d70dc9ede7e0c0fc2333a99b2bb8d4",
+   "https://images1.vinted.net/t/02_00404_cRKCUDB35CHL87A3SSuwR3eM/f800/ecddd4b3.webp?s=e4ad2748cd3abc6a58f6cc7f7ff4190e6bed8501",
+   "https://images1.vinted.net/t/02_00aa2_BNQSYKUNJgiNGH3ny6mwaM6i/f800/bbd88609.webp?s=df5417ba20aac63842f8ad179891cb1b1bead1dc",
+   "https://images1.vinted.net/t/05_01618_h2gcihSP299tgAChBvhXxLUQ/f800/6b1a9652.webp?s=d2a47306e8722171497824d3fc55bd045e85231e",
+   "https://images1.vinted.net/t/06_0097e_NyrNY38vNpMw23w3bbGsgBHR/f800/6da6e188.webp?s=fcea525d6d6fc9e25ccc881159435cdb5f6d47eb",
+   "https://images1.vinted.net/t/06_017e6_sEGupMeJWFpZUULLrfxTfZvz/f800/796bb1c4.webp?s=123d11dafa8da09245495dfdd6a0965f03c84fe9"
+  ],
+  "etiquette": "https://images1.vinted.net/t/05_0264d_MEHDF8fvyRiFD6KmyBBTN8LF/f800/19390abc.webp?s=741b2000c3d70dc9ede7e0c0fc2333a99b2bb8d4",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.8,
+  "seuil": 0.737,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "streetwear457",
+   "id": "3191015193",
+   "profil": "https://www.vinted.fr/member/3191015193",
+   "avis": 9,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10655308107",
   "date": "2026-11-03T21:42:41+01:00",
   "type": "bleu",
