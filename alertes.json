@@ -1,5 +1,40 @@
 [
  {
+  "id": "10652953566",
+  "date": "2026-11-03T19:01:51+01:00",
+  "type": "vert",
+  "paire": "SB Pine Green",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4 sb originali usate 42",
+  "prix": "25.00 EUR",
+  "taille": "42",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10652953566-jordan-4-sb-originali-usate-42",
+  "photos": [
+   "https://images1.vinted.net/t/05_00fc8_d8Y61GHDbJWvUnbr1ivbMj81/f800/6fe1df4f.webp?s=8866c9fd35e1788afed7a48a3228da0c7134340f",
+   "https://images1.vinted.net/t/05_00e4c_wdPy4afLPShQSXLCsN27T2L6/f800/6f6c5336.webp?s=ad20cf48df4a40b27808033367be2b81a8e74fd5",
+   "https://images1.vinted.net/t/05_00466_wwMVBs3sHZ1Mrz7bYJMSofVS/f800/688a7dbb.webp?s=51689edc6d51227e55720aeda93016a1bde12681",
+   "https://images1.vinted.net/t/06_0036d_VAGUnxYLvBWwWHf68vEAqBPc/f800/e9afd848.webp?s=0b81dc56fa85ac4d1559b8bd4e1584e5edf95867",
+   "https://images1.vinted.net/t/06_02102_EW9xf9w47Dp3oZQemGnC7MJJ/f800/9a743a00.webp?s=f4cf3239c5c20bda96fe3a537614916001ccece6",
+   "https://images1.vinted.net/t/02_01b2f_XhCZU6FBeChYYx2rv38jfCq6/f800/77c1e824.webp?s=1e6e575436b78c4bb873bdec03224810781545de"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.859,
+  "seuil": 0.745,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "andrea1004528",
+   "id": "74708434",
+   "profil": "https://www.vinted.fr/member/74708434",
+   "avis": 24,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10652893051",
   "date": "2026-11-03T18:57:23+01:00",
   "type": "bleu",
