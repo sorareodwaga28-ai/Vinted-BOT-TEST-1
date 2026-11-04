@@ -1,5 +1,43 @@
 [
  {
+  "id": "10667071638",
+  "date": "2026-11-04T19:44:57+01:00",
+  "type": "vert",
+  "paire": "SB Pine Green",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4",
+  "prix": "35.00 EUR",
+  "taille": "40",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10667071638-jordan-4",
+  "photos": [
+   "https://images1.vinted.net/t/06_004f2_yo8o8LBTuAUhi5FkN44UWew7/f800/2c08b2ae.webp?s=facda6d999ce2fff1d906f4a640dc9eefdd1aa27",
+   "https://images1.vinted.net/t/02_01851_EX8W4wRemdnp151snK9fron3/f800/15e526ac.webp?s=836cba6758a39e0ce5f1f2c184ccf24d373ce8ee",
+   "https://images1.vinted.net/t/05_00571_2avhPQbYgetwJrUT9fYFPsbk/f800/3ce382dd.webp?s=0dd806e53d330fbe4b8e17f1c176a3911ac3efaf",
+   "https://images1.vinted.net/t/06_01602_QqMtfS7BCbkFVjRChMDWcQ3g/f800/0499185d.webp?s=864f628060b19c2b28c5a08f7f6e1af744c76d2e",
+   "https://images1.vinted.net/t/05_01b8a_7oTEyGQ2LaWcFiy8nvsQzYRG/f800/6db52eaa.webp?s=407ff3f876497d318d122a6b6fa063f31994b6cf",
+   "https://images1.vinted.net/t/06_004b1_zDKWAdmx1n6GvkHK1gavVvXh/f800/449914f2.webp?s=b33244a38d8b726d052fa19d9982a2456e8931a6",
+   "https://images1.vinted.net/t/01_00131_HiB9asDPbvmqetuJRBBd19bK/f800/931cd977.webp?s=89a146352254be330b21df5a2cad4369291089df",
+   "https://images1.vinted.net/t/05_0180a_HDzSpf5LgbxiZMmS6LF7jt43/f800/2a79cbbc.webp?s=15bfe9f700fdd643b7e52a697479fd51437c1703",
+   "https://images1.vinted.net/t/02_00fef_D8ezMKSRQZ8wtB7LL2unhrrG/f800/83e91982.webp?s=3b6235bff9a9661cbe4841100f9720517aa497b6"
+  ],
+  "etiquette": "https://images1.vinted.net/t/05_00571_2avhPQbYgetwJrUT9fYFPsbk/f800/3ce382dd.webp?s=0dd806e53d330fbe4b8e17f1c176a3911ac3efaf",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.83,
+  "seuil": 0.745,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "eliott.achd",
+   "id": "277349526",
+   "profil": "https://www.vinted.fr/member/277349526",
+   "avis": 17,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10666542111",
   "date": "2026-11-04T19:07:49+01:00",
   "type": "vert",
