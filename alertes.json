@@ -1,5 +1,35 @@
 [
  {
+  "id": "10666137717",
+  "date": "2026-11-04T18:40:12+01:00",
+  "type": "bleu",
+  "paire": "Jordan 3 Racer Blue",
+  "famille": "Jordan 3",
+  "titre": "Air Jordan 3 Retro \"Racer Blue\" Taille 44,5 (US 10.5) avec boîte d'origine",
+  "prix": "25.00 EUR",
+  "taille": "44,5",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10666137717-air-jordan-3-retro-racer-blue-taille-445-us-105-avec-boite-dorigine",
+  "photos": [
+   "https://images1.vinted.net/t/05_0187b_9fXDHdDBpzKVNgJCqonzzo5o/f800/26e40b06.webp?s=e65fb01c75a23c00b13b3a711c48716fd3d6f954",
+   "https://images1.vinted.net/t/06_01728_UX5bAgN72S3qLtEFTiU9Vq4Z/f800/288aa105.webp?s=94ae114219f06fc8fc59d56864b45b22f4b19403",
+   "https://images1.vinted.net/t/05_0087a_8QozuNRu85gVW34wzTU1FPt1/f800/71cdc09f.webp?s=4b109a47a23b4a0fdb45e00158b224d733d8c9d4",
+   "https://images1.vinted.net/t/06_0115d_icrwwgL5pJQuNKXKoHLEieiY/f800/bd3eaf29.webp?s=5f8eccfc012c004a38325c0a6d74d54dd854e83c"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.81,
+  "seuil": 0.68,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "32461749",
+   "profil": "https://www.vinted.fr/member/32461749",
+   "avis": 15,
+   "etoiles": 4.8
+  }
+ },
+ {
   "id": "10665878005",
   "date": "2026-11-04T18:22:27+01:00",
   "type": "bleu",
