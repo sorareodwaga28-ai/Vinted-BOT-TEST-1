@@ -1,5 +1,39 @@
 [
  {
+  "id": "10661214502",
+  "date": "2026-11-04T12:47:28+01:00",
+  "type": "vert",
+  "paire": "Thunder",
+  "famille": "Jordan 4",
+  "titre": "Jordans",
+  "prix": "40.00 EUR",
+  "taille": "43",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10661214502-jordans",
+  "photos": [
+   "https://images1.vinted.net/t/04_00fd0_tdxEbWjAGmWCSuZqpVDhPZyt/f800/119eaa73.webp?s=91432f2f2e4f15521342a34fdb19808a5facdf62",
+   "https://images1.vinted.net/t/05_019fd_PgbhkUoPGquf19LQddW5soyD/f800/7f638b0a.webp?s=3f71c7a11a9956a34afdeadf224be032dbcc7cdd",
+   "https://images1.vinted.net/t/02_01678_VuEdJJnvXPghecuMiEKUGmci/f800/cf7c47d7.webp?s=f8d3eb3d6041cb1a275f1442238d03caca748c49",
+   "https://images1.vinted.net/t/05_0028c_r1RPiiDVBrA6KhbkT52NDS8Q/f800/15521167.webp?s=8c6fa677c15a89a82f736bb5b61ae1bb2bf80271",
+   "https://images1.vinted.net/t/04_02221_fTgDxejAtBakvHp6Zw619jaj/f800/3de54686.webp?s=27d45e14275835d14d6544351104da159aa42d99"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 72
+  },
+  "ressemblance": 0.771,
+  "seuil": 0.711,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "61735943",
+   "profil": "https://www.vinted.fr/member/61735943",
+   "avis": 0,
+   "etoiles": 0.0
+  }
+ },
+ {
   "id": "10660156411",
   "date": "2026-11-04T11:15:52+01:00",
   "type": "vert",
