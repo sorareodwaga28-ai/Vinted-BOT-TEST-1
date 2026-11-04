@@ -1,5 +1,40 @@
 [
  {
+  "id": "10664598224",
+  "date": "2026-11-04T16:55:24+01:00",
+  "type": "vert",
+  "paire": "Red Thunder",
+  "famille": "Jordan 4",
+  "titre": "Red Thunder",
+  "prix": "30.00 EUR",
+  "taille": "41",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10664598224-red-thunder",
+  "photos": [
+   "https://images1.vinted.net/t/02_020dd_Tzw8itwA173bNhSA2K25GJk3/f800/e85ca190.webp?s=8a46eb986b709abce1a5f46318845c22f57cf780",
+   "https://images1.vinted.net/t/06_022cd_ob9faJeu6CYv19JVtnG1Rsu8/f800/3ee8ea48.webp?s=f0203d7025af0a2b05e37792063f5db5fe123319",
+   "https://images1.vinted.net/t/02_00574_JuW3wvAYsvdtciXTHZTUv9qQ/f800/94f9b363.webp?s=9069394e9a1473236a3cd185419f94bcccabf6e0",
+   "https://images1.vinted.net/t/05_00fdc_qxhhga9N4Vy8zhZJJZ6CeMC6/f800/ae616535.webp?s=0c332cf4470dc8e9489edbca328dbd36f136d2c5",
+   "https://images1.vinted.net/t/02_01bc8_5rj7mmu2i82vZRRzGA5mJUNK/f800/f389658c.webp?s=b29bc9a44e8f5748d2c3eec5581376a114ae2611",
+   "https://images1.vinted.net/t/05_007e9_vqfkr35uiPLooATwrTAbAuAv/f800/5ad47754.webp?s=b0f2b72a5823f7e5dcc68af146900176b46b51a4"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 72
+  },
+  "ressemblance": 0.84,
+  "seuil": 0.72,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "francoc184",
+   "id": "3139862371",
+   "profil": "https://www.vinted.fr/member/3139862371",
+   "avis": 5,
+   "etoiles": 4.2
+  }
+ },
+ {
   "id": "10662200438",
   "date": "2026-11-04T16:29:53+01:00",
   "type": "vert",
