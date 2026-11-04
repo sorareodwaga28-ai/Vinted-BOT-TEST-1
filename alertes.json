@@ -1,5 +1,40 @@
 [
  {
+  "id": "10662200438",
+  "date": "2026-11-04T16:29:53+01:00",
+  "type": "vert",
+  "paire": "SB Pine Green",
+  "famille": "Jordan 4",
+  "titre": "Air Jordan 4 SB",
+  "prix": "35.00 EUR",
+  "taille": "44",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10662200438-air-jordan-4-sb",
+  "photos": [
+   "https://images1.vinted.net/t/02_020ba_RkKiujQRt8xqGJbPrFdifg7J/f800/fb38e443.webp?s=c7462b78412c84512a1dfa09ee46f148bd9234a7",
+   "https://images1.vinted.net/t/06_00414_mvKmDF5qv4AK9nfhGrr2C3SS/f800/4f69d9e2.webp?s=245c0d6afef07edee11b42dfa1b2f811b13a256c",
+   "https://images1.vinted.net/t/02_02207_V1Yr3phkQS9UbDegNK9qexim/f800/0366d235.webp?s=a2a29a9a10230deeefff06e076be5ab70ea3e1ff",
+   "https://images1.vinted.net/t/05_0062a_BAJeedVzRUU4L5MswvZmncPF/f800/6b3105a9.webp?s=82f70851c2abfe2ae6017564726523c1fe737ae9",
+   "https://images1.vinted.net/t/04_00c97_D8vjRtuYTcUxTnPHmnWoBHnC/f800/58e72dc7.webp?s=3e3c3a8fbe5a496464ffc2e14883023856e38064",
+   "https://images1.vinted.net/t/02_01f47_MhbNoC4Bsc4rZZdoVcichxwo/f800/9ed16643.webp?s=61701a6d15ea311b7b227bcbdbf824ba386ddc66"
+  ],
+  "etiquette": "https://images1.vinted.net/t/02_01f47_MhbNoC4Bsc4rZZdoVcichxwo/f800/9ed16643.webp?s=61701a6d15ea311b7b227bcbdbf824ba386ddc66",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 85
+  },
+  "ressemblance": 0.911,
+  "seuil": 0.745,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "xavierll",
+   "id": "40724282",
+   "profil": "https://www.vinted.fr/member/40724282",
+   "avis": 77,
+   "etoiles": 4.8
+  }
+ },
+ {
   "id": "10662980179",
   "date": "2026-11-04T15:04:41+01:00",
   "type": "bleu",
