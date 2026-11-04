@@ -1,5 +1,40 @@
 [
  {
+  "id": "10666542111",
+  "date": "2026-11-04T19:07:49+01:00",
+  "type": "vert",
+  "paire": "Craft Photon Dust",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4",
+  "prix": "26.00 EUR",
+  "taille": "41",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10666542111-jordan-4",
+  "photos": [
+   "https://images1.vinted.net/t/05_0240a_DFGY1bFeByHC4RsAsadVzA7m/f800/a2e3c965.webp?s=8a779c09d6bca0bed75cdfb515c526d10590d3ff",
+   "https://images1.vinted.net/t/06_00aff_NRWoiQZRFj1X6FKmhWBkTBmC/f800/03211dd4.webp?s=0570427e1121da298ede158fb7b8aaf21579cf5c",
+   "https://images1.vinted.net/t/04_00707_HQ17pf6cggGK61NMhgd3sLq7/f800/1994432b.webp?s=e2c8f43f3c7f06791f5d70ac0a6998c47fb23c90",
+   "https://images1.vinted.net/t/06_01634_AE1QVdYJVGFA4rnvrdmwZdw1/f800/c4b28701.webp?s=a736a8e3c8bedcfc6188146e03c49fc13d1b338a",
+   "https://images1.vinted.net/t/02_019a9_EfzuhYX3HMEUi7rCp3qXmjis/f800/3f7a60d9.webp?s=165620db14512ffe7a2e563952e54ef39bf8fb61",
+   "https://images1.vinted.net/t/05_01e4e_mD2J1AHhxhM7EwaMnSV3UxDt/f800/151c0078.webp?s=7275cd960f8518c26a7b004f53b0380118d87828"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 70
+  },
+  "ressemblance": 0.834,
+  "seuil": 0.766,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "zetroyuhebanue",
+   "id": "3208531861",
+   "profil": "https://www.vinted.fr/member/3208531861",
+   "avis": 0,
+   "etoiles": 0.0
+  }
+ },
+ {
   "id": "10666410257",
   "date": "2026-11-04T18:58:42+01:00",
   "type": "bleu",
