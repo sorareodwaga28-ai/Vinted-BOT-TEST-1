@@ -1,5 +1,37 @@
 [
  {
+  "id": "10676695177",
+  "date": "2026-11-05T15:42:29+01:00",
+  "type": "bleu",
+  "paire": "SB Pine Green",
+  "famille": "Jordan 4",
+  "titre": "Boîte vide de Nike Air Jordan 4 Retro SB Pine Green",
+  "prix": "10.00 EUR",
+  "taille": "43",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10676695177-boite-vide-de-nike-air-jordan-4-retro-sb-pine-green",
+  "photos": [
+   "https://images1.vinted.net/t/06_0155f_dzw6NYayEnRDVfCkucGmqRTN/f800/88e70d4d.webp?s=8028af4a812ab2c9a563e1f5650c5bcbfbd474f2",
+   "https://images1.vinted.net/t/02_006ee_JjWiJF1XU3KWurWZ4SHAxGNJ/f800/e6cb059a.webp?s=227a6122dfa8c1b7a54cf615e1f5f19537e26039",
+   "https://images1.vinted.net/t/04_00237_gm2s1zYaK1DULY1bTMj1wwzJ/f800/24406477.webp?s=330a011780e96b329808187901a1a6deedd70432",
+   "https://images1.vinted.net/t/05_01f2d_rV9Q4ShzUeU9U3q8rv67fTik/f800/46fdba31.webp?s=58cb9d06b8fc2ffa41f1cb4849c570727b7b1f57",
+   "https://images1.vinted.net/t/04_018e5_rUSTaFuh5fkFRm2TLG3zNkmt/f800/809af4e0.webp?s=91d36b3a87dfe81e5ec68dd012518ca5c6021472",
+   "https://images1.vinted.net/t/02_00247_WpdB2uPWp1n9ejtXspXANLHS/f800/60c70802.webp?s=eb52d9e156b4dfde2369970d1670e2287cf9d910"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.432,
+  "seuil": 0.725,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "ced0394",
+   "id": "187230925",
+   "profil": "https://www.vinted.fr/member/187230925",
+   "avis": 14,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10659312890",
   "date": "2026-11-05T14:50:59+01:00",
   "type": "vert",
