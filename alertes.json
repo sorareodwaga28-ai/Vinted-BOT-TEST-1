@@ -1,5 +1,39 @@
 [
  {
+  "id": "10679818342",
+  "date": "2026-11-05T19:30:28+01:00",
+  "type": "vert",
+  "paire": "Lightning",
+  "famille": "Jordan 4",
+  "titre": "Jordan Retro 4 Gialle",
+  "prix": "40.00 EUR",
+  "taille": "42",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10679818342-jordan-retro-4-gialle",
+  "photos": [
+   "https://images1.vinted.net/t/05_026e9_hMVGFDQsjGESNJPRgorKKp8K/f800/dc2059a9.webp?s=7dc41f91b54c0b7e15a952b7eb2d598c021be2c9",
+   "https://images1.vinted.net/t/04_016f1_1HTjPezgM7wjq1gVci926FxY/f800/4e249675.webp?s=94e0a7b0fa9b70eb987d38e9e97e9a83dea05533",
+   "https://images1.vinted.net/t/02_01421_jrSHhjv9E47ibms7CBzaCr7P/f800/b3348ae8.webp?s=0940568bce475b5ab3838c0ea1d45426e3bf934f",
+   "https://images1.vinted.net/t/06_005f3_uVH2zF2AdtoakqVWswafhLdc/f800/319c362f.webp?s=e6d0e2e94ac66d092fcdc40cb6f1abc6a7a91fc4",
+   "https://images1.vinted.net/t/06_01b43_dVksL8PqQfBVYe9VXeU2K2VQ/f800/87dbbc1f.webp?s=519b14212a815223b7127ec797c03f33e3aa088a"
+  ],
+  "etiquette": "https://images1.vinted.net/t/06_01b43_dVksL8PqQfBVYe9VXeU2K2VQ/f800/87dbbc1f.webp?s=519b14212a815223b7127ec797c03f33e3aa088a",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 85
+  },
+  "ressemblance": 0.863,
+  "seuil": 0.744,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "onlineshop1111",
+   "id": "313939781",
+   "profil": "https://www.vinted.fr/member/313939781",
+   "avis": 0,
+   "etoiles": 0.0
+  }
+ },
+ {
   "id": "10678826106",
   "date": "2026-11-05T18:17:52+01:00",
   "type": "vert",
