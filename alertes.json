@@ -1,5 +1,37 @@
 [
  {
+  "id": "10668857479",
+  "date": "2026-11-05T11:51:50+01:00",
+  "type": "bleu",
+  "paire": "Jordan 1 High Lost and Found",
+  "famille": "Jordan 1",
+  "titre": "Jordan 1 chicago Lost and Found rp",
+  "prix": "40.00 EUR",
+  "taille": "44,5",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10668857479-jordan-1-chicago-lost-and-found-rp",
+  "photos": [
+   "https://images1.vinted.net/t/02_01935_fCmSydHX5VkSsoh2cEKY3bAQ/f800/b56838e6.webp?s=cc31952fed5d1e1de6cda669c668b4678dcd635b",
+   "https://images1.vinted.net/t/01_00116_C3eueDr7vyvAppBugMLCP79T/f800/c005ca35.webp?s=65019773fc18f3a780347a8ef63d924dc7d06a1e",
+   "https://images1.vinted.net/t/06_01eb2_pY5yTFmZvuRn3CvKnxv6vgqS/f800/f092402b.webp?s=244a62545ce80023efe21169e470c55b68b692d9",
+   "https://images1.vinted.net/t/05_008c2_iu6EFMzZgKuph5sQNFT9yvf9/f800/5c5fb81b.webp?s=c516e055438211d65d2eb29b2fcb6679564762fb",
+   "https://images1.vinted.net/t/06_00dd5_dSxMjSTsbWrgU67t8uvxpJd1/f800/2251f879.webp?s=26b47868f5d182b17b04a99bcc0b29fe1317ff7a",
+   "https://images1.vinted.net/t/01_01a49_XfzR4FW7qrRPzG1zwrH69LPC/f800/f8768ef8.webp?s=e9bb1513341e74ba24be4c6f17de35144007d99c"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.0,
+  "seuil": 0.748,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "lucadipalma97",
+   "id": "101978004",
+   "profil": "https://www.vinted.fr/member/101978004",
+   "avis": 18,
+   "etoiles": 3.7
+  }
+ },
+ {
   "id": "10672882427",
   "date": "2026-11-05T10:24:08+01:00",
   "type": "bleu",
