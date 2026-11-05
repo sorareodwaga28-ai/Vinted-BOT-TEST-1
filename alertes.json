@@ -1,5 +1,38 @@
 [
  {
+  "id": "10680830468",
+  "date": "2026-11-05T20:45:35+01:00",
+  "type": "vert",
+  "paire": "SB Pine Green",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4 sb",
+  "prix": "35.00 EUR",
+  "taille": "44",
+  "etat": "Satisfaisant",
+  "url": "https://www.vinted.fr/items/10680830468-jordan-4-sb",
+  "photos": [
+   "https://images1.vinted.net/t/05_01659_v3PR6HdEDNHKm6aP7CbZFXez/f800/d2cfeeba.webp?s=b58b814125a84faafe1fef8ec027cff7c20af965",
+   "https://images1.vinted.net/t/02_01a35_21tp6Pemc62jdudabrDatuJJ/f800/66c79e9a.webp?s=35d94dddc6e21384da1876ca9d52b0695a260331",
+   "https://images1.vinted.net/t/06_023cd_Fn4U7C2zEJsdiKRWJTnenZkG/f800/40f7735f.webp?s=06f7c5ec004bd0231e771c7b042f5602766c8450",
+   "https://images1.vinted.net/t/01_0245f_9dBcrZWmDZkYjG6PaXP5UTvM/f800/20323f0f.webp?s=83dea4c530cb95d6685573b142bb2c12a15d8aed"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 78
+  },
+  "ressemblance": 0.854,
+  "seuil": 0.725,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "leolegr16",
+   "id": "65252364",
+   "profil": "https://www.vinted.fr/member/65252364",
+   "avis": 68,
+   "etoiles": 4.2
+  }
+ },
+ {
   "id": "10680469232",
   "date": "2026-11-05T20:18:42+01:00",
   "type": "vert",
