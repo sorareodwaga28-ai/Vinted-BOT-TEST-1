@@ -1,5 +1,37 @@
 [
  {
+  "id": "10659312890",
+  "date": "2026-11-05T14:50:59+01:00",
+  "type": "vert",
+  "paire": "Seafoam",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4",
+  "prix": "30.00 EUR",
+  "taille": "42,5",
+  "etat": "Neuf sans étiquette",
+  "url": "https://www.vinted.fr/items/10659312890-jordan-4",
+  "photos": [
+   "https://images1.vinted.net/t/04_0211d_UF4VcRWANSHTfMbcPMcAJyax/f800/f9346f00.webp?s=bbaf26f2059c9a917cfd2611ee4d80b3238c737b",
+   "https://images1.vinted.net/t/06_02687_Db8wNGsHbq5M6WBGbtUkS2ZS/f800/4ffe1a97.webp?s=ce019f9fac340c9b4fea171cca0d4e1c641f042b",
+   "https://images1.vinted.net/t/06_00b28_e6Q729TAao3nZ5AJwhnQTMMQ/f800/3028ec59.webp?s=b7233fe9a0d0669a437d3d71462a19af0b71b2d5"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 72
+  },
+  "ressemblance": 0.867,
+  "seuil": 0.745,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "sofiaa605",
+   "id": "293188056",
+   "profil": "https://www.vinted.fr/member/293188056",
+   "avis": 4,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10675099373",
   "date": "2026-11-05T13:39:07+01:00",
   "type": "bleu",
