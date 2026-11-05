@@ -1,5 +1,37 @@
 [
  {
+  "id": "10672576625",
+  "date": "2026-11-05T09:32:36+01:00",
+  "type": "vert",
+  "paire": "Fire Red",
+  "famille": "Jordan 4",
+  "titre": "Nike jordan 4",
+  "prix": "20.00 EUR",
+  "taille": "40,5",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10672576625-nike-jordan-4",
+  "photos": [
+   "https://images1.vinted.net/t/06_01da9_eMWQ5D8zDYWrvTaGdjCJ1LRv/f800/4bca5a4e.webp?s=b0d378ecdae444eeec04048af06b996eef55d91c",
+   "https://images1.vinted.net/t/01_005e4_oBLUc5GtoEVdZoPUDRGyMePJ/f800/4afab8a4.webp?s=2c4af97cb08b6aa8252f1ea66e99155fafaec024",
+   "https://images1.vinted.net/t/05_01b29_ACshjUYdHuaNsnRVn3Dn6Rni/f800/abcdd93b.webp?s=63a07a2ebe104b159a0f0dfc43d1a40eab455357"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 70
+  },
+  "ressemblance": 0.855,
+  "seuil": 0.733,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "graafkip23",
+   "id": "158364212",
+   "profil": "https://www.vinted.fr/member/158364212",
+   "avis": 879,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10672542222",
   "date": "2026-11-05T09:27:47+01:00",
   "type": "vert",
