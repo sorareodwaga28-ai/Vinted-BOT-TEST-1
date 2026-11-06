@@ -1,5 +1,42 @@
 [
  {
+  "id": "10692599222",
+  "date": "2026-11-06T19:41:57+01:00",
+  "type": "vert",
+  "paire": "Fire Red",
+  "famille": "Jordan 4",
+  "titre": "Jordan",
+  "prix": "20.00 EUR",
+  "taille": "43",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10692599222-jordan",
+  "photos": [
+   "https://images1.vinted.net/t/04_0023d_HASBtfVJ2RhU4nefmJyxAcxV/f800/1693be5f.webp?s=44cc58ad2b3ec28e29ecbbdb9582c089d368c9bf",
+   "https://images1.vinted.net/t/06_01abe_RKqsPM9E1BjKVr24LFLqvHY3/f800/69222f7e.webp?s=c1917f2d13d75aeed5c28b209c31c0f25bbc1877",
+   "https://images1.vinted.net/t/05_01ac1_b2kiPcE5FuDKhs7M1cMJsz2s/f800/e7db1c8a.webp?s=636c65b30a968f8fcfccb0b667345e7193fa763e",
+   "https://images1.vinted.net/t/01_012fb_MDGKgChYpQGKcBG6UNZXtySk/f800/99f9769d.webp?s=1a2518f7a1772dad13f232c78ee6076c791d5699",
+   "https://images1.vinted.net/t/02_00399_sLrHuzSxfUzYXwsfcUc87rkp/f800/58bcfdf5.webp?s=78ae966a12c50b5e4ee059706c106f31fdf197ca",
+   "https://images1.vinted.net/t/02_01f40_VQ64EJaJoCoygv1myTduUuZw/f800/bf914c14.webp?s=23d74a2f6a83c2bb824004f8e6ba3dc395bdff4e",
+   "https://images1.vinted.net/t/06_015c1_TAMq4mnb7NDndaurHA3TyARb/f800/1f9f2331.webp?s=2e4e06f55118935ad9ddc39fb3f73e308a7e1954",
+   "https://images1.vinted.net/t/02_00c2b_yQpfyjbCLzsMympKctvhs5Da/f800/193f5d90.webp?s=0d29ed90339f216af2290d53f4fcaca653850f52"
+  ],
+  "etiquette": "https://images1.vinted.net/t/02_00c2b_yQpfyjbCLzsMympKctvhs5Da/f800/193f5d90.webp?s=0d29ed90339f216af2290d53f4fcaca653850f52",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 85
+  },
+  "ressemblance": 0.859,
+  "seuil": 0.733,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "195544398",
+   "profil": "https://www.vinted.fr/member/195544398",
+   "avis": 10,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10692574200",
   "date": "2026-11-06T19:39:57+01:00",
   "type": "bleu",
