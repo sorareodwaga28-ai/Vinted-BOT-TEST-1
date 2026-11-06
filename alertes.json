@@ -1,5 +1,40 @@
 [
  {
+  "id": "10684725244",
+  "date": "2026-11-06T07:44:33+01:00",
+  "type": "vert",
+  "paire": "Thunder",
+  "famille": "Jordan 4",
+  "titre": "Basket air  Jordan Nike",
+  "prix": "15.00 EUR",
+  "taille": "41",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10684725244-basket-air-jordan-nike",
+  "photos": [
+   "https://images1.vinted.net/t/04_021d4_KyVEmmzjd2WjEkFPY4DzqNDV/f800/37162f51.webp?s=4b13addbb673f429a3a5248279cf62009ec3ae35",
+   "https://images1.vinted.net/t/06_010f5_Xj94NGJxgToJNXrwtvDk3PM2/f800/d8778526.webp?s=1402e0cf8af298c55aca3ca6301217347731dba4",
+   "https://images1.vinted.net/t/06_0063e_eyCMDgj8GfVUFPYxcCiLv8a2/f800/4205c172.webp?s=de4c66f098ee57bb8ec76fea2f051d1c8415fd00",
+   "https://images1.vinted.net/t/06_01d45_dBp8pHaLCSVKPwmDYVijufAy/f800/c3e74a2d.webp?s=7577b207724e16c2c7e7f6fcc2fcb625a6908cb3",
+   "https://images1.vinted.net/t/05_018f8_RQxsAKgmhDhsFcew6TCBo6nx/f800/2801751c.webp?s=d9095e4cd5fdf8698538762889765daabb7c8a2f",
+   "https://images1.vinted.net/t/05_02385_VJcmKj8djbg9n5s7tqZAiENk/f800/c1f2538e.webp?s=df81be1c536fa5e5d5b2d22085c000f9e18e5e5c"
+  ],
+  "etiquette": "https://images1.vinted.net/t/06_01d45_dBp8pHaLCSVKPwmDYVijufAy/f800/c3e74a2d.webp?s=7577b207724e16c2c7e7f6fcc2fcb625a6908cb3",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.776,
+  "seuil": 0.68,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "maxnanni06",
+   "id": "217305711",
+   "profil": "https://www.vinted.fr/member/217305711",
+   "avis": 10,
+   "etoiles": 4.2
+  }
+ },
+ {
   "id": "10682816246",
   "date": "2026-11-05T23:50:00+01:00",
   "type": "vert",
