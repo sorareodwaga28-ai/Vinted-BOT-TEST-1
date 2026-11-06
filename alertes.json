@@ -1,5 +1,37 @@
 [
  {
+  "id": "10686358305",
+  "date": "2026-11-06T11:30:19+01:00",
+  "type": "vert",
+  "paire": "Frozen Moments",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4",
+  "prix": "20.00 EUR",
+  "taille": "42,5",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10686358305-jordan-4",
+  "photos": [
+   "https://images1.vinted.net/t/02_00108_AvFzMxo2LfuD5J9HWKB8HGcH/f800/e40aa4f9.webp?s=61a8460a106a0ca49eb27f3b7f9d0580aaf512b5",
+   "https://images1.vinted.net/t/05_00990_p5EEqxKyCGPmVfzwVrQbSQdP/f800/cb11e024.webp?s=52d9361fb76a1ab88e2c89e39665ee1b82b8cab2",
+   "https://images1.vinted.net/t/06_0134d_SDKvE1B9y6j6e65yNw9VA1oA/f800/80072df5.webp?s=c79ed974cbf249f0e344d0d6ebdc8610895597f8"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 72
+  },
+  "ressemblance": 0.815,
+  "seuil": 0.773,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "footcollection",
+   "id": "25128111",
+   "profil": "https://www.vinted.fr/member/25128111",
+   "avis": 113,
+   "etoiles": 4.8
+  }
+ },
+ {
   "id": "10684725244",
   "date": "2026-11-06T07:44:33+01:00",
   "type": "vert",
