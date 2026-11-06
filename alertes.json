@@ -1,5 +1,40 @@
 [
  {
+  "id": "10688915608",
+  "date": "2026-11-06T15:09:50+01:00",
+  "type": "vert",
+  "paire": "Fire Red",
+  "famille": "Jordan 4",
+  "titre": "Nike Air Jordan weiß und rot",
+  "prix": "26.00 EUR",
+  "taille": "42,5",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10688915608-nike-air-jordan-weiss-und-rot",
+  "photos": [
+   "https://images1.vinted.net/t/01_01be2_eDPejYbjvAsvSdY4VFqV8HNc/f800/129a0d22.webp?s=415900a3d5381e77ab436a3be498202b80bc4acf",
+   "https://images1.vinted.net/t/05_01a10_ZsTPdPS6L3oYPTsg7PykzeCH/f800/efeffc32.webp?s=a356cbecfd6b465be1865f80dd1e61f383523fb8",
+   "https://images1.vinted.net/t/05_01991_XynES2Q4CVDDoQc5cqigD3ar/f800/e288680a.webp?s=fce6df12fb3511c917ab57692c30d24db265b5f7",
+   "https://images1.vinted.net/t/02_0164d_FQ5At5J3XPYG7YoXyF471uS7/f800/eeed42b3.webp?s=6f9b8e5087d4433cb7e2295caaaa694a649650d4",
+   "https://images1.vinted.net/t/02_00b8f_tdi2g9BrKcSirV63debiWjfM/f800/97bd9d4c.webp?s=f30c6d92de9a6da90baba4f79c0d2c7b52b691ef",
+   "https://images1.vinted.net/t/06_019c5_LoVPA96wrYd1LihEe52ScAzn/f800/a27c262f.webp?s=ac734ade6f41bc2743ada6390a623115b04403a0"
+  ],
+  "etiquette": "https://images1.vinted.net/t/06_019c5_LoVPA96wrYd1LihEe52ScAzn/f800/a27c262f.webp?s=ac734ade6f41bc2743ada6390a623115b04403a0",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.873,
+  "seuil": 0.733,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "melissi_t1",
+   "id": "46062292",
+   "profil": "https://www.vinted.fr/member/46062292",
+   "avis": 195,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10688861455",
   "date": "2026-11-06T15:05:47+01:00",
   "type": "bleu",
