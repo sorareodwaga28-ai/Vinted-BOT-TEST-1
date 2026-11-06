@@ -1,5 +1,38 @@
 [
  {
+  "id": "10687403737",
+  "date": "2026-11-06T13:05:06+01:00",
+  "type": "vert",
+  "paire": "Red Thunder",
+  "famille": "Jordan 4",
+  "titre": "zapatillas jordan",
+  "prix": "40.00 EUR",
+  "taille": "44",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10687403737-zapatillas-jordan",
+  "photos": [
+   "https://images1.vinted.net/t/02_00c0a_9r61yDhYTwMmu5AaWLNDccgF/f800/723a510f.webp?s=cf2dd0161daa9a47c2b87257c8aa89293ffae298",
+   "https://images1.vinted.net/t/02_024d3_WbAiqXSFd8ThZmLDv899tMuY/f800/a7a08136.webp?s=f0e64cbe94b18e4780ed13774afec4dbd6ad9c79",
+   "https://images1.vinted.net/t/05_00fa2_H5qpq2rm8bLpiT8rnoGn686M/f800/2a2e7aa8.webp?s=cce5707ece8febc25a8374afda071b735a4c092b",
+   "https://images1.vinted.net/t/06_0202b_A8AuHDZVLFesdtDUgGxJU3SZ/f800/48d3a0bd.webp?s=4a6014002a15e50b2a38667b7bb8934b618c2e98"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 72
+  },
+  "ressemblance": 0.868,
+  "seuil": 0.68,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "70130068",
+   "profil": "https://www.vinted.fr/member/70130068",
+   "avis": 5,
+   "etoiles": 4.6
+  }
+ },
+ {
   "id": "10687385988",
   "date": "2026-11-06T13:03:38+01:00",
   "type": "vert",
