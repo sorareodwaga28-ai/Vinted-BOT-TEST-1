@@ -1,5 +1,37 @@
 [
  {
+  "id": "10687624744",
+  "date": "2026-11-06T13:27:05+01:00",
+  "type": "vert",
+  "paire": "SB Pine Green",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4 SB",
+  "prix": "35.00 EUR",
+  "taille": "41",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10687624744-jordan-4-sb",
+  "photos": [
+   "https://images1.vinted.net/t/06_00bb8_dn19tjgeVqysvQMtf5qED87H/f800/1b3f63db.webp?s=89978c19b2aaa13401ab3e94452f4c3ad0de3851",
+   "https://images1.vinted.net/t/06_01074_iB1FzTYD3dTWpzRZQizvK5S3/f800/93e49129.webp?s=95e04c01ed12bf6189a5e83dcd44384e3cb669e2",
+   "https://images1.vinted.net/t/02_024c9_LjU3z2FF91s8pjzyTrTSsDCy/f800/75b7d262.webp?s=e31cd2e1f9f225d9916d28d3d958554605ef2cf4"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.836,
+  "seuil": 0.725,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "3209896806",
+   "profil": "https://www.vinted.fr/member/3209896806",
+   "avis": 0,
+   "etoiles": 0.0
+  }
+ },
+ {
   "id": "10687604329",
   "date": "2026-11-06T13:27:00+01:00",
   "type": "bleu",
