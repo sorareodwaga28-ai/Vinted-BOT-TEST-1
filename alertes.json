@@ -1,5 +1,44 @@
 [
  {
+  "id": "10687385988",
+  "date": "2026-11-06T13:03:38+01:00",
+  "type": "vert",
+  "paire": "SB Pine Green",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4 SB special",
+  "prix": "30.00 EUR",
+  "taille": "43",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10687385988-jordan-4-sb-special",
+  "photos": [
+   "https://images1.vinted.net/t/06_022d4_GhHQT25NvRdmJZgtrndUF5Dy/f800/9cfcf494.webp?s=9edf8131655ca86ea17da85b8d2bba5b3bd0d876",
+   "https://images1.vinted.net/t/02_011f7_jkinat7bYawt1mfgtifAbJWj/f800/5c7e76dc.webp?s=67a4c9bb38df0208c319085f7cadf4a63932631a",
+   "https://images1.vinted.net/t/02_01e40_srC37pJpgWmn5DzTJtL2NYPB/f800/613a4d2d.webp?s=2f8a622e6a88a2085eff74f2af5b185e27488dea",
+   "https://images1.vinted.net/t/02_0029a_oteN2C2De7JUqamGd3PyYWFP/f800/007b0f9e.webp?s=8628bf97421e04a678080bc35f5e66454e1a87f0",
+   "https://images1.vinted.net/t/02_00a1a_5BXpTAtRYx5P3mu6R5EDfUwb/f800/fae2eb26.webp?s=60b0f29ea4a0b19c29bb2daec4bd1b8819045fbe",
+   "https://images1.vinted.net/t/05_0180a_H1Tz383yvnoDRftrDTMeEakA/f800/46dcc1b6.webp?s=c0ddb2b99ead19ce8bf4854a43e575478f4cefdb",
+   "https://images1.vinted.net/t/06_01c42_rHc8BZ36xanVfcquJuwRgjuw/f800/d81c85b9.webp?s=b9c1f8df967c97dcbd5d8ae277b2e16d89244322",
+   "https://images1.vinted.net/t/05_00bf2_1cR2F5vmVJtgFX8LRp28QkUm/f800/069628c4.webp?s=c82f0c3f1db305db2facd65b4ba5cb74f671c81d",
+   "https://images1.vinted.net/t/05_0046b_m4eKhzpGawfcGqNeUTYzo5Bc/f800/f0fd9716.webp?s=2efaf4b59f0bc6c3b79c0290f6cfd7865322de97",
+   "https://images1.vinted.net/t/06_022f5_kJFDLtznaiJnNXeeFgLdHMbj/f800/7662c1ba.webp?s=13d1381089db28a0c1a01d716d60f3a2e48ecf5a"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 78
+  },
+  "ressemblance": 0.818,
+  "seuil": 0.725,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "federicastabile09",
+   "id": "58485035",
+   "profil": "https://www.vinted.fr/member/58485035",
+   "avis": 82,
+   "etoiles": 4.1
+  }
+ },
+ {
   "id": "10680759666",
   "date": "2026-11-06T12:58:31+01:00",
   "type": "vert",
