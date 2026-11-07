@@ -1,5 +1,48 @@
 [
  {
+  "id": "10699955758",
+  "date": "2026-11-07T12:28:00+01:00",
+  "type": "vert",
+  "paire": "Red Thunder",
+  "famille": "Jordan 4",
+  "titre": "Chaussures, Jordan 4",
+  "prix": "12.00 EUR",
+  "taille": "41",
+  "etat": "Satisfaisant",
+  "url": "https://www.vinted.fr/items/10699955758-chaussures-jordan-4",
+  "photos": [
+   "https://images1.vinted.net/t/04_002ef_EZw4zpev8Md1kwcCR6dDdGJR/f800/b5a89c25.webp?s=e7fba7fe57f5411338f9790a3b63b146281eff39",
+   "https://images1.vinted.net/t/05_014ea_5UsFoT5XMfzNRfevBAqKDKeU/f800/4f8f289d.webp?s=09d34f9b1db324efaf010b28e99d698b0264a3a2",
+   "https://images1.vinted.net/t/06_025e1_2XhXK8aqh8zyEC9U4K2ucEuk/f800/a3d32151.webp?s=c192f05fdd281ef2880d8ddbcb91d58c8eedf0a3",
+   "https://images1.vinted.net/t/02_01d6a_Szcy7pMbzEomdV35JMn8LjAQ/f800/bfd46205.webp?s=a1d397acbdaef8347a42f5d4a57dc3032b51eeed",
+   "https://images1.vinted.net/t/06_01215_dCapy4UTBKLJA6vFBCwcnvwC/f800/4c77b79e.webp?s=be27a16e11da90dd3023dd5d616f7788cc1f9655",
+   "https://images1.vinted.net/t/02_014d5_uEnWQRqkhgKuTVmZ4xLBhHxW/f800/387c72eb.webp?s=8fd451a33cb60c1b33bd1987b083a3bb52c030ef",
+   "https://images1.vinted.net/t/05_002ee_ZD3bcAHLrjJe8eBRrtZNunqV/f800/9c2e8c2c.webp?s=2c7475e224f3271a013083ee658e147d562ed7a9",
+   "https://images1.vinted.net/t/02_00b3c_QDgqHk7HiyeSrzZnN8vbBa1i/f800/d528f530.webp?s=323aa1d0f0dfbacd72d6e848369083c4b6996f3d",
+   "https://images1.vinted.net/t/01_01983_Ke3149LJWeiAmidXg3Ui2NSe/f800/d0be9037.webp?s=41f5233bc1bf2d1a1fe4bcb4ec044d6e1f003647",
+   "https://images1.vinted.net/t/04_00f76_B87Jrp1UsHjZC9wFgGJ8jYaF/f800/36cac3bc.webp?s=ad49248da02b6b54dd0bc363df9e19a8463b199a",
+   "https://images1.vinted.net/t/05_00d84_PUXNpSn7AdXvHXV3njxt6sbW/f800/9cf6e3e0.webp?s=66ef795b4fee345d55fab5f8b5b1a67038531768",
+   "https://images1.vinted.net/t/02_01f04_Rzo23Q6jdhq3qEPisjRwb43E/f800/3e5c1b91.webp?s=dd8ab2dff42bc2117d4f0abf451f600efa83d4b1",
+   "https://images1.vinted.net/t/05_0260c_Pm6p7jjTo825izooNnaH4BG3/f800/a7ade9ac.webp?s=f0aeca3b75a30807450568bd3b388bd2a0453726",
+   "https://images1.vinted.net/t/06_00acf_965Sx3TcXuqhShfSawQjqZAU/f800/cebe9cd1.webp?s=c64661028ad05c2681f4fa86aefbbd54c7a1eaa4"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 70
+  },
+  "ressemblance": 0.81,
+  "seuil": 0.68,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "alejandroooo75",
+   "id": "62516509",
+   "profil": "https://www.vinted.fr/member/62516509",
+   "avis": 226,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10699385745",
   "date": "2026-11-07T11:50:41+01:00",
   "type": "vert",
