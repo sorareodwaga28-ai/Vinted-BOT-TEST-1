@@ -1,5 +1,38 @@
 [
  {
+  "id": "10701685955",
+  "date": "2026-11-07T14:19:49+01:00",
+  "type": "vert",
+  "paire": "Thunder",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4",
+  "prix": "26.00 EUR",
+  "taille": "42",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10701685955-jordan-4",
+  "photos": [
+   "https://images1.vinted.net/t/06_0040d_KmLBZ2b9814TuD5SU4YecC6D/f800/dfad98ea.webp?s=2c6b901e8f72a8375d8a6cdfd30145004235013d",
+   "https://images1.vinted.net/t/04_006f6_GdTPgg11uFFzC2PzdCZWqYEW/f800/f525ee7b.webp?s=eacfbebccee10ccca7e3da6f830a60af3bb2d61b",
+   "https://images1.vinted.net/t/02_01f52_zMfunYm6Uw6ZMJX4HPscJ8Ns/f800/41ec4942.webp?s=8a353de8ab0b505868399f5e3f1cf91eb5e6e9be",
+   "https://images1.vinted.net/t/06_01841_1k2G9FYRa7Kz9hbgoei6nzbU/f800/2c7fe318.webp?s=f900342e7407ab535f0f930f3c607a544f3b7a10"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 72
+  },
+  "ressemblance": 0.802,
+  "seuil": 0.68,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "3210683869",
+   "profil": "https://www.vinted.fr/member/3210683869",
+   "avis": 0,
+   "etoiles": 0.0
+  }
+ },
+ {
   "id": "10701558058",
   "date": "2026-11-07T14:12:44+01:00",
   "type": "vert",
