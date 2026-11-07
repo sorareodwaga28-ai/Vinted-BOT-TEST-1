@@ -1,5 +1,38 @@
 [
  {
+  "id": "10693092069",
+  "date": "2026-11-07T11:21:31+01:00",
+  "type": "vert",
+  "paire": "SB Pine Green",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4 SB verdi",
+  "prix": "35.00 EUR",
+  "taille": "45",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10693092069-jordan-4-sb-verdi",
+  "photos": [
+   "https://images1.vinted.net/t/06_00d55_NynTDsdpaLu91H5NSSLtJyGb/f800/79a80843.webp?s=f041a5bd66e420642e24fc531b88b5893792897f",
+   "https://images1.vinted.net/t/01_02484_ZgfwQH6L5u5f7yhMy81zyqKQ/f800/7eaa7b74.webp?s=a2ed99c580a41fcd9ed1d7edd4732bd0bf2de839",
+   "https://images1.vinted.net/t/06_016a2_K1SieWAkem2zmqsXk5NS9Wg7/f800/53af6f7a.webp?s=9e14fbb45539e3505ee7fda6f8310ee5c0a4cb5e",
+   "https://images1.vinted.net/t/05_0259b_U982qvaSrWVh1u6fzBg7t5Ru/f800/5feb9241.webp?s=dd7d69af4d1835ed4e9f0b20d7e5dedc44029267"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 78
+  },
+  "ressemblance": 0.849,
+  "seuil": 0.725,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "261428147",
+   "profil": "https://www.vinted.fr/member/261428147",
+   "avis": 28,
+   "etoiles": 4.6
+  }
+ },
+ {
   "id": "10672156962",
   "date": "2026-11-07T10:45:10+01:00",
   "type": "bleu",
