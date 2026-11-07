@@ -1,5 +1,38 @@
 [
  {
+  "id": "10699270437",
+  "date": "2026-11-07T11:41:01+01:00",
+  "type": "vert",
+  "paire": "Vivid Sulfur",
+  "famille": "Jordan 4",
+  "titre": "Nike Air Jordan 4 Retro White Yellow n. 42,5",
+  "prix": "10.00 EUR",
+  "taille": "42,5",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10699270437-nike-air-jordan-4-retro-white-yellow-n-425",
+  "photos": [
+   "https://images1.vinted.net/t/06_00dc9_z3V4diidcwZDe1yxCsxx7quC/f800/9b50e9ca.webp?s=9b5182f293d8c5dad64978d93219df81dc44f46b",
+   "https://images1.vinted.net/t/02_01e43_TRzVuj3zi3t9WN7mQcxWd7Nv/f800/9cab41ab.webp?s=709d576c3da63aa3e944b8475e6fe14dd8aea4a2",
+   "https://images1.vinted.net/t/06_00229_G64CsQULtzfs4QKeh8V7mUWb/f800/dc06321e.webp?s=172902bbe411e8857c4bcb1b548fd357faf7df90",
+   "https://images1.vinted.net/t/02_0168a_8qsytsq5SSsrkJJaD8zCNaTN/f800/a600743f.webp?s=72559bca402dfd600981def38f7cdef367221ff6"
+  ],
+  "etiquette": "https://images1.vinted.net/t/06_00229_G64CsQULtzfs4QKeh8V7mUWb/f800/dc06321e.webp?s=172902bbe411e8857c4bcb1b548fd357faf7df90",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.746,
+  "seuil": 0.68,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "ludovera02",
+   "id": "70152192",
+   "profil": "https://www.vinted.fr/member/70152192",
+   "avis": 8,
+   "etoiles": 3.5
+  }
+ },
+ {
   "id": "10693092069",
   "date": "2026-11-07T11:21:31+01:00",
   "type": "vert",
