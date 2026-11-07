@@ -1,5 +1,37 @@
 [
  {
+  "id": "10699385745",
+  "date": "2026-11-07T11:50:41+01:00",
+  "type": "vert",
+  "paire": "Rare Air",
+  "famille": "Jordan 4",
+  "titre": "Retro 4s",
+  "prix": "30.00 EUR",
+  "taille": "46",
+  "etat": "Neuf sans étiquette",
+  "url": "https://www.vinted.fr/items/10699385745-retro-4s",
+  "photos": [
+   "https://images1.vinted.net/t/02_008f9_CgKEZWhn5CzZLSZbcyvjUngd/f800/36a5e605.webp?s=ffeae1078a2360cd9ade2acd8c9f4ac445b4816d",
+   "https://images1.vinted.net/t/06_010dc_dRKKT33GTb13rLbpwxMHrJhh/f800/aac46fb3.webp?s=6fa47c0eae79ab0e4b28d74eb1eef6ffaa0043a7",
+   "https://images1.vinted.net/t/06_02102_ZosSTD58RhhALhLmfpvWZJGm/f800/c6ac0642.webp?s=edf3d9c8841628a679249814845b6745c7d778c4"
+  ],
+  "etiquette": "https://images1.vinted.net/t/06_02102_ZosSTD58RhhALhLmfpvWZJGm/f800/c6ac0642.webp?s=edf3d9c8841628a679249814845b6745c7d778c4",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 85
+  },
+  "ressemblance": 0.835,
+  "seuil": 0.68,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "3210628931",
+   "profil": "https://www.vinted.fr/member/3210628931",
+   "avis": 0,
+   "etoiles": 0.0
+  }
+ },
+ {
   "id": "10699270437",
   "date": "2026-11-07T11:41:01+01:00",
   "type": "vert",
