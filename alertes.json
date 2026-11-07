@@ -1,5 +1,41 @@
 [
  {
+  "id": "10710262083",
+  "date": "2026-11-07T23:49:19+01:00",
+  "type": "vert",
+  "paire": "Thunder",
+  "famille": "Jordan 4",
+  "titre": "jordan 4",
+  "prix": "55.00 EUR",
+  "taille": "41",
+  "etat": "Neuf avec étiquette",
+  "url": "https://www.vinted.fr/items/10710262083-jordan-4",
+  "photos": [
+   "https://images1.vinted.net/t/02_010cc_WvQ2iVNazf9v7B5n4NXJL6Gy/f800/b1ff1942.webp?s=d1a8495e55fc62f38ce009aa2bd16e6339a72123",
+   "https://images1.vinted.net/t/05_01970_Ji5uGw3AdyLB4msd49bgNTAf/f800/f9484ded.webp?s=28257729f955c273eec59c09b1c4f7b4f5ccb574",
+   "https://images1.vinted.net/t/04_01cd6_7SbKUoQUFDK5SR6DAXrvzJsm/f800/4cb71e6f.webp?s=c6012e8ce50899653babbeacf72c0214a0e0153f",
+   "https://images1.vinted.net/t/05_00aa5_NfykcpwBY9K4JWQv4vKu9Bvq/f800/6ca3d783.webp?s=21a397c4375cc397b3595f5e4447098b3c4c86d3",
+   "https://images1.vinted.net/t/03_013e9_aoyFQZraVMPfWLfc3vNSCunf/f800/590572ab.webp?s=75ac3a0b0195aa42d9b1ca1218101da308b87a9d",
+   "https://images1.vinted.net/t/05_01866_ctA7tRVuatm1PVKHVHiCQ2L3/f800/ae05ea72.webp?s=0665d43ba5562f106e0267f5f3b2bc0efacd177b",
+   "https://images1.vinted.net/t/02_01fcc_DTKSZLeSjAJS9PszppWZBmgU/f800/d2350199.webp?s=d69421f0fc78983afa71342b97320b6dde3f202b"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 72
+  },
+  "ressemblance": 0.813,
+  "seuil": 0.68,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "cvcn",
+   "id": "16576115",
+   "profil": "https://www.vinted.fr/member/16576115",
+   "avis": 57,
+   "etoiles": 4.7
+  }
+ },
+ {
   "id": "10709124097",
   "date": "2026-11-07T22:01:21+01:00",
   "type": "bleu",
