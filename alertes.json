@@ -1,5 +1,40 @@
 [
  {
+  "id": "10674083584",
+  "date": "2026-11-07T19:37:56+01:00",
+  "type": "vert",
+  "paire": "Black Canvas",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4",
+  "prix": "20.00 EUR",
+  "taille": "41",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10674083584-jordan-4",
+  "photos": [
+   "https://images1.vinted.net/t/05_01031_yfSYhsFxYQRD9xjsZfHF96Pn/f800/952e920d.webp?s=b46edd1a099d7adb94c7752a6cbf55ab118b379e",
+   "https://images1.vinted.net/t/06_0193e_XKVzRHwTBTfzLBQ2j43xQTvw/f800/57575c1a.webp?s=862f8d267cdf0ba3aef21e05474a3412c141a6a5",
+   "https://images1.vinted.net/t/03_007ca_yvWNNhHmp96G14TUxb41u54m/f800/2ba3b1df.webp?s=e8a0f96b4a3b78f1dd4adf5426754100bf30962f",
+   "https://images1.vinted.net/t/06_00d1f_pr9eaPAf1hY2DGtdsETNX67x/f800/39040983.webp?s=416374e419de7811de157da72404bc17526ca394",
+   "https://images1.vinted.net/t/03_003b3_LCKdEtwXcPw3CvLyZyBVQYzk/f800/0f45d7cc.webp?s=fed76e91620980d240435bb09be531af9a63b374",
+   "https://images1.vinted.net/t/06_013c8_oS3QC8ruij6YrwZeeZ7iqHDH/f800/a5d0404b.webp?s=0d7263bf86defcbab7b97d16df55153e2089dcc3"
+  ],
+  "etiquette": "https://images1.vinted.net/t/06_0193e_XKVzRHwTBTfzLBQ2j43xQTvw/f800/57575c1a.webp?s=862f8d267cdf0ba3aef21e05474a3412c141a6a5",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 75
+  },
+  "ressemblance": 0.898,
+  "seuil": 0.81,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "76302905",
+   "profil": "https://www.vinted.fr/member/76302905",
+   "avis": 40,
+   "etoiles": 4.6
+  }
+ },
+ {
   "id": "10706068149",
   "date": "2026-11-07T18:28:58+01:00",
   "type": "bleu",
