@@ -1,16 +1,16 @@
 {
  "bot": 1,
- "maj": "2026-11-07T11:29:27+01:00",
+ "maj": "2026-11-07T11:34:30+01:00",
  "aujourdhui": {
   "jour": "2026-11-07",
-  "annonces": 2413,
-  "candidates": 227,
-  "appels": 148,
+  "annonces": 2511,
+  "candidates": 236,
+  "appels": 154,
   "vert": 1,
   "bleu": 2,
   "orange": 0,
   "loupees": 0,
-  "cout_centimes": 6.0
+  "cout_centimes": 6.3
  },
  "hier": {
   "jour": "2026-11-06",
