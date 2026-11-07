@@ -1,5 +1,35 @@
 [
  {
+  "id": "10701558058",
+  "date": "2026-11-07T14:12:44+01:00",
+  "type": "vert",
+  "paire": "Lightning",
+  "famille": "Jordan 4",
+  "titre": "Jordan retro 4 lightning",
+  "prix": "30.00 EUR",
+  "taille": "44",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10701558058-jordan-retro-4-lightning",
+  "photos": [
+   "https://images1.vinted.net/t/06_0036f_UNoLmjtPK6NXAoddr52tn4ef/f800/fcebd709.webp?s=1f01a42b255842ff1bf4fb64d7b4b463f8b894c1"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 72
+  },
+  "ressemblance": 0.825,
+  "seuil": 0.744,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": null,
+   "profil": null,
+   "avis": null,
+   "etoiles": null
+  }
+ },
+ {
   "id": "10653026550",
   "date": "2026-11-07T13:30:27+01:00",
   "type": "bleu",
