@@ -1,5 +1,41 @@
 [
  {
+  "id": "10727275507",
+  "date": "2026-11-08T21:54:45+01:00",
+  "type": "vert",
+  "paire": "Lightning",
+  "famille": "Jordan 4",
+  "titre": "Air Jordan 4 retro",
+  "prix": "30.00 EUR",
+  "taille": "41",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10727275507-air-jordan-4-retro",
+  "photos": [
+   "https://images1.vinted.net/t/06_00e8d_UPZdT4VbxzXUCqZjm8u9Aouz/f800/3710cc5b.webp?s=383e76a78dcdc1b4b60df243080ba87be025b14d",
+   "https://images1.vinted.net/t/06_006d0_uyxsMS6eeupgYwNoBrJDNRRr/f800/43c4941a.webp?s=abb59f3d2ccf734a6a473af290c9d3052794b56f",
+   "https://images1.vinted.net/t/06_016fe_SHLpp2d9VKDVWBh7ec1XJbvZ/f800/b02d8428.webp?s=e67de08a8662756c32e8f17984b3309f238cc205",
+   "https://images1.vinted.net/t/02_01d59_4mwWHwanYizrrDv7n26j6KTf/f800/afd2b8a8.webp?s=ef9696d8113e4ab81669ab7346be0f21fb6a6a32",
+   "https://images1.vinted.net/t/02_00fff_K8EhtuPkZEq2GSatF8YFpuQZ/f800/d6cb0dba.webp?s=ce89ada459c48e68255929e76746973bb7c2b5e7",
+   "https://images1.vinted.net/t/01_00d04_z2pHdWj3XGTWoAzx61QrRfuT/f800/3b1d4b00.webp?s=0da5b6e92428e7e9a19d16adc79121ed3716adf4",
+   "https://images1.vinted.net/t/05_00fca_cLyuyv2QBcCdbR1D3eUamo2r/f800/9216d659.webp?s=3b8bd04482f37831e000070028bf1261e63b6464"
+  ],
+  "etiquette": "https://images1.vinted.net/t/02_00fff_K8EhtuPkZEq2GSatF8YFpuQZ/f800/d6cb0dba.webp?s=ce89ada459c48e68255929e76746973bb7c2b5e7",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 70
+  },
+  "ressemblance": 0.821,
+  "seuil": 0.744,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "58031068",
+   "profil": "https://www.vinted.fr/member/58031068",
+   "avis": 0,
+   "etoiles": 0.0
+  }
+ },
+ {
   "id": "10725669665",
   "date": "2026-11-08T20:26:28+01:00",
   "type": "vert",
