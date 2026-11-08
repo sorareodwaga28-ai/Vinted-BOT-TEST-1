@@ -1,5 +1,36 @@
 [
  {
+  "id": "10715209547",
+  "date": "2026-11-08T12:09:27+01:00",
+  "type": "vert",
+  "paire": "Lightning",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4 usate",
+  "prix": "26.00 EUR",
+  "taille": "43",
+  "etat": "Satisfaisant",
+  "url": "https://www.vinted.fr/items/10715209547-jordan-4-usate",
+  "photos": [
+   "https://images1.vinted.net/t/05_00278_j1FHk4jRLrmAgfTyQQAXvUNC/f800/942c15b3.webp?s=7972018f0ce0f5a72c7635d10ed3fdfa1dc87417",
+   "https://images1.vinted.net/t/05_0233a_75GLx1M1SZPX4wNfLdcDJ2bU/f800/4b2cbffa.webp?s=84cd1e1244d6c72df7671b184f33d7604b7186db"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 70
+  },
+  "ressemblance": 0.891,
+  "seuil": 0.744,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "281035597",
+   "profil": "https://www.vinted.fr/member/281035597",
+   "avis": 4,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10715131558",
   "date": "2026-11-08T12:05:18+01:00",
   "type": "vert",
