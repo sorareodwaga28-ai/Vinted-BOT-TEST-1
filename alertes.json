@@ -1,5 +1,38 @@
 [
  {
+  "id": "10715131558",
+  "date": "2026-11-08T12:05:18+01:00",
+  "type": "vert",
+  "paire": "SB Pine Green",
+  "famille": "Jordan 4",
+  "titre": "Baskets Nike SB Jordan 4 blanches et vertes",
+  "prix": "30.00 EUR",
+  "taille": "43",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10715131558-baskets-nike-sb-jordan-4-blanches-et-vertes",
+  "photos": [
+   "https://images1.vinted.net/t/01_016de_3A9pqySYvKgThApS5HyQgzrV/f800/6e35a364.webp?s=f41ab919d4d3b9e0a3ebee4cbe6630267c85c174",
+   "https://images1.vinted.net/t/06_01df7_56MNedex7TiYErL8FHwjAKur/f800/a26402f4.webp?s=eb5fb399e613070e5f9b594a7cf44f33777ef5f8",
+   "https://images1.vinted.net/t/02_0051a_zF9Js2boXaFqLPJphNWhtZd7/f800/34d2e254.webp?s=43eb473c2f06bd6b05996b518a09d0a4d99d3643",
+   "https://images1.vinted.net/t/02_00e64_dk1jpFouSk8CLdKy56WK6zEH/f800/008ff198.webp?s=f4229e9b1d3e42417293ecb67fe8f5c5f105fa63"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.828,
+  "seuil": 0.725,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "216764800",
+   "profil": "https://www.vinted.fr/member/216764800",
+   "avis": 133,
+   "etoiles": 3.4
+  }
+ },
+ {
   "id": "10715060721",
   "date": "2026-11-08T12:02:09+01:00",
   "type": "bleu",
