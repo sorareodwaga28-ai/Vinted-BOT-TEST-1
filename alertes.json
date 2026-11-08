@@ -1,5 +1,38 @@
 [
  {
+  "id": "10715254279",
+  "date": "2026-11-08T12:11:47+01:00",
+  "type": "vert",
+  "paire": "Craft Olive",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4 olivastre",
+  "prix": "30.00 EUR",
+  "taille": "42",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10715254279-jordan-4-olivastre",
+  "photos": [
+   "https://images1.vinted.net/t/01_00009_kfENUUkfPx8RJDNMWsj9BNAy/f800/e12f95fb.webp?s=d913a6e9b4f3c049e66e899bab9fe344833bf0f8",
+   "https://images1.vinted.net/t/05_0096f_7rK6EhtWytGyCiy4QaMNSNJH/f800/0c03a7c4.webp?s=620e61b97f3ebdd783f7fb83b2f3cf8330d0962c",
+   "https://images1.vinted.net/t/05_0210c_WojAC36mAsuo7g7zLhtjyAmr/f800/155ece23.webp?s=e90f413830c3fcdda3b0ecf3e50ae41a24fa36db",
+   "https://images1.vinted.net/t/02_0262b_wCHQjQVwUppbZ5TVeH3aftJR/f800/2faf2f5c.webp?s=0839ff7c81e9b2a8d411cec06eaa80b8726c8b1b"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.831,
+  "seuil": 0.736,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "filippo___55",
+   "id": "3208113572",
+   "profil": "https://www.vinted.fr/member/3208113572",
+   "avis": 0,
+   "etoiles": 0.0
+  }
+ },
+ {
   "id": "10715209547",
   "date": "2026-11-08T12:09:27+01:00",
   "type": "vert",
