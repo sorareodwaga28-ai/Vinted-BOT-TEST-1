@@ -1,5 +1,35 @@
 [
  {
+  "id": "10722380770",
+  "date": "2026-11-08T17:47:47+01:00",
+  "type": "vert",
+  "paire": "Thunder",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4 noir et jaune",
+  "prix": "30.00 EUR",
+  "taille": "42",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10722380770-jordan-4-noir-et-jaune",
+  "photos": [
+   "https://images1.vinted.net/t/05_01e75_VSQgCJZCspesizL8rNawQLa5/f800/9f20cf33.webp?s=397dd092bbdba62ecb81e13f2e9cf933d0b0026b"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 72
+  },
+  "ressemblance": 0.794,
+  "seuil": 0.68,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": null,
+   "profil": null,
+   "avis": null,
+   "etoiles": null
+  }
+ },
+ {
   "id": "10721650068",
   "date": "2026-11-08T17:28:59+01:00",
   "type": "bleu",
