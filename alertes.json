@@ -1,5 +1,35 @@
 [
  {
+  "id": "10729264429",
+  "date": "2026-11-09T00:54:48+01:00",
+  "type": "bleu",
+  "paire": "Jordan 3 White Cement Reimagined",
+  "famille": "Jordan 3",
+  "titre": "Jordan 3 Retro Reimagined White Cement",
+  "prix": "25.00 EUR",
+  "taille": "42",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10729264429-jordan-3-retro-reimagined-white-cement",
+  "photos": [
+   "https://images1.vinted.net/t/03_0200c_rh9YMsieZt9vBqTQ5JZSChDr/f800/f1e86da4.webp?s=bba5567305a82a62cb2d67257599cc23cba823e0",
+   "https://images1.vinted.net/t/03_003c4_9wJpa12ix58EnhAHHUKwqEJc/f800/8bbc74f1.webp?s=9b8761fcd3304551951d63876c833304bad4d89b",
+   "https://images1.vinted.net/t/01_00015_qK4VnPZ1SS6KnFXkXFrQm3nY/f800/c20abb9e.webp?s=a479387b1d375f32365d1e53a10f4eb8e784fd21",
+   "https://images1.vinted.net/t/04_007b5_gXvQT5ZjMkrLYygwPnE8aaoZ/f800/0a1efbf1.webp?s=f36b1542df19f9229e25497c162d8b1ee7110db7"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.642,
+  "seuil": 0.736,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "43870498",
+   "profil": "https://www.vinted.fr/member/43870498",
+   "avis": 72,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10729011871",
   "date": "2026-11-09T00:20:05+01:00",
   "type": "bleu",
