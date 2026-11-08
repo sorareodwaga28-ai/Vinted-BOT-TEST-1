@@ -1,5 +1,41 @@
 [
  {
+  "id": "10725669665",
+  "date": "2026-11-08T20:26:28+01:00",
+  "type": "vert",
+  "paire": "Jordan 3 Dark Iris",
+  "famille": "Jordan 3",
+  "titre": "Nike air jordan 3 - lilas - 45,5",
+  "prix": "23.00 EUR",
+  "taille": "45,5",
+  "etat": "Satisfaisant",
+  "url": "https://www.vinted.fr/items/10725669665-nike-air-jordan-3-lilas-455",
+  "photos": [
+   "https://images1.vinted.net/t/04_00320_K9ZcoxMuCuYprhCBaRXr7VNg/f800/490d1c68.webp?s=b7ecdead7f973ef2c5592bd917c862bac02a5d72",
+   "https://images1.vinted.net/t/03_01973_MqtYE3FvEkAoKWzVbLrEwxR6/f800/fae32efe.webp?s=c46346904cdaf97f854f615be2996532a3a88fa0",
+   "https://images1.vinted.net/t/02_001d5_zC6jBCWLzZBDQC8YPTtuhxn7/f800/cafb64d6.webp?s=92b98428a5fce08bdcf90eb6e636004a2d25ab91",
+   "https://images1.vinted.net/t/02_005f1_m4svzAkAyLRT8QXtYX9bxxw1/f800/683ed7e1.webp?s=a2e16278e9ebb145dcdcc5c32846dec930bcc294",
+   "https://images1.vinted.net/t/02_018d2_n1kMXPNvt5JCHErf5ypPpRC2/f800/de0bf022.webp?s=fee9a5e2a3570cda1c8c744741bb56e12ccd16ae",
+   "https://images1.vinted.net/t/01_00487_yzo25xaVotHD4ZvsGdCAXsFj/f800/3c01550c.webp?s=d4e7c81828850e35166a1191946b992f22ea85f3",
+   "https://images1.vinted.net/t/02_016af_bB2q3yYUAgByKiA3BjtoZCVn/f800/c0269b84.webp?s=cbda8a9b24efbf9eedf33e4122fb68282f16f013"
+  ],
+  "etiquette": "https://images1.vinted.net/t/02_016af_bB2q3yYUAgByKiA3BjtoZCVn/f800/c0269b84.webp?s=cbda8a9b24efbf9eedf33e4122fb68282f16f013",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 75
+  },
+  "ressemblance": 0.818,
+  "seuil": 0.68,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "lucaslef86",
+   "id": "207832874",
+   "profil": "https://www.vinted.fr/member/207832874",
+   "avis": 274,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10724552120",
   "date": "2026-11-08T19:29:24+01:00",
   "type": "bleu",
