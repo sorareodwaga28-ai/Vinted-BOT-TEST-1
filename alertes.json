@@ -1,5 +1,37 @@
 [
  {
+  "id": "10740672128",
+  "date": "2026-11-09T20:50:33+01:00",
+  "type": "bleu",
+  "paire": "SB Pine Green",
+  "famille": "Jordan 4",
+  "titre": "Air Jordan 4 Retro SB Pine Green Talla 43",
+  "prix": "40.00 EUR",
+  "taille": "43",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10740672128-air-jordan-4-retro-sb-pine-green-talla-43",
+  "photos": [
+   "https://images1.vinted.net/t/02_02000_BMpZP4RYdjyZszzVdEcQ8UdU/f800/92789a47.webp?s=ac7c42609d1da7bf4a111b21bcf1409a0f277b0d",
+   "https://images1.vinted.net/t/01_009de_HJk4gZiL6neDj9XS7RvqBh6r/f800/df501af5.webp?s=19483388d47924e3fbd917e1206895279a0c9181",
+   "https://images1.vinted.net/t/06_00a26_coAziyg1eDyA2wjw9mWXoZX4/f800/59b08f41.webp?s=b07c0e6df07ea0c7256ff71aa0cf88943ab2b31c",
+   "https://images1.vinted.net/t/06_014b7_kYHUohFckb2CttrKApEyMY2R/f800/18763c01.webp?s=27b8e84ad5b5fc8d2648e28c1ec6cbd67349c3d9",
+   "https://images1.vinted.net/t/05_00d46_N9EoWjbmwmTZyEh4Ks9wW3cB/f800/97678215.webp?s=30a11ac0211a37764401aad27d98bb8fa38664ac",
+   "https://images1.vinted.net/t/06_0220e_cLLqaJh1FYzUaPAbE1QGmxby/f800/b0d76bb1.webp?s=219d47bd75f4488a2d517b3cddf032d0b6ac8248"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.884,
+  "seuil": 0.725,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "3178763489",
+   "profil": "https://www.vinted.fr/member/3178763489",
+   "avis": 2,
+   "etoiles": 4.5
+  }
+ },
+ {
   "id": "10738067194",
   "date": "2026-11-09T20:49:32+01:00",
   "type": "bleu",
