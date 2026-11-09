@@ -1,5 +1,74 @@
 [
  {
+  "id": "10680944216",
+  "date": "2026-11-09T21:00:24+01:00",
+  "type": "bleu",
+  "paire": "Thunder",
+  "famille": "Jordan 4",
+  "titre": "Zapatillas Jordan 4 \"Thunder blue\"",
+  "prix": "39.99 EUR",
+  "taille": "44",
+  "etat": "Neuf sans étiquette",
+  "url": "https://www.vinted.fr/items/10680944216-zapatillas-jordan-4-thunder-blue",
+  "photos": [
+   "https://images1.vinted.net/t/01_00607_YssRFMwReMCezYG7EV6FD2rD/f800/e6de8601.webp?s=57f72bde23b68fe329be86d450c18de54662a9fe",
+   "https://images1.vinted.net/t/02_000fd_dzdjT8TUgMBevpTqqFoVDhc8/f800/929711d8.webp?s=93def65e56e7d2cd1780d91c75c024ba2b76aeb0",
+   "https://images1.vinted.net/t/06_00170_MwNjrSF7eCnpWszUcGddgmyX/f800/4786266e.webp?s=7c764490b1abab0a32f0317642747fbbb46022f7",
+   "https://images1.vinted.net/t/02_00d5e_2FrYEjhzFErcTEao8MwSPVWu/f800/b33f077c.webp?s=191b83b77ce435a94f5ec1e6c50134c49e83418a",
+   "https://images1.vinted.net/t/04_008ff_wBr1fx2iG2qi6yt9BH7eMJ17/f800/851d7745.webp?s=ccc450a7884218c36dde9bba21d0ea3b1b9f9d49",
+   "https://images1.vinted.net/t/02_00abc_bYUbGAzLeUQS4PYgvhbVHU4H/f800/1d0faa0b.webp?s=2d1c325416880701a3fe2a1915a2c4b2aa1c063d",
+   "https://images1.vinted.net/t/05_01114_VH5ujrFzVBmHkmTErTdZvNff/f800/5938c830.webp?s=fe6311877adba3f89ac0a186a7a7640b6cfe3705"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.668,
+  "seuil": 0.68,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "3132703876",
+   "profil": "https://www.vinted.fr/member/3132703876",
+   "avis": 2,
+   "etoiles": 1.0
+  }
+ },
+ {
+  "id": "10680714772",
+  "date": "2026-11-09T21:00:27+01:00",
+  "type": "orange",
+  "paire": "Thunder",
+  "famille": "Jordan 4",
+  "titre": "Nike Air Jordan 4 RM Bruce Lee – 40,5 – Noir Jaune",
+  "prix": "45.00 EUR",
+  "taille": "40,5",
+  "etat": "Neuf avec étiquette",
+  "url": "https://www.vinted.fr/items/10680714772-nike-air-jordan-4-rm-bruce-lee-405-noir-jaune",
+  "photos": [
+   "https://images1.vinted.net/t/05_00e0b_4dT12fU8s2fH1kFnUarGzzjm/f800/f953bdb5.webp?s=6fc8806fa03e6f444c542c222981dc896c52448b",
+   "https://images1.vinted.net/t/05_016d4_3JRQrEsPkYty5xmTBAFft5kn/f800/f04ab7c8.webp?s=f40e0339f73fe8a20a829850f7614b33110c61e2",
+   "https://images1.vinted.net/t/06_01524_hyEvLiV8uwKdzPzr6N7PdLj4/f800/7756ed4d.webp?s=3ad77c657e1041c2a8aa32197e7423da253a7342",
+   "https://images1.vinted.net/t/06_01eec_Ma2KgEVKiLEkUtNDzzvBQSDG/f800/32857de7.webp?s=4efb0417042c454506d7a59d4fcb3cfdd2a5f05d",
+   "https://images1.vinted.net/t/06_005ea_EpExeQMjeimZNwcHY8QTHti5/f800/53039741.webp?s=f37e3130943f12099bc2966d2adc487bb4915454",
+   "https://images1.vinted.net/t/01_00a8e_kQ7tgDumeW4WMyDgj6rFVqMq/f800/a1a20294.webp?s=f0fa1131ca2ccce4d760f0d489faa85610408790",
+   "https://images1.vinted.net/t/01_02029_JLDNRLBwM7bksjgCqLmcg6U7/f800/a7260bc7.webp?s=1f2558f7109efda0ad2fb1c587f1d31ad2afd169",
+   "https://images1.vinted.net/t/02_01bf7_DQc8KJaJp592APsu61MVXvbJ/f800/892b6457.webp?s=9bbdc4d806ab10d12b22059fb1f3290d3fe553b0",
+   "https://images1.vinted.net/t/02_0201d_Gvp8YX7eMPsK8TQaViPLNEj8/f800/0280aeea.webp?s=73e3a309bf3a09b9ae3dc54c2be4e4835b48a69f",
+   "https://images1.vinted.net/t/02_01790_sJSex36ugCuePcsArF4Yh21Z/f800/bde79159.webp?s=933a0759adfccc6669ef3990bc1b11fe1c523c9b"
+  ],
+  "etiquette": "https://images1.vinted.net/t/01_02029_JLDNRLBwM7bksjgCqLmcg6U7/f800/a7260bc7.webp?s=1f2558f7109efda0ad2fb1c587f1d31ad2afd169",
+  "ia": null,
+  "ressemblance": 0.774,
+  "seuil": 0.68,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "samsamb42",
+   "id": "169085846",
+   "profil": "https://www.vinted.fr/member/169085846",
+   "avis": 90,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10740672128",
   "date": "2026-11-09T20:50:33+01:00",
   "type": "bleu",
