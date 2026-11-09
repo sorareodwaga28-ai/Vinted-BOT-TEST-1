@@ -1,5 +1,32 @@
 [
  {
+  "id": "10742824942",
+  "date": "2026-11-09T23:40:22+01:00",
+  "type": "bleu",
+  "paire": "Lightning",
+  "famille": "Jordan 4",
+  "titre": "Aj4 lightning",
+  "prix": "35.00 EUR",
+  "taille": "45",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10742824942-aj4-lightning",
+  "photos": [
+   "https://images1.vinted.net/t/01_01e82_RBuGx45ipmYGXRFZj5EexCYR/f800/6a524fa5.webp?s=6d6df00e7279986873dfbfa405aef7be4f9bacda"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.846,
+  "seuil": 0.744,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "36589100",
+   "profil": "https://www.vinted.fr/member/36589100",
+   "avis": 37,
+   "etoiles": 4.8
+  }
+ },
+ {
   "id": "10742063068",
   "date": "2026-11-09T22:26:47+01:00",
   "type": "orange",
