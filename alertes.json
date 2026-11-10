@@ -1,5 +1,38 @@
 [
  {
+  "id": "10683650426",
+  "date": "2026-11-10T03:00:09+01:00",
+  "type": "bleu",
+  "paire": "Jordan 3 Racer Blue",
+  "famille": "Jordan 3",
+  "titre": "Jordan 3 Retro Racer Blue",
+  "prix": "20.00 EUR",
+  "taille": "45",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10683650426-jordan-3-retro-racer-blue",
+  "photos": [
+   "https://images1.vinted.net/t/01_005fb_EHx978UWLZdbukF7JbYTpHUv/f800/e1ec7d5a.webp?s=4ccd2cbdc99eaa150842725f1212ca3eccc944eb",
+   "https://images1.vinted.net/t/05_0143e_YsGK8AYNScpiYsTrzc6tiEaT/f800/a3982bab.webp?s=5daed493394e3fadcc56caacd265beaada4f90cd",
+   "https://images1.vinted.net/t/06_0264a_VxfFqBjLZWky8zeJZuAnoAFY/f800/5fbe8ea7.webp?s=b96b3cf0df2f2c1867f5eb7c78e6f983a33f2054",
+   "https://images1.vinted.net/t/02_0119e_7nsJqHnTYVkRFahe7Er13Zfi/f800/3a9c4f5a.webp?s=2e7f930eedec653d0cfc8e3f4feebab4e6486ed2",
+   "https://images1.vinted.net/t/06_02228_C79CXsZ8RsUVwdg3VcTBzmuU/f800/7b870eec.webp?s=14cb8ddcd64a2aa9f34c607a8abd1e9cb4bfacfe",
+   "https://images1.vinted.net/t/05_019d8_k6w6UXRkZgERLg8YHhTgUWFa/f800/d4dadf41.webp?s=b8ac3ab239503a002049a0195adbd9227cc1fece",
+   "https://images1.vinted.net/t/04_006ad_AUdP1WHY1fouCcNbUCr7Qj3g/f800/dff8a7c9.webp?s=f8f471784526058714bed4dc13d0092f03820c3d"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.672,
+  "seuil": 0.68,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "mundms85",
+   "id": "275410945",
+   "profil": "https://www.vinted.fr/member/275410945",
+   "avis": 70,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10743363183",
   "date": "2026-11-10T00:57:45+01:00",
   "type": "bleu",
