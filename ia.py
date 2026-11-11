@@ -22,6 +22,17 @@ def dispo():
     return bool(os.environ.get("ANTHROPIC_API_KEY", "").strip())
 
 
+_REFS = {}
+
+
+def _ref(im, cote=512):
+    """11/11 : photos de référence préparées une seule fois (elles servent à chaque appel)."""
+    k = (id(im), cote)
+    if k not in _REFS:
+        _REFS[k] = (im, _img(im, cote))     # on garde l'image pour que son id ne soit pas réutilisé
+    return dict(_REFS[k][1])
+
+
 def _img(im, cote=768):
     im = im.convert("RGB")
     im.thumbnail((cote, cote))
@@ -33,11 +44,12 @@ def _img(im, cote=768):
 _AMORCE = os.environ.get("IA_AMORCE", "1") == "1"
 
 
-def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=()):
+def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=(), court=False):
+    """court=True (11/11, appel rapide) : l'IA ne répond que verdict + confiance (réponse plus courte, plus rapide)."""
     """refs / photos / etiquette : images PIL. Renvoie {"verdict", "confiance", "code_lu", "raison"} ou {"erreur"}."""
     code = ", ".join(codes) if codes else "inconnu"
     contenu = [{"type": "text", "text": f"REFERENCE photos of a genuine {modele} (style code {code}):"}]
-    contenu += [_img(r, 512) for r in refs[:2]]
+    contenu += [_ref(r, 512) for r in refs[:2]]
     # 11/11 : références + consigne de début gardées en cache chez Anthropic (moins cher, plus rapide).
     # Ignoré sans erreur si le bloc est trop petit pour le cache.
     contenu[-1]["cache_control"] = {"type": "ephemeral"}
@@ -55,8 +67,9 @@ def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=()):
         "If a style code is readable on the size tag, read it: a different style code means NO. "
         "Ignore wear, dirt, lighting and box. If the photos do not show the shoe well enough, answer \"incertain\".\n"
         "Reply with JSON only, no other text: "
-        "{\"verdict\": \"oui\" | \"non\" | \"incertain\", \"confiance\": 0-100, \"code_lu\": \"style code read on the tag, or empty\", "
-        "\"tailles\": \"sizes printed on the tag exactly as read, e.g. US 9 UK 8 EUR 42.5 CM 27, or empty\"}")})
+        + ("{\"verdict\": \"oui\" | \"non\" | \"incertain\", \"confiance\": 0-100}" if court else
+           "{\"verdict\": \"oui\" | \"non\" | \"incertain\", \"confiance\": 0-100, \"code_lu\": \"style code read on the tag, or empty\", "
+           "\"tailles\": \"sizes printed on the tag exactly as read, e.g. US 9 UK 8 EUR 42.5 CM 27, or empty\"}"))})
     global _AMORCE
     try:
         # 1/11 (V3) : réponse courte. L'IA commence directement par « { » (amorce) et s'arrête au « } »

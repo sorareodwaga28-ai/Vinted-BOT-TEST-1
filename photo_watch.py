@@ -1148,7 +1148,8 @@ def main():
 
     from concurrent.futures import ThreadPoolExecutor
     pool = ThreadPoolExecutor(8)
-    pool_cand = ThreadPoolExecutor(int(os.environ.get("CANDIDATES_PARALLELE") or 5))   # candidates vérifiées en même temps
+    pool_cand = ThreadPoolExecutor(int(os.environ.get("CANDIDATES_PARALLELE") or 5))
+    pool_ia = ThreadPoolExecutor(int(os.environ.get("CANDIDATES_PARALLELE") or 5))   # 11/11 : appels IA rapides (1re photo)
     a_publier = []      # alertes en attente pour l'onglet COP sneakers du site
 
     def publier_en_attente():
@@ -1262,6 +1263,7 @@ def main():
             r.setdefault("test_bleues_ratees", []).append(f"{x} ({v['verdict']} {v['confiance']} %)")
         print(f"[test bleue] {it['id']} {x} : {v}")
 
+    ia_2e_appel = os.environ.get("IA_2E_APPEL", "0") == "1"      # 11/11 : 0 = pas de 2e appel, incertain -> jaune
     ia_rapide_oui = int(os.environ.get("IA_RAPIDE_OUI") or 85)    # 1er appel (3 photos) : OUI à 85 % ou plus = fini
     ia_rapide_non = int(os.environ.get("IA_RAPIDE_NON") or 90)    # NON à 90 % ou plus = fini
 
@@ -1307,7 +1309,8 @@ def main():
         ok = [(it, im) for it, im in zip(a_juger, imgs) if im is not None]
         embs = emb_lots([im for _, im in ok])
         alertes, douteuses = [], []
-        for (it, _), e in zip(ok, embs):
+        for (it, im1), e in zip(ok, embs):
+            it["im1"] = im1          # 11/11 : 1re photo gardée pour l'appel IA rapide
             e = e.unsqueeze(0)
             meilleur, proche, possible = choisir(it, e, mods)
             if meilleur:
@@ -1357,6 +1360,19 @@ def main():
             x = it["modele"]
             codes = pt.CODES.get(x, [])
             eti_url, statut = None, "pas de photo d'étiquette : à demander au vendeur"
+            # 11/11 : appel IA rapide lancé TOUT DE SUITE sur la 1re photo (déjà téléchargée), pendant que
+            # la page de l'annonce se charge. Réponse nette -> l'alerte part sans attendre les autres photos.
+            fut1 = None
+            if (ia.dispo() and it.get("im1") is not None and not titre_nomme(it, x) and ia_budget()[0]
+                    and rec(x)["ia"] < ia_paire_max and not it.get("sonde")):
+                it["t_ia0"] = time.time()
+                vois1 = [pt.nom(m) for m in voisins_de(x)]
+
+                def _appel1(im1=it["im1"]):
+                    v = ia.verifier(pt.nom(x), codes, refs_img[x], [im1], None, it.get("title", ""), vois1, court=True)
+                    it["t_ia"] = time.time()
+                    return v
+                fut1 = pool_ia.submit(_appel1)
             urls = it.get("urls") or []
             for essai in range(0 if urls else 2):      # 2e essai si la page de l'annonce n'a pas donné ses photos
                 try:
@@ -1384,8 +1400,16 @@ def main():
                     print(f"[boîte] {it['id']} {x} : {bot.price_value(it)} € > {sans:g} € sans boîte, boîte : {bx} -> ignorée")
                     return
             notes = []
+            v1, net1 = None, False
+            if fut1 is not None:
+                with hors_verrou():
+                    v1 = fut1.result()
+                net1 = (not v1.get("erreur") and (
+                    (v1["verdict"] == "oui" and v1["confiance"] >= ia_rapide_oui)
+                    or (v1["verdict"] == "non" and v1["confiance"] >= ia_rapide_non)))
+                print(f"[IA rapide] {it['id']} {x} : {v1} · {'nette' if net1 else 'pas nette'}")
             bleu_direct = titre_nomme(it, x)      # V4 : titre exact -> envoi direct, sans photos ni IA
-            if bleu_direct:
+            if bleu_direct or net1:                # 11/11 : réponse IA nette -> pas besoin des autres photos
                 imgs_annonce = []
             else:
                 with hors_verrou():
@@ -1426,22 +1450,32 @@ def main():
                 etat["ia_n"] += 1
                 etat["ia_np"] = etat.get("ia_np", 0) + 1
                 voisins = voisins_de(x)
-                with hors_verrou():
-                    photos = photos_pour_ia(notes, eti_url) or [Image.open(io.BytesIO(session.get(it["photo"], timeout=20).content)).convert("RGB")]
-                    it["t_ia0"] = time.time()
-                    # 11/11 : IA en 2 temps. 1er appel rapide avec 3 photos ; réponse nette -> on s'arrête là,
-                    # sinon 2e appel avec les 6 photos.
-                    verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos[:3], eti_img, it.get("title", ""), [pt.nom(m) for m in voisins])
-                    net = (not verdict.get("erreur") and (
-                        (verdict["verdict"] == "oui" and verdict["confiance"] >= ia_rapide_oui)
-                        or (verdict["verdict"] == "non" and verdict["confiance"] >= ia_rapide_non)))
-                    if len(photos) > 3 and not net and not verdict.get("erreur"):
-                        compter(verdict)
-                        etat["ia_n"] += 1
-                        etat["ia_np"] = etat.get("ia_np", 0) + 1
-                        rec()["ia_2e"] = rec().get("ia_2e", 0) + 1
-                        verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos, eti_img, it.get("title", ""), [pt.nom(m) for m in voisins])
-                    it["t_ia"] = time.time()
+                if v1 is not None and not v1.get("erreur") and (net1 or not ia_2e_appel or not notes):
+                    verdict = v1      # 11/11 : réponse de l'appel rapide (sans 2e appel : incertain -> alerte jaune)
+                elif v1 is not None and not v1.get("erreur"):
+                    compter(v1)       # 2e appel avec les 6 photos (IA_2E_APPEL=1)
+                    rec()["ia_2e"] = rec().get("ia_2e", 0) + 1
+                    with hors_verrou():
+                        verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos_pour_ia(notes, eti_url), eti_img,
+                                              it.get("title", ""), [pt.nom(m) for m in voisins])
+                        it["t_ia"] = time.time()
+                else:
+                    with hors_verrou():
+                        photos = photos_pour_ia(notes, eti_url) or [Image.open(io.BytesIO(session.get(it["photo"], timeout=20).content)).convert("RGB")]
+                        it["t_ia0"] = time.time()
+                        # 11/11 : IA en 2 temps. 1er appel rapide avec 3 photos ; réponse nette -> on s'arrête là,
+                        # sinon 2e appel avec les 6 photos.
+                        verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos[:3], eti_img, it.get("title", ""), [pt.nom(m) for m in voisins])
+                        net = (not verdict.get("erreur") and (
+                            (verdict["verdict"] == "oui" and verdict["confiance"] >= ia_rapide_oui)
+                            or (verdict["verdict"] == "non" and verdict["confiance"] >= ia_rapide_non)))
+                        if len(photos) > 3 and not net and not verdict.get("erreur"):
+                            compter(verdict)
+                            etat["ia_n"] += 1
+                            etat["ia_np"] = etat.get("ia_np", 0) + 1
+                            rec()["ia_2e"] = rec().get("ia_2e", 0) + 1
+                            verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos, eti_img, it.get("title", ""), [pt.nom(m) for m in voisins])
+                        it["t_ia"] = time.time()
                 compter(verdict)
                 print(f"IA {it['id']} {x} : {verdict}")
                 if not verdict.get("erreur"):
