@@ -260,6 +260,16 @@ def main():
         print(f"[bot {BOT}] mémoire copiée depuis photo_seen.json")
     etat = json.loads(ETAT.read_text()) if ETAT.exists() else {"ids": [], "modeles": []}
     vus = set(etat["ids"])
+    # 11/11 : la grosse recherche marque est partagée en 3 (un tiers des annonces par bot, selon le numéro d'annonce).
+    PARTAGE = os.environ.get("PARTAGE_MARQUE") == "1"
+    if PARTAGE and BOT > 1 and not etat.get("partage_marque") and principal.exists():
+        # 1re fois : on reprend les annonces déjà vues par le bot 1 pour ne pas ré-alerter les anciennes
+        anciens = json.loads(principal.read_text()).get("ids", [])
+        vus |= set(anciens)
+        etat["ids"] = (anciens + etat["ids"])[-20000:]
+        print(f"[bot {BOT}] partage marque : {len(anciens)} annonces déjà vues reprises du bot 1")
+    if PARTAGE:
+        etat["partage_marque"] = True
     prix_haut = int(max(pt.PRIX[x] for x in modeles))
     # Une recherche Vinted par famille (Jordan : marque Jordan ; Air Max 1 : texte « air max 1 »), au prix max le plus haut
     familles = {}
@@ -342,6 +352,7 @@ def main():
 
     def lire(base, purl, premier, toutes):
         items, deja = [], False
+        marque = "search_text=" not in purl
         for pg in range(1, pages + 1):
             try:
                 lot = bot.fetch_items(session, base, purl + (f"&page={pg}" if pg > 1 else ""))
@@ -350,6 +361,14 @@ def main():
                 break
             for it in lot:
                 iid = str(it["id"])
+                if PARTAGE and marque and int(iid) % BOTS != BOT - 1:
+                    # Annonce de la recherche marque qui revient à un autre bot (1/3 chacun)
+                    with verrou_vus:
+                        if iid in vus:
+                            deja = True
+                        else:
+                            vus.add(iid)
+                    continue
                 with verrou_vus:      # plusieurs recherches en même temps : une annonce n'est prise qu'une fois
                     nouveau = iid not in vus
                     if nouveau:

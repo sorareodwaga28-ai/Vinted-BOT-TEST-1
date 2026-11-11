@@ -28,24 +28,26 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          # 11/11 : la grosse recherche marque est partagée en 3 (1/3 des annonces par bot, PARTAGE_MARQUE) ;
+          # chaque bot garde en plus ses mots-clés et laisse aux autres les titres de leurs mots-clés.
           - bot: 1
             recherches: "marque"
             intervalle: "3"
             exclure: "air max 1,airmax 1,patta,sacai,nocta"
-            ia_jour: "6000"
-            ia_nuit: "1100"
+            ia_jour: "2700"
+            ia_nuit: "500"
           - bot: 2
-            recherches: "air+max+1,patta"
-            intervalle: "5"
-            exclure: ""
-            ia_jour: "1200"
-            ia_nuit: "250"
+            recherches: "marque,air+max+1,patta"
+            intervalle: "3"
+            exclure: "sacai,nocta"
+            ia_jour: "2700"
+            ia_nuit: "500"
           - bot: 3
-            recherches: "sacai,nocta"
-            intervalle: "5"
-            exclure: ""
-            ia_jour: "800"
-            ia_nuit: "150"
+            recherches: "marque,sacai,nocta"
+            intervalle: "3"
+            exclure: "air max 1,airmax 1,patta"
+            ia_jour: "2600"
+            ia_nuit: "500"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -85,6 +87,7 @@ jobs:
           IA_MAX_NUIT: ${{ matrix.ia_nuit }}
           BOT: ${{ matrix.bot }}
           BOTS: "3"
+          PARTAGE_MARQUE: "1"    # 11/11 : recherche marque partagée en 3 entre les bots
           BOT_RECHERCHES: ${{ matrix.recherches }}
           EXCLURE_TITRES: ${{ matrix.exclure }}
           IA_LISSAGE: ${{ vars.IA_LISSAGE || '0' }}
