@@ -1,5 +1,41 @@
 [
  {
+  "id": "10767211352",
+  "date": "2026-11-11T18:32:12+01:00",
+  "type": "bleu",
+  "paire": "Shimmer",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4 Retro Shimmer",
+  "prix": "20.00 EUR",
+  "taille": "41",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10767211352-jordan-4-retro-shimmer",
+  "photos": [
+   "https://images1.vinted.net/t/06_00d83_ucq1RtfjV8eSf7toFHnrGaiC/f800/c949d9a1.webp?s=b1292da8d6eb35396471d8f0d886333f0c6b8898",
+   "https://images1.vinted.net/t/02_01b24_CJx73eGFm2TgQ2FLPFNpAuRA/f800/cf50d3f2.webp?s=b82fc0f6c2b29bf4ec53e53e9f86f677f837e5a2",
+   "https://images1.vinted.net/t/06_02467_kQaayG7sLpUc2x6ywzeCPb4z/f800/19ca6729.webp?s=58b72cf33baeecb2aad55e711c1062c3ce07e4b4",
+   "https://images1.vinted.net/t/02_025f5_Z2XveY4EaaqihzC8BwMu192P/f800/2bc7d5c3.webp?s=909f916f264318949be42e0991e4a7489d156f97",
+   "https://images1.vinted.net/t/05_01777_cuAgKFbA7ELrnR2rmAHdnRtM/f800/30d8b702.webp?s=72e12475e13f4b3e88c0790e3127950a5aa576e2",
+   "https://images1.vinted.net/t/06_00d1f_JMfcFDN6VCa96PrLSBk8ipck/f800/eeb2ef41.webp?s=7183d168b726634ba29e443a764c9bcdd6c6ac39",
+   "https://images1.vinted.net/t/02_01368_mKBhfTQndsNy7t48oa34wqiM/f800/4480111f.webp?s=07e96207fab38bcac73b2a05e1eeb0ebb612dad6",
+   "https://images1.vinted.net/t/01_00f84_YFKxWbKf8QKvyrgkGETgLRPU/f800/a885eb16.webp?s=e3696149ef1f8a96d52f3987a243d10933aad7a1",
+   "https://images1.vinted.net/t/05_0232e_Pv7dcGt4auezkwyeoZyxqeYY/f800/b8d4ab8b.webp?s=878aebbae9ab3719d186b0dc293beb892ab59690",
+   "https://images1.vinted.net/t/06_01f66_QVir1mQeokxVUdP7hoEKiH3S/f800/bd36da9f.webp?s=dd1c60d8e9d78e83c94219c9bbbd153982722307"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.82,
+  "seuil": 0.725,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "nvyrm",
+   "id": "116469570",
+   "profil": "https://www.vinted.fr/member/116469570",
+   "avis": 2,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10767179320",
   "date": "2026-11-11T18:30:16+01:00",
   "type": "bleu",
@@ -9950,33 +9986,5 @@
   "seuil": null,
   "titre_dit": true,
   "vendeur": null
- },
- {
-  "id": "10585989941",
-  "date": "2026-10-29T18:00:52+01:00",
-  "type": "vert",
-  "paire": "Fear",
-  "famille": "Jordan 4",
-  "titre": "Nike Air Jordan 4 Retro – Schwarz/Grau",
-  "prix": "45.00 EUR",
-  "taille": "45",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10585989941-nike-air-jordan-4-retro-schwarzgrau",
-  "photos": [
-   "https://images1.vinted.net/t/06_02709_yMNS4BAyRNwb7rPriG9hBZeT/f800/6a7ab47f.webp?s=cb61875c1767512e9d7c500f528b84182d62ac7b"
-  ],
-  "etiquette": null,
-  "ia": {
-   "verdict": "oui",
-   "confiance": 80
-  },
-  "ressemblance": 0.835,
-  "seuil": 0.72,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": null,
-   "avis": null,
-   "etoiles": null
-  }
  }
 ]
