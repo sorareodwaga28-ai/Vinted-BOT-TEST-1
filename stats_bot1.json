@@ -1,11 +1,11 @@
 {
  "bot": 1,
- "maj": "2026-11-11T19:00:42+01:00",
+ "maj": "2026-11-11T19:05:44+01:00",
  "aujourdhui": {
   "jour": "2026-11-11",
-  "annonces": 7605,
-  "candidates": 948,
-  "appels": 134,
+  "annonces": 7626,
+  "candidates": 953,
+  "appels": 137,
   "vert": 0,
   "bleu": 9,
   "orange": 4,
@@ -359,6 +359,13 @@
    "type": "jaune",
    "paire": "Lightning",
    "date": "2026-11-03T21:16+01:00"
+  },
+  {
+   "id": "10767717165",
+   "v": "fake",
+   "type": "jaune",
+   "paire": "Jordan 3 Wizards",
+   "date": "2026-11-11T19:00+01:00"
   }
  ]
 }
