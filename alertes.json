@@ -1,5 +1,39 @@
 [
  {
+  "id": "10766855965",
+  "date": "2026-11-11T18:12:07+01:00",
+  "type": "vert",
+  "paire": "Jordan 1 High Hyper Royal",
+  "famille": "Jordan 1",
+  "titre": "Baskets montantes  Jordan",
+  "prix": "20.00 EUR",
+  "taille": "42",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10766855965-baskets-montantes-jordan",
+  "photos": [
+   "https://images1.vinted.net/t/05_022ab_aevNhrN1UrDCiQnq1K3HqBPE/f800/829d629d.webp?s=433c564271fabd6c6736806a2d98ec1781ba88ee",
+   "https://images1.vinted.net/t/02_011a6_bL2eTYaSXBM9ZqSod1z1xcKE/f800/a89ed5f3.webp?s=f6aad40b9ff28a5487bf032d0b9e0ae6bcc5a856",
+   "https://images1.vinted.net/t/06_00ac7_xQGxusnjV2d2ARRLdypjrwgc/f800/80c16880.webp?s=9cc1b76886888aeea902fb1b069bf9e429df32bd",
+   "https://images1.vinted.net/t/02_012e1_XP6hShxYC7jTvWoZdK4QG12m/f800/00f02ac8.webp?s=20787ee9fe9ca035ff3c0acfffed458f9d88b446",
+   "https://images1.vinted.net/t/06_01ffb_8R1E6dYtoEmXU2R6wLCZtD29/f800/3ed7f113.webp?s=3f51e4e2e5296fd9dce719aee569e5d3329aa7ea"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 85
+  },
+  "ressemblance": 0.809,
+  "seuil": 0.709,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "filooga",
+   "id": "32299204",
+   "profil": "https://www.vinted.fr/member/32299204",
+   "avis": 50,
+   "etoiles": 4.8
+  }
+ },
+ {
   "id": "10766824966",
   "date": "2026-11-11T18:10:17+01:00",
   "type": "bleu",
@@ -9946,38 +9980,6 @@
    "pseudo": null,
    "avis": 60,
    "etoiles": 4.4
-  }
- },
- {
-  "id": "10583854060",
-  "date": "2026-10-29T15:30:10+01:00",
-  "type": "vert",
-  "paire": "Rare Air",
-  "famille": "Jordan 4",
-  "titre": "Jordan numero 40",
-  "prix": "50.00 EUR",
-  "taille": "40",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10583854060-jordan-numero-40",
-  "photos": [
-   "https://images1.vinted.net/t/05_02091_ChVRrxZMsqFZWH6ytNfG8GE9/f800/759c242b.webp?s=2e549ebbdaab91ae9f5630e93e72aa90a2b1c11e",
-   "https://images1.vinted.net/t/05_01c99_5HNQYGKWHQcKnAQbMv8QRMYd/f800/6abe1d7c.webp?s=4c0747af4b67e31b45503e2604f0bdb686b16a5f",
-   "https://images1.vinted.net/t/06_005a3_edUpyXJMCBtHiPhdgsGMhxxn/f800/7cde5d31.webp?s=0edf259f8bab7370456f9d3999b38aa2f43171a6",
-   "https://images1.vinted.net/t/01_0124c_dCDjJmHur4VrMLWoDzyfZ2EY/f800/a260d3f2.webp?s=08e6d76460f45c359c3ecc39b944881c1c28357f",
-   "https://images1.vinted.net/t/06_01e9a_LGSBE9HrJhBL9YUnU9mNSJ2x/f800/cddc796f.webp?s=1ea601e134ef652833e5dac7573bf9d288cfa729"
-  ],
-  "etiquette": "https://images1.vinted.net/t/06_01e9a_LGSBE9HrJhBL9YUnU9mNSJ2x/f800/cddc796f.webp?s=1ea601e134ef652833e5dac7573bf9d288cfa729",
-  "ia": {
-   "verdict": "oui",
-   "confiance": 85
-  },
-  "ressemblance": 0.778,
-  "seuil": 0.72,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": null,
-   "avis": 2,
-   "etoiles": 5.0
   }
  }
 ]
