@@ -1,56 +1,40 @@
-"""11/11 : diagnostic — où trouver l'heure de publication d'une annonce Vinted, et combien de temps
-Vinted met à la montrer dans la recherche. Lancé à la main (workflow « Diag délai »), ne touche à rien."""
-import json
-import re
-import time
-
-import requests
-
+"""11/11 : diagnostic — heure de publication Vinted et chemins d'API. Lancé à la main, ne touche à rien."""
+import re, time, json
 import bot
 
 s = bot.get_session()
-r = s.get("https://www.vinted.fr/", timeout=30)
-print("accueil", r.status_code, "cookies:", sorted(s.cookies.keys()))
+s.get("https://www.vinted.fr/", timeout=30)
+tok = s.cookies.get("access_token_web")
+H = {"Accept": "application/json, text/plain, */*"}
+if tok:
+    H2 = dict(H, Authorization="Bearer " + tok)
 
-def essai(nom, url, **kw):
+def essai(nom, url, h=H):
     t0 = time.time()
-    try:
-        x = s.get(url, timeout=30, **kw)
-        print(f"\n=== {nom} : HTTP {x.status_code} en {time.time() - t0:.2f} s, {len(x.text)} car.")
-        return x
-    except Exception as e:
-        print(f"\n=== {nom} : erreur {e}")
+    x = s.get(url, timeout=30, headers=h)
+    print(f"\n=== {nom} : HTTP {x.status_code} en {time.time()-t0:.2f} s, {len(x.text)} car. -> {x.text[:250]!r}")
+    return x
 
-api_h = {"Accept": "application/json, text/plain, */*"}
-# 1. API catalogue (Jordan + Nike, plus récentes)
-x = essai("api catalogue", "https://www.vinted.fr/api/v2/catalog/items?page=1&per_page=20&order=newest_first"
-          "&brand_ids[]=53&catalog_ids[]=1242", headers=api_h)
-items = []
-if x is not None and x.ok:
-    try:
-        items = x.json().get("items", [])
-    except ValueError:
-        print(x.text[:500])
-now = time.time()
-if items:
-    print(json.dumps(items[0], ensure_ascii=False, indent=1)[:4000])
-    for it in items[:20]:
-        ph = (it.get("photo") or {})
-        ts = (ph.get("high_resolution") or {}).get("timestamp")
-        print(f"id {it['id']} · photo high_resolution.timestamp={ts} · il y a "
-              f"{(now - ts) if ts else '?'} s · {it.get('title')}")
-    iid = items[0]["id"]
-    # 2. API détail d'une annonce
-    for u in (f"https://www.vinted.fr/api/v2/items/{iid}", f"https://www.vinted.fr/api/v2/items/{iid}/details"):
-        y = essai("api annonce " + u.rsplit("/", 1)[-1], u, headers=api_h)
-        if y is not None:
-            t = y.text
-            for k in ("created_at_ts", "created_at", "updated_at_ts", "last_push_up_at", "timestamp"):
-                m = re.search(r'"' + k + r'"\s*:\s*"?([^",}]+)', t)
-                if m:
-                    print(f"  {k} = {m.group(1)}")
-            if not y.ok:
-                print(t[:300])
+# Page HTML (celle du bot) : y a-t-il une heure quelque part ?
+t0 = time.time()
+html = s.get("https://www.vinted.fr/catalog?catalog[]=1242&brand_ids[]=53&order=newest_first", timeout=30).text
+print("html", round(time.time()-t0, 2), "s")
+for k in ("high_resolution", "timestamp", "created_at", "createdAt", "photo_uploaded", "uploaded"):
+    print(k, [m.start() for m in re.finditer(k, html)][:5])
+items = bot.extract_items(html) or []
+iid = str((items[0].get("productItem") or items[0])["id"]) if items else "0"
+print("1re annonce", iid)
 
-# 3. Page HTML recherche actuelle (pour comparer la vitesse)
-essai("page html recherche", "https://www.vinted.fr/catalog?catalog[]=1242&brand_ids[]=53&order=newest_first")
+q = "page=1&per_page=20&order=newest_first&catalog_ids=1242&brand_ids=53"
+for u in (f"/api/v2/catalog/items?{q}", f"/web/api/core/catalog/items?{q}", f"/api/v2/items?{q}",
+          f"/api/v2/items/{iid}", f"/api/v2/items/{iid}/details", f"/web/api/core/items/{iid}",
+          f"/api/v2/item_upload/items/{iid}", f"/web/api/core/items/{iid}/details"):
+    for h in ([H, H2] if tok else [H]):
+        x = essai(u + (" +bearer" if h is not H else ""), "https://www.vinted.fr" + u, h)
+        if x.ok and x.headers.get("content-type", "").startswith("application/json"):
+            t = x.text
+            for k in ("timestamp", "created_at_ts", "created_at", "updated_at_ts", "last_push_up_at"):
+                v = re.findall(r'"' + k + r'"\s*:\s*"?([^",}]+)', t)[:3]
+                if v:
+                    print(f"   {k} = {v}  (maintenant {int(time.time())})")
+            break
