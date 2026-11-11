@@ -738,7 +738,7 @@ def main():
         """Texte court en tête du message : c'est lui qui s'affiche dans la notification de l'iPhone.
         Bot IA : nom de la paire ; titre exact (sans IA) : titre de l'annonce. Puis prix, taille, IA et photo."""
         taille = (it.get("details") or "?").partition(" · ")[0].strip() or "?"
-        nom = x if couleur in ("VERT", "JAUNE") else (it.get("title") or x)[:80]
+        nom = pt.aff(x) if couleur in ("VERT", "JAUNE") else (it.get("title") or x)[:80]
         # 1/11 (Bastien) : couleur · paire · prix · taille (ressemblance) · (prix + port) x 1,6 · délai
         # pas de couleur dans la notification (Bastien, 1/11) : elle reste visible dans l'alerte
         score = f" ({float(it['score']):.2f} / seuil {pre_de.get(x, pre):.2f})" if it.get("score") else ""
@@ -810,7 +810,7 @@ def main():
         import base64
         titre, _, corps = texte.partition(" · ")
         taille, _, etat_p = (it.get("details") or "?").partition(" · ")
-        fiche = {"paire": x, "titre": it.get("title", ""), "prix": it.get("price"), "taille": taille.strip() or "?",
+        fiche = {"paire": pt.aff(x), "titre": it.get("title", ""), "prix": it.get("price"), "taille": taille.strip() or "?",
                  "etat": etat_p.strip() or "?", "type": {"VERT": "vert", "BLEU": "bleu", "ORANGE": "orange", "JAUNE": "jaune"}.get(couleur, "vert"),
                  "famille": famille(x), "url": it["url"], "etiquette": eti_url,
                  "ia": ({"verdict": verdict["verdict"], "confiance": verdict["confiance"]} if verdict else None),
@@ -929,7 +929,7 @@ def main():
             champs.append({"name": "État (IA)", "value": champ_etat(it), "inline": False})
         if verdict.get("raison"):      # seulement quand la réponse de l'IA était illisible ou coupée (pour comprendre)
             champs.append({"name": "Problème IA", "value": verdict["raison"][:200], "inline": False})
-        embeds = [{"title": f"{x} ?", "url": it["url"], "color": 0xF1C40F,
+        embeds = [{"title": f"{pt.aff(x)} ?", "url": it["url"], "color": 0xF1C40F,
                    "author": {"name": "IA incertaine : à toi de trancher (oui / non / fake)"},
                    "fields": champs, "image": {"url": it["photo"]},
                    "footer": {"text": f"Réf {iid} · réponds à ce message : oui / non / fake + note d'état sur 10 (ex. : oui 7)"}}]
@@ -1122,7 +1122,7 @@ def main():
                   f"**Loupées** (ressemblantes mais pas vérifiées : budget IA du jour atteint, ou plus de {ia_max} d'un coup) : {r['loupees']}"]
         for x in sorted(r["paires"], key=lambda k: -r["paires"][k]["ia"] - r["paires"][k]["loupees"]):
             v = r["paires"][x]
-            lignes.append(f"- {x} : {v['ia']} vérifiées ({v['oui']} OUI, {v['non']} NON, {v['incertain']} incertain)"
+            lignes.append(f"- {pt.aff(x)} : {v['ia']} vérifiées ({v['oui']} OUI, {v['non']} NON, {v['incertain']} incertain)"
                           + (f", {v['loupees']} loupées" if v["loupees"] else "")
                           + (f", {v['plafond']} non vérifiées (plafond {ia_paire_max}/jour)" if v.get("plafond") else "")
                           + (f", {v['sans_boite']} trop chères sans boîte" if v.get("sans_boite") else "")
@@ -1430,7 +1430,8 @@ def main():
             bx = pt.boite(it["id"], it.get("title", ""))
         except Exception:
             bx = ""
-        return {"prix": bot.price_value(it), "taille": taille, "boite": bx, "nom": pt.nom(x), "titre": it.get("title", "")}
+        nom_inv = pt.aff(x) if pt.aff(x).startswith(famille(x)) else f"{famille(x)} {pt.aff(x)}"
+        return {"prix": bot.price_value(it), "taille": taille, "boite": bx, "nom": nom_inv, "titre": it.get("title", "")}
 
     def appliquer_achats():
         ad = etat.get("achats_discord", {})
@@ -1761,7 +1762,7 @@ def main():
                 champs.append({"name": "Ressemblance photo",
                                "value": f"{it['score']:.2f} (seuil {pre_de.get(x, pre):.2f})", "inline": True})
             embeds = [{
-                "title": x, "url": it["url"],
+                "title": pt.aff(x), "url": it["url"],
                 "author": {"name": origine},
                 "footer": {"text": f"Réf {it['id']} · ton avis : réponds oui / non / fake + note d'état sur 10 (ex. : oui 7)"},
                 "color": 0x2ECC71 if verdict else (0x3498DB if bleu else 0xE67E22),
@@ -1804,7 +1805,7 @@ def main():
                 a_publier.append({
                     "id": str(it["id"]), "date": datetime.now(paris).isoformat(timespec="seconds"),
                     "type": "vert" if verdict else ("bleu" if sans_ia.startswith("titre exact") else "orange"),
-                    "paire": x, "famille": famille(x), "titre": it.get("title", ""), "prix": it.get("price"),
+                    "paire": pt.aff(x), "famille": famille(x), "titre": it.get("title", ""), "prix": it.get("price"),
                     "taille": taille.strip() or "?", "etat": etat_paire.strip() or "?", "url": it["url"],
                     "photos": (urls or [it["photo"]])[:20], "etiquette": eti_url,
                     "ia": ({"verdict": verdict["verdict"], "confiance": verdict["confiance"]} if verdict else None),

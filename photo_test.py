@@ -148,6 +148,14 @@ RECHERCHES = {"Sacai Vaporwaffle Tour Yellow": "&search_text=sacai", "Sacai LDWa
 # Mots qui, dans le titre, empêchent de dire « le titre nomme la paire » (l'IA juge quand même sur photo)
 EXCLUS = {"Air Max 1 Lemonade": ["strawberry", "fraise", "pink", "rose"]}
 
+# 11/11 (Bastien) : nom affiché dans les alertes, le site et l'inventaire (la clé interne reste la même)
+AFFICHE = {"Thunder": "Yellow Thunder"}
+
+
+def aff(x):
+    return AFFICHE.get(x, x)
+
+
 def nom(x):
     return NOMS.get(x, f"Air Jordan 4 \"{x}\"")
 
