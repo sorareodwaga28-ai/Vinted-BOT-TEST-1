@@ -228,6 +228,9 @@ def boutons(item):
     """Boutons sous l'alerte : Acheter (page de paiement) + Voir l'annonce."""
     b = []
     if item.get("id"):
+        # 11/11 : ouvre l'annonce directement dans l'appli Vinted (vintedfr://, testé par Bastien sur iPhone)
+        b.append({"type": 2, "style": 5, "label": "Appli Vinted",
+                  "url": f"https://odwagasnkrs.netlify.app/go.html?id={item['id']}&app=1"})
         b.append({"type": 2, "style": 5, "label": "Acheter", "url": lien_achat(item["id"])})
     if item.get("url"):
         b.append({"type": 2, "style": 5, "label": "Voir l'annonce", "url": item["url"]})
