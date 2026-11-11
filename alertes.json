@@ -1,5 +1,35 @@
 [
  {
+  "id": "10762943088",
+  "date": "2026-11-11T14:42:31+01:00",
+  "type": "bleu",
+  "paire": "SB Pine Green",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4 pine Green",
+  "prix": "26.00 EUR",
+  "taille": "42",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10762943088-jordan-4-pine-green",
+  "photos": [
+   "https://images1.vinted.net/t/06_013f0_fNBUxdHUdHT6emyd53rioy8o/f800/d64022ed.webp?s=7eafa31bdc96f50005a91fe4e396a32d615a6706",
+   "https://images1.vinted.net/t/02_018f9_8QbQJeVs26Tx8EvchqeHsdGK/f800/4a8a1687.webp?s=d0563d14031efd003f88b4f6d57402f1b501cdd0",
+   "https://images1.vinted.net/t/02_01c5c_em7kNji8Rv8uQN7HVZrLD692/f800/487d1c71.webp?s=33535ae22d734f4d4400e5c9f35a7c1bf116ee4c",
+   "https://images1.vinted.net/t/01_024e8_S6thnz4t1jnxNBAkxr9D5A4u/f800/4d2be98c.webp?s=3b0fa6adbbb5281ae55ef9c9b836464c009cb0ed"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.768,
+  "seuil": 0.685,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "ccil120798",
+   "id": "105453950",
+   "profil": "https://www.vinted.fr/member/105453950",
+   "avis": 28,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10762884381",
   "date": "2026-11-11T14:39:31+01:00",
   "type": "orange",
@@ -9949,40 +9979,6 @@
    "pseudo": null,
    "avis": 0,
    "etoiles": 0.0
-  }
- },
- {
-  "id": "10529932501",
-  "date": "2026-10-29T11:23:49+01:00",
-  "type": "vert",
-  "paire": "Nocta Glide White",
-  "famille": "Nocta",
-  "titre": "Nocta glide",
-  "prix": "45.00 EUR",
-  "taille": "41",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10529932501-nocta-glide",
-  "photos": [
-   "https://images1.vinted.net/t/02_00234_3cxT6HMvxmE2BcuJwtznXbYa/f800/df06facb.webp?s=598058c6944242b05f938f23c7e259fd9baa0843",
-   "https://images1.vinted.net/t/05_02216_LZZyY8KNpwqFVR8vCcKsxa3b/f800/e7f9ae73.webp?s=499622f890fd6510d6669cbff6b1f0618710cddf",
-   "https://images1.vinted.net/t/06_00dc2_pt1nUzuYmQSaKw4jLXJSSYrK/f800/6413862f.webp?s=9ceac90c86af407c9e8a39683195b568e4260cfb",
-   "https://images1.vinted.net/t/05_01bba_Zi4JyqDBKgQd8gG2isZR5xXs/f800/2a10bff9.webp?s=749666529f44c4847615f8ae2f6ce1547497e33b",
-   "https://images1.vinted.net/t/06_02494_9FmbReCet2ETfLfecN8ackge/f800/8d512e7c.webp?s=c5eaa25e89322ad990c5a4481d6d74d720cb5151",
-   "https://images1.vinted.net/t/02_000bb_Rysz1B2BNTKSoZkqDvjECx33/f800/1e085f68.webp?s=2b2a836d521b6f17e1b0af0e1c1aa6475ccfc056",
-   "https://images1.vinted.net/t/01_01a47_TLRhWeuuKKpK7n6aYU3SZDqX/f800/f3028176.webp?s=86b7382bc12f641d41c90e423018d053ebd3552a"
-  ],
-  "etiquette": "https://images1.vinted.net/t/02_000bb_Rysz1B2BNTKSoZkqDvjECx33/f800/1e085f68.webp?s=2b2a836d521b6f17e1b0af0e1c1aa6475ccfc056",
-  "ia": {
-   "verdict": "oui",
-   "confiance": 92
-  },
-  "ressemblance": 0.858,
-  "seuil": 0.783,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": null,
-   "avis": 327,
-   "etoiles": 4.6
   }
  }
 ]
