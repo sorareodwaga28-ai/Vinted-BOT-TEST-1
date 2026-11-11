@@ -717,6 +717,8 @@ def main():
             bouts.append(f"-> {(p + PROT_FIXE + p * PROT_PCT / 100 + FRAIS_PORT) * COEF_REVENTE:.2f} €")   # prix avec frais x 1,6
         except (ValueError, IndexError):
             pass
+        if it.get("etat_corr") is not None:
+            bouts.append(f"état {it['etat_corr']}/10")
         d = noter_delai(it, couleur)
         if d is not None:
             bouts.append(f"détectée il y a {d:.0f} s")
@@ -875,7 +877,7 @@ def main():
         a = etat.setdefault("a_trancher", {})
         a[iid] = {"paire": x, "s": round(float(it.get("score") or 0), 3), "photo": it["photo"],
                   "date": datetime.now(paris).isoformat(timespec="minutes"), "url": it["url"], "eti": eti_url,
-                  "eti_test": it.get("eti_test")}
+                  "eti_test": it.get("eti_test"), "etat_ia": it.get("etat_ia")}
         for k in list(a)[:-500]:
             del a[k]
         rec(x)["envoyees_incertaines"] = rec(x).get("envoyees_incertaines", 0) + 1
@@ -892,12 +894,14 @@ def main():
                    "value": f"{float(it.get('score') or 0):.2f} (seuil {pre_de.get(x, pre):.2f})", "inline": True}]
         if it.get("eti_champ"):
             champs.append({"name": "Étiquette", "value": it["eti_champ"], "inline": False})
+        if it.get("etat_corr") is not None:
+            champs.append({"name": "État (IA)", "value": champ_etat(it), "inline": False})
         if verdict.get("raison"):      # seulement quand la réponse de l'IA était illisible ou coupée (pour comprendre)
             champs.append({"name": "Problème IA", "value": verdict["raison"][:200], "inline": False})
         embeds = [{"title": f"{x} ?", "url": it["url"], "color": 0xF1C40F,
                    "author": {"name": "IA incertaine : à toi de trancher (oui / non / fake)"},
                    "fields": champs, "image": {"url": it["photo"]},
-                   "footer": {"text": f"Réf {iid} · réponds à ce message : oui / non / fake"}}]
+                   "footer": {"text": f"Réf {iid} · réponds à ce message : oui / non / fake + note d'état sur 10 (ex. : oui 7)"}}]
         for u in [u for u in urls if pt.jeton(u) != pt.jeton(it["photo"])][:2]:
             embeds.append({"url": it["url"], "image": {"url": u}})
         if eti_url:
@@ -1018,7 +1022,9 @@ def main():
                 continue
             txt = brut.lower()
             mot = re.search(r"\b(oui|non|fake)\b", txt)
-            if not mot:
+            # 11/11 : note d'état sur 10 (« oui 7 », « 8/10 », « 6 ») ; les numéros d'annonce sont ignorés
+            note = re.search(r"(?<![\d.,])(10|\d)(?:\s*/\s*10)?(?![\d.,])", re.sub(r"\d{6,}", " ", txt))
+            if not mot and not note:
                 continue
             iid = None
             ref = m.get("referenced_message") or {}
@@ -1034,11 +1040,17 @@ def main():
                 continue  # message normal du salon : on ne touche à rien
             ok = bool(iid) and iid in etat.get("a_trancher", {})
             if ok:
-                etat.setdefault("verdicts_discord", {})[iid] = mot.group(1)
-                d = etat["verdicts_discord"]
-                for k in list(d)[:-500]:
-                    del d[k]
-                print(f"[discord] {iid} : {mot.group(1)}")
+                if mot:
+                    etat.setdefault("verdicts_discord", {})[iid] = mot.group(1)
+                    d = etat["verdicts_discord"]
+                    for k in list(d)[:-500]:
+                        del d[k]
+                if note:
+                    nd = etat.setdefault("notes_discord", {})
+                    nd[iid] = int(note.group(1))
+                    for k in list(nd)[:-500]:
+                        del nd[k]
+                print(f"[discord] {iid} : {mot.group(1) if mot else '-'} · note {note.group(1) if note else '-'}")
             if not ok and BOTS > 1:
                 continue      # alerte d'un autre bot : c'est lui qui répondra ✅
             emoji = "%E2%9C%85" if ok else "%E2%9D%93"
@@ -1081,6 +1093,10 @@ def main():
         if not r["paires"]:
             lignes.append("Aucune annonce ressemblante aujourd'hui.")
         lignes.insert(1, texte_delais(r.get("delais") or []))
+        try:
+            lignes.insert(2, texte_etat(r))
+        except Exception as ex:
+            print(f"::warning::ligne État du récap : {ex}")
         lignes.append(f"**Étiquettes** : {r.get('eti_incoherentes', 0)} avec tailles incohérentes"
                       + (f" · test de typographie : {r.get('typo', 0)} jugées, {r.get('typo_fake', 0)} fake probables"
                          if r.get("typo") else "")
@@ -1267,6 +1283,108 @@ def main():
     ia_rapide_oui = int(os.environ.get("IA_RAPIDE_OUI") or 85)    # 1er appel (3 photos) : OUI à 85 % ou plus = fini
     ia_rapide_non = int(os.environ.get("IA_RAPIDE_NON") or 90)    # NON à 90 % ou plus = fini
 
+    # ---------- 11/11 : note d'état sur 10 (IA) corrigée par les notes de Bastien ----------
+    etat_min = int(os.environ.get("ETAT_MIN") or 6)          # sous 6/10 (corrigée) : annonce écartée, si le filtre est prêt
+    notes_autres = {"t": 0, "d": []}
+    ex_cache = {}
+
+    def notes_toutes():
+        """Notes de Bastien (les siennes sur ce bot + celles des autres bots, relues sur GitHub)."""
+        vus_n, out = set(), []
+        for n in list(etat.get("notes_etat", [])) + notes_autres["d"]:
+            if n.get("id") not in vus_n:
+                vus_n.add(n.get("id"))
+                out.append(n)
+        return sorted(out, key=lambda n: n.get("d", ""))
+
+    def rafraichir_notes():
+        import subprocess as sp
+        if BOTS < 2:
+            return
+        sp.run(["git", "fetch", "-q", "origin", "main"], capture_output=True, cwd=ETAT.parent)
+        d = []
+        for b in range(1, BOTS + 1):
+            if b == BOT:
+                continue
+            f = "photo_seen.json" if b == 1 else f"photo_seen_{b}.json"
+            out = sp.run(["git", "show", f"origin/main:{f}"], capture_output=True, text=True, cwd=ETAT.parent)
+            try:
+                d += (json.loads(out.stdout).get("notes_etat") or []) if out.returncode == 0 else []
+            except ValueError:
+                pass
+        notes_autres["d"] = d
+
+    def calibrage(x):
+        """Le bot juge lui-même s'il en sait assez : au moins 10 notes (paire, sinon famille, sinon 20 toutes paires)
+        et, après correction, moins de 1,5 point d'écart en moyenne avec Bastien sur les 15 dernières."""
+        tout = [n for n in notes_toutes() if n.get("ia") is not None]
+        niveaux = [] if x is None else [(x, [n for n in tout if n["p"] == x], 10),
+                                        (famille(x), [n for n in tout if n.get("f") == famille(x)], 10)]
+        for nom, groupe, mini in niveaux + [("toutes", tout, 20)]:
+            g = groupe[-30:]
+            if len(g) >= mini:
+                ec = sorted(n["toi"] - n["ia"] for n in g)
+                biais = ec[len(ec) // 2]
+                err = sum(abs(n["toi"] - (n["ia"] + biais)) for n in g[-15:]) / len(g[-15:])
+                return {"biais": biais, "pret": err <= 1.5, "n": len(groupe), "err": err, "niveau": nom}
+        return {"biais": 0, "pret": False, "n": len([n for n in tout if n["p"] == x]), "err": None, "niveau": None}
+
+    def note_corrigee(x, note_ia):
+        c = calibrage(x)
+        return max(0, min(10, round(note_ia + c["biais"]))), c
+
+    def exemples_etat():
+        """2 photos notées par Bastien (une propre >= 8, une sale <= 4) montrées à l'IA comme exemples."""
+        tout = notes_toutes()
+        choix = [n for n in reversed(tout) if n["toi"] >= 8][:1] + [n for n in reversed(tout) if n["toi"] <= 4][:1]
+        ex = []
+        for n in choix:
+            u = n.get("photo")
+            if u and u not in ex_cache:
+                try:
+                    ex_cache[u] = Image.open(io.BytesIO(session.get(u, timeout=10).content)).convert("RGB")
+                except Exception:
+                    ex_cache[u] = None
+            if u and ex_cache.get(u) is not None:
+                ex.append((ex_cache[u], n["toi"]))
+        return ex
+
+    def appliquer_notes():
+        """Notes sur 10 données par Bastien sur Discord -> mémoire du bot (servent au calibrage et aux exemples)."""
+        nd = etat.get("notes_discord", {})
+        faites = etat.setdefault("notes_faites", [])
+        for iid, n in list(nd.items()):
+            if iid in faites:
+                continue
+            info = etat.get("a_trancher", {}).get(iid)
+            faites.append(iid)
+            if not info:
+                continue
+            etat.setdefault("notes_etat", []).append({
+                "id": iid, "p": info["paire"], "f": famille(info["paire"]), "ia": info.get("etat_ia"),
+                "toi": int(n), "photo": info.get("photo"), "d": datetime.now(paris).isoformat(timespec="minutes")})
+            print(f"[état] {iid} {info['paire']} : IA {info.get('etat_ia')}/10, Bastien {n}/10")
+        del etat.setdefault("notes_etat", [])[:-600]
+        del faites[:-1000]
+
+    def texte_etat(r):
+        tout = notes_toutes()
+        prets = [x for x in modeles if calibrage(x)["pret"]]
+        c = calibrage(None)
+        return (f"**État** : {r.get('sales', 0)} annonce(s) écartée(s) car pas assez propres (< {etat_min}/10)"
+                f" · {len(tout)} note(s) de toi au total · filtre actif sur {len(prets)}/{len(modeles)} paires"
+                + (f" · écart moyen IA / toi {c['err']:.1f} pt" if c["err"] is not None else ""))
+
+    def champ_etat(it):
+        t = f"{it['etat_corr']}/10"
+        if it.get("etat_corr") != it.get("etat_ia"):
+            t += f" (IA brute {it['etat_ia']}/10)"
+        if it.get("defaut"):
+            t += f" · {it['defaut']}"
+        if not it.get("etat_pret"):
+            t += " · en apprentissage : donne ta note"
+        return t
+
     def urls_utiles(urls):
         """11/11 : 6 photos par annonce (avant 20) : les 5 premières + la dernière (souvent l'étiquette)."""
         return urls if len(urls) <= 6 else urls[:5] + urls[-1:]
@@ -1369,7 +1487,8 @@ def main():
                 vois1 = [pt.nom(m) for m in voisins_de(x)]
 
                 def _appel1(im1=it["im1"]):
-                    v = ia.verifier(pt.nom(x), codes, refs_img[x], [im1], None, it.get("title", ""), vois1, court=True)
+                    v = ia.verifier(pt.nom(x), codes, refs_img[x], [im1], None, it.get("title", ""), vois1, court=True,
+                                    exemples=exemples_etat())
                     it["t_ia"] = time.time()
                     return v
                 fut1 = pool_ia.submit(_appel1)
@@ -1457,7 +1576,8 @@ def main():
                     rec()["ia_2e"] = rec().get("ia_2e", 0) + 1
                     with hors_verrou():
                         verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos_pour_ia(notes, eti_url), None,
-                                              it.get("title", ""), [pt.nom(m) for m in voisins], court=True)
+                                              it.get("title", ""), [pt.nom(m) for m in voisins], court=True,
+                                              exemples=exemples_etat())
                         it["t_ia"] = time.time()
                 else:
                     with hors_verrou():
@@ -1465,7 +1585,8 @@ def main():
                         it["t_ia0"] = time.time()
                         # 11/11 : IA en 2 temps. 1er appel rapide avec 3 photos ; réponse nette -> on s'arrête là,
                         # sinon 2e appel avec les 6 photos.
-                        verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos[:3], None, it.get("title", ""), [pt.nom(m) for m in voisins], court=True)
+                        verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos[:3], None, it.get("title", ""), [pt.nom(m) for m in voisins], court=True,
+                                              exemples=exemples_etat())
                         net = (not verdict.get("erreur") and (
                             (verdict["verdict"] == "oui" and verdict["confiance"] >= ia_rapide_oui)
                             or (verdict["verdict"] == "non" and verdict["confiance"] >= ia_rapide_non)))
@@ -1474,7 +1595,8 @@ def main():
                             etat["ia_n"] += 1
                             etat["ia_np"] = etat.get("ia_np", 0) + 1
                             rec()["ia_2e"] = rec().get("ia_2e", 0) + 1
-                            verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos, None, it.get("title", ""), [pt.nom(m) for m in voisins], court=True)
+                            verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos, None, it.get("title", ""), [pt.nom(m) for m in voisins], court=True,
+                                                  exemples=exemples_etat())
                         it["t_ia"] = time.time()
                 compter(verdict)
                 print(f"IA {it['id']} {x} : {verdict}")
@@ -1496,6 +1618,15 @@ def main():
                         retenir_non(x, it["e_best"])
                     if it.get("sonde") and (verdict["verdict"] != "oui" or verdict["confiance"] < conf_min):
                         return         # test silencieux refusé : rien sur Discord
+                if verdict and verdict.get("etat") is not None:
+                    corr, cal = note_corrigee(x, verdict["etat"])
+                    it["etat_ia"], it["etat_corr"], it["defaut"], it["etat_pret"] = verdict["etat"], corr, verdict.get("defaut", ""), cal["pret"]
+                    if (cal["pret"] and corr < etat_min and verdict["verdict"] in ("oui", "incertain")
+                            and not it.get("sonde")):
+                        rec()["sales"] = rec().get("sales", 0) + 1
+                        rec(x)["sales"] = rec(x).get("sales", 0) + 1
+                        print(f"[état] {it['id']} {x} : {corr}/10 (IA {verdict['etat']}) < {etat_min} -> écartée ({verdict.get('defaut')})")
+                        return
                 if verdict and verdict["verdict"] in ("oui", "incertain") and not it.get("sonde"):
                     it["eti_champ"] = controle_etiquette(it, x, codes, eti_img, verdict)
                 if verdict and (verdict["verdict"] != "oui" or verdict["confiance"] < conf_min):
@@ -1542,6 +1673,8 @@ def main():
                                "inline": True})
             else:
                 champs.append({"name": "IA", "value": "non vérifiée : regarde les photos", "inline": True})
+            if it.get("etat_corr") is not None:
+                champs.append({"name": "État (IA)", "value": champ_etat(it), "inline": False})
             if it.get("eti_champ"):
                 champs.append({"name": "Étiquette", "value": it["eti_champ"], "inline": False})
             if it.get("score"):
@@ -1550,7 +1683,7 @@ def main():
             embeds = [{
                 "title": x, "url": it["url"],
                 "author": {"name": origine},
-                "footer": {"text": f"Réf {it['id']} · ton avis : réponds oui / non / fake"},
+                "footer": {"text": f"Réf {it['id']} · ton avis : réponds oui / non / fake + note d'état sur 10 (ex. : oui 7)"},
                 "color": 0x2ECC71 if verdict else (0x3498DB if bleu else 0xE67E22),
                 "fields": champs,
                 "image": {"url": it["photo"]},
@@ -1579,7 +1712,7 @@ def main():
             a_t = etat.setdefault("a_trancher", {})
             a_t[str(it["id"])] = {"paire": x, "s": round(float(it.get("score") or 0), 3), "photo": it["photo"],
                                   "date": datetime.now(paris).isoformat(timespec="minutes"), "url": it["url"],
-                                  "eti": eti_url, "eti_test": it.get("eti_test"),
+                                  "eti": eti_url, "eti_test": it.get("eti_test"), "etat_ia": it.get("etat_ia"),
                                   "type": "vert" if verdict else ("bleu" if bleu else "orange")}
             for k in list(a_t)[:-500]:
                 del a_t[k]
@@ -1743,8 +1876,15 @@ def main():
             print(f"::warning::Erreur lecture Discord : {str(e)[:300]}")
         try:
             avec_verrou(appliquer_bastien)
+            avec_verrou(appliquer_notes)
         except Exception as e:
             print(f"::warning::Erreur réponses de Bastien : {str(e)[:300]}")
+        if time.time() - notes_autres["t"] > 600:      # notes données sur les alertes des autres bots
+            notes_autres["t"] = time.time()
+            try:
+                rafraichir_notes()
+            except Exception as e:
+                print(f"::warning::Notes des autres bots illisibles : {str(e)[:200]}")
         try:
             avec_verrou(passage)
         except Exception as e:

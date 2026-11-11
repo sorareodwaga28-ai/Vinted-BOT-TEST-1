@@ -44,7 +44,15 @@ def _img(im, cote=768):
 _AMORCE = os.environ.get("IA_AMORCE", "1") == "1"
 
 
-def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=(), court=False):
+ETAT_CONSIGNE = (
+    "Also rate the CONDITION of the listed shoe from 0 to 10, judging only what is visible: "
+    "10 = brand new / deadstock, 8 = very clean with light wear, 6 = clean but visible wear, "
+    "4 = dirty, strong creases or yellowing, 2 = worn out or damaged, 0 = destroyed. "
+    "Check toe box creases, midsole dirt / yellowing / paint chips, outsole and heel wear, scuffs, stains, "
+    "stitching, and any visible Air unit (popped, flattened or foggy = big penalty). ")
+
+
+def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=(), court=False, exemples=()):
     """court=True (11/11, appel rapide) : l'IA ne répond que verdict + confiance (réponse plus courte, plus rapide)."""
     """refs / photos / etiquette : images PIL. Renvoie {"verdict", "confiance", "code_lu", "raison"} ou {"erreur"}."""
     code = ", ".join(codes) if codes else "inconnu"
@@ -53,6 +61,11 @@ def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=(), 
     # 11/11 : références + consigne de début gardées en cache chez Anthropic (moins cher, plus rapide).
     # Ignoré sans erreur si le bloc est trop petit pour le cache.
     contenu[-1]["cache_control"] = {"type": "ephemeral"}
+    if exemples:      # 11/11 : photos déjà notées par Bastien, pour que l'IA apprenne son niveau d'exigence
+        contenu.append({"type": "text", "text": "Condition examples rated by the buyer (other listings):"})
+        for im, note in exemples[:2]:
+            contenu.append(_ref(im, 384))
+            contenu.append({"type": "text", "text": f"-> condition {note}/10"})
     contenu.append({"type": "text", "text": f"PHOTOS from a second-hand listing titled \"{titre}\":"})
     # Photos de l'annonce en 512 px, la plus ressemblante en 1re (11/11 : 6 max, avant 20)
     contenu += [_img(p, 512) for p in photos[:int(os.environ.get("IA_PHOTOS") or 6)]]
@@ -65,10 +78,13 @@ def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=(), 
         f"(same model and same colors on every part: upper, overlays, laces, eyelets, midsole, outsole, heel; not another colorway, "
         f"not another model, not a kids/GS size issue)?{autres} "
         "If a style code is readable on the size tag, read it: a different style code means NO. "
-        "Ignore wear, dirt, lighting and box. If the photos do not show the shoe well enough, answer \"incertain\".\n"
+        "For the model question, ignore wear, dirt, lighting and box. If the photos do not show the shoe well enough, answer \"incertain\".\n"
+        + ETAT_CONSIGNE +
         "Reply with JSON only, no other text: "
-        + ("{\"verdict\": \"oui\" | \"non\" | \"incertain\", \"confiance\": 0-100}" if court else
-           "{\"verdict\": \"oui\" | \"non\" | \"incertain\", \"confiance\": 0-100, \"code_lu\": \"style code read on the tag, or empty\", "
+        + ("{\"verdict\": \"oui\" | \"non\" | \"incertain\", \"confiance\": 0-100, \"etat\": 0-10, "
+           "\"defaut\": \"main visible flaw in French, max 6 words, or empty\"}" if court else
+           "{\"verdict\": \"oui\" | \"non\" | \"incertain\", \"confiance\": 0-100, \"etat\": 0-10, "
+           "\"defaut\": \"main visible flaw in French, max 6 words, or empty\", \"code_lu\": \"style code read on the tag, or empty\", "
            "\"tailles\": \"sizes printed on the tag exactly as read, e.g. US 9 UK 8 EUR 42.5 CM 27, or empty\"}"))})
     global _AMORCE
     try:
@@ -117,8 +133,13 @@ def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=(), 
             return {"verdict": "incertain", "confiance": 0, "code_lu": "", "conso": conso,
                     "raison": "réponse IA illisible : " + (texte.strip()[:150] or f"vide (stop={r.json().get('stop_reason')})")}
         v = str(d.get("verdict", "")).lower().strip()
+        try:
+            note = max(0, min(10, round(float(d.get("etat")))))
+        except (TypeError, ValueError):
+            note = None
         return {"verdict": v if v in ("oui", "non", "incertain") else "incertain",
                 "confiance": int(float(d.get("confiance") or 0)), "code_lu": str(d.get("code_lu") or "").strip(),
+                "etat": note, "defaut": str(d.get("defaut") or "").strip()[:60],
                 "tailles": str(d.get("tailles") or "").strip()[:80],
                 "raison": str(d.get("raison") or "").strip()[:200], "conso": conso}
     except Exception as e:
