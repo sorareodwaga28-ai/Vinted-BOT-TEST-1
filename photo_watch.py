@@ -193,6 +193,37 @@ def publier_alertes(alertes):
     print("::warning::alerte non publiée pour le site après 4 essais")
 
 
+ACHATS = Path(__file__).with_name("achats.json")
+
+
+def publier_achats(achats):
+    """11/11 : paires achetées (réponse « acheté » sur Discord) -> achats.json, lu par Odwagasnkrs
+    qui les ajoute tout seul à l'inventaire (statut « en transit »)."""
+    import subprocess as sp
+    if os.environ.get("GIT_SAVE") != "1":
+        return
+    def run(*cmd):
+        return sp.run(list(cmd), capture_output=True, text=True, cwd=ACHATS.parent).returncode
+    for essai in range(4):
+        run("git", "fetch", "-q", "origin", "main")
+        run("git", "reset", "-q", "--hard", "origin/main")
+        try:
+            liste = json.loads(ACHATS.read_text()) if ACHATS.exists() else []
+        except ValueError:
+            liste = []
+        ids = {a.get("id") for a in liste}
+        liste = [a for a in achats if a["id"] not in ids] + liste
+        ACHATS.write_text(json.dumps(liste[:200], ensure_ascii=False, indent=1))
+        run("git", "add", ACHATS.name)
+        run("git", "commit", "-q", "-m", "Achat : " + ", ".join(f"{a['nom']} {a['achat']} €" for a in achats)[:200])
+        if run("git", "push", "-q", "origin", "HEAD:main") == 0:
+            print(f"::notice::{len(achats)} achat(s) publié(s) pour Odwagasnkrs")
+            sauver_local()
+            return
+        time.sleep(2)
+    print("::warning::achat non publié après 4 essais")
+
+
 SAUVER_LOCAL = []
 
 
@@ -877,7 +908,7 @@ def main():
         a = etat.setdefault("a_trancher", {})
         a[iid] = {"paire": x, "s": round(float(it.get("score") or 0), 3), "photo": it["photo"],
                   "date": datetime.now(paris).isoformat(timespec="minutes"), "url": it["url"], "eti": eti_url,
-                  "eti_test": it.get("eti_test"), "etat_ia": it.get("etat_ia")}
+                  "eti_test": it.get("eti_test"), "etat_ia": it.get("etat_ia"), **infos_achat(it, x)}
         for k in list(a)[:-500]:
             del a[k]
         rec(x)["envoyees_incertaines"] = rec(x).get("envoyees_incertaines", 0) + 1
@@ -1022,9 +1053,12 @@ def main():
                 continue
             txt = brut.lower()
             mot = re.search(r"\b(oui|non|fake)\b", txt)
+            # 11/11 : « acheté » ou « acheté 32 » (prix payé) -> la paire part dans l'inventaire Odwagasnkrs
+            achat = re.search(r"\bach[eè]t[ée]{0,2}s?\b(?:\s*(?:à|a|pour)?\s*(\d+(?:[.,]\d{1,2})?)\s*(?:€|e|eur|euros?)?)?", txt)
+            reste = txt[:achat.start()] + " " + txt[achat.end():] if achat else txt
             # 11/11 : note d'état sur 10 (« oui 7 », « 8/10 », « 6 ») ; les numéros d'annonce sont ignorés
-            note = re.search(r"(?<![\d.,])(10|\d)(?:\s*/\s*10)?(?![\d.,])", re.sub(r"\d{6,}", " ", txt))
-            if not mot and not note:
+            note = re.search(r"(?<![\d.,])(10|\d)(?:\s*/\s*10)?(?![\d.,])", re.sub(r"\d{6,}", " ", reste))
+            if not mot and not note and not achat:
                 continue
             iid = None
             ref = m.get("referenced_message") or {}
@@ -1045,12 +1079,15 @@ def main():
                     d = etat["verdicts_discord"]
                     for k in list(d)[:-500]:
                         del d[k]
+                if achat:
+                    etat.setdefault("achats_discord", {})[iid] = (achat.group(1) or "").replace(",", ".")
                 if note:
                     nd = etat.setdefault("notes_discord", {})
                     nd[iid] = int(note.group(1))
                     for k in list(nd)[:-500]:
                         del nd[k]
-                print(f"[discord] {iid} : {mot.group(1) if mot else '-'} · note {note.group(1) if note else '-'}")
+                print(f"[discord] {iid} : {mot.group(1) if mot else '-'} · note {note.group(1) if note else '-'}"
+                      + (f" · ACHETÉ {achat.group(1) or ''}" if achat else ""))
             if not ok and BOTS > 1:
                 continue      # alerte d'un autre bot : c'est lui qui répondra ✅
             emoji = "%E2%9C%85" if ok else "%E2%9D%93"
@@ -1167,6 +1204,7 @@ def main():
     pool_cand = ThreadPoolExecutor(int(os.environ.get("CANDIDATES_PARALLELE") or 5))
     pool_ia = ThreadPoolExecutor(int(os.environ.get("CANDIDATES_PARALLELE") or 5))   # 11/11 : appels IA rapides (1re photo)
     a_publier = []      # alertes en attente pour l'onglet COP sneakers du site
+    a_publier_achats = []      # 11/11 : achats en attente pour l'inventaire Odwagasnkrs
 
     def publier_en_attente():
         """Envoie sur GitHub, en une fois, les alertes du site accumulées (hors verrou : git est lent)."""
@@ -1178,6 +1216,16 @@ def main():
                 publier_alertes(lot)
             except Exception as ex:
                 print(f"::warning::alertes non publiées pour le site : {str(ex)[:200]}")
+        with sous_verrou():
+            lot_a = a_publier_achats[:]
+            del a_publier_achats[:]
+        if lot_a:
+            try:
+                publier_achats(lot_a)
+            except Exception as ex:
+                print(f"::warning::achats non publiés : {str(ex)[:200]}")
+                with sous_verrou():
+                    a_publier_achats.extend(lot_a)      # on réessaiera au prochain passage
 
     def _img(u):
         try:
@@ -1374,6 +1422,38 @@ def main():
         return (f"**État** : {r.get('sales', 0)} annonce(s) écartée(s) car pas assez propres (< {etat_min}/10)"
                 f" · {len(tout)} note(s) de toi au total · filtre actif sur {len(prets)}/{len(modeles)} paires"
                 + (f" · écart moyen IA / toi {c['err']:.1f} pt" if c["err"] is not None else ""))
+
+    def infos_achat(it, x):
+        """Ce qu'il faut pour créer la paire dans l'inventaire si Bastien répond « acheté »."""
+        taille = (it.get("details") or "?").partition(" · ")[0].strip()
+        try:
+            bx = pt.boite(it["id"], it.get("title", ""))
+        except Exception:
+            bx = ""
+        return {"prix": bot.price_value(it), "taille": taille, "boite": bx, "nom": pt.nom(x), "titre": it.get("title", "")}
+
+    def appliquer_achats():
+        ad = etat.get("achats_discord", {})
+        faits = etat.setdefault("achats_faits", [])
+        for iid, prix in list(ad.items()):
+            if iid in faits:
+                continue
+            faits.append(iid)
+            info = etat.get("a_trancher", {}).get(iid)
+            if not info:
+                continue
+            try:
+                paye = float(prix) if prix else float(info.get("prix") or 0)
+            except ValueError:
+                paye = float(info.get("prix") or 0)
+            a_publier_achats.append({
+                "id": iid, "nom": info.get("nom") or info["paire"], "taille": info.get("taille") or "",
+                "box": "box" if info.get("boite") == "Og Box" else "", "achat": round(paye, 2),
+                "dateAchat": datetime.now(paris).strftime("%Y-%m-%d"), "lien": info.get("url", ""),
+                "photo": info.get("photo", ""), "etat_ia": info.get("etat_ia"), "paire": info["paire"],
+                "date": datetime.now(paris).isoformat(timespec="seconds")})
+            print(f"[achat] {iid} {info['paire']} {paye} € -> inventaire Odwagasnkrs")
+        del faits[:-1000]
 
     def champ_etat(it):
         t = f"{it['etat_corr']}/10"
@@ -1713,7 +1793,8 @@ def main():
             a_t[str(it["id"])] = {"paire": x, "s": round(float(it.get("score") or 0), 3), "photo": it["photo"],
                                   "date": datetime.now(paris).isoformat(timespec="minutes"), "url": it["url"],
                                   "eti": eti_url, "eti_test": it.get("eti_test"), "etat_ia": it.get("etat_ia"),
-                                  "type": "vert" if verdict else ("bleu" if bleu else "orange")}
+                                  "type": "vert" if verdict else ("bleu" if bleu else "orange"),
+                                  **infos_achat(it, x)}
             for k in list(a_t)[:-500]:
                 del a_t[k]
             if bleu and test_bleues and ia.dispo() and ia_budget()[0]:
@@ -1877,6 +1958,7 @@ def main():
         try:
             avec_verrou(appliquer_bastien)
             avec_verrou(appliquer_notes)
+            avec_verrou(appliquer_achats)
         except Exception as e:
             print(f"::warning::Erreur réponses de Bastien : {str(e)[:300]}")
         if time.time() - notes_autres["t"] > 600:      # notes données sur les alertes des autres bots
