@@ -15,6 +15,7 @@ import re
 import requests
 
 API = "https://api.anthropic.com/v1/messages"
+_S = requests.Session()      # 11/11 : même connexion réutilisée (pas de nouvelle poignée de main à chaque appel)
 
 
 def dispo():
@@ -37,9 +38,12 @@ def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=()):
     code = ", ".join(codes) if codes else "inconnu"
     contenu = [{"type": "text", "text": f"REFERENCE photos of a genuine {modele} (style code {code}):"}]
     contenu += [_img(r, 512) for r in refs[:2]]
+    # 11/11 : références + consigne de début gardées en cache chez Anthropic (moins cher, plus rapide).
+    # Ignoré sans erreur si le bloc est trop petit pour le cache.
+    contenu[-1]["cache_control"] = {"type": "ephemeral"}
     contenu.append({"type": "text", "text": f"PHOTOS from a second-hand listing titled \"{titre}\":"})
-    # Photos de l'annonce en 512 px (toutes, 20 max, depuis le 31/10, la plus ressemblante en 1re ; avant : 1 seule)
-    contenu += [_img(p, 512) for p in photos[:int(os.environ.get("IA_PHOTOS") or 20)]]
+    # Photos de l'annonce en 512 px, la plus ressemblante en 1re (11/11 : 6 max, avant 20)
+    contenu += [_img(p, 512) for p in photos[:int(os.environ.get("IA_PHOTOS") or 6)]]
     if etiquette is not None:                            # niveau 2 : + l'étiquette, en 1024 px pour lire le code
         contenu.append({"type": "text", "text": "Photo that may show the size tag inside the shoe:"})
         contenu.append(_img(etiquette, 1024))
@@ -61,7 +65,7 @@ def verifier(modele, codes, refs, photos, etiquette=None, titre="", voisins=()):
             msgs = [{"role": "user", "content": contenu}]
             if amorce:
                 msgs.append({"role": "assistant", "content": "{"})
-            return requests.post(API, timeout=60, headers={
+            return _S.post(API, timeout=60, headers={
                 "x-api-key": os.environ["ANTHROPIC_API_KEY"].strip(), "anthropic-version": "2023-06-01", "content-type": "application/json"},
                 json={"model": os.environ.get("IA_MODELE") or "claude-haiku-5-5",
                       "max_tokens": int(os.environ.get("IA_MAX_TOKENS") or 1500),   # 1/11 : 300 coupait la réponse (INCERTAIN 0 %)

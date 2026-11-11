@@ -244,7 +244,7 @@ def main():
     appris = json.loads(f_seuils.read_text()) if f_seuils.exists() else {}
     seuil_de = {x: float(appris.get(x, seuil)) for x in modeles}
     pages = int(os.environ.get("PAGES") or 3)
-    pause = int(os.environ.get("INTERVALLE") or 90)          # secondes entre deux vérifications
+    pause = float(os.environ.get("INTERVALLE") or 90)          # secondes entre deux vérifications
     duree = int(os.environ.get("DUREE") or 0) * 60           # minutes de surveillance (0 = un seul passage)
     git_auto = os.environ.get("GIT_SAVE") == "1"
     if not modeles:
@@ -1262,10 +1262,17 @@ def main():
             r.setdefault("test_bleues_ratees", []).append(f"{x} ({v['verdict']} {v['confiance']} %)")
         print(f"[test bleue] {it['id']} {x} : {v}")
 
+    ia_rapide_oui = int(os.environ.get("IA_RAPIDE_OUI") or 85)    # 1er appel (3 photos) : OUI à 85 % ou plus = fini
+    ia_rapide_non = int(os.environ.get("IA_RAPIDE_NON") or 90)    # NON à 90 % ou plus = fini
+
+    def urls_utiles(urls):
+        """11/11 : 6 photos par annonce (avant 20) : les 5 premières + la dernière (souvent l'étiquette)."""
+        return urls if len(urls) <= 6 else urls[:5] + urls[-1:]
+
     def photos_pour_ia(notes, eti_url):
         """La photo qui ressemble le plus aux références en premier (l'IA regarde la 1re) :
         si la 1re photo de l'annonce est la boîte ou la semelle, l'IA voit quand même la paire."""
-        return [t[3] for t in sorted(notes, key=lambda t: -t[4]) if t[2] != eti_url][:int(os.environ.get("IA_PHOTOS") or 20)]
+        return [t[3] for t in sorted(notes, key=lambda t: -t[4]) if t[2] != eti_url][:int(os.environ.get("IA_PHOTOS") or 6)]
 
     def cle_doublon(it, x):
         """Même paire, même prix, même taille, même vendeur (ou même titre) : une remise en vente."""
@@ -1382,9 +1389,9 @@ def main():
                 imgs_annonce = []
             else:
                 with hors_verrou():
-                    imgs_annonce = telecharger(urls[:20])
+                    imgs_annonce = telecharger(urls_utiles(urls))
             it["t_photos"] = time.time()
-            lus = [(u, im) for u, im in zip(urls[:20], imgs_annonce) if im is not None]
+            lus = [(u, im) for u, im in zip(urls_utiles(urls), imgs_annonce) if im is not None]
             if lus:
                 # Toutes les photos de l'annonce analysées d'un coup (1/11 : plus rapide qu'une par une)
                 F = emb_lots([im for _, im in lus])
@@ -1422,7 +1429,18 @@ def main():
                 with hors_verrou():
                     photos = photos_pour_ia(notes, eti_url) or [Image.open(io.BytesIO(session.get(it["photo"], timeout=20).content)).convert("RGB")]
                     it["t_ia0"] = time.time()
-                    verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos, eti_img, it.get("title", ""), [pt.nom(m) for m in voisins])
+                    # 11/11 : IA en 2 temps. 1er appel rapide avec 3 photos ; réponse nette -> on s'arrête là,
+                    # sinon 2e appel avec les 6 photos.
+                    verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos[:3], eti_img, it.get("title", ""), [pt.nom(m) for m in voisins])
+                    net = (not verdict.get("erreur") and (
+                        (verdict["verdict"] == "oui" and verdict["confiance"] >= ia_rapide_oui)
+                        or (verdict["verdict"] == "non" and verdict["confiance"] >= ia_rapide_non)))
+                    if len(photos) > 3 and not net and not verdict.get("erreur"):
+                        compter(verdict)
+                        etat["ia_n"] += 1
+                        etat["ia_np"] = etat.get("ia_np", 0) + 1
+                        rec()["ia_2e"] = rec().get("ia_2e", 0) + 1
+                        verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos, eti_img, it.get("title", ""), [pt.nom(m) for m in voisins])
                     it["t_ia"] = time.time()
                 compter(verdict)
                 print(f"IA {it['id']} {x} : {verdict}")
@@ -1511,15 +1529,16 @@ def main():
                 embeds.append({"url": it["url"] + "#etiquette", "title": "Étiquette",
                                "color": 0x2ECC71, "image": {"url": eti_url}})
             comps = bot.boutons(it)
-            if verdict and mention:      # vraie alerte vérifiée par l'IA : notification Discord
-                bot.envoyer(webhook, {"content": resume(it, x, "VERT", verdict) + f" {mention}", "embeds": embeds,
-                                      "components": comps,
-                                      "allowed_mentions": {"parse": ["everyone", "users", "roles"]}})
-            else:
-                bot.envoyer(webhook, {"content": resume(it, x, "VERT" if verdict else ("BLEU" if bleu else "ORANGE"), verdict),
-                                      "embeds": embeds, "components": comps})
             coul = "VERT" if verdict else ("BLEU" if bleu else "ORANGE")
-            notifier_site(resume(it, x, coul, verdict), it, x, coul, urls, eti_url, verdict)
+            texte = resume(it, x, coul, verdict)
+            # 11/11 : Discord envoyé sans bloquer les autres candidates ; la notification du site part en arrière-plan
+            with hors_verrou():
+                if verdict and mention:      # vraie alerte vérifiée par l'IA : notification Discord
+                    bot.envoyer(webhook, {"content": texte + f" {mention}", "embeds": embeds, "components": comps,
+                                          "allowed_mentions": {"parse": ["everyone", "users", "roles"]}})
+                else:
+                    bot.envoyer(webhook, {"content": texte, "embeds": embeds, "components": comps})
+            pool.submit(notifier_site, texte, it, x, coul, urls, eti_url, verdict)
             rec()["vert" if verdict else ("bleu" if sans_ia.startswith("titre exact") else "orange")] += 1
             etat["alertes_cles"][cle] = time.time()
             # Bastien peut aussi répondre oui / non / fake aux vertes, bleues et oranges (même traitement que les jaunes)
@@ -1716,7 +1735,7 @@ def main():
             dernier_git = time.time()
         if time.time() - debut + pause > duree:
             break
-        time.sleep(max(1, pause - (time.time() - t0)))
+        time.sleep(max(0.2, pause - (time.time() - t0)))
     pool_cand.shutdown(wait=True)      # fin du passage : on laisse finir les vérifications en cours
     publier_en_attente()
     avec_verrou(sauver)

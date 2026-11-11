@@ -32,19 +32,19 @@ jobs:
           # chaque bot garde en plus ses mots-clés et laisse aux autres les titres de leurs mots-clés.
           - bot: 1
             recherches: "marque"
-            intervalle: "3"
+            intervalle: "1.5"
             exclure: "air max 1,airmax 1,patta,sacai,nocta"
             ia_jour: "2700"
             ia_nuit: "500"
           - bot: 2
             recherches: "marque,air+max+1,patta"
-            intervalle: "3"
+            intervalle: "1.5"
             exclure: "sacai,nocta"
             ia_jour: "2700"
             ia_nuit: "500"
           - bot: 3
             recherches: "marque,sacai,nocta"
-            intervalle: "3"
+            intervalle: "1.5"
             exclure: "air max 1,airmax 1,patta"
             ia_jour: "2600"
             ia_nuit: "500"
@@ -101,7 +101,7 @@ jobs:
           TAILLE_MIN: ${{ vars.TAILLE_MIN || '40' }}
           TAILLE_MAX: ${{ vars.TAILLE_MAX || '46' }}
           SEUIL: ${{ vars.PHOTO_SEUIL || '0.84' }}
-          INTERVALLE: ${{ matrix.intervalle }}    # V4 : 3 s (bot 1) / 5 s (bots 2 et 3) ; V3 : 10 s ; avant 15 s
+          INTERVALLE: ${{ matrix.intervalle }}    # 11/11 : 1,5 s pour les 3 bots ; V4 : 3 s / 5 s ; V3 : 10 s
           DUREE: ${{ inputs.duree || '330' }}
           GIT_SAVE: "1"
         run: |
