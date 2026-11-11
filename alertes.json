@@ -1,5 +1,40 @@
 [
  {
+  "id": "10767050211",
+  "date": "2026-11-11T18:23:02+01:00",
+  "type": "bleu",
+  "paire": "Air Max 1 Safari Cobblestone",
+  "famille": "Air Max 1",
+  "titre": "Nike Air Max Pulse « Cobblestone » taille 43",
+  "prix": "40.00 EUR",
+  "taille": "43",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10767050211-nike-air-max-pulse-cobblestone-taille-43",
+  "photos": [
+   "https://images1.vinted.net/t/05_004b9_2VkyeRh3ce2Z8fhEY7d84JkW/f800/c8c1393f.webp?s=6afd26f9912502354c7291a66148c3ddf677eede",
+   "https://images1.vinted.net/t/02_013c2_phXVEQnE91v4u22HMoNdQEzC/f800/32d90964.webp?s=045e9b0a6f7417906e40323ae674d55e1878f45f",
+   "https://images1.vinted.net/t/02_00763_xXFB6grfrH2Lw5Yxtf52uqXL/f800/f33cb063.webp?s=ae385730fd882ea2cab9748acf2895efe0b86715",
+   "https://images1.vinted.net/t/06_014d9_fYvEC3yuUr8tgUH6AfmHdBAu/f800/ee5529a5.webp?s=5e3eb26a1a86da3d9dc7caeee914738cd445031b",
+   "https://images1.vinted.net/t/05_003d7_yVchgKMTWYtyNLEWEvHFwxD7/f800/aa83db4a.webp?s=f8aebb692869f8fd2732d33cc8d0a3c785190f8b",
+   "https://images1.vinted.net/t/02_01c98_Z8TYBLB8CDyeF5xPF2xC4aeP/f800/c8c344cd.webp?s=2ae8832f88b32fce0b6fbdc77609f54adef4626f",
+   "https://images1.vinted.net/t/02_01226_roDLByfrFR5iKe7G7NPZvejf/f800/c25f89b5.webp?s=cc0120b96d399187a7a6a36737fec297d9ed0cd9",
+   "https://images1.vinted.net/t/01_0016d_zMYRt3YdnSkU1YYCghEqGdNc/f800/0c982dd2.webp?s=7b0f6bb422b26f13e7a1c696029e0820ed86c497",
+   "https://images1.vinted.net/t/04_013ef_qxhzJ2obU5xE92vFqXrPCc4R/f800/db7bb8f0.webp?s=0b5fa6300eb28a81b613a9a7a84499d9864b4c87"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.619,
+  "seuil": 0.723,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "clarisseny",
+   "id": "167549035",
+   "profil": "https://www.vinted.fr/member/167549035",
+   "avis": 14,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10766925968",
   "date": "2026-11-11T18:15:54+01:00",
   "type": "bleu",
@@ -9945,36 +9980,6 @@
    "pseudo": null,
    "avis": 109,
    "etoiles": 4.9
-  }
- },
- {
-  "id": "10584603406",
-  "date": "2026-10-29T16:22:48+01:00",
-  "type": "bleu",
-  "paire": "Jordan 1 High Lost and Found",
-  "famille": "Jordan 1",
-  "titre": "J1 Lost and Found",
-  "prix": "40.00 EUR",
-  "taille": "41",
-  "etat": "Neuf sans étiquette",
-  "url": "https://www.vinted.fr/items/10584603406-j1-lost-and-found",
-  "photos": [
-   "https://images1.vinted.net/t/01_01267_Vu6vDnKUf6GtfLiD6AYh5cnn/f800/80736550.webp?s=03f1736951b35549027d1fe00ec70549bdc064f2",
-   "https://images1.vinted.net/t/02_003c5_EUEq3ugDccvJBtoqrPkJbu2H/f800/0a067220.webp?s=da96827a7378e2a1000bc47c273cfc8b67a19165",
-   "https://images1.vinted.net/t/02_02496_oh15LUxVi7qBtzkBvUKxc7m1/f800/11ddea19.webp?s=8ad04089a6daa40e36239b3cb4d5f8b6fbef7a95",
-   "https://images1.vinted.net/t/02_00d9c_nbtibaQvWLgYkKuLUtu9BbwL/f800/65479361.webp?s=8189b0819e627f25a7aac033ce62dfbb4d87e3da",
-   "https://images1.vinted.net/t/02_000a8_9S1D2xRFYGdLU5yA4j7c5vK3/f800/bb1b8315.webp?s=8493b630b16d48e6311380665f4fbcd35b188d26",
-   "https://images1.vinted.net/t/01_013fc_U6CiEJN1ZvDxAaSNLnxtgngA/f800/a91e7a5f.webp?s=a7409f624d212503b1274e97406bf89f41145d43"
-  ],
-  "etiquette": "https://images1.vinted.net/t/02_000a8_9S1D2xRFYGdLU5yA4j7c5vK3/f800/bb1b8315.webp?s=8493b630b16d48e6311380665f4fbcd35b188d26",
-  "ia": null,
-  "ressemblance": 0.809,
-  "seuil": 0.72,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "avis": 56,
-   "etoiles": 5.0
   }
  }
 ]
