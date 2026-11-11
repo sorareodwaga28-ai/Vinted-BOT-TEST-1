@@ -1,5 +1,39 @@
 [
  {
+  "id": "10770851710",
+  "date": "2026-11-11T22:15:59+01:00",
+  "type": "vert",
+  "paire": "Frozen Moments",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4",
+  "prix": "40.00 EUR",
+  "taille": "43",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10770851710-jordan-4",
+  "photos": [
+   "https://images1.vinted.net/t/06_02294_YBSj2m5xbmeZ9DCt4XzKEFgi/f800/89582099.webp?s=681e06d27a549976aa75849cd9b60dc0236abbaf",
+   "https://images1.vinted.net/t/06_0114a_jtKRdreMojSr3uR6aPqhG2ET/f800/8cb885d4.webp?s=aec9d5acab8eab48d4b9b8fc55279d4aa2cab4e2",
+   "https://images1.vinted.net/t/04_023dc_gzSSMJGda2aJCsd2meQxLciq/f800/438d3d97.webp?s=c1941471e1323fba8c62fa21d0ecab00d749edaf",
+   "https://images1.vinted.net/t/06_004f9_1sCxWcv674Fw4YfXuxjnpRGV/f800/12a311b9.webp?s=aade86b900df73fc29890c6aa42d545f5fe81715",
+   "https://images1.vinted.net/t/05_00c53_pWAe4mXzECvw9wzoh55dy79X/f800/b40f3079.webp?s=8883cbc588fca4b153d15cb9a730334e8975d169"
+  ],
+  "etiquette": "https://images1.vinted.net/t/05_00c53_pWAe4mXzECvw9wzoh55dy79X/f800/b40f3079.webp?s=8883cbc588fca4b153d15cb9a730334e8975d169",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 72
+  },
+  "ressemblance": 0.876,
+  "seuil": 0.705,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "247810258",
+   "profil": "https://www.vinted.fr/member/247810258",
+   "avis": 58,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10770488169",
   "date": "2026-11-11T21:51:01+01:00",
   "type": "vert",
@@ -9978,38 +10012,6 @@
    "profil": null,
    "avis": 11,
    "etoiles": 5.0
-  }
- },
- {
-  "id": "10596152272",
-  "date": "2026-10-30T15:40:00+01:00",
-  "type": "bleu",
-  "paire": "Thunder",
-  "famille": "Jordan 4",
-  "titre": "Jordan 4 Red Thunder Gr. 43",
-  "prix": "35.00 EUR",
-  "taille": "43",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10596152272-jordan-4-red-thunder-gr-43",
-  "photos": [
-   "https://images1.vinted.net/t/05_015ab_7RN5fx8eitnztDfD4yVt39Ko/f800/cb10f9e9.webp?s=239f258466660e677f6adaf381f01a0955af2337",
-   "https://images1.vinted.net/t/05_0056a_VeWhRi96ydKqgjgySu3Ad3fV/f800/ec6ffd88.webp?s=79073702c3482db764aaae83637c486647e93d6c",
-   "https://images1.vinted.net/t/02_011b4_HNQ6gEfEXDXZXqcsRmyzDFL9/f800/da036c3c.webp?s=3f3b717deffcbdcb39e2d20f38cd199ed32543c0",
-   "https://images1.vinted.net/t/05_0175e_YcvSXaAqzd5eJNLN9EvuQ1yk/f800/2970d4d0.webp?s=2a2abb0b4f2ee49279eb35b575b5c1bfea0bd077",
-   "https://images1.vinted.net/t/04_0109f_yJSbfs8dgL9sUvaAvNLC4PfB/f800/fafcd9e2.webp?s=2db7a723ee65ccba223492a824cf5e53fb0c8d43",
-   "https://images1.vinted.net/t/01_0244b_DhfcLMGVVMZdLWYvA1etDEEN/f800/d8f5d170.webp?s=982882ae71370411a9c2fb64bc60d3ede47e2507"
-  ],
-  "etiquette": "https://images1.vinted.net/t/05_0056a_VeWhRi96ydKqgjgySu3Ad3fV/f800/ec6ffd88.webp?s=79073702c3482db764aaae83637c486647e93d6c",
-  "ia": null,
-  "ressemblance": 0.708,
-  "seuil": 0.72,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 35,
-   "etoiles": 4.1
   }
  }
 ]
