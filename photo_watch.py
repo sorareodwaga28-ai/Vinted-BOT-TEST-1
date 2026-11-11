@@ -380,6 +380,7 @@ def main():
                         items.append(it)
                     continue
                 if it.get("photo") and bonne_taille(it):
+                    it["t_vu"] = time.time()      # 11/11 : heure de détection (départ du chrono)
                     items.append(it)
             if (deja and not toutes) or premier:
                 break
@@ -716,25 +717,29 @@ def main():
             bouts.append(f"-> {(p + PROT_FIXE + p * PROT_PCT / 100 + FRAIS_PORT) * COEF_REVENTE:.2f} €")   # prix avec frais x 1,6
         except (ValueError, IndexError):
             pass
-        d = noter_delai(it)
+        d = noter_delai(it, couleur)
         if d is not None:
-            bouts.append(f"publiée il y a {d} s")
+            bouts.append(f"détectée il y a {d:.0f} s")
         return " · ".join(bouts)
 
-    def noter_delai(it):
-        """V4 : secondes entre la publication de l'annonce (lue sur sa page) et maintenant (envoi de l'alerte).
-        Notée une seule fois par annonce dans le récap ; ignorée au-delà d'une heure (remise en avant, vieille annonce)."""
+    def noter_delai(it, couleur="?"):
+        """11/11 : Vinted ne donne plus l'heure de publication (ni page, ni recherche, ni API).
+        On chronomètre donc de la détection de l'annonce par le bot jusqu'à l'envoi de l'alerte,
+        étape par étape (recherche + tri photo, page de l'annonce, photos, IA). Notée une fois par annonce."""
         if "delai" not in it:
-            pub = it.get("pub") or pt.publiee_le(it["id"])
             it["delai"] = None
-            if pub:
-                d = int(time.time() - pub)
-                if 0 <= d <= 3600:
-                    it["delai"] = d
-                    dl = rec().setdefault("delais", [])
-                    dl.append(d)
-                    del dl[:-3000]
-            print(f"[délai] {it['id']} : {it['delai']} s" + ("" if pub else " (heure de publication introuvable)"))
+            t0, now = it.get("t_vu"), time.time()
+            if t0:
+                def ecart(a, b):
+                    return round(it[b] - it[a], 1) if it.get(a) and it.get(b) else None
+                d = round(now - t0, 1)
+                it["delai"] = d
+                e = {"c": couleur.lower(), "t": d, "tri": ecart("t_vu", "t_tri"), "page": ecart("t_tri", "t_page"),
+                     "photos": ecart("t_page", "t_photos"), "ia": ecart("t_ia0", "t_ia")}
+                dl = rec().setdefault("delais", [])
+                dl.append(e)
+                del dl[:-3000]
+                print(f"[délai] {it['id']} {couleur} : {e}")
         return it["delai"]
 
     # 3/11 : notifications du site Odwagasnkrs (Web Push). Même texte que la notification Discord ;
@@ -1088,13 +1093,25 @@ def main():
 
 
     def texte_delais(dl):
-        """Ligne du récap : délai publication -> alerte (V4)."""
+        """Ligne du récap : délai détection -> alerte, par couleur, avec le détail des étapes (11/11)."""
+        dl = [e for e in dl if isinstance(e, dict)]
         if not dl:
             return "**Vitesse** : pas encore de délai mesuré aujourd'hui"
-        t = sorted(dl)
-        neuf = t[min(len(t) - 1, int(0.9 * len(t)))]
-        return (f"**Vitesse ({len(t)} alertes mesurées)** : délai moyen publication -> alerte **{sum(t) / len(t):.0f} s**"
-                f" · le plus rapide {t[0]} s · le plus lent {t[-1]} s · 9 fois sur 10 : {neuf} s ou moins")
+        lignes = []
+        for c in ("vert", "bleu", "orange", "jaune"):
+            es = [e for e in dl if e.get("c") == c]
+            if not es:
+                continue
+            t = sorted(e["t"] for e in es)
+            neuf = t[min(len(t) - 1, int(0.9 * len(t)))]
+            def moy(k):
+                v = [e[k] for e in es if e.get(k) is not None]
+                return f"{sum(v) / len(v):.1f} s" if v else "-"
+            nom = {"vert": "vertes", "bleu": "bleues", "orange": "orange", "jaune": "jaunes"}[c]
+            lignes.append(f"**Vitesse alertes {nom} ({len(t)})** : détection -> alerte **{sum(t) / len(t):.1f} s** en moyenne"
+                          f" · plus rapide {t[0]:.1f} s · plus lent {t[-1]:.1f} s · 9 fois sur 10 : {neuf:.1f} s ou moins"
+                          f"\n  détail : tri photo {moy('tri')} · page annonce {moy('page')} · photos {moy('photos')} · IA {moy('ia')}")
+        return "\n".join(lignes)
 
     def combiner_bots(r):
         """Bot principal : ajoute au récap les compteurs du jour des autres bots (lus sur GitHub)."""
@@ -1314,6 +1331,8 @@ def main():
                 rec()["photo2"] = rec().get("photo2", 0) + 1
                 print(f"[photo2] {it['id']} {meilleur[0]} trouvée grâce à la 2e photo ({meilleur[1]:.3f})")
         alertes.sort(key=lambda it: (titre_dit(it, it["modele"]), it["score"]), reverse=True)
+        for it in alertes:
+            it["t_tri"] = time.time()
         rec()["candidates"] += len(alertes)
         if len(alertes) > ia_max:
             print(f"{len(alertes) - ia_max} candidate(s) au-delà de {ia_max} non vérifiées ce passage")
@@ -1342,6 +1361,7 @@ def main():
                     break
                 with hors_verrou():
                     time.sleep(3)
+            it["t_page"] = time.time()
             print(f"[diag] annonce {it['id']} : {len(urls)} photo(s) lue(s)")
             cle = cle_doublon(it, x)
             if deja_alertee(cle):
@@ -1363,6 +1383,7 @@ def main():
             else:
                 with hors_verrou():
                     imgs_annonce = telecharger(urls[:20])
+            it["t_photos"] = time.time()
             lus = [(u, im) for u, im in zip(urls[:20], imgs_annonce) if im is not None]
             if lus:
                 # Toutes les photos de l'annonce analysées d'un coup (1/11 : plus rapide qu'une par une)
@@ -1400,7 +1421,9 @@ def main():
                 voisins = voisins_de(x)
                 with hors_verrou():
                     photos = photos_pour_ia(notes, eti_url) or [Image.open(io.BytesIO(session.get(it["photo"], timeout=20).content)).convert("RGB")]
+                    it["t_ia0"] = time.time()
                     verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos, eti_img, it.get("title", ""), [pt.nom(m) for m in voisins])
+                    it["t_ia"] = time.time()
                 compter(verdict)
                 print(f"IA {it['id']} {x} : {verdict}")
                 if not verdict.get("erreur"):
