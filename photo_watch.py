@@ -1263,7 +1263,7 @@ def main():
             r.setdefault("test_bleues_ratees", []).append(f"{x} ({v['verdict']} {v['confiance']} %)")
         print(f"[test bleue] {it['id']} {x} : {v}")
 
-    ia_2e_appel = os.environ.get("IA_2E_APPEL", "0") == "1"      # 11/11 : 0 = pas de 2e appel, incertain -> jaune
+    ia_2e_appel = os.environ.get("IA_2E_APPEL", "1") == "1"      # 11/11 : 2e appel gardé (Bastien) ; 0 = incertain -> jaune
     ia_rapide_oui = int(os.environ.get("IA_RAPIDE_OUI") or 85)    # 1er appel (3 photos) : OUI à 85 % ou plus = fini
     ia_rapide_non = int(os.environ.get("IA_RAPIDE_NON") or 90)    # NON à 90 % ou plus = fini
 
@@ -1456,8 +1456,8 @@ def main():
                     compter(v1)       # 2e appel avec les 6 photos (IA_2E_APPEL=1)
                     rec()["ia_2e"] = rec().get("ia_2e", 0) + 1
                     with hors_verrou():
-                        verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos_pour_ia(notes, eti_url), eti_img,
-                                              it.get("title", ""), [pt.nom(m) for m in voisins])
+                        verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos_pour_ia(notes, eti_url), None,
+                                              it.get("title", ""), [pt.nom(m) for m in voisins], court=True)
                         it["t_ia"] = time.time()
                 else:
                     with hors_verrou():
@@ -1465,7 +1465,7 @@ def main():
                         it["t_ia0"] = time.time()
                         # 11/11 : IA en 2 temps. 1er appel rapide avec 3 photos ; réponse nette -> on s'arrête là,
                         # sinon 2e appel avec les 6 photos.
-                        verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos[:3], eti_img, it.get("title", ""), [pt.nom(m) for m in voisins])
+                        verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos[:3], None, it.get("title", ""), [pt.nom(m) for m in voisins], court=True)
                         net = (not verdict.get("erreur") and (
                             (verdict["verdict"] == "oui" and verdict["confiance"] >= ia_rapide_oui)
                             or (verdict["verdict"] == "non" and verdict["confiance"] >= ia_rapide_non)))
@@ -1474,7 +1474,7 @@ def main():
                             etat["ia_n"] += 1
                             etat["ia_np"] = etat.get("ia_np", 0) + 1
                             rec()["ia_2e"] = rec().get("ia_2e", 0) + 1
-                            verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos, eti_img, it.get("title", ""), [pt.nom(m) for m in voisins])
+                            verdict = ia.verifier(pt.nom(x), codes, refs_img[x], photos, None, it.get("title", ""), [pt.nom(m) for m in voisins], court=True)
                         it["t_ia"] = time.time()
                 compter(verdict)
                 print(f"IA {it['id']} {x} : {verdict}")
