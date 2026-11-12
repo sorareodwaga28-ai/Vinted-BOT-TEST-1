@@ -1,5 +1,37 @@
 [
  {
+  "id": "10780865673",
+  "date": "2026-11-12T18:09:13+01:00",
+  "type": "vert",
+  "paire": "SB Pine Green",
+  "famille": "Jordan 4",
+  "titre": "Jordan",
+  "prix": "40.00 EUR",
+  "taille": "42,5",
+  "etat": "Satisfaisant",
+  "url": "https://www.vinted.fr/items/10780865673-jordan",
+  "photos": [
+   "https://images1.vinted.net/t/02_020fd_mvqmA9PdfFgSLQxoajJmqFfU/f800/2367cc33.webp?s=96768f1a364d0122f0a58b177073a6d9d504d68c",
+   "https://images1.vinted.net/t/02_02482_nGcD17wB8ZhDx8KycrXooZDY/f800/567bbac1.webp?s=575e807cd9d973c1df7d928d08215382520a86ea",
+   "https://images1.vinted.net/t/06_00b93_GJP5dK2cPKKHYFV7sX2PEw9U/f800/40853beb.webp?s=a316380f4f3862fc19e9b9fcf871ef0da16aad9a"
+  ],
+  "etiquette": "https://images1.vinted.net/t/06_00b93_GJP5dK2cPKKHYFV7sX2PEw9U/f800/40853beb.webp?s=a316380f4f3862fc19e9b9fcf871ef0da16aad9a",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 75
+  },
+  "ressemblance": 0.773,
+  "seuil": 0.685,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "36227491",
+   "profil": "https://www.vinted.fr/member/36227491",
+   "avis": 7,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10780229046",
   "date": "2026-11-12T17:25:45+01:00",
   "type": "vert",
@@ -9991,33 +10023,6 @@
    "profil": null,
    "avis": 0,
    "etoiles": 0.0
-  }
- },
- {
-  "id": "10590341358",
-  "date": "2026-10-31T08:16:16+01:00",
-  "type": "bleu",
-  "paire": "Rare Air",
-  "famille": "Jordan 4",
-  "titre": "Zapatilla Jordan 4 rare",
-  "prix": "50.00 EUR",
-  "taille": "44",
-  "etat": "Satisfaisant",
-  "url": "https://www.vinted.fr/items/10590341358-zapatilla-jordan-4-rare",
-  "photos": [
-   "https://images1.vinted.net/t/05_01114_bMRtbVUnb8yfdknR5H2deYUC/f800/c3156197.webp?s=8cd391385e26323439c4437c07d32ca6d5d2291c"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.812,
-  "seuil": 0.72,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 1,
-   "etoiles": 5.0
   }
  }
 ]
