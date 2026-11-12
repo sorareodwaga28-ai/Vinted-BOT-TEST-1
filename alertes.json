@@ -1,5 +1,37 @@
 [
  {
+  "id": "10738258659",
+  "date": "2026-11-12T11:37:49+01:00",
+  "type": "vert",
+  "paire": "Sacai Vaporwaffle Villain Red",
+  "famille": "Sacai",
+  "titre": "Nike sakai",
+  "prix": "50.00 EUR",
+  "taille": "45",
+  "etat": "Satisfaisant",
+  "url": "https://www.vinted.fr/items/10738258659-nike-sakai",
+  "photos": [
+   "https://images1.vinted.net/t/05_00d45_LBCMpcozLrxZgmeJsnhudo33/f800/2e0f5726.webp?s=7c56f211e5a1569988e704c8f0d45ed39191f5f0",
+   "https://images1.vinted.net/t/05_01c94_bBb2mZTxQvSBtbHz7mqzgpui/f800/2d3e9b8b.webp?s=e590fb8440f0f0d03ff5005a1e2376220837db66",
+   "https://images1.vinted.net/t/02_018ca_vG46R67FDjr7tCeJH3PpGv29/f800/beab2785.webp?s=fd11fcf4f16699cf28ff610b2ad181ca1a7e3710"
+  ],
+  "etiquette": "https://images1.vinted.net/t/02_018ca_vG46R67FDjr7tCeJH3PpGv29/f800/beab2785.webp?s=fd11fcf4f16699cf28ff610b2ad181ca1a7e3710",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 70
+  },
+  "ressemblance": 0.819,
+  "seuil": 0.744,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "matvxbes",
+   "id": "142213490",
+   "profil": "https://www.vinted.fr/member/142213490",
+   "avis": 1,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10775581846",
   "date": "2026-11-12T11:28:36+01:00",
   "type": "bleu",
@@ -9989,37 +10021,6 @@
    "profil": null,
    "avis": null,
    "etoiles": null
-  }
- },
- {
-  "id": "10598096881",
-  "date": "2026-10-30T17:57:57+01:00",
-  "type": "bleu",
-  "paire": "Black Canvas",
-  "famille": "Jordan 4",
-  "titre": "Air Jordan 4 Retro Black Canvas",
-  "prix": "30.00 EUR",
-  "taille": "40",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10598096881-air-jordan-4-retro-black-canvas",
-  "photos": [
-   "https://images1.vinted.net/t/05_020ec_sbH94j1diaUmN8hMXegiojs4/f800/7eed1d48.webp?s=1fb73b7a54026da798a32cd698cb73e0f5bc3ed9",
-   "https://images1.vinted.net/t/04_0124d_4zkLjvMinBZcLCm3qQ65ox6i/f800/b4928c13.webp?s=ea13f51bec23cf66d6a4bcddd89fe19f2dc8c45d",
-   "https://images1.vinted.net/t/06_00c95_5XuE456LXncwzoE4LghtB6FE/f800/91d913b1.webp?s=0abc9040153a4dd5e83b0989a6ff51c28f583d3f",
-   "https://images1.vinted.net/t/02_000c7_fZMGfouoh2Qr9uzCykopdAtT/f800/6d157661.webp?s=61748fbbdc28f429903d8d34d05ad35f2311b002",
-   "https://images1.vinted.net/t/01_0174d_KgKxUxatM25D8AQgkoUEtsTQ/f800/803607b9.webp?s=2d4e754310a94128bbc238e8f2f9d8801a64202a"
-  ],
-  "etiquette": "https://images1.vinted.net/t/01_0174d_KgKxUxatM25D8AQgkoUEtsTQ/f800/803607b9.webp?s=2d4e754310a94128bbc238e8f2f9d8801a64202a",
-  "ia": null,
-  "ressemblance": 0.82,
-  "seuil": 0.789,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 603,
-   "etoiles": 5.0
   }
  }
 ]
