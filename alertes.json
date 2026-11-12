@@ -1,5 +1,39 @@
 [
  {
+  "id": "10776958961",
+  "date": "2026-11-12T13:26:14+01:00",
+  "type": "bleu",
+  "paire": "Red Thunder",
+  "famille": "Jordan 4",
+  "titre": "Nike Air Jordan 4 Retro \"Red Thunder\"",
+  "prix": "20.00 EUR",
+  "taille": "40",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10776958961-nike-air-jordan-4-retro-red-thunder",
+  "photos": [
+   "https://images1.vinted.net/t/06_014b7_UmNeMSc7DCsGMuDdPpnaXdgo/f800/35017041.webp?s=3f9eb93ae9dc7080a1bed6558e5924461b4ca475",
+   "https://images1.vinted.net/t/02_023a8_JY2wcPef86yUeDB823mcBURK/f800/c361fd4e.webp?s=7524f201ca490f969b523abb4cb3e717d230dd21",
+   "https://images1.vinted.net/t/05_015e6_7DzNQwU3PZZDz9bNcVsBBLPG/f800/fa79c17d.webp?s=e5b2c5a433a08e16007f9cb3537053d9638fcc7a",
+   "https://images1.vinted.net/t/02_01894_S7Qbev3EG4vMhWMPf2oxiqYe/f800/6e1ffe13.webp?s=fbc9daf4123768587f5c3f2f8ef144760e4d5ded",
+   "https://images1.vinted.net/t/05_00431_3szHF4unQgVU6gCFkWifS52v/f800/aba9f410.webp?s=e998307f9d1e8aded85d95ce75cf3733392c288f",
+   "https://images1.vinted.net/t/03_01922_6TxXr1kHtC78BiXbgEAbEZmZ/f800/99eca4cd.webp?s=8fdafc6bf42c2bd28b9dfb5d6e9f40e584344c7d",
+   "https://images1.vinted.net/t/05_000ab_hXoJzkgYGfda82BNv7jgvFjB/f800/0a221ec8.webp?s=f432ec3f4846eeeb3f5b11162e5cf06023c1d029",
+   "https://images1.vinted.net/t/02_0140d_qzSzo7KyVqcjCafSipNsjfYV/f800/0d59bec5.webp?s=e1aa7c28c9d501bac8f806778bf1dd7cfa8de037"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.784,
+  "seuil": 0.68,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "hozygoodboy",
+   "id": "3170539531",
+   "profil": "https://www.vinted.fr/member/3170539531",
+   "avis": 0,
+   "etoiles": 0.0
+  }
+ },
+ {
   "id": "10776601906",
   "date": "2026-11-12T12:55:52+01:00",
   "type": "vert",
@@ -9984,37 +10018,6 @@
    "id": null,
    "profil": null,
    "avis": 330,
-   "etoiles": 4.9
-  }
- },
- {
-  "id": "10600813158",
-  "date": "2026-10-30T21:55:26+01:00",
-  "type": "bleu",
-  "paire": "Craft Photon Dust",
-  "famille": "Jordan 4",
-  "titre": "Air Jordan 4 Retro SE Craft beige et gris – Taille 40",
-  "prix": "35.00 EUR",
-  "taille": "40",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10600813158-air-jordan-4-retro-se-craft-beige-et-gris-taille-40",
-  "photos": [
-   "https://images1.vinted.net/t/02_0143b_BsJ2dy6v5SVGfgdeJwuDNjK6/f800/4532e754.webp?s=2475030f30c108348f786adbc15f0f63a5e6bb2f",
-   "https://images1.vinted.net/t/02_013ef_fp9Qeu6Xzb7HMuDnLYWUmxCd/f800/4dbeafcf.webp?s=9d45f9275e43983de5bc0c2c1bfac76c0554cce5",
-   "https://images1.vinted.net/t/02_025f9_rEhpo7ScqdseZNjZuut6m6g4/f800/175589b8.webp?s=b54aadcdcf680d97e5a937c237eda59966f69811",
-   "https://images1.vinted.net/t/01_00409_DFUp74zNg9kt1wVXNLZLeMzs/f800/51ec6566.webp?s=bb5af60327ceb8adff356275e61f40dcd861e6a3",
-   "https://images1.vinted.net/t/02_02618_CkxQW72GefFFN3j6ykyhtWdm/f800/9053f540.webp?s=4979575e9d421a613db77fbb314045a640794df7"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.793,
-  "seuil": 0.761,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 109,
    "etoiles": 4.9
   }
  }
