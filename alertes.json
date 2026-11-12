@@ -1,5 +1,44 @@
 [
  {
+  "id": "10784173510",
+  "date": "2026-11-12T22:02:58+01:00",
+  "type": "vert",
+  "paire": "Sacai Vaporwaffle Tour Yellow",
+  "famille": "Sacai",
+  "titre": "Basket Nike sacai",
+  "prix": "20.00 EUR",
+  "taille": "41",
+  "etat": "Satisfaisant",
+  "url": "https://www.vinted.fr/items/10784173510-basket-nike-sacai",
+  "photos": [
+   "https://images1.vinted.net/t/06_01d68_YgRxuRqdb7gu91gY1e7FKg7B/f800/03c1833c.webp?s=2bfa55be18c3d8e608d8d69fd16bd93413a3a85e",
+   "https://images1.vinted.net/t/05_01492_u8yDuzC8Wp2VPrDYwY9DBH2w/f800/d12a90a7.webp?s=1bfb38cf369947cd024c495f92367caeba70b9e2",
+   "https://images1.vinted.net/t/06_00c9b_w1Jd4VHDMaRBhT4xh7Hj1ssT/f800/afe9cb84.webp?s=c87cd7f296c753b1614c91a2aa1fa86fbfd64771",
+   "https://images1.vinted.net/t/05_0046f_HPPumxLXGbYgcnSL8XpkYDR5/f800/0d9d9bc7.webp?s=448377a93e554763bf5f4aa08c311bad59e8e8b5",
+   "https://images1.vinted.net/t/05_005c0_A4uoYBsz6J2hE2ehD2kKvBgH/f800/17b1da27.webp?s=6c4b11bcb69a18d8115f5bceff082fef3d95b85e",
+   "https://images1.vinted.net/t/06_0077e_qRp1cL4BEdvZdSfpXbwGYZNc/f800/967b1328.webp?s=9826c0edc676b2c5cf5c9da6b474650f0e04d94b",
+   "https://images1.vinted.net/t/01_00f0b_oTM5Xy6bT27sD1WnPvyTT8ct/f800/74fd3f07.webp?s=5626e9d0777006794dd930fb2e12feb76ff4baba",
+   "https://images1.vinted.net/t/05_01332_j1Jr11dsg97mXgh8gABY2c5u/f800/dbf6677f.webp?s=2fe2e803cbaef5b5bfd0e9740dd4f6a0ff4bc61e",
+   "https://images1.vinted.net/t/05_02008_XdpWMaFDPLL2w4SNCxHqPRCt/f800/0f31e291.webp?s=5892d3f40b756226d2eb1ed62c38cd7628ef7cd3",
+   "https://images1.vinted.net/t/06_02642_3NZ83QveaNp4frLWy2qbiyoh/f800/2cbfc9e7.webp?s=5a8a904fbccfba85c9687b2b92362a50852588d3"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 72
+  },
+  "ressemblance": 0.79,
+  "seuil": 0.686,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "mimi___77",
+   "id": "200214079",
+   "profil": "https://www.vinted.fr/member/200214079",
+   "avis": 311,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10766296129",
   "date": "2026-11-12T22:02:05+01:00",
   "type": "vert",
@@ -9987,37 +10026,6 @@
    "profil": null,
    "avis": 203,
    "etoiles": 4.8
-  }
- },
- {
-  "id": "10605943733",
-  "date": "2026-10-31T12:40:22+01:00",
-  "type": "bleu",
-  "paire": "Craft Olive",
-  "famille": "Jordan 4",
-  "titre": "Air Jordan 4 Retro SE \"Craft Medium Olive\"",
-  "prix": "29.00 EUR",
-  "taille": "43",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10605943733-air-jordan-4-retro-se-craft-medium-olive",
-  "photos": [
-   "https://images1.vinted.net/t/05_01396_hJuh9rHgzfdtvMHERE4HA3uw/f800/b782886c.webp?s=38bc2f052fc7367da3f18fef4d89c1f239d78ab4",
-   "https://images1.vinted.net/t/06_025dd_G6VYWdPPq62YVfwo17Ft5C1t/f800/22632fa3.webp?s=f718e660f11ba7a2817b376839ce66bbe817cd2c",
-   "https://images1.vinted.net/t/02_025bf_BZtSEvh8FDPUaVeSpbbTGCSn/f800/fdf9b110.webp?s=b8dad98579bb68ee363e0b86a3dee572aeff3655",
-   "https://images1.vinted.net/t/02_00dc0_hfzjEgpmbDcph1ioyjdUcMhx/f800/cce49aba.webp?s=81fa451bb2e88c0eaf4961321b50f70025dfff6e",
-   "https://images1.vinted.net/t/02_0155b_e2KAzJMhmRNUQEaYFa4KmB7q/f800/779ed454.webp?s=05f27619b0b62c2e92231e05721e1cd19d7cd17d"
-  ],
-  "etiquette": "https://images1.vinted.net/t/02_0155b_e2KAzJMhmRNUQEaYFa4KmB7q/f800/779ed454.webp?s=05f27619b0b62c2e92231e05721e1cd19d7cd17d",
-  "ia": null,
-  "ressemblance": 0.785,
-  "seuil": 0.778,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 9,
-   "etoiles": 4.9
   }
  }
 ]
