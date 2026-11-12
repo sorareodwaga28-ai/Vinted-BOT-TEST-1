@@ -1,5 +1,40 @@
 [
  {
+  "id": "10774817235",
+  "date": "2026-11-12T10:14:25+01:00",
+  "type": "bleu",
+  "paire": "Midnight Navy",
+  "famille": "Jordan 4",
+  "titre": "Baskets Air Jordan 4 Retro Midnight Navy 40",
+  "prix": "26.00 EUR",
+  "taille": "40",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10774817235-baskets-air-jordan-4-retro-midnight-navy-40",
+  "photos": [
+   "https://images1.vinted.net/t/01_010f2_hayQu8FJhGv1vTQeM2Cw1GWc/f800/7c69e547.webp?s=25616238ee464e1c57896a790b17ef96f47b1f21",
+   "https://images1.vinted.net/t/02_007c0_LNC8opnN9wskycYox8hRHUKg/f800/7011d861.webp?s=6ab71c651bcd68dee866297e488981cb9f3edbab",
+   "https://images1.vinted.net/t/01_012f5_bpG692k9buj9exWrNRB8fCmx/f800/7e579309.webp?s=75a135abc5ff2fd634da3f4802b9395385800bc1",
+   "https://images1.vinted.net/t/05_00a27_1kpThjdcb2w7mwWRckfnaSdD/f800/46726679.webp?s=6d26623e17572a7b101a05cc0aae67cbe19844ed",
+   "https://images1.vinted.net/t/02_007aa_TQEosfyEqeLLL2P5NkvJwkXk/f800/b12cfa1e.webp?s=de5654edfd437f9b1e2c48ceb0825d9894e564ba",
+   "https://images1.vinted.net/t/06_0263c_9LnpshfHwKuy2nabebX6ZSHM/f800/9ac4a4aa.webp?s=aead06f07e1decfc1babc59496e4025af9c1fc32",
+   "https://images1.vinted.net/t/06_0219c_DPYGsTcY3FDvLyRi7zLvuFg2/f800/11c0b480.webp?s=8e559364eee8a4bc98d0a1bfa9e39b19a7454ed2",
+   "https://images1.vinted.net/t/02_00ee1_5YswQDtgqD9T8thH74QnLy9J/f800/fe488047.webp?s=431b39eac888389174210108979b855d84858c10",
+   "https://images1.vinted.net/t/05_0080b_G8bGVVjFfNJsPqdaRUkAXFyf/f800/d95a7662.webp?s=88fa694c09ca24b3eb1c96844dc23c38f209f59f"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.807,
+  "seuil": 0.731,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "aourelliz",
+   "id": "26960611",
+   "profil": "https://www.vinted.fr/member/26960611",
+   "avis": 184,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10774360433",
   "date": "2026-11-12T09:14:39+01:00",
   "type": "bleu",
@@ -9988,36 +10023,6 @@
    "profil": null,
    "avis": 0,
    "etoiles": 0.0
-  }
- },
- {
-  "id": "10596873291",
-  "date": "2026-10-30T16:27:11+01:00",
-  "type": "bleu",
-  "paire": "Thunder",
-  "famille": "Jordan 4",
-  "titre": "Jordan 4 Yellow Thunder",
-  "prix": "42.00 EUR",
-  "taille": "43",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10596873291-jordan-4-yellow-thunder",
-  "photos": [
-   "https://images1.vinted.net/t/06_00343_AjvkjEnWyQki2CHK371474us/f800/0a3a518a.webp?s=18ae54cddd4c03329544151e0815bfd0ee299498",
-   "https://images1.vinted.net/t/05_01276_tMmipzyLeiTQ5nPRFPkWGKrS/f800/b07bdd16.webp?s=ab51b65063181a34268e21a15e49ff672d99b012",
-   "https://images1.vinted.net/t/03_02708_VJc5PfyWaR2HdTLz3nz4fkyy/f800/65009223.webp?s=353d096d18bacd79f346d092fc71961198f08563",
-   "https://images1.vinted.net/t/04_00064_VvkeHjjRwjWS9dJABPFTxXXG/f800/100dbaf0.webp?s=819453e0d49c8fc9bee6379c404b7965258bdce5"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.75,
-  "seuil": 0.72,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 53,
-   "etoiles": 4.3
   }
  }
 ]
