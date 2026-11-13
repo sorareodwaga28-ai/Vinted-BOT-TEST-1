@@ -1,5 +1,40 @@
 [
  {
+  "id": "10792050866",
+  "date": "2026-11-13T15:38:19+01:00",
+  "type": "vert",
+  "paire": "Sacai Vaporwaffle Villain Red",
+  "famille": "Sacai",
+  "titre": "nike sacai",
+  "prix": "30.00 EUR",
+  "taille": "40",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10792050866-nike-sacai",
+  "photos": [
+   "https://images1.vinted.net/t/01_0060e_FtbvZYNLQkaVFsijTVppCcXr/f800/0340b0f0.webp?s=788a5a71d0dfad1208de054570f8359e4ff563e8",
+   "https://images1.vinted.net/t/05_008b4_6LyZTw9H9YUH8VgQzgaK9erZ/f800/59ebe2d8.webp?s=d2a7b2e22b8b1bf962f9cf55d35c7fda85be4daa",
+   "https://images1.vinted.net/t/04_00557_BbZr9xTgy6uonc4YKrdzPfrc/f800/ad831d7a.webp?s=5859d6008866720a0a2f910a333e394c307b0670",
+   "https://images1.vinted.net/t/06_02224_TRQ6dRBU1uMjUCWSi7gXSuTR/f800/82ab8fc2.webp?s=de6e738aa3c154917365649383f27f2adbf347f0",
+   "https://images1.vinted.net/t/06_00e8d_MQWYiKhBk3Ka2x9kfCmoNxFu/f800/d1a06f15.webp?s=e052861b377a30f1b388506ff0111ec1f0786bba",
+   "https://images1.vinted.net/t/01_016bb_g1xCkfCLfQLGXCdtHLG7JbM7/f800/7ad31b0e.webp?s=3d43af119d398ff5ade3a5b9d9b58382109931c4"
+  ],
+  "etiquette": "https://images1.vinted.net/t/06_02224_TRQ6dRBU1uMjUCWSi7gXSuTR/f800/82ab8fc2.webp?s=de6e738aa3c154917365649383f27f2adbf347f0",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 70
+  },
+  "ressemblance": 0.834,
+  "seuil": 0.705,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "15598230",
+   "profil": "https://www.vinted.fr/member/15598230",
+   "avis": 218,
+   "etoiles": 4.1
+  }
+ },
+ {
   "id": "10771713054",
   "date": "2026-11-13T15:05:00+01:00",
   "type": "bleu",
@@ -10019,37 +10054,6 @@
    "id": null,
    "profil": null,
    "avis": 2,
-   "etoiles": 5.0
-  }
- },
- {
-  "id": "9870852996",
-  "date": "2026-10-31T14:34:55+01:00",
-  "type": "bleu",
-  "paire": "Nocta Glide White",
-  "famille": "Nocta",
-  "titre": "Nike NOCTA Glide Drake White Chrome",
-  "prix": "32.00 EUR",
-  "taille": "42",
-  "etat": "Satisfaisant",
-  "url": "https://www.vinted.fr/items/9870852996-nike-nocta-glide-drake-white-chrome",
-  "photos": [
-   "https://images1.vinted.net/t/05_002c0_nZ95BV4YxQYVnF6N2HdUfYYm/f800/e6ae4e43.webp?s=cea9dcb44fa1f045b067893efd02b68a8a43dff7",
-   "https://images1.vinted.net/t/05_01a77_msCVwa4iomKsYoHtRy1d3v17/f800/8133350a.webp?s=88880f2767609c81f102e828fe8093d4db4edf3f",
-   "https://images1.vinted.net/t/02_01f5b_kZgYXpAozMp9sR41PvUf3G9T/f800/f46c6e87.webp?s=34d2e644dc74947027a5d30669b7873ae935920f",
-   "https://images1.vinted.net/t/05_001f1_nd8W6b5zmFMY4wPox5zatU9W/f800/bc2da0fd.webp?s=71a45cb9cb4f7b80d5d2b7f7ac7036f28ccf414a",
-   "https://images1.vinted.net/t/06_00e75_8LoxnHWSkJtTwLCj8hEQ3HBA/f800/5df1950d.webp?s=38931debb59ca58990f579532c87641ede898a4e"
-  ],
-  "etiquette": "https://images1.vinted.net/t/06_00e75_8LoxnHWSkJtTwLCj8hEQ3HBA/f800/5df1950d.webp?s=38931debb59ca58990f579532c87641ede898a4e",
-  "ia": null,
-  "ressemblance": 0.837,
-  "seuil": 0.783,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 17,
    "etoiles": 5.0
   }
  }
