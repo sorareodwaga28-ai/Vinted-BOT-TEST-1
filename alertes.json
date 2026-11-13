@@ -1,5 +1,38 @@
 [
  {
+  "id": "10790250898",
+  "date": "2026-11-13T13:23:28+01:00",
+  "type": "bleu",
+  "paire": "Rare Air",
+  "famille": "Jordan 4",
+  "titre": "Air Jordan 4 Retro \"Rare Air\"",
+  "prix": "40.00 EUR",
+  "taille": "44",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10790250898-air-jordan-4-retro-rare-air",
+  "photos": [
+   "https://images1.vinted.net/t/02_02228_APkrqsJKG1LsCzmYUfPGtLE4/f800/b64ea0f0.webp?s=90d703160ca1d4f40dc366a12d8679c63bbd73d1",
+   "https://images1.vinted.net/t/06_00edd_HfuDqV1GLUCjW5GcRG6v4uKC/f800/f94ef44f.webp?s=9af8e558518dbd3736be62a3699bba34f61cdd62",
+   "https://images1.vinted.net/t/02_026c8_7jf7jw5swn26i5bqDG72CRhM/f800/4498e468.webp?s=7b7f2297a248a1a78a4d56dfc64d5efe04df3538",
+   "https://images1.vinted.net/t/05_0179a_rjwsyPMfYzayTyLAgFC9HfcB/f800/c9d6e716.webp?s=88df34fed082bc02a6e1a11283369c0567288c8e",
+   "https://images1.vinted.net/t/01_01904_XrF6C22UYzviHEmKATc7xuka/f800/65cdac26.webp?s=79855f026d83f9c7224527223a3931f9cdf92b6c",
+   "https://images1.vinted.net/t/04_00c36_gZ2kkiEW98ecQoom7C9VipRz/f800/db9877dd.webp?s=a6ca4d1e8f8d129bb9cd4d74aaac4ee3d97f37be",
+   "https://images1.vinted.net/t/05_00121_DQE5KG3cmxHiXVgDmmiLpgNp/f800/4b486d2b.webp?s=89f29b2234f44de6c97d2a526e989aaa04e92953"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.777,
+  "seuil": 0.68,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "zubkowska1988",
+   "id": "3184246562",
+   "profil": "https://www.vinted.fr/member/3184246562",
+   "avis": 19,
+   "etoiles": 4.8
+  }
+ },
+ {
   "id": "10732464197",
   "date": "2026-11-13T12:04:12+01:00",
   "type": "bleu",
@@ -9997,36 +10030,6 @@
    "id": null,
    "profil": null,
    "avis": 34,
-   "etoiles": 5.0
-  }
- },
- {
-  "id": "10606514789",
-  "date": "2026-10-31T13:21:26+01:00",
-  "type": "bleu",
-  "paire": "Bred Reimagined",
-  "famille": "Jordan 4",
-  "titre": "Air Jordan 4 Retro ‘Bred Reimagined’",
-  "prix": "30.00 EUR",
-  "taille": "42",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10606514789-air-jordan-4-retro-bred-reimagined",
-  "photos": [
-   "https://images1.vinted.net/t/02_01969_dVMpc3yhNvoYVt7yuX9sKxf2/f800/b83d86a1.webp?s=2845509f572d348042dd267ec901ab46d867cdb3",
-   "https://images1.vinted.net/t/05_00954_gLk1mV81vx7qRy4szkY42kuC/f800/c14ab425.webp?s=ae86424e37165b7d966f2bccdeab6455398df50a",
-   "https://images1.vinted.net/t/02_00b72_KLP6Nbjfk6YqinfMJQ3YxA8P/f800/0a35394f.webp?s=bf79ee60165ed5625815d416745371f0f53d1aca",
-   "https://images1.vinted.net/t/01_01739_V79AvjiQm357hxm6Lhf93EHx/f800/46d6f9ae.webp?s=01424c38ba06649c8aaeaf3c2318ed65fff4a6c3"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.842,
-  "seuil": 0.747,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 11,
    "etoiles": 5.0
   }
  }
