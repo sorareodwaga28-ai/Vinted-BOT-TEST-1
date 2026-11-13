@@ -1,5 +1,41 @@
 [
  {
+  "id": "10795268497",
+  "date": "2026-11-13T20:40:54+01:00",
+  "type": "vert",
+  "paire": "Air Max 1 Watermelon",
+  "famille": "Air Max 1",
+  "titre": "Nike air Max 1",
+  "prix": "35.00 EUR",
+  "taille": "40",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10795268497-nike-air-max-1",
+  "photos": [
+   "https://images1.vinted.net/t/05_01d3b_sBBXFbLKnYFoGeq4Kkg6cd6g/f800/09cea95d.webp?s=81a55788b6777217f15e7423a62583b553cbe1a0",
+   "https://images1.vinted.net/t/04_00b38_YRpGL8hDkLr7HuRHrWD35yyq/f800/d5abb7d4.webp?s=4c72d692e5e95ed9522d9a35ec7781b46e42bdda",
+   "https://images1.vinted.net/t/02_00312_uP8Vt9tYNfbeSYtXhK7mvtSS/f800/e495b8e5.webp?s=bbb046cc37fb7c95997729fc09c8f9d4e7927618",
+   "https://images1.vinted.net/t/02_007d1_Sd8ZqxXDH8xX4cx3pj5uW1cd/f800/33812195.webp?s=3460dd61a35a6048ada16b8a7db666b10e1220fb",
+   "https://images1.vinted.net/t/05_003f5_bCkwofa13SCyusvCFyhg7b2a/f800/34ecce2c.webp?s=d6d6fef7a8883a82ba62757d6def716d44fd722f",
+   "https://images1.vinted.net/t/01_01aa0_YFYrWeVKkP5U7DurLnJizaiV/f800/4cebc79d.webp?s=4a5ec3a84383df258a712265bf72e62a26705803",
+   "https://images1.vinted.net/t/06_0179a_GmAC4mQNhXZA68XcUMXPebEo/f800/d8ff25d5.webp?s=88cbd1b0601aa86290f4a0f14899848ce1943d6b"
+  ],
+  "etiquette": "https://images1.vinted.net/t/02_007d1_Sd8ZqxXDH8xX4cx3pj5uW1cd/f800/33812195.webp?s=3460dd61a35a6048ada16b8a7db666b10e1220fb",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 72
+  },
+  "ressemblance": 0.84,
+  "seuil": 0.68,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "roelv3",
+   "id": "293087270",
+   "profil": "https://www.vinted.fr/member/293087270",
+   "avis": 78,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10738992392",
   "date": "2026-11-13T20:01:22+01:00",
   "type": "bleu",
@@ -10039,40 +10075,6 @@
    "profil": null,
    "avis": 75,
    "etoiles": 4.9
-  }
- },
- {
-  "id": "10608609510",
-  "date": "2026-10-31T15:40:59+01:00",
-  "type": "bleu",
-  "paire": "Air Max 1 Watermelon",
-  "famille": "Air Max 1",
-  "titre": "Nike Air Max ID Watermelon",
-  "prix": "30.00 EUR",
-  "taille": "45",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10608609510-nike-air-max-id-watermelon",
-  "photos": [
-   "https://images1.vinted.net/t/04_0115a_FaVQTi5Q4WtohCXhNBDFdoS2/f800/7ab17164.webp?s=7672137d1f87aa1a35b949b3a1a6e5ca811337f9",
-   "https://images1.vinted.net/t/04_025e5_EC5jzr8ZodQQmid1oafYgfae/f800/576e258c.webp?s=29c9948e1baeb039750cf45ab38b3430cd359a9f",
-   "https://images1.vinted.net/t/01_02243_L9rPxJX5jqZ3r9LCZLFYwxY4/f800/0f0f26bf.webp?s=ae59be45c863e3da0a389971dcc28417801f5bfd",
-   "https://images1.vinted.net/t/05_01d76_kQo3Q9Upc1tYTGq5Cj6kkHVC/f800/b72c749c.webp?s=683de69beb73317f51f7116083cf8d1464f57b01",
-   "https://images1.vinted.net/t/06_01800_RWxT3EdaJDpx1tgXoZ5RQBEe/f800/b96bc034.webp?s=301a2ef66330657097f593929cf29fb05b0a3ea0",
-   "https://images1.vinted.net/t/02_00d4a_vXRxizXrshVZALAEH9yfkBtM/f800/75e17b26.webp?s=d25d0738694177ce5f4cb4f1792a382ce3fa7a4b",
-   "https://images1.vinted.net/t/02_00733_iGphgGM9tk2S4E8WWBo6gvpa/f800/d6e0093b.webp?s=8770268cffb0f934c8f1a4bcdb196ab85440013d",
-   "https://images1.vinted.net/t/01_00abe_NvXPk8rVEQcJhp63uXxcE91Z/f800/75e3cc97.webp?s=3c7ddd4fcef50b7b864f4a18d2767c3159c6a8b4"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.791,
-  "seuil": 0.788,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 39,
-   "etoiles": 5.0
   }
  }
 ]
