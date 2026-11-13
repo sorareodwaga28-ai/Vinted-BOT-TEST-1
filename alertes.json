@@ -1,5 +1,40 @@
 [
  {
+  "id": "10769817005",
+  "date": "2026-11-13T14:00:01+01:00",
+  "type": "bleu",
+  "paire": "Infrared",
+  "famille": "Jordan 4",
+  "titre": "jordan 4 Infrared",
+  "prix": "35.00 EUR",
+  "taille": "45,5",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10769817005-jordan-4-infrared",
+  "photos": [
+   "https://images1.vinted.net/t/01_00b51_Mjz9ryeDBoVXPQecdwq3Gcvg/f800/00855533.webp?s=42a2f485df0d0c6fd05d57d5d78b19460b4fb2f5",
+   "https://images1.vinted.net/t/05_01519_NBMd1dmgEyEU4hveKedYdfD7/f800/e5ee74f2.webp?s=3368d9b503dc9a3f30223f2cd3f615ae14bc5886",
+   "https://images1.vinted.net/t/02_000c6_j6LVGKrduDvvWfKfgR1w9ye6/f800/9a4168b8.webp?s=aefe86440947313d68d6c26725adc5b587a5298c",
+   "https://images1.vinted.net/t/06_009af_8RxyfTtQyWzFZtnX4enXdGtD/f800/4228ce24.webp?s=809d32cafb394099c8a034a96b2fa2f1836b3857",
+   "https://images1.vinted.net/t/06_00cd0_D8AhG4YJ3BeS8TYgpwMLBHgw/f800/0e18ec6f.webp?s=fd993542afef0c6340e471ce4ae73a17a449c92d",
+   "https://images1.vinted.net/t/06_02395_V7hCLDaFTEmeXAnJKZhWsLd7/f800/39a2960e.webp?s=9c4783fc08efabf70fb6e95778550633e6685b44",
+   "https://images1.vinted.net/t/02_01bc6_PwAysfhPZR4KTsFcqPqtJYGY/f800/e58e4d96.webp?s=68585b790bda11fe1d93a554254fc28b55d8c466",
+   "https://images1.vinted.net/t/02_01a46_qk55xqMUDWfCht6VESyZi9Nn/f800/412c18b4.webp?s=8c59aa2c91765c848414a30355863033ecc55732",
+   "https://images1.vinted.net/t/03_01c74_TfYv9WrGrm9V2eKz8ZSy8TLu/f800/c180f285.webp?s=84f054415f292609395f9a20c8f80112c7370c08"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.859,
+  "seuil": 0.68,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "314666022",
+   "profil": "https://www.vinted.fr/member/314666022",
+   "avis": 1,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10790250898",
   "date": "2026-11-13T13:23:28+01:00",
   "type": "bleu",
@@ -9996,41 +10031,6 @@
    "profil": null,
    "avis": 27,
    "etoiles": 4.9
-  }
- },
- {
-  "id": "10606813449",
-  "date": "2026-10-31T13:43:25+01:00",
-  "type": "vert",
-  "paire": "Craft Olive",
-  "famille": "Jordan 4",
-  "titre": "Jordan 4",
-  "prix": "40.00 EUR",
-  "taille": "43",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10606813449-jordan-4",
-  "photos": [
-   "https://images1.vinted.net/t/05_0123e_Svhq9jg2GcCAfBeqHaAZ7mJR/f800/d77f625a.webp?s=b3cb0e6bdfdd42bc1b595429570f865a72384b99",
-   "https://images1.vinted.net/t/01_0146e_ZLCaMzUwGwN6bGeNsHXaGJQW/f800/ce39006d.webp?s=4a6337b44bd0b9cebf9fcc4d3a11a74cb64cd1b4",
-   "https://images1.vinted.net/t/06_026f7_sJcJmWAhnHG4Nx4rcYpAnLXN/f800/6772931a.webp?s=eeb51489129c79be17d9e1ecdfa0432e10945d32",
-   "https://images1.vinted.net/t/05_00190_gPhMRLmwtFW4rkAMyvJvy2Vi/f800/e4e227d2.webp?s=8a11fee9000c2eeb8792cb5cdfc81eacec473f36",
-   "https://images1.vinted.net/t/05_024e6_RBCWngs4RAP7dU37cUWGGmto/f800/2fb8ddf8.webp?s=7b003854260e050588154c4d1123d23b4a168f36",
-   "https://images1.vinted.net/t/02_01571_fa5cxVw5u2er9iRG22p35TjJ/f800/d0910a54.webp?s=de06bcdf0a1dc757acabe3d0ff09bf404cc1961a"
-  ],
-  "etiquette": null,
-  "ia": {
-   "verdict": "oui",
-   "confiance": 85
-  },
-  "ressemblance": 0.846,
-  "seuil": 0.779,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 34,
-   "etoiles": 5.0
   }
  }
 ]
