@@ -1,5 +1,38 @@
 [
  {
+  "id": "10794384037",
+  "date": "2026-11-13T18:24:29+01:00",
+  "type": "vert",
+  "paire": "Sacai LDWaffle Undercover Yellow",
+  "famille": "Sacai",
+  "titre": "Nike sacai jaune citron taille 41",
+  "prix": "33.00 EUR",
+  "taille": "41",
+  "etat": "Satisfaisant",
+  "url": "https://www.vinted.fr/items/10794384037-nike-sacai-jaune-citron-taille-41",
+  "photos": [
+   "https://images1.vinted.net/t/02_01064_3pfqrRvYCnFTpVN6RBHCSNWX/f800/150695c8.webp?s=035c4ec128bec5f7d8a760ffcb9c5a46b96b4e82",
+   "https://images1.vinted.net/t/06_006cf_izh3cA99iauLrEaLQLvq17Hk/f800/77b41987.webp?s=7ca14e9e7b14a82ca47c25256453f85991926a77",
+   "https://images1.vinted.net/t/02_00951_VPrzC89gC4Ni3TkvqV5gZhBm/f800/0fdb6e26.webp?s=c830ada16d1189577ec7cb3b9fcd81a22dfbe670",
+   "https://images1.vinted.net/t/02_011b8_D3g3ksA8hVWRwavWSeBVK6p4/f800/85648bfd.webp?s=0b4a5ed0e863ff255af0f2c5e0b3466d406428da"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 85
+  },
+  "ressemblance": 0.812,
+  "seuil": 0.681,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "tom70220",
+   "id": "70214175",
+   "profil": "https://www.vinted.fr/member/70214175",
+   "avis": 76,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10793414487",
   "date": "2026-11-13T17:40:18+01:00",
   "type": "vert",
@@ -10037,33 +10070,6 @@
    "profil": null,
    "avis": 184,
    "etoiles": 5.0
-  }
- },
- {
-  "id": "10607844872",
-  "date": "2026-10-31T14:51:59+01:00",
-  "type": "bleu",
-  "paire": "Shimmer",
-  "famille": "Jordan 4",
-  "titre": "Nike Air Jordan 4 Retro Shimmer",
-  "prix": "40.00 EUR",
-  "taille": "42",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10607844872-nike-air-jordan-4-retro-shimmer",
-  "photos": [
-   "https://images1.vinted.net/t/05_00814_sFFV6UzqUfKU2nFHu9gGbWBn/f800/6638a9a7.webp?s=cc6ce23f540b1e79d44f7e207de637eb654365d9"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.817,
-  "seuil": 0.804,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": null,
-   "etoiles": null
   }
  }
 ]
