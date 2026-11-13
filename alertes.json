@@ -1,5 +1,43 @@
 [
  {
+  "id": "10791156702",
+  "date": "2026-11-13T14:32:55+01:00",
+  "type": "vert",
+  "paire": "SB Pine Green",
+  "famille": "Jordan 4",
+  "titre": "Nike SB xAir Jordan 4",
+  "prix": "25.00 EUR",
+  "taille": "41",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10791156702-nike-sb-xair-jordan-4",
+  "photos": [
+   "https://images1.vinted.net/t/06_013e3_F8JMm1yoVwve7FN7n6Jizgvx/f800/c0759561.webp?s=6da310b023e33461fdeb3e51018a6a4a61febab8",
+   "https://images1.vinted.net/t/02_02233_H2n6ymeBFznPcXzRW9kH9yeM/f800/1df114a7.webp?s=6c12aa056033d7ae613fb224efe3981c06243cbb",
+   "https://images1.vinted.net/t/06_00323_mYZiKPt94xwGxhMpvWK7WisS/f800/04a93149.webp?s=cc75bf2fca79b746ee624c52ce8ef4870c7e827e",
+   "https://images1.vinted.net/t/06_01f29_ehRLrPv6bHxAHGeJPxoVXMpJ/f800/ceea79e4.webp?s=b5b2a645a8bded95a43ee037294a6466964a51d1",
+   "https://images1.vinted.net/t/01_01362_s46EgEupckNZwNSddYQDKN9t/f800/9ba6d38e.webp?s=7fc53e8839779e3c1d80e8a1a06682927292e84a",
+   "https://images1.vinted.net/t/01_00262_yp4hW7LHCnEYNkgKaZ9ohdsw/f800/973c5c71.webp?s=85199ec2492c528ed017d791207c048161556c0d",
+   "https://images1.vinted.net/t/05_01b4b_8SCpfNKnrVTuKhxAXmuuK5DM/f800/56eb2f52.webp?s=08da843dce4214b0dac3124d5b4f43116b35a57c",
+   "https://images1.vinted.net/t/06_017c7_brqRfgrMhfYz4cgYdopWwsYm/f800/a27272e3.webp?s=89e1e42c59d8b24d184c94f955686ee6ed24a8ef",
+   "https://images1.vinted.net/t/06_01100_UKQqk2KumrFaPr9pwXn3cSR4/f800/738d65ec.webp?s=62d920735a5d20fa819de0e0ddbb1d7ae57a83b5"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.819,
+  "seuil": 0.685,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "264779319",
+   "profil": "https://www.vinted.fr/member/264779319",
+   "avis": 10,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10733985187",
   "date": "2026-11-13T14:02:05+01:00",
   "type": "vert",
@@ -10002,40 +10040,6 @@
    "profil": null,
    "avis": 1,
    "etoiles": 5.0
-  }
- },
- {
-  "id": "10597162947",
-  "date": "2026-10-31T14:09:59+01:00",
-  "type": "vert",
-  "paire": "Fear",
-  "famille": "Jordan 4",
-  "titre": "Jordan 4",
-  "prix": "22.00 EUR",
-  "taille": "40",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10597162947-jordan-4",
-  "photos": [
-   "https://images1.vinted.net/t/06_00ee4_vLEJRdqkSC1Wa1RU6r1tiQva/f800/98fc633a.webp?s=2fce76d69bfb146e4bb413b8cf4660214bf5859f",
-   "https://images1.vinted.net/t/06_024c2_CoJounV6iGMjVBZo5KSLhMr5/f800/3208747e.webp?s=38527e10e1baa6bc68af5fe9cbed6f348f078570",
-   "https://images1.vinted.net/t/01_0263e_iFoLb3bYcyHuXSJFHbJxuX4X/f800/bc935ece.webp?s=f7845afb437a69809ab1ea9d6f1ad243e23f101d",
-   "https://images1.vinted.net/t/06_01bb5_zjH1b4RjdyYrUmfnuMnk7BuZ/f800/a76b6022.webp?s=a1b0346d7ea4d4e72d4d1324c486ee3fdae92b56",
-   "https://images1.vinted.net/t/06_00b5e_vPE6aEQQuud6AefxfmnmojHx/f800/187893c4.webp?s=51fd0a8d0d563fe6b9d5b680f55f04e8a3adf498"
-  ],
-  "etiquette": "https://images1.vinted.net/t/06_024c2_CoJounV6iGMjVBZo5KSLhMr5/f800/3208747e.webp?s=38527e10e1baa6bc68af5fe9cbed6f348f078570",
-  "ia": {
-   "verdict": "oui",
-   "confiance": 85
-  },
-  "ressemblance": 0.84,
-  "seuil": 0.769,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 0,
-   "etoiles": 0.0
   }
  }
 ]
