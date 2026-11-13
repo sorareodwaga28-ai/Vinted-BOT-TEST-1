@@ -1,5 +1,39 @@
 [
  {
+  "id": "10733985187",
+  "date": "2026-11-13T14:02:05+01:00",
+  "type": "vert",
+  "paire": "Lightning",
+  "famille": "Jordan 4",
+  "titre": "Scarpe Jordan",
+  "prix": "26.00 EUR",
+  "taille": "42,5",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10733985187-scarpe-jordan",
+  "photos": [
+   "https://images1.vinted.net/t/05_01e8a_KLEp6s8uUcWXwEwdk71MDqxk/f800/196940a4.webp?s=1716afce9c7ce720d2043891dc31dd84daa6f79e",
+   "https://images1.vinted.net/t/02_0004d_FB9xKXCEeRnGay3mMZygHFot/f800/c1e4cde2.webp?s=db3a921913d46b19fe4b1f392393a1ac32c5eb5b",
+   "https://images1.vinted.net/t/01_00fb0_hrQS98nxUMB5tuCnpfndSc95/f800/6e48623f.webp?s=401dd388f0998a7046b85776d0dbaad3de6b1469",
+   "https://images1.vinted.net/t/05_01317_MnjFYhh8twuVA8nXNZH6yirM/f800/c24cc5fd.webp?s=0fff2f755def362dce9f1da5710bc4262af27370",
+   "https://images1.vinted.net/t/06_00c78_VCvHW6fyD1xdat4eaFgYKfxm/f800/b7bb9e93.webp?s=6823964987ba1ac2808c90ad7bbd1fa7480efcfb"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 72
+  },
+  "ressemblance": 0.78,
+  "seuil": 0.704,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "sasha6932",
+   "id": "122169240",
+   "profil": "https://www.vinted.fr/member/122169240",
+   "avis": 9,
+   "etoiles": 4.6
+  }
+ },
+ {
   "id": "10769817005",
   "date": "2026-11-13T14:00:01+01:00",
   "type": "bleu",
@@ -10002,35 +10036,6 @@
    "profil": null,
    "avis": 0,
    "etoiles": 0.0
-  }
- },
- {
-  "id": "10606918806",
-  "date": "2026-10-31T13:49:53+01:00",
-  "type": "bleu",
-  "paire": "SB Pine Green",
-  "famille": "Jordan 4",
-  "titre": "Air Jordan 4 RM \"Pine Green\"",
-  "prix": "55.00 EUR",
-  "taille": "40",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10606918806-air-jordan-4-rm-pine-green",
-  "photos": [
-   "https://images1.vinted.net/t/06_00ecc_1PcK2L3ebDHAdA9NAm55Bium/f800/75487028.webp?s=1a6837f1603c5e8d62164f6d677d95e1113e320b",
-   "https://images1.vinted.net/t/02_00bc8_oQUSJgbAHD8t4SxvwZ9NiWEk/f800/c95beed0.webp?s=76897a05e6eb78def656682b21d6329a4c5cdf1b",
-   "https://images1.vinted.net/t/03_00bae_KiukPuXv2EQiQ2u3MTiBcyea/f800/62fe834c.webp?s=aea8900a30d0364d6f4ca1e81cc9b8ecb0d5490e"
-  ],
-  "etiquette": "https://images1.vinted.net/t/02_00bc8_oQUSJgbAHD8t4SxvwZ9NiWEk/f800/c95beed0.webp?s=76897a05e6eb78def656682b21d6329a4c5cdf1b",
-  "ia": null,
-  "ressemblance": 0.849,
-  "seuil": 0.744,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 27,
-   "etoiles": 4.9
   }
  }
 ]
