@@ -1,5 +1,43 @@
 [
  {
+  "id": "10809506188",
+  "date": "2026-11-14T18:55:52+01:00",
+  "type": "vert",
+  "paire": "Sacai Vaporwaffle Sesame Blue Void",
+  "famille": "Sacai",
+  "titre": "Nike sacai 44 beige et bleu",
+  "prix": "15.00 EUR",
+  "taille": "44",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10809506188-nike-sacai-44-beige-et-bleu",
+  "photos": [
+   "https://images1.vinted.net/t/02_0034d_nywBCZVhkP92zVP5Jze6GUyc/f800/d8aece70.webp?s=203ba2bf30718ee56ea96d49139637d5bdf645c9",
+   "https://images1.vinted.net/t/02_01133_oLy35ZYuBvVfy8XuD9aHa3AM/f800/6eb4d548.webp?s=0380e9a228314286fea0e74cec5524bb7cf0813a",
+   "https://images1.vinted.net/t/04_01917_zUd6VVJ1pokN3MnnMxEHshww/f800/f01b7c4b.webp?s=110e9b2003109473c27cd1d3e81df757656da93f",
+   "https://images1.vinted.net/t/02_01e14_JoQrrUWMyQEYp4ug8o8yvj6q/f800/5b832fa3.webp?s=d1b84ef82f90f1c118805313663b57cf91a560d2",
+   "https://images1.vinted.net/t/06_00b9f_MQQBtTym2BnzoXZ3xCmibUK9/f800/8aea6dca.webp?s=8e302e86eb2f8dcf2fa5f5aeb979e7cb767d524f",
+   "https://images1.vinted.net/t/01_01b44_wyaXVi93MR1f3ZZAwgj6qj6J/f800/8794b1af.webp?s=e06f0650583dd4fa6c5b99ccc4464a062f977e5e",
+   "https://images1.vinted.net/t/06_00d28_RxdDc4h5uTWXdQMmKA5SpiJ1/f800/7adfb321.webp?s=3691a4f26f9cdfc8b4707f7ac2aeacfdc1c73d3d",
+   "https://images1.vinted.net/t/06_0173e_2hNyXJKzyG1TFb2ks1D21qLZ/f800/8036d3e4.webp?s=bf6c837ac9e4d5f3e637e0967b675d34533fcf23",
+   "https://images1.vinted.net/t/03_00119_etZhd3gh96F2EDcij8HnxURV/f800/915fb136.webp?s=4b42f1ef4f9fecbb53ce5382f686fb051dc4589f"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 70
+  },
+  "ressemblance": 0.683,
+  "seuil": 0.68,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "loicbt1314",
+   "id": "27815369",
+   "profil": "https://www.vinted.fr/member/27815369",
+   "avis": 110,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10807611249",
   "date": "2026-11-14T17:03:47+01:00",
   "type": "vert",
@@ -10040,39 +10078,6 @@
    "profil": null,
    "avis": 71,
    "etoiles": 4.9
-  }
- },
- {
-  "id": "10608586981",
-  "date": "2026-11-01T07:33:52+01:00",
-  "type": "vert",
-  "paire": "Black Canvas",
-  "famille": "Jordan 4",
-  "titre": "Baskets homme Air Jordan pointure 41",
-  "prix": "40.00 EUR",
-  "taille": "41",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10608586981-baskets-homme-air-jordan-pointure-41",
-  "photos": [
-   "https://images1.vinted.net/t/01_01dc9_NrKxE5ookD9qRzj6W4U7Zjyv/f800/2db870c2.webp?s=6fddffbf73528438abe3edea24ed63ce38cf8124",
-   "https://images1.vinted.net/t/06_022f2_G5eXAC4wmm8WdSWSLwaaptZp/f800/cbc53de5.webp?s=67842f9307cf3645aecaab95f9be9859ef5529b4",
-   "https://images1.vinted.net/t/06_022d3_MauWgope96W49bu2vV7emBjg/f800/17a3fc90.webp?s=361d897ace3995aba359e2ad992c923c582eb403",
-   "https://images1.vinted.net/t/05_007d2_9kAnSdSTUc5jzZckFarL7p24/f800/94defb62.webp?s=b3619d67232df10a901b5f426849bbe7251256c2"
-  ],
-  "etiquette": "https://images1.vinted.net/t/05_007d2_9kAnSdSTUc5jzZckFarL7p24/f800/94defb62.webp?s=b3619d67232df10a901b5f426849bbe7251256c2",
-  "ia": {
-   "verdict": "oui",
-   "confiance": 85
-  },
-  "ressemblance": 0.887,
-  "seuil": 0.758,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 112,
-   "etoiles": 5.0
   }
  }
 ]
