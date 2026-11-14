@@ -1,5 +1,38 @@
 [
  {
+  "id": "10763223563",
+  "date": "2026-11-14T12:28:22+01:00",
+  "type": "vert",
+  "paire": "Sacai LDWaffle Undercover Yellow",
+  "famille": "Sacai",
+  "titre": "Nike Sacai mujer EU 36",
+  "prix": "50.00 EUR",
+  "taille": "Autre",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10763223563-nike-sacai-mujer-eu-36",
+  "photos": [
+   "https://images1.vinted.net/t/05_00fcd_KU9m7ceW3VVMzPaPx3JjpxP2/f800/27c14018.webp?s=ce7cdbb93445388ea89640b0dcfd2eed012958b4",
+   "https://images1.vinted.net/t/05_00f90_NEbiK57VHf2dmmb3nYxSmaqe/f800/7e06a682.webp?s=bafbfa6b7927f33a5b88a4395714438511d3ca0d",
+   "https://images1.vinted.net/t/02_003f5_q7g7DHfdY3iV8Xviu39NGRq9/f800/beca3286.webp?s=172d819f18cf57a1c207b88d3d13ffb2a422598a",
+   "https://images1.vinted.net/t/03_00c43_dtr56xxQrSXF6R1yMfSm5nGV/f800/6260c113.webp?s=346ef57a4592e0794e9e54e58a8ccc37c12a3331"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.861,
+  "seuil": 0.68,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "mattdc9",
+   "id": "78504529",
+   "profil": "https://www.vinted.fr/member/78504529",
+   "avis": 142,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10801245417",
   "date": "2026-11-14T10:21:56+01:00",
   "type": "bleu",
@@ -10054,35 +10087,6 @@
    "profil": null,
    "avis": 92,
    "etoiles": 4.7
-  }
- },
- {
-  "id": "10610078527",
-  "date": "2026-10-31T17:16:38+01:00",
-  "type": "bleu",
-  "paire": "Black Canvas",
-  "famille": "Jordan 4",
-  "titre": "Nike Air Jordan 4 Black Canvas – Gr. 44– getragen",
-  "prix": "35.00 EUR",
-  "taille": "44",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10610078527-nike-air-jordan-4-black-canvas-gr-44-getragen",
-  "photos": [
-   "https://images1.vinted.net/t/06_020e3_eXD2Bqeca4kvFSDcactXeDDA/f800/d651bae0.webp?s=06600a3b8de2543b49fc526ab9c2f90b633ffe07",
-   "https://images1.vinted.net/t/06_001c4_7V9B7yE8FSPPdNZqzfNAdzXt/f800/e5783250.webp?s=e05e8b3d4e7dc3da4734c34c63c85033ec85ba0c",
-   "https://images1.vinted.net/t/02_00cc6_7DECWSBCd51wGwe6S5NKSUNq/f800/340e341e.webp?s=214c9e22ed98f64d42e3273942a8b3b389406a84"
-  ],
-  "etiquette": "https://images1.vinted.net/t/02_00cc6_7DECWSBCd51wGwe6S5NKSUNq/f800/340e341e.webp?s=214c9e22ed98f64d42e3273942a8b3b389406a84",
-  "ia": null,
-  "ressemblance": 0.808,
-  "seuil": 0.758,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 0,
-   "etoiles": 0.0
   }
  }
 ]
