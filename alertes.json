@@ -1,5 +1,45 @@
 [
  {
+  "id": "10803719394",
+  "date": "2026-11-14T13:18:18+01:00",
+  "type": "vert",
+  "paire": "Lightning",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4 gialle",
+  "prix": "40.00 EUR",
+  "taille": "46",
+  "etat": "Satisfaisant",
+  "url": "https://www.vinted.fr/items/10803719394-jordan-4-gialle",
+  "photos": [
+   "https://images1.vinted.net/t/04_025ca_jcgP1J71MSGg9to5dtNCdUY8/f800/010fc838.webp?s=59fe7c3047de4d46bc5ea710cf2950fb025a3dbe",
+   "https://images1.vinted.net/t/06_013da_cYBnbgJpBXAaVkncLF3JnoYZ/f800/f353cc2b.webp?s=87a863e499400e7a4a888e7699e782e8f37d9265",
+   "https://images1.vinted.net/t/05_021e8_GGnUooXTZyRviXdANjhCdgea/f800/057c6def.webp?s=c166dc155211b07d4c1ab75395c3b4aad281c5c5",
+   "https://images1.vinted.net/t/01_0068e_jD8mfuY8XDS1dtPWUss71GqJ/f800/d44b0ac9.webp?s=3a8c259e92ed3a77cff8451c4c92ad04c80267bf",
+   "https://images1.vinted.net/t/05_021fd_hzReYUn3b1DiGxi1VX842C6w/f800/6e4864a9.webp?s=feae5a54afe2ae0f84cc8231bef82a99abdfbd56",
+   "https://images1.vinted.net/t/06_00d83_bbF57GMQgQYad83Meki3sNyg/f800/438fde91.webp?s=6ddcbd15f443343a1a27fa77cb0c9d61c175e35f",
+   "https://images1.vinted.net/t/06_01a30_5QnTwLoAzfjxpXwNTCCPFVoc/f800/e999d2a7.webp?s=ab570f162b9cc6a7534ffd65585800bb13af3377",
+   "https://images1.vinted.net/t/02_01256_AYBfDnSpdL9orn6SXncQ3nwm/f800/6235b807.webp?s=86359946cc694486b756cc76acae7d8c62d8e729",
+   "https://images1.vinted.net/t/02_01dba_2bFz7HQKh2PSTfoaB7L8A9QR/f800/d3944514.webp?s=bbed410da7ff4825402d885dffaf4a9cfb6804ff",
+   "https://images1.vinted.net/t/06_01e86_APuJPXdA2rhSUGnQ3FyUaZBw/f800/5da8a42a.webp?s=d3fcf65f8b07fa2efbfb2c98c85429c1f595e923",
+   "https://images1.vinted.net/t/01_00dbc_keHXtUpdPR46vJUxLgoNPdNX/f800/b78c431a.webp?s=7afebbae6eff94ff6d5b4fdada50425e1019b3f2"
+  ],
+  "etiquette": "https://images1.vinted.net/t/01_00dbc_keHXtUpdPR46vJUxLgoNPdNX/f800/b78c431a.webp?s=7afebbae6eff94ff6d5b4fdada50425e1019b3f2",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 82
+  },
+  "ressemblance": 0.762,
+  "seuil": 0.702,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "offsidetrend",
+   "id": "259353556",
+   "profil": "https://www.vinted.fr/member/259353556",
+   "avis": 215,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10803236495",
   "date": "2026-11-14T12:46:37+01:00",
   "type": "bleu",
@@ -10048,42 +10088,6 @@
    "id": null,
    "profil": null,
    "avis": 35,
-   "etoiles": 5.0
-  }
- },
- {
-  "id": "10612034726",
-  "date": "2026-10-31T19:55:11+01:00",
-  "type": "vert",
-  "paire": "Midnight Navy",
-  "famille": "Jordan 4",
-  "titre": "Nike Jordan retro 4 Midnight Navy, maat 40,5",
-  "prix": "20.00 EUR",
-  "taille": "40,5",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10612034726-nike-jordan-retro-4-midnight-navy-maat-405",
-  "photos": [
-   "https://images1.vinted.net/t/02_00515_r9b9GVANP3w5hT9RUqBkwSfB/f800/0f70d6d0.webp?s=1c91f91aa48058342ea8fd13882dd72c7d83239b",
-   "https://images1.vinted.net/t/02_01d5d_vXLgw9Ugwt3CWyhhDHafGs3L/f800/1929ebc0.webp?s=eaa11914c9c04c91e903ebe68cf350c00e41a832",
-   "https://images1.vinted.net/t/01_01bd8_xoT9v8GQNU6d6iRrAU9hFfEh/f800/1af5ee96.webp?s=cdb6a673734a1077b76ed3fc5e6a7521a08e5ed6",
-   "https://images1.vinted.net/t/02_013ae_T2ybMkMc82YjjcvXcHF3XZDp/f800/9b203f49.webp?s=7db7377e5cc3c6e977d7bb64768a45f74b7777f6",
-   "https://images1.vinted.net/t/05_0210a_SArW2fm7DnAmY2nqfoHRHLHr/f800/4d691153.webp?s=6d4bbf2eccddf0de42de55cdce26f62422587da5",
-   "https://images1.vinted.net/t/05_00fe6_PeUa3FtN2YRJzFu4bgs9avSX/f800/5e341b61.webp?s=9783df7089db4a6977320344de90d520eb8da9db",
-   "https://images1.vinted.net/t/06_01a1b_E3UA99HJQsK7f3V7PSwrya16/f800/ebd4d812.webp?s=255104934b1d9304476112401e297ed845e5468f"
-  ],
-  "etiquette": null,
-  "ia": {
-   "verdict": "oui",
-   "confiance": 78
-  },
-  "ressemblance": 0.0,
-  "seuil": 0.778,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 109,
    "etoiles": 5.0
   }
  }
