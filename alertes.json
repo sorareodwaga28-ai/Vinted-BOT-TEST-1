@@ -1,5 +1,40 @@
 [
  {
+  "id": "10823977201",
+  "date": "2026-11-15T16:21:16+01:00",
+  "type": "vert",
+  "paire": "Wet Cement",
+  "famille": "Jordan 4",
+  "titre": "🔥 Jordan 4 Smoke Grey 🔥",
+  "prix": "35.00 EUR",
+  "taille": "41",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10823977201-jordan-4-smoke-grey",
+  "photos": [
+   "https://images1.vinted.net/t/06_0002f_rgX7RWMq4gbWGoCPyjRUGU8g/f800/2db6495f.webp?s=ef7ca63c65e723877c2ee24fcdd5201ba0033b7c",
+   "https://images1.vinted.net/t/01_0038b_Xoo38spTwyVenjXBVaSW6mPY/f800/6375b72e.webp?s=74fc60ce1c81d1ebc345b8edc86768aa335dfd15",
+   "https://images1.vinted.net/t/06_00cc6_CJ87iJ5bPukLvWzsV2kEz2w2/f800/bc5d1b99.webp?s=4511e70e125582bbcaa64a801fc2d9f81bf253f5",
+   "https://images1.vinted.net/t/03_025f0_ktrAQc8QzHqJw5BdKXyhd6FB/f800/ebaf835a.webp?s=44d168f23318983f0d32c124a854b3889ab6514f",
+   "https://images1.vinted.net/t/06_008db_6AnPMzbVmcYZAduE9mod5UiJ/f800/67ea9902.webp?s=5503e274253629a7a51bbc95d1c7f96e7aceccb4",
+   "https://images1.vinted.net/t/04_01971_SoxGWDWEWspcM1RVC5vsN5Ra/f800/24787dae.webp?s=f35697b72b16797d40b0b560624e632659ecc7eb"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 70
+  },
+  "ressemblance": 0.862,
+  "seuil": 0.696,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "3163295487",
+   "profil": "https://www.vinted.fr/member/3163295487",
+   "avis": 0,
+   "etoiles": 0.0
+  }
+ },
+ {
   "id": "10822331898",
   "date": "2026-11-15T15:11:30+01:00",
   "type": "vert",
@@ -10029,36 +10064,6 @@
    "id": null,
    "profil": null,
    "avis": 50,
-   "etoiles": 4.9
-  }
- },
- {
-  "id": "10621041643",
-  "date": "2026-11-01T15:23:24+01:00",
-  "type": "vert",
-  "paire": "Thunder",
-  "famille": "Jordan 4",
-  "titre": "Bascket montante",
-  "prix": "35.00 EUR",
-  "taille": "Autre",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10621041643-bascket-montante",
-  "photos": [
-   "https://images1.vinted.net/t/05_01af8_peE4EGkA7kAwjYGgD3mT2yQK/f800/1b12da35.webp?s=8f8d1f6324655b56991eb77f7504b2bf1e874807"
-  ],
-  "etiquette": null,
-  "ia": {
-   "verdict": "oui",
-   "confiance": 70
-  },
-  "ressemblance": 0.819,
-  "seuil": 0.72,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 16,
    "etoiles": 4.9
   }
  }
