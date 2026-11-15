@@ -1,5 +1,40 @@
 [
  {
+  "id": "10826632032",
+  "date": "2026-11-15T18:11:21+01:00",
+  "type": "vert",
+  "paire": "Air Max 1 Patta Waves White",
+  "famille": "Air Max 1",
+  "titre": "Baskets Nike x Patta grises et écrues – 44",
+  "prix": "25.00 EUR",
+  "taille": "44",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10826632032-baskets-nike-x-patta-grises-et-ecrues-44",
+  "photos": [
+   "https://images1.vinted.net/t/01_007f1_zPKsCfWHXyi6dACuk8gy78Z5/f800/cf5e3823.webp?s=8889fe8c672079b5ab8658dfa6014523297c8700",
+   "https://images1.vinted.net/t/02_019be_AcCJLhCPcKaVx7E8qy78psm1/f800/3de8f8e8.webp?s=58aa758698b459834a792e1e4bfcb45f6d937663",
+   "https://images1.vinted.net/t/02_01e46_sUhR3PAxMAQvFPRTd7F7JdQX/f800/e00e10e8.webp?s=fbd0e295150234c7b4dd8aeb4ebd92dd6f9b4bf5",
+   "https://images1.vinted.net/t/05_00352_1oFsJGNqmaGvhL3UuiMkqrYp/f800/17a30d13.webp?s=2d05739e132d2248db148e5741b32014442f59d0",
+   "https://images1.vinted.net/t/01_022a2_UGFNH5KXMx8PmbpEh3TKxhGd/f800/d59e93c4.webp?s=be9f260c97cf4509ac94d5e770e30c0b33e08e47",
+   "https://images1.vinted.net/t/05_00c32_zD3TBk7doV8GAPLeA8YnXFfm/f800/d3c62e25.webp?s=0706b8aa7ce1c50a0a6b661e157a15abfe79aee6"
+  ],
+  "etiquette": "https://images1.vinted.net/t/01_022a2_UGFNH5KXMx8PmbpEh3TKxhGd/f800/d59e93c4.webp?s=be9f260c97cf4509ac94d5e770e30c0b33e08e47",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 72
+  },
+  "ressemblance": 0.849,
+  "seuil": 0.75,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "julesvalerius",
+   "id": "25545201",
+   "profil": "https://www.vinted.fr/member/25545201",
+   "avis": 60,
+   "etoiles": 4.4
+  }
+ },
+ {
   "id": "10825306239",
   "date": "2026-11-15T17:15:18+01:00",
   "type": "vert",
@@ -10027,39 +10062,6 @@
    "profil": null,
    "avis": 41,
    "etoiles": 4.7
-  }
- },
- {
-  "id": "10622149986",
-  "date": "2026-11-01T16:19:05+01:00",
-  "type": "vert",
-  "paire": "Jordan 1 High Hyper Royal",
-  "famille": "Jordan 1",
-  "titre": "blauwe jordans",
-  "prix": "22.00 EUR",
-  "taille": "40",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10622149986-blauwe-jordans",
-  "photos": [
-   "https://images1.vinted.net/t/06_0155f_boHgovTYneL5qMQc7JCmwZLa/f800/f49d3d74.webp?s=5fb158ab4548247e673a9fe2574760403005239a",
-   "https://images1.vinted.net/t/06_00e22_5sC6YaJTrjLJ7xoTQxN7fKa5/f800/17c332b1.webp?s=b5cc9611481c89e8039d644bcab69df0350a92fb",
-   "https://images1.vinted.net/t/05_00b71_tNDz6ydNGHdV5cPFwt9K9pf1/f800/2428431a.webp?s=7f785e9799bab223cbfcff2324d9489a4c33fe48",
-   "https://images1.vinted.net/t/05_016f3_wtMhRSKGVwzDhid7JQxPUwS4/f800/f5436b29.webp?s=d7fac62591e82a95283932ce2eb3aeeb7b0eefef"
-  ],
-  "etiquette": "https://images1.vinted.net/t/05_00b71_tNDz6ydNGHdV5cPFwt9K9pf1/f800/2428431a.webp?s=7f785e9799bab223cbfcff2324d9489a4c33fe48",
-  "ia": {
-   "verdict": "oui",
-   "confiance": 78
-  },
-  "ressemblance": 0.823,
-  "seuil": 0.797,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 96,
-   "etoiles": 4.8
   }
  }
 ]
