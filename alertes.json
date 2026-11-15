@@ -1,5 +1,36 @@
 [
  {
+  "id": "10816880200",
+  "date": "2026-11-15T10:32:23+01:00",
+  "type": "bleu",
+  "paire": "Jordan 3 Fire Red",
+  "famille": "Jordan 3",
+  "titre": "Jordan 3 fire red US10",
+  "prix": "10.00 EUR",
+  "taille": "44",
+  "etat": "Satisfaisant",
+  "url": "https://www.vinted.fr/items/10816880200-jordan-3-fire-red-us10",
+  "photos": [
+   "https://images1.vinted.net/t/04_00df1_RiDpAY5n3bDbQ9YxFYBzDCHK/f800/1913d434.webp?s=38fb89cb655d25ec6c03dec12031e386c1242fd1",
+   "https://images1.vinted.net/t/02_01736_iKhrduEmq7EneQ8G2rdrQ5rp/f800/372b0d1e.webp?s=710f166f7c061b096f38db498895d53018efffe4",
+   "https://images1.vinted.net/t/05_013b6_CKNuZXVF4MfNvu3eY3oAqTVa/f800/5a2d5670.webp?s=02350b26ec2a2c94eeedad02871e4eae965b415d",
+   "https://images1.vinted.net/t/02_008e2_AXiyLBpDbHZhFomFUsQtBpUq/f800/f355297d.webp?s=d2f15657e1e5d5e643ae69e19661e7917ecf5c2a",
+   "https://images1.vinted.net/t/06_00eec_fdRjX88kBcvnaQJhwujUFy1R/f800/eb8bc36e.webp?s=f1169df29d9f767c3e2f4839daf07a502da9ed7c"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.791,
+  "seuil": 0.68,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "50020025",
+   "profil": "https://www.vinted.fr/member/50020025",
+   "avis": 35,
+   "etoiles": 4.7
+  }
+ },
+ {
   "id": "10816866532",
   "date": "2026-11-15T10:31:30+01:00",
   "type": "vert",
@@ -10056,43 +10087,6 @@
    "profil": null,
    "avis": 2,
    "etoiles": 5.0
-  }
- },
- {
-  "id": "10618581851",
-  "date": "2026-11-01T13:04:22+01:00",
-  "type": "vert",
-  "paire": "Midnight Navy",
-  "famille": "Jordan 4",
-  "titre": "Nike Jordan maat 41,5",
-  "prix": "33.33 EUR",
-  "taille": "41,5",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10618581851-nike-jordan-maat-415",
-  "photos": [
-   "https://images1.vinted.net/t/02_02255_Djtr6VrSEFRin2ocvL51WvTd/f800/85d58694.webp?s=deab8e09073388ff53b97ea6a375f4008bf3d0ca",
-   "https://images1.vinted.net/t/05_0126c_X6aH6xPMaxpUMtFHpU9Pvabh/f800/a4a5e4d1.webp?s=68129b9fda8c852c576d7bbe8accfb775bf12c8a",
-   "https://images1.vinted.net/t/02_02155_uQqpSRAgKxq1GF8pw3fpBBkY/f800/aeadc697.webp?s=6bbca534e9661ab34534081a80bd1c5072e7f244",
-   "https://images1.vinted.net/t/02_024e1_nuPos7Ue3gFqiE7fF8FhKpfw/f800/c7c6d474.webp?s=0baf286305b3b6305b9384e462b63d7ec7bf1d2c",
-   "https://images1.vinted.net/t/02_02516_pZoZzczuRmNaTjkB2KxvfyuU/f800/a8243d36.webp?s=6238eb430c9d4a016de922816a19304878d3a7af",
-   "https://images1.vinted.net/t/02_005bd_vBY5kB6ME6fwcZhUNMDy3eLy/f800/d1dcbc66.webp?s=2912a8900bd3af795a2f390884fea5918fdcfe96",
-   "https://images1.vinted.net/t/06_003e6_H2YRj9SSMiBPG4R5ZjzkEJEK/f800/a36140ca.webp?s=319ff436e2e02563889a5b526798ff13540a68f6",
-   "https://images1.vinted.net/t/05_01ab8_UCxHFDveeUqi4Lztf2D3BYxW/f800/79eb54ef.webp?s=dfab362af96e232304a5af4d1fa184a131c95812"
-  ],
-  "etiquette": null,
-  "ia": {
-   "verdict": "oui",
-   "confiance": 70
-  },
-  "ressemblance": 0.831,
-  "seuil": 0.78,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 122,
-   "etoiles": 4.9
   }
  }
 ]
