@@ -1,5 +1,39 @@
 [
  {
+  "id": "10825306239",
+  "date": "2026-11-15T17:15:18+01:00",
+  "type": "vert",
+  "paire": "Sacai Vaporwaffle Villain Red",
+  "famille": "Sacai",
+  "titre": "Nike Sacai Vaporwaffle 43",
+  "prix": "50.00 EUR",
+  "taille": "43",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10825306239-nike-sacai-vaporwaffle-43",
+  "photos": [
+   "https://images1.vinted.net/t/02_01c91_yJjU5GNL8tmVHkVaXSBpHPuG/f800/92c01aba.webp?s=e629fc57542e75878bb7893a314ea85e4eb2ac10",
+   "https://images1.vinted.net/t/05_00e9f_HZJjFJoryEDQeA6RTKDUMsQC/f800/ace4a8d9.webp?s=24aa2c9c72eba6e6baac2082596d1b4c78213e7e",
+   "https://images1.vinted.net/t/06_0069b_wKL8d5PRnvpLpAvZE3ZnPGXJ/f800/519655d8.webp?s=50c483a50485fd89184d7576ac062ad7630edb77",
+   "https://images1.vinted.net/t/02_02583_whVxqxuPQuXrMJK4Zi1QNkQo/f800/9f0479ed.webp?s=815ebbd869c8c3d20c67fed50e833d2bce22d593",
+   "https://images1.vinted.net/t/02_022c8_8vTq3zsqhVi2Eijzxnjw7nQe/f800/881b8988.webp?s=cde12940f743b942b3eb421d3a2045cd267d73fa"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 85
+  },
+  "ressemblance": 0.838,
+  "seuil": 0.705,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "62650355",
+   "profil": "https://www.vinted.fr/member/62650355",
+   "avis": 143,
+   "etoiles": 4.8
+  }
+ },
+ {
   "id": "10764445274",
   "date": "2026-11-15T17:00:11+01:00",
   "type": "bleu",
@@ -10025,41 +10059,6 @@
    "id": null,
    "profil": null,
    "avis": 96,
-   "etoiles": 4.8
-  }
- },
- {
-  "id": "10621972413",
-  "date": "2026-11-01T16:09:56+01:00",
-  "type": "vert",
-  "paire": "SB Pine Green",
-  "famille": "Jordan 4",
-  "titre": "Nike SB",
-  "prix": "30.00 EUR",
-  "taille": "43",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10621972413-nike-sb",
-  "photos": [
-   "https://images1.vinted.net/t/02_01a0d_Hk1m6nAHaxqhcv4jMbsuuUhW/f800/8c53d8cb.webp?s=6f06f3830b6030d9c2375aa9bcb3e41ad56988f4",
-   "https://images1.vinted.net/t/01_00d0e_tCGrTr6gmRkyxmmw9RbpCjAi/f800/e52cf335.webp?s=da2e9a035ff3fc3b330a567f60797cc34457d195",
-   "https://images1.vinted.net/t/04_01f7b_TcckhAp9H127MTfKby83XsLU/f800/ffde4023.webp?s=7a43197e3cf62e3abc48a6ce3ba5824ffcff08da",
-   "https://images1.vinted.net/t/04_00f1e_LxYnCkBReRUZPjUJSgAbi3vQ/f800/18363ff6.webp?s=96baf5bf03ac6c52e29df53be7d7337a1e3a80cd",
-   "https://images1.vinted.net/t/06_012e0_xUfTEG6LHAWsUrgd3FxGRaH6/f800/25b2a2d3.webp?s=a4cc7531eac822e43a2adaf8e051e4a42ed95c9a",
-   "https://images1.vinted.net/t/02_002fc_GvPTWSkuTdskGJ5Wh9jJQNeu/f800/ed5a6b79.webp?s=2149b5bddcde84192735e7d0770b152490d34212"
-  ],
-  "etiquette": "https://images1.vinted.net/t/02_002fc_GvPTWSkuTdskGJ5Wh9jJQNeu/f800/ed5a6b79.webp?s=2149b5bddcde84192735e7d0770b152490d34212",
-  "ia": {
-   "verdict": "oui",
-   "confiance": 90
-  },
-  "ressemblance": 0.819,
-  "seuil": 0.756,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 24,
    "etoiles": 4.8
   }
  }
