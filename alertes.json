@@ -1,5 +1,40 @@
 [
  {
+  "id": "10818201151",
+  "date": "2026-11-15T11:51:01+01:00",
+  "type": "vert",
+  "paire": "Jordan 3 Wizards",
+  "famille": "Jordan 3",
+  "titre": "Scarpe",
+  "prix": "20.00 EUR",
+  "taille": "40",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10818201151-scarpe",
+  "photos": [
+   "https://images1.vinted.net/t/06_00e64_rzP4E9kER2MB5hSRkCUVAEWi/f800/f0b09b7d.webp?s=bc309e1cad627e4ab389aa9c92f9b0d9bc989e5e",
+   "https://images1.vinted.net/t/02_01e63_6J1uQPSZAMaHhwMDd47Dgokh/f800/93fa76e4.webp?s=2f3b55a1619b9d6d77ff6496506010de4912d34a",
+   "https://images1.vinted.net/t/04_0153d_xjiZh2ymr1dhYFzJfyxCWTBg/f800/98531f6e.webp?s=748658c5e050693698b957fc70aa00f3d4da573b",
+   "https://images1.vinted.net/t/02_006ca_WnZSTdKfwXBLRHBYXAYaTXbW/f800/0048b571.webp?s=5b2e0dbe05ac275985074181968b731b6b63d4f0",
+   "https://images1.vinted.net/t/06_01a9b_jtmjCSqTXpMT59WGXsa619pS/f800/1335ae25.webp?s=7a67cbff59eb4c305b4e5a2b9da662675484a543",
+   "https://images1.vinted.net/t/01_026af_1eu4VxGVasjzLz2H3JM2tdwu/f800/7f25bba8.webp?s=9564d15b5214020f9b3e040e7c56d5d805e27962"
+  ],
+  "etiquette": "https://images1.vinted.net/t/06_01a9b_jtmjCSqTXpMT59WGXsa619pS/f800/1335ae25.webp?s=7a67cbff59eb4c305b4e5a2b9da662675484a543",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 75
+  },
+  "ressemblance": 0.878,
+  "seuil": 0.69,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "valentino5678",
+   "id": "3200091599",
+   "profil": "https://www.vinted.fr/member/3200091599",
+   "avis": 7,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10817940963",
   "date": "2026-11-15T11:37:00+01:00",
   "type": "bleu",
@@ -10038,41 +10073,6 @@
    "profil": null,
    "avis": 0,
    "etoiles": 0.0
-  }
- },
- {
-  "id": "10619717318",
-  "date": "2026-11-01T14:12:13+01:00",
-  "type": "bleu",
-  "paire": "Jordan 3 Fire Red",
-  "famille": "Jordan 3",
-  "titre": "Air Jordan 3 Retro \"Fire Red\" - Taglia 43",
-  "prix": "14.99 EUR",
-  "taille": "43",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10619717318-air-jordan-3-retro-fire-red-taglia-43",
-  "photos": [
-   "https://images1.vinted.net/t/06_01d15_aUC24z7hPRvpJeuRiXYt2nGP/f800/3832b892.webp?s=44b91f4a5f15ee53abed5c4f2853b42c5b4f2845",
-   "https://images1.vinted.net/t/05_00642_tkTK3rLZHh7a7BF28SEf1iUy/f800/dd08ab67.webp?s=b6786db7580a164a5684fb7cad26dafcfd326fec",
-   "https://images1.vinted.net/t/06_011a2_FhdaRTnb8in9x2CFVyPeuhha/f800/edac97b9.webp?s=3556872405fae31d3bd84ead53d94e9b60afa885",
-   "https://images1.vinted.net/t/01_016b7_J7dGPixyMMaE5WCFaY4a1JMw/f800/76b45876.webp?s=1fdb944931dcfa2dab17052be3271d6a33ffae92",
-   "https://images1.vinted.net/t/04_0237e_jbXATF5BnSr2UYvgDSCjzWHX/f800/80c447d8.webp?s=6732044a34f45a9dec53fd275825043127418342",
-   "https://images1.vinted.net/t/02_00823_uZUz9oYNKDU4Ru7vp2LKeH9o/f800/bf64c956.webp?s=d8b9edf07f8b9971335dfaca5bcc6ca56dfe9d5e",
-   "https://images1.vinted.net/t/03_004fe_yzb5QtNPN3gYCtTeGygjx1J6/f800/2f50fc4e.webp?s=8941c41bb90deee4d10ad3a6cfe6806edd010ee1",
-   "https://images1.vinted.net/t/03_01826_jkW2qa3NbvVeAuexuK45n6vo/f800/3576cf8d.webp?s=4753ebb2f3affdcb1f5a638dac2415d4984285ee",
-   "https://images1.vinted.net/t/06_01f89_wnpVDPEhrth24ez6RUhXVG5t/f800/79c8aec6.webp?s=8194fc3dbc8e2397cee0bdebeb7ad786410918f1"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.656,
-  "seuil": 0.72,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 61,
-   "etoiles": 5.0
   }
  }
 ]
