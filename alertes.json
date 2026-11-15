@@ -1,5 +1,41 @@
 [
  {
+  "id": "10816801680",
+  "date": "2026-11-15T10:26:39+01:00",
+  "type": "bleu",
+  "paire": "Oxidized Green",
+  "famille": "Jordan 4",
+  "titre": "Nike Air Jordan 4 RM Oxidized Green – Sneakers cuir daim style rétro",
+  "prix": "20.00 EUR",
+  "taille": "40.5",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10816801680-nike-air-jordan-4-rm-oxidized-green-sneakers-cuir-daim-style-retro",
+  "photos": [
+   "https://images1.vinted.net/t/04_008e3_p1kZ5tiWtUBqBwgLkxhn6Ed7/f800/633f23fe.webp?s=f58514dcf8e9078cdd89d8659cc8c63ab898511c",
+   "https://images1.vinted.net/t/02_00e6b_VZhFvYM5La1ViHsEGsoqro7U/f800/0d04dda0.webp?s=636bc14ddd6e0e88909083a529384bde50971aac",
+   "https://images1.vinted.net/t/02_00243_7A6PcvnBFTYNr2fmndAKuFWW/f800/8361e2a5.webp?s=d1cc626e649ece16d3515debdec6cf1d86df8f3c",
+   "https://images1.vinted.net/t/05_00a25_Bdo3T3EXYaB86dP28Kqeenze/f800/ecaefff8.webp?s=6c97d5ea265c366afe87fef5d03ed25ad97c8ddb",
+   "https://images1.vinted.net/t/02_008b6_zDb4CghevWccgSFZ1qVEysFC/f800/b60d16ba.webp?s=1a358b823470e71ffdfeda63d3ed310ca3c8446f",
+   "https://images1.vinted.net/t/02_000f6_DDpgS2CbU9LMXRmFDS5ULwaV/f800/cacac508.webp?s=e0fefb21d70bcd5bf42b3b0a021c74f1cdbaa952",
+   "https://images1.vinted.net/t/06_01c7a_7wkaNwBnpRvF7siRNF9iMzNj/f800/346d9557.webp?s=91c3a6c9fc746b6494b0b2a9ca1c5056f2d8e544",
+   "https://images1.vinted.net/t/03_00c9c_mToBrRvKNEwM5EYDXCn9KTtj/f800/efbd16ca.webp?s=5342f913beaee4566867c4cbc04b1a9130429458",
+   "https://images1.vinted.net/t/01_01f9e_UcAHai3GzJsf48iTuJJDjsEb/f800/146d9bcc.webp?s=ead7aab6d52a916a40e235bcac6041542a48ce83",
+   "https://images1.vinted.net/t/02_00bf8_oDytWH2vEgoEQdPZFioPEv1J/f800/4f993514.webp?s=04572243ebdc26a8209d98e41a3ec2901cb39360"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.79,
+  "seuil": 0.68,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "42456603",
+   "profil": "https://www.vinted.fr/member/42456603",
+   "avis": 6639,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10815571691",
   "date": "2026-11-15T07:34:14+01:00",
   "type": "bleu",
@@ -10051,36 +10087,6 @@
    "profil": null,
    "avis": 174,
    "etoiles": 4.8
-  }
- },
- {
-  "id": "10616946469",
-  "date": "2026-11-01T11:21:55+01:00",
-  "type": "vert",
-  "paire": "Air Max 1 Patta Waves White",
-  "famille": "Air Max 1",
-  "titre": "Nike air Patta",
-  "prix": "30.00 EUR",
-  "taille": "42,5",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10616946469-nike-air-patta",
-  "photos": [
-   "https://images1.vinted.net/t/02_014fb_x4bcnfj5hSoCYS4Eebc6xTEX/f800/66f06c16.webp?s=843cccab970a2a2e10e857b2eb2c9633f867dfc0"
-  ],
-  "etiquette": null,
-  "ia": {
-   "verdict": "oui",
-   "confiance": 72
-  },
-  "ressemblance": 0.816,
-  "seuil": 0.796,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 149,
-   "etoiles": 4.4
   }
  }
 ]
