@@ -1,5 +1,42 @@
 [
  {
+  "id": "10816866532",
+  "date": "2026-11-15T10:31:30+01:00",
+  "type": "vert",
+  "paire": "Lightning",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4 Retro Tour Yellow (Lightning)",
+  "prix": "26.00 EUR",
+  "taille": "40",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10816866532-jordan-4-retro-tour-yellow-lightning",
+  "photos": [
+   "https://images1.vinted.net/t/06_0122a_fRvbGQDpYp8dYNkSqMsN1oec/f800/89ecb99d.webp?s=41780caba6a564d3fb3c10d20c6b3ab2dd1b5478",
+   "https://images1.vinted.net/t/02_01f4d_9sgdhegEVZ9ZshZ6zUM5SYvH/f800/c61c619c.webp?s=496485d9c3f775a9168182ceece711f916a307a7",
+   "https://images1.vinted.net/t/02_01802_aUzfF7FgJDQfwm1rF43jtSyV/f800/80a5a9c4.webp?s=bed9972c7edb934d9b47a0a5d5742345b292a559",
+   "https://images1.vinted.net/t/04_0037c_QutALfrwZLBBrRKEJnjVrE9D/f800/03530fed.webp?s=3306464515ff4cedc41166b32adab253ad430934",
+   "https://images1.vinted.net/t/02_024c7_CZF5HQCTP6GrNwuevPGA3gYC/f800/35a0f526.webp?s=c5329782248c85ffa9a8a5dacff4050729615b85",
+   "https://images1.vinted.net/t/03_01aaf_6iLJeK1wUSfuV6xNzfoD62ap/f800/26e4404c.webp?s=f7061b12da64630be8bc41ea930f1039ced06d42",
+   "https://images1.vinted.net/t/06_00bef_ZbFjE3Ynv44N4LjyTe8yrRfY/f800/e0eeed80.webp?s=ef1851ffcaaa4cbdd70a2fcce11847a4f711aefb",
+   "https://images1.vinted.net/t/02_026d1_BNQPeMEBetQN4Tx9E2EdzoYZ/f800/deec99ce.webp?s=9731f3d7a4501b53b99df8fb502115785ebc0643"
+  ],
+  "etiquette": "https://images1.vinted.net/t/02_026d1_BNQPeMEBetQN4Tx9E2EdzoYZ/f800/deec99ce.webp?s=9731f3d7a4501b53b99df8fb502115785ebc0643",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 85
+  },
+  "ressemblance": 0.78,
+  "seuil": 0.704,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "3214874896",
+   "profil": "https://www.vinted.fr/member/3214874896",
+   "avis": 0,
+   "etoiles": 0.0
+  }
+ },
+ {
   "id": "10816828443",
   "date": "2026-11-15T10:29:30+01:00",
   "type": "vert",
@@ -10056,38 +10093,6 @@
    "profil": null,
    "avis": 122,
    "etoiles": 4.9
-  }
- },
- {
-  "id": "10618058160",
-  "date": "2026-11-01T12:31:46+01:00",
-  "type": "bleu",
-  "paire": "Red Cement",
-  "famille": "Jordan 4",
-  "titre": "Nike Air Jordan 4 Occasion | Red Cément | Taille 40,5",
-  "prix": "40.00 EUR",
-  "taille": "40,5",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10618058160-nike-air-jordan-4-occasion-red-cement-taille-405",
-  "photos": [
-   "https://images1.vinted.net/t/01_0110a_FB2ubjEwXR5ubQuT5sXhFQNu/f800/3a338b55.webp?s=82f9c231995b13ad4ac3dd13f6c33528e5e3b739",
-   "https://images1.vinted.net/t/03_01a74_zK65XekUZS7Jh2LERJ7mg2LY/f800/d4628c32.webp?s=f27b78ddd58ce32281fd932ea4b6ad895058a512",
-   "https://images1.vinted.net/t/06_0055f_BNW866JENVMJ7w5MtMc4xMHu/f800/2f254955.webp?s=2eb845de95688806a4b0a70cc726030efea483b9",
-   "https://images1.vinted.net/t/06_01983_YJVQEGktx2QesgmHrG4ffKK5/f800/aa21c595.webp?s=d5351ba29b015f61148f2d24e0f6865379a4fb14",
-   "https://images1.vinted.net/t/06_0205b_zWDsUo2Jd9de8LeibTpHH3md/f800/49ceaead.webp?s=1c2256fc703d6db2180c944c4ee9e48ba3831649",
-   "https://images1.vinted.net/t/01_008ec_tUABG1w34L3V68fe4k9RtP7a/f800/c7848b01.webp?s=082449197ce855c26ce75ff05e53a0eb6489dd19"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.791,
-  "seuil": 0.72,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 249,
-   "etoiles": 4.7
   }
  }
 ]
