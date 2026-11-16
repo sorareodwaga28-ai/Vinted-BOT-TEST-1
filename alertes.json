@@ -1,5 +1,36 @@
 [
  {
+  "id": "10841921571",
+  "date": "2026-11-16T17:48:03+01:00",
+  "type": "bleu",
+  "paire": "Jordan 1 High Lost and Found",
+  "famille": "Jordan 1",
+  "titre": "Nike Air Jordan 1 High OG – Chicago Lost & Found – maat 44",
+  "prix": "39.00 EUR",
+  "taille": "44",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10841921571-nike-air-jordan-1-high-og-chicago-lost-found-maat-44",
+  "photos": [
+   "https://images1.vinted.net/t/02_024de_BFTJSZYStZW7fgfnyHgNm1CR/f800/0576b4b0.webp?s=feb8682d7b36f305067d9a41acb3f54cbed8fa03",
+   "https://images1.vinted.net/t/06_002e7_ZLLWr3BwcAQv9xatwgr7GpJJ/f800/de0d14fc.webp?s=b2e478324521b2bc3fd4ffb2255e8ed351a96def",
+   "https://images1.vinted.net/t/04_014dd_jPSVyQ399LmLfhwRGMfEBdoa/f800/d649d244.webp?s=ff84f7c8ef8b2f42c1c241f43439584867ccbffc",
+   "https://images1.vinted.net/t/06_00357_ceK2fFQKP7vrmpZvq5mjafae/f800/8317692e.webp?s=bcaa248523dca94dbd20c547313717fad6678aff",
+   "https://images1.vinted.net/t/02_00b28_PtyvTjQyFFoGLgTsKUsyabQg/f800/1368f0fa.webp?s=9ca7d6e88b883578344e2ee5c8d3d519e1d50986"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.798,
+  "seuil": 0.708,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "collin010",
+   "id": "105583513",
+   "profil": "https://www.vinted.fr/member/105583513",
+   "avis": 4,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10841796231",
   "date": "2026-11-16T17:39:58+01:00",
   "type": "bleu",
@@ -10050,39 +10081,6 @@
    "profil": null,
    "avis": 20,
    "etoiles": 4.7
-  }
- },
- {
-  "id": "10625981127",
-  "date": "2026-11-01T19:36:35+01:00",
-  "type": "vert",
-  "paire": "Red Thunder",
-  "famille": "Jordan 4",
-  "titre": "Jordan 4 redthunder",
-  "prix": "26.00 EUR",
-  "taille": "43",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10625981127-jordan-4-redthunder",
-  "photos": [
-   "https://images1.vinted.net/t/06_019f7_V1w1d7RRVjjsCR1zvBSvzFG9/f800/62d1466f.webp?s=8a4a1e390c2f7e45873ddeb2fd80c397545b943d",
-   "https://images1.vinted.net/t/01_00722_RndMAAbr7vBzjnzf79McGnxR/f800/800e8d57.webp?s=5b8af3063ab4f1d57e2363c14119200fc8890e7e",
-   "https://images1.vinted.net/t/06_024b3_D4ipnAvMeBgFAecFZkphpjXp/f800/56a953b2.webp?s=43e1f12c29d8cff045bb5572bbf68f537b5098ce",
-   "https://images1.vinted.net/t/05_014bb_bqYhk8QEurcSUBLPJSG9pvMJ/f800/ef42e849.webp?s=453446216c30196dd87456b385cf9877a55171fa"
-  ],
-  "etiquette": "https://images1.vinted.net/t/05_014bb_bqYhk8QEurcSUBLPJSG9pvMJ/f800/ef42e849.webp?s=453446216c30196dd87456b385cf9877a55171fa",
-  "ia": {
-   "verdict": "oui",
-   "confiance": 85
-  },
-  "ressemblance": 0.787,
-  "seuil": 0.72,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 1,
-   "etoiles": 1.0
   }
  }
 ]
