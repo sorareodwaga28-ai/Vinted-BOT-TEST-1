@@ -1,5 +1,39 @@
 [
  {
+  "id": "10841796231",
+  "date": "2026-11-16T17:39:58+01:00",
+  "type": "bleu",
+  "paire": "Jordan 1 High Lost and Found",
+  "famille": "Jordan 1",
+  "titre": "Air Jordan 1 Lost and Found Chicago red",
+  "prix": "50.00 EUR",
+  "taille": "43",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10841796231-air-jordan-1-lost-and-found-chicago-red",
+  "photos": [
+   "https://images1.vinted.net/t/02_011aa_2EQQPBvyKuLNTZGQnxTbXZw7/f800/83d9a80c.webp?s=973645041fa22031a510ba29bc510a2b4fa82f6a",
+   "https://images1.vinted.net/t/02_015dd_fxA9kvpRjP2p9wECBV33Fdav/f800/aaa4344a.webp?s=a55dd95afdd003419fcf38f2f2bd027af5fb26b5",
+   "https://images1.vinted.net/t/06_00e47_cSKymc5tkaA8LdZAsKYRV8cU/f800/8a2180f2.webp?s=78d197c668a4c95d51864628df21ea887b28547c",
+   "https://images1.vinted.net/t/02_009de_DHKCN8SJaJEEWDYhWJmtZC6s/f800/28b2e0e6.webp?s=c84405fe8aaf018db635cb6c3b59062145fbd78f",
+   "https://images1.vinted.net/t/02_005ae_xP1DUvsLoQHEGTac6Q8dQr34/f800/dfba7943.webp?s=6d604b51aef0907a11c711f7914938dfafba7d31",
+   "https://images1.vinted.net/t/06_01aac_FuW5eoA6RZR2tuwTwguNL9Gn/f800/14ae8a93.webp?s=b22bf4bd7fe4ad899af2a31e6c3126e176f04247",
+   "https://images1.vinted.net/t/02_0149d_qmqEPxwtuwJDnpsrFRaxLMU2/f800/5c0cb6cb.webp?s=b5ad958368bf7abb805684c166fc77425d1046f3",
+   "https://images1.vinted.net/t/06_01d23_AZ34h56mRRLpnGxF6xt5g26G/f800/8d003612.webp?s=8d07cdff8d286f78841f7bb3fda518afd727a4b0"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.0,
+  "seuil": 0.708,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "melamelamela5",
+   "id": "122832209",
+   "profil": "https://www.vinted.fr/member/122832209",
+   "avis": 43,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10840956382",
   "date": "2026-11-16T16:46:15+01:00",
   "type": "bleu",
@@ -10049,39 +10083,6 @@
    "profil": null,
    "avis": 1,
    "etoiles": 1.0
-  }
- },
- {
-  "id": "10625921703",
-  "date": "2026-11-01T19:33:11+01:00",
-  "type": "vert",
-  "paire": "Black Canvas",
-  "famille": "Jordan 4",
-  "titre": "Air jordan mens size uk 8 like new",
-  "prix": "40.00 EUR",
-  "taille": "42,5",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10625921703-air-jordan-mens-size-uk-8-like-new",
-  "photos": [
-   "https://images1.vinted.net/t/05_00814_FVhWBsuJiDQ3wcKLW6yUzpM3/f800/dfb3f3c4.webp?s=d4a17b647e51ecf2c409a870544e7c32f5f35512",
-   "https://images1.vinted.net/t/06_00b7c_e9QAC8AVMnsWLr71iQoXtHSX/f800/f2017629.webp?s=af6a1b9b85e00cb3aacc84dad1863686ce114590",
-   "https://images1.vinted.net/t/06_02313_Zoxt7Rh1Wum1aUc7wGnk7ktz/f800/05916a3b.webp?s=07d18d9471e4096ed963a39056dab515bed8f88b",
-   "https://images1.vinted.net/t/02_01cc9_XAXJ7icjycvbxayKNGkd1P7y/f800/16665772.webp?s=a1a20517fecd7a487a3d0d3187457f1c270eab24"
-  ],
-  "etiquette": "https://images1.vinted.net/t/02_01cc9_XAXJ7icjycvbxayKNGkd1P7y/f800/16665772.webp?s=a1a20517fecd7a487a3d0d3187457f1c270eab24",
-  "ia": {
-   "verdict": "oui",
-   "confiance": 90
-  },
-  "ressemblance": 0.87,
-  "seuil": 0.85,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 12,
-   "etoiles": 4.7
   }
  }
 ]
