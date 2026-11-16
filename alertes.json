@@ -1,5 +1,39 @@
 [
  {
+  "id": "10838388860",
+  "date": "2026-11-16T13:45:23+01:00",
+  "type": "vert",
+  "paire": "Craft Olive",
+  "famille": "Jordan 4",
+  "titre": "Schuhe gebraucht",
+  "prix": "20.00 EUR",
+  "taille": "41",
+  "etat": "Satisfaisant",
+  "url": "https://www.vinted.fr/items/10838388860-schuhe-gebraucht",
+  "photos": [
+   "https://images1.vinted.net/t/01_00a8e_gcSvEXHqz5q5EnEhmYDKRPVM/f800/71313057.webp?s=8478c0b8bc5378522a3e20d17b319d898681cd5b",
+   "https://images1.vinted.net/t/02_0001c_hq3eHdim7b62beMTEuppnPQE/f800/0e894902.webp?s=c57fb618410e79a748b1adf00b5f50fc1d677b7a",
+   "https://images1.vinted.net/t/01_01b1c_3K54VryxSzRXPte1KEKkTnzW/f800/3c06140e.webp?s=4af020bf5ed8ead7823c4cfcc1995202be3cc112",
+   "https://images1.vinted.net/t/04_002fa_2VMZUx4TxxRt2HNJRdpMFEDo/f800/9198ab8c.webp?s=817a70bfda67c3b686c052c33bd567221ab119c7",
+   "https://images1.vinted.net/t/05_00d5f_3FPAYJq1NqwhpCmnW4q83stf/f800/9dccdeab.webp?s=3e8190837a03ce7dc54c25b06086e8711db3cffd"
+  ],
+  "etiquette": "https://images1.vinted.net/t/04_002fa_2VMZUx4TxxRt2HNJRdpMFEDo/f800/9198ab8c.webp?s=817a70bfda67c3b686c052c33bd567221ab119c7",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 78
+  },
+  "ressemblance": 0.849,
+  "seuil": 0.717,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "60382004",
+   "profil": "https://www.vinted.fr/member/60382004",
+   "avis": 84,
+   "etoiles": 4.8
+  }
+ },
+ {
   "id": "10837797149",
   "date": "2026-11-16T12:58:47+01:00",
   "type": "bleu",
@@ -10044,35 +10078,6 @@
    "id": null,
    "profil": null,
    "avis": 54,
-   "etoiles": 5.0
-  }
- },
- {
-  "id": "10624754205",
-  "date": "2026-11-01T18:28:35+01:00",
-  "type": "bleu",
-  "paire": "Fire Red",
-  "famille": "Jordan 4",
-  "titre": "jordan 4 retro fire red",
-  "prix": "40.00 EUR",
-  "taille": "40",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10624754205-jordan-4-retro-fire-red",
-  "photos": [
-   "https://images1.vinted.net/t/02_01f39_q2VY439s6PAM5qTWYHH6QCKX/f800/7f305d71.webp?s=6d8de437d7c50a51c110783e46bfb7422310dc45",
-   "https://images1.vinted.net/t/06_00bf0_aPyspCsYsJb8ff2fWAdVGYTc/f800/9f3379d4.webp?s=c75f4a5cc92dac078601df43cef410d2f18a87fd",
-   "https://images1.vinted.net/t/05_01874_BrkAq6WWymT3zA2Gfn3JPVyu/f800/5a3f5648.webp?s=64a7ddeef77a6e514c7989e874e51c8194511476"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.753,
-  "seuil": 0.77,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 1,
    "etoiles": 5.0
   }
  }
