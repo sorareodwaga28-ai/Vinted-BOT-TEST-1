@@ -1,5 +1,37 @@
 [
  {
+  "id": "10843307001",
+  "date": "2026-11-16T19:14:29+01:00",
+  "type": "vert",
+  "paire": "Sacai LDWaffle Undercover Yellow",
+  "famille": "Sacai",
+  "titre": "Nike sacai",
+  "prix": "40.00 EUR",
+  "taille": "43",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10843307001-nike-sacai",
+  "photos": [
+   "https://images1.vinted.net/t/02_00546_n7rkPMwMRg61Nty51FozavzD/f800/3aeae0c9.webp?s=08f3d73bd896105bf8c99611648311d42e1b50ae",
+   "https://images1.vinted.net/t/03_00869_xNaBF4AmKTCpEscDwvUaer5w/f800/0d534648.webp?s=bb8a919f74e1e2cf7f3adb6e7f71d7094f6c6fa5",
+   "https://images1.vinted.net/t/05_006b6_HZJ8ei85HWzAYKdusGigaMag/f800/2bf81d8b.webp?s=b83bd63edc538f7239f28886e1c5fa09590136d0"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.812,
+  "seuil": 0.712,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "sappeluxe31",
+   "id": "104915647",
+   "profil": "https://www.vinted.fr/member/104915647",
+   "avis": 3,
+   "etoiles": 3.7
+  }
+ },
+ {
   "id": "10842348604",
   "date": "2026-11-16T18:14:14+01:00",
   "type": "vert",
@@ -10046,36 +10078,6 @@
    "id": null,
    "profil": null,
    "avis": 2,
-   "etoiles": 5.0
-  }
- },
- {
-  "id": "10626236958",
-  "date": "2026-11-01T19:51:35+01:00",
-  "type": "bleu",
-  "paire": "Neon",
-  "famille": "Jordan 4",
-  "titre": "Jordan 4 Neon",
-  "prix": "40.00 EUR",
-  "taille": "42",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10626236958-jordan-4-neon",
-  "photos": [
-   "https://images1.vinted.net/t/05_005aa_5LcPEatXVE68fMq5bhRgJ6fY/f800/148a33e4.webp?s=d416981223f064baef1de8280d24f2de68cfe514",
-   "https://images1.vinted.net/t/02_01336_5pC1XXvcz4VHfH88fTqkwP4C/f800/a3efc3d3.webp?s=4d84138355801b02e33e347866592de7e929af67",
-   "https://images1.vinted.net/t/06_00aef_97ncqekfM6UwMjNuxXYL3Unj/f800/781177a8.webp?s=e5a518f1c5ddeab4763bb0633fd50b55a4a5413a",
-   "https://images1.vinted.net/t/04_00aea_b6zQgxshaT4bLxBLi92fJe4w/f800/9ba330a7.webp?s=726466afb6879a56597350f4e514f00523bce1ce"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.689,
-  "seuil": 0.745,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 10,
    "etoiles": 5.0
   }
  }
