@@ -1,5 +1,35 @@
 [
  {
+  "id": "10861552329",
+  "date": "2026-11-18T00:41:40+01:00",
+  "type": "bleu",
+  "paire": "SB Pine Green",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4 Pine Green",
+  "prix": "40.00 EUR",
+  "taille": "45",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10861552329-jordan-4-pine-green",
+  "photos": [
+   "https://images1.vinted.net/t/06_011cd_bkoVsQbLwqRuJzQmJisTFL1t/f800/3d1fed1d.webp?s=ee7d5373352369d950779f4d4c7f26210e817c1e",
+   "https://images1.vinted.net/t/02_00783_fjRRnHfhwjeF9P3LkWJUb22N/f800/27e0d38b.webp?s=5e96ff0ba9392ae306a9ad209f797db9d5e9a7d5",
+   "https://images1.vinted.net/t/06_0230c_mze65MoMKiF4y3SQZEpDGk8o/f800/ea77afe8.webp?s=68ad86b4b51cd0ad76ab4bc22438b648e0cdf562",
+   "https://images1.vinted.net/t/06_01f5c_2xkSoS7iKYwgBdB6Q6onuj7P/f800/fb569bd1.webp?s=68b7af6e1a3afaa9584bc1b6d71ac10c3ee3dc78"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.846,
+  "seuil": 0.685,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "175826658",
+   "profil": "https://www.vinted.fr/member/175826658",
+   "avis": 24,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10861378566",
   "date": "2026-11-18T00:17:28+01:00",
   "type": "vert",
@@ -10031,41 +10061,6 @@
    "pseudo": "cami0202",
    "id": "3194749227",
    "profil": "https://www.vinted.fr/member/3194749227",
-   "avis": 0,
-   "etoiles": 0.0
-  }
- },
- {
-  "id": "10634327281",
-  "date": "2026-11-02T13:11:40+01:00",
-  "type": "vert",
-  "paire": "Craft Olive",
-  "famille": "Jordan 4",
-  "titre": "Jordan verte taille 42,5",
-  "prix": "20.00 EUR",
-  "taille": "42,5",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10634327281-jordan-verte-taille-425",
-  "photos": [
-   "https://images1.vinted.net/t/04_00f19_pD9kURD3ff9ocsUUXnhd8K3q/f800/512a36f3.webp?s=ae3465492f0f5bb30f7da4554d998fce7c583d9b",
-   "https://images1.vinted.net/t/02_0069f_6zvEJo4UzkDQxP8T8Fv1zfDc/f800/48cb7428.webp?s=55349e31b1b2beb97d41e0833c2f4c387d1d89db",
-   "https://images1.vinted.net/t/06_024fa_xCJwG3c6UqCZrJPxa5P6mD19/f800/8aa10f98.webp?s=7bac4e0abc842c4055d44ce812708986cf0cf3e7",
-   "https://images1.vinted.net/t/02_00e05_qJJ1w7kEwhabnJTSZ5Qg3ujx/f800/ae91a14e.webp?s=d7cf62552780fe49349149cb56f51bc81bd0e818",
-   "https://images1.vinted.net/t/04_00fcf_MkC8svEXZbKNbhq5k7cyM1sJ/f800/2d111bb4.webp?s=8f6c888bd2fd1dc3c94d97a1dd995083b197acdf",
-   "https://images1.vinted.net/t/04_01171_bne3y9b79XhVPHuH5S1xT7yp/f800/ded24bea.webp?s=01274e51271405e43e8e7f62f531091d6aaf7ca9"
-  ],
-  "etiquette": "https://images1.vinted.net/t/02_0069f_6zvEJo4UzkDQxP8T8Fv1zfDc/f800/48cb7428.webp?s=55349e31b1b2beb97d41e0833c2f4c387d1d89db",
-  "ia": {
-   "verdict": "oui",
-   "confiance": 85
-  },
-  "ressemblance": 0.816,
-  "seuil": 0.796,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": "dario_off",
-   "id": "3159358282",
-   "profil": "https://www.vinted.fr/member/3159358282",
    "avis": 0,
    "etoiles": 0.0
   }
