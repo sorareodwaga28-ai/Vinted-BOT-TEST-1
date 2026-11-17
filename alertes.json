@@ -1,5 +1,39 @@
 [
  {
+  "id": "10854115153",
+  "date": "2026-11-17T15:31:03+01:00",
+  "type": "vert",
+  "paire": "Yellow Thunder",
+  "famille": "Jordan 4",
+  "titre": "Jordan",
+  "prix": "14.00 EUR",
+  "taille": "40",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10854115153-jordan",
+  "photos": [
+   "https://images1.vinted.net/t/02_0235c_gufhhthgpsSTNYBCk2BZx5wU/f800/1b6598a8.webp?s=8af12eabaec2da98973f93d995c1d04c8bc46596",
+   "https://images1.vinted.net/t/04_002b3_Au5Pssb7WADLoKToMDFSVXdC/f800/ceab173d.webp?s=45ead27a25503e017e52166e0325a90eb631046b",
+   "https://images1.vinted.net/t/01_0210f_ghqVHGPescCaYG4Au5PoR7Hs/f800/9c18b204.webp?s=96fcc2a6982611ef8a26512f79190f950557ec91",
+   "https://images1.vinted.net/t/06_02389_jU4VbNi2RFK82g7ZDoaF6TCz/f800/3296c298.webp?s=1959e8c7d540c41a2aeb2d1b07b4ccdc4b3da3df",
+   "https://images1.vinted.net/t/06_01761_xTyiyY7ncX9NJihW8Dg1h4A9/f800/12cb0a6c.webp?s=466c1165b75d682750436f3bda6470ab38f2300f"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 85
+  },
+  "ressemblance": 0.774,
+  "seuil": 0.694,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "19744814",
+   "profil": "https://www.vinted.fr/member/19744814",
+   "avis": 46,
+   "etoiles": 3.8
+  }
+ },
+ {
   "id": "10803081040",
   "date": "2026-11-17T15:22:55+01:00",
   "type": "bleu",
@@ -10045,35 +10079,6 @@
    "profil": null,
    "avis": 0,
    "etoiles": 0.0
-  }
- },
- {
-  "id": "10629277691",
-  "date": "2026-11-01T23:22:55+01:00",
-  "type": "bleu",
-  "paire": "Jordan 1 High Lost and Found",
-  "famille": "Jordan 1",
-  "titre": "Air Jordan 1 High Chicago Lost And Found Original",
-  "prix": "14.00 EUR",
-  "taille": "41",
-  "etat": "Satisfaisant",
-  "url": "https://www.vinted.fr/items/10629277691-air-jordan-1-high-chicago-lost-and-found-original",
-  "photos": [
-   "https://images1.vinted.net/t/02_0205c_g5sCRWHanoHoVSC7QS4iSiaM/f800/385afcb2.webp?s=f8ff0697cba4287cbb7d957ed7ebddc9ce72b9e2",
-   "https://images1.vinted.net/t/06_0166f_bS4mq4PVuKs6Fb4KpcFHTNn2/f800/3f874453.webp?s=987be546368a43da1ecbf549e0e11bd023ab7192",
-   "https://images1.vinted.net/t/04_024ae_8GN371n3ieZH3UCa4vAmMjnU/f800/65ec5ad5.webp?s=c03f00d1b7d946a1a79eed812658f9121aad54a1"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.0,
-  "seuil": 0.748,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 46,
-   "etoiles": 5.0
   }
  }
 ]
