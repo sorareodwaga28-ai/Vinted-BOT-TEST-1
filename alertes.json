@@ -1,5 +1,41 @@
 [
  {
+  "id": "10858972464",
+  "date": "2026-11-17T20:48:56+01:00",
+  "type": "vert",
+  "paire": "Frozen Moments",
+  "famille": "Jordan 4",
+  "titre": "Air Jordan 4 Retro - Ice and Snow",
+  "prix": "27.00 EUR",
+  "taille": "40",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10858972464-air-jordan-4-retro-ice-and-snow",
+  "photos": [
+   "https://images1.vinted.net/t/06_01b42_GLNEw69f3m9s2otuK8FQGgFV/f800/6ef301d7.webp?s=2ecabb796857a8b5d23d77f8d2c5e7d10d06d1aa",
+   "https://images1.vinted.net/t/01_0163b_GEe6uiXJ987uKk8kvNLzEoT4/f800/2405b98a.webp?s=eda97fca9756183f15aa2477345561055d4017bd",
+   "https://images1.vinted.net/t/06_01544_WQiSrvWuaHskhgJhdk4qhNeR/f800/cbc38c19.webp?s=f5a7bb1a10649cc8cc25ab6ec8571e724bf0253d",
+   "https://images1.vinted.net/t/05_0059d_72PtTezm5pRk9c9jYggjLeC3/f800/aea546e7.webp?s=5a2efb922b375a9d51ab1ec97c965f8d444736e7",
+   "https://images1.vinted.net/t/02_017d9_Wk4fkrgcapGVJu2ySpWwTGY2/f800/dac41a59.webp?s=4d73db25e865884440775b314bd3300bbf0a6946",
+   "https://images1.vinted.net/t/06_01fd3_SfZ4bbPPiVGNJjYndysXyKtD/f800/f9175d20.webp?s=eb054bff100a78c69570571199b4b06420aff253",
+   "https://images1.vinted.net/t/05_02388_YuKYN7DJDahu71voCCL5pKAS/f800/0c79468a.webp?s=8a1576a77b10bb34e20905695e6d113ab849a3e6"
+  ],
+  "etiquette": "https://images1.vinted.net/t/05_02388_YuKYN7DJDahu71voCCL5pKAS/f800/0c79468a.webp?s=8a1576a77b10bb34e20905695e6d113ab849a3e6",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 72
+  },
+  "ressemblance": 0.828,
+  "seuil": 0.755,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "claudiarusso7",
+   "id": "3211507743",
+   "profil": "https://www.vinted.fr/member/3211507743",
+   "avis": 0,
+   "etoiles": 0.0
+  }
+ },
+ {
   "id": "10858752990",
   "date": "2026-11-17T20:34:41+01:00",
   "type": "vert",
@@ -10035,34 +10071,6 @@
    "profil": "https://www.vinted.fr/member/306144191",
    "avis": 9,
    "etoiles": 5.0
-  }
- },
- {
-  "id": "10632701245",
-  "date": "2026-11-02T10:58:10+01:00",
-  "type": "bleu",
-  "paire": "White Cement",
-  "famille": "Jordan 4",
-  "titre": "Nike Air Jordan 4 Retro « White Cement »",
-  "prix": "40.00 EUR",
-  "taille": "44",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10632701245-nike-air-jordan-4-retro-white-cement",
-  "photos": [
-   "https://images1.vinted.net/t/06_00d1b_GJAUyEkSTEWvQD8ibtJ4ZoF2/f800/cedcc54d.webp?s=4b041b272baaac72ddcfbeded0542a6b569a102e",
-   "https://images1.vinted.net/t/02_0152b_7YNx3t1bSFEVjcK3f4fsoDpF/f800/cc5d6a3f.webp?s=611cbb9f2ad9d2e78d02ba4adc7471e2312b0fb0"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.0,
-  "seuil": 0.776,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": "20189061",
-   "profil": "https://www.vinted.fr/member/20189061",
-   "avis": 80,
-   "etoiles": 4.9
   }
  }
 ]
