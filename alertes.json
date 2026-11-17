@@ -1,5 +1,42 @@
 [
  {
+  "id": "10803081040",
+  "date": "2026-11-17T15:22:55+01:00",
+  "type": "bleu",
+  "paire": "Black Canvas",
+  "famille": "Jordan 4",
+  "titre": "jordan 4 black canvas",
+  "prix": "25.00 EUR",
+  "taille": "43",
+  "etat": "Satisfaisant",
+  "url": "https://www.vinted.fr/items/10803081040-jordan-4-black-canvas",
+  "photos": [
+   "https://images1.vinted.net/t/05_01fe7_3Tss9Qwb57DAQpQGbDQFGX4S/f800/cca8010d.webp?s=430da6bf0873b7c7effef257a8717c5b0b1f1424",
+   "https://images1.vinted.net/t/05_01215_GtciaUhRT4DUat4u63swPg7u/f800/e41921da.webp?s=b5925837b901ef946f94ef808c28e40d25728600",
+   "https://images1.vinted.net/t/04_016de_CzxLjZGbpNeXygbBRKq1aFAa/f800/30ec0f25.webp?s=740d4786bc27faab6e6aa441df2208fccf058b27",
+   "https://images1.vinted.net/t/05_00e9e_S6LcNH8xrN41rxbB9W9LfZ6G/f800/a9cb3ee9.webp?s=d85e68d695f8e49342dbf77a85245c6cb1125910",
+   "https://images1.vinted.net/t/06_0088e_ZbjerAoj1V7sgDi11tM2WHxA/f800/9179fdb6.webp?s=e96231c909b8eff9507a7011cc55c2afdb64fff8",
+   "https://images1.vinted.net/t/04_01db3_5KQSH78YK2VDmvmP7atbEWRS/f800/2e3956d6.webp?s=37a57a4c48c69c57dc0e59b0e04f2ee69c06579e",
+   "https://images1.vinted.net/t/01_01f52_GFgDqJ2LCaxwXAXDdkasQDP7/f800/b6b25c7f.webp?s=06c851869f362b639e96cd2ac901aea5f80fb802",
+   "https://images1.vinted.net/t/02_00b92_MK5aDESipxxd2C3HvNfJKPGz/f800/bedc3b10.webp?s=7968e45a30c99d162afb5e60f611110e93ea203f",
+   "https://images1.vinted.net/t/05_00ca8_7Xxw1qZ3q5UgBU19uQNGS4hM/f800/047b2c74.webp?s=8266e8a27543a08aae3586b419b553d80e7b0e8f",
+   "https://images1.vinted.net/t/01_004ea_4SVcWgHsvrN7HK5uMoyxCJDh/f800/45a86bb4.webp?s=7cc49378eb9be0e4876a90e22fd03e641e63bdba",
+   "https://images1.vinted.net/t/05_018cf_UxuGjxv6WEomn2YJh6pdrgGH/f800/59d17879.webp?s=dc47d5c85ad12db9a643376a4291f6de5e083240"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.833,
+  "seuil": 0.68,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "claudiom0neta",
+   "id": "3197706500",
+   "profil": "https://www.vinted.fr/member/3197706500",
+   "avis": 10,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10802842314",
   "date": "2026-11-17T15:00:55+01:00",
   "type": "vert",
@@ -10037,42 +10074,6 @@
    "profil": null,
    "avis": 46,
    "etoiles": 5.0
-  }
- },
- {
-  "id": "10625094918",
-  "date": "2026-11-01T22:29:57+01:00",
-  "type": "vert",
-  "paire": "Thunder",
-  "famille": "Jordan 4",
-  "titre": "Air jordan 4 t40",
-  "prix": "40.00 EUR",
-  "taille": "40",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10625094918-air-jordan-4-t40",
-  "photos": [
-   "https://images1.vinted.net/t/05_02553_rvLuUo7VFTg9YiC17UDingVe/f800/a3b63a1b.webp?s=01963d099cf19db912447169c7332fa397751876",
-   "https://images1.vinted.net/t/02_00d0a_oYQXDfnLHefwLWyamnBUcD3F/f800/7e54e067.webp?s=ad7ed60f9152d0e387b48e067af362066e8fb72a",
-   "https://images1.vinted.net/t/01_00cdd_ZfgJLAcZkNxdo4pmcVqaCmqy/f800/641c5c07.webp?s=812f1a2e44d0db51b4bb5e8d45923bac61b0339e",
-   "https://images1.vinted.net/t/06_017a3_mw4shPzky95hbRzi4QeWrJWS/f800/0dcf297d.webp?s=cde9af8648d0d48d11b3ca220883d00e371293f5",
-   "https://images1.vinted.net/t/02_0024e_DKQnuqcg4jAW9oJHaVFUN9YT/f800/f0abb88b.webp?s=c02b6138663fa2297b32a256f63f5c04e8952e32",
-   "https://images1.vinted.net/t/02_00dcd_DPsqoAcivqxgeZgb34vEmsj3/f800/f433acae.webp?s=0173377886e3a3970ebfe0560be51a3b494e4ed9",
-   "https://images1.vinted.net/t/04_00bd1_UHoN8y5Pj4DDH3ZsqLemuW61/f800/52b44e25.webp?s=af192b6738f2e79c2254414e1d24d3857572df72"
-  ],
-  "etiquette": "https://images1.vinted.net/t/06_017a3_mw4shPzky95hbRzi4QeWrJWS/f800/0dcf297d.webp?s=cde9af8648d0d48d11b3ca220883d00e371293f5",
-  "ia": {
-   "verdict": "oui",
-   "confiance": 80
-  },
-  "ressemblance": 0.848,
-  "seuil": 0.789,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 45,
-   "etoiles": 4.8
   }
  }
 ]
