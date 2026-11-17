@@ -1,5 +1,44 @@
 [
  {
+  "id": "10805717694",
+  "date": "2026-11-17T17:46:11+01:00",
+  "type": "vert",
+  "paire": "Shimmer",
+  "famille": "Jordan 4",
+  "titre": "Nike Air Jordan",
+  "prix": "30.00 EUR",
+  "taille": "40",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10805717694-nike-air-jordan",
+  "photos": [
+   "https://images1.vinted.net/t/01_01e39_vzjiQvmQ6RE5TYJe5guopi5a/f800/ff7a9f28.webp?s=00efae5cdfd5c98a60d912f04ca032e52bee4000",
+   "https://images1.vinted.net/t/01_016a5_H2C3rXxnM7R3jFp63FP6L6gN/f800/f7fd5265.webp?s=5f5fdf380aac81dac5a3137c32033cc423adb242",
+   "https://images1.vinted.net/t/05_00296_S62wTMWD3VBGuSkBVGGLdRaU/f800/b4f5afa5.webp?s=adc49e5e2617f5f4709ea06f21c99974d8c08b6a",
+   "https://images1.vinted.net/t/02_00cf2_txFMVybjTanzyW3Gh4bXKkUz/f800/99ebebc9.webp?s=4ee5a37519cc68c72f6c66a6572459109395d284",
+   "https://images1.vinted.net/t/06_00314_BWVFYh5DntvusdpNizkqgPHN/f800/590342cb.webp?s=91f1f1bb6b9e713e5f9eae7d18ae9521a419a8d6",
+   "https://images1.vinted.net/t/06_0108e_NvynwhobhRrVoNcGmo1wCEhG/f800/b6474887.webp?s=dfe30097512d79524542f0043426397937f0e1b1",
+   "https://images1.vinted.net/t/05_003f6_sxR2KBsyLVnnerYSzxG2yeVf/f800/8c5414be.webp?s=e0b0b255f7565f60831c05cc927885367d8b27cd",
+   "https://images1.vinted.net/t/06_0176c_spaPdLWKZRMkSRAC48T3z5iP/f800/b07ed505.webp?s=a2bdaaa94e9d779ea09f9d746b4366ee03174d37",
+   "https://images1.vinted.net/t/03_01ad7_dzBcEJL7BvHJi6xb3RxjJHEZ/f800/e69e2176.webp?s=264c13608198753509748a1660541a1a5ed90ef4",
+   "https://images1.vinted.net/t/01_0020a_XPEpmY2A2GLqtGFdMto3XWCu/f800/53951fb7.webp?s=173ed83fe716d91d88283142d9221e9b6df8c18a"
+  ],
+  "etiquette": "https://images1.vinted.net/t/01_0020a_XPEpmY2A2GLqtGFdMto3XWCu/f800/53951fb7.webp?s=173ed83fe716d91d88283142d9221e9b6df8c18a",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 72
+  },
+  "ressemblance": 0.806,
+  "seuil": 0.706,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "semona13",
+   "id": "3194595577",
+   "profil": "https://www.vinted.fr/member/3194595577",
+   "avis": 37,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10854883482",
   "date": "2026-11-17T16:21:47+01:00",
   "type": "bleu",
@@ -10041,37 +10080,6 @@
    "profil": "https://www.vinted.fr/member/189295942",
    "avis": 255,
    "etoiles": 5.0
-  }
- },
- {
-  "id": "10631114530",
-  "date": "2026-11-02T05:22:50+01:00",
-  "type": "vert",
-  "paire": "Seafoam",
-  "famille": "Jordan 4",
-  "titre": "Jordan 4 oil green",
-  "prix": "15.00 EUR",
-  "taille": "43",
-  "etat": "Satisfaisant",
-  "url": "https://www.vinted.fr/items/10631114530-jordan-4-oil-green",
-  "photos": [
-   "https://images1.vinted.net/t/06_021dd_AJL3C79fgWbwSrS7aM7TpLBZ/f800/5a7bbbbf.webp?s=a712e3a77c61693ef97ab8a0df2709b0dd266fab",
-   "https://images1.vinted.net/t/03_0150d_xqaDVQzTGZBdKKqhEaK64oR7/f800/8898196f.webp?s=121fccdaa3923b345d6759b7f5137a94722947ab"
-  ],
-  "etiquette": null,
-  "ia": {
-   "verdict": "oui",
-   "confiance": 72
-  },
-  "ressemblance": 0.829,
-  "seuil": 0.809,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": "hakim.23",
-   "id": "18329426",
-   "profil": "https://www.vinted.fr/member/18329426",
-   "avis": 19,
-   "etoiles": 4.7
   }
  }
 ]
