@@ -1,5 +1,33 @@
 [
  {
+  "id": "10854883482",
+  "date": "2026-11-17T16:21:47+01:00",
+  "type": "bleu",
+  "paire": "Jordan 3 Racer Blue",
+  "famille": "Jordan 3",
+  "titre": "Air jordan 3 racer blue",
+  "prix": "20.00 EUR",
+  "taille": "43",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10854883482-air-jordan-3-racer-blue",
+  "photos": [
+   "https://images1.vinted.net/t/05_00587_8habmwqLZtTW2CrNhb7J1n3s/f800/a6f29e89.webp?s=e133cbaff80e0ac9751eafc3315eb7b610527f59",
+   "https://images1.vinted.net/t/01_001a1_YzUcrrxfdS492hDuxKzuLAjR/f800/b0291755.webp?s=81790c43bc651517bbafb8d1ed484c47d978d251"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.754,
+  "seuil": 0.68,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "38063835",
+   "profil": "https://www.vinted.fr/member/38063835",
+   "avis": 23,
+   "etoiles": 4.7
+  }
+ },
+ {
   "id": "10854403967",
   "date": "2026-11-17T15:49:05+01:00",
   "type": "vert",
@@ -10044,38 +10072,6 @@
    "profil": "https://www.vinted.fr/member/18329426",
    "avis": 19,
    "etoiles": 4.7
-  }
- },
- {
-  "id": "10629727195",
-  "date": "2026-11-02T00:19:18+01:00",
-  "type": "vert",
-  "paire": "Lightning",
-  "famille": "Jordan 4",
-  "titre": "Scarpe Jordan",
-  "prix": "40.00 EUR",
-  "taille": "45",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10629727195-scarpe-jordan",
-  "photos": [
-   "https://images1.vinted.net/t/02_01999_fX5pYkcd83MeMR8aX71i4kUu/f800/c1273ea7.webp?s=bb672f344af705be0026f37d55da61b97e632a23",
-   "https://images1.vinted.net/t/06_01835_knmDmNWpyyz2MELqJSzvTUBR/f800/b921f130.webp?s=037e8516b5d421e1b8265385f2c4db5bb7491d21",
-   "https://images1.vinted.net/t/01_0092e_3YmktHWgSUbQDdbsg39D5uQd/f800/208efe95.webp?s=510c97a51ba94a43814e96352dd9f700b99937dd"
-  ],
-  "etiquette": null,
-  "ia": {
-   "verdict": "oui",
-   "confiance": 72
-  },
-  "ressemblance": 0.815,
-  "seuil": 0.744,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 0,
-   "etoiles": 0.0
   }
  }
 ]
