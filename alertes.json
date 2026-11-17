@@ -1,5 +1,38 @@
 [
  {
+  "id": "10861378566",
+  "date": "2026-11-18T00:17:28+01:00",
+  "type": "vert",
+  "paire": "Lightning",
+  "famille": "Jordan 4",
+  "titre": "Scarpe da ginnastica Jordan 4",
+  "prix": "17.00 EUR",
+  "taille": "41",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10861378566-scarpe-da-ginnastica-jordan-4",
+  "photos": [
+   "https://images1.vinted.net/t/05_00157_FSCmPhBxdBiwrV4t7dbJegVs/f800/270a619d.webp?s=e563634001482392f4b96ba0eca7cf0c552fdd6b",
+   "https://images1.vinted.net/t/03_00baa_RomSsgVH4etCmKoThiEpTDtm/f800/6aa22422.webp?s=12e29ec4467be164debf856354ff66393a7c1301",
+   "https://images1.vinted.net/t/05_01d6c_rGY4tC2cKRBbyTgDkmqTuNm9/f800/bae1cc2a.webp?s=2d5f4d2fa12582c44dfcba2322f6c6997881070a",
+   "https://images1.vinted.net/t/02_01701_gxMx89K16wSRCz7QhWxQHUjM/f800/cae04e03.webp?s=84c16226b4860e8b3a82d46e6f74e8dce3ac4d1c"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 78
+  },
+  "ressemblance": 0.84,
+  "seuil": 0.702,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "3215776405",
+   "profil": "https://www.vinted.fr/member/3215776405",
+   "avis": 0,
+   "etoiles": 0.0
+  }
+ },
+ {
   "id": "10859881527",
   "date": "2026-11-17T21:51:22+01:00",
   "type": "bleu",
@@ -10035,39 +10068,6 @@
    "profil": "https://www.vinted.fr/member/3159358282",
    "avis": 0,
    "etoiles": 0.0
-  }
- },
- {
-  "id": "10634203419",
-  "date": "2026-11-02T13:00:42+01:00",
-  "type": "vert",
-  "paire": "Craft Photon Dust",
-  "famille": "Jordan 4",
-  "titre": "jordan 4",
-  "prix": "26.00 EUR",
-  "taille": "42,5",
-  "etat": "Satisfaisant",
-  "url": "https://www.vinted.fr/items/10634203419-jordan-4",
-  "photos": [
-   "https://images1.vinted.net/t/06_01c13_gfZYB89CXcuzf3X2BrxH9GVW/f800/1b127a2a.webp?s=9bd5cc63fe7c2999b9da56935ccc7825972a5cf1",
-   "https://images1.vinted.net/t/06_013b2_HsSCas67yL4WUbo55HMmXWHZ/f800/337140db.webp?s=40e5f1e245a79f029d275c7bdbb0dd349358a673",
-   "https://images1.vinted.net/t/05_00012_EunkNPEEwHePV4eAGRgtkvVa/f800/e94844b7.webp?s=488208872bebd1c003548cc223741c086cd357e8",
-   "https://images1.vinted.net/t/05_02092_wjqPhk6fKtiGBob2EMuVFHZM/f800/40afd547.webp?s=be4d15d38aa49187be367872e71a4aee6a8dfefe"
-  ],
-  "etiquette": null,
-  "ia": {
-   "verdict": "oui",
-   "confiance": 70
-  },
-  "ressemblance": 0.85,
-  "seuil": 0.766,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": "emanuelebacio",
-   "id": "149813304",
-   "profil": "https://www.vinted.fr/member/149813304",
-   "avis": 3,
-   "etoiles": 2.3
   }
  }
 ]
