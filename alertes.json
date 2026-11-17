@@ -1,5 +1,42 @@
 [
  {
+  "id": "10791083261",
+  "date": "2026-11-17T06:34:52+01:00",
+  "type": "vert",
+  "paire": "Red Thunder",
+  "famille": "Jordan 4",
+  "titre": "Air Jordan maat 43",
+  "prix": "26.00 EUR",
+  "taille": "43",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10791083261-air-jordan-maat-43",
+  "photos": [
+   "https://images1.vinted.net/t/02_0133f_KfzMP2LuNWGkfK4E9wcUYvyk/f800/02a2bbfc.webp?s=7df3a13093d4bab584f29ecd10a9a2f4bb02ced2",
+   "https://images1.vinted.net/t/06_00a85_SwmGtnSAkorWMPJGQosJW7wz/f800/65ac1379.webp?s=52a188864e1286f0410c43ea63595ee8f0552157",
+   "https://images1.vinted.net/t/01_01a4f_tTrjgxcrWJUWPU2PDahUcb9h/f800/91575ed1.webp?s=1b932920d8e890cabc95a01926fc0743f3eb168c",
+   "https://images1.vinted.net/t/05_017c2_h99dQ4uibYqS8SJq2afiQx4N/f800/7f6beb1f.webp?s=382fccc2277cc3d50c651f2ac89880c1cc69f644",
+   "https://images1.vinted.net/t/06_02303_EF9YWXjqML7AHvbn1tCjPp75/f800/d946a9e6.webp?s=7c9a8349fdcf6621a04da73af5c2942bf0d2af04",
+   "https://images1.vinted.net/t/02_011f5_qWnKgBL89ztjdSVAyiwtXM5B/f800/de95b2bb.webp?s=5093df8aff6fb1199d6de90672969e9a38ab14b0",
+   "https://images1.vinted.net/t/02_02258_qNBqtoZN8m9bNEVR5g73vtLB/f800/f5a45d77.webp?s=39bded6d10bbbb456b52dda5ce1cc21a073c7038",
+   "https://images1.vinted.net/t/06_02360_CnrhEzPmquHD1vvqULceUJug/f800/c3a84e92.webp?s=d256ec65bf389e4b5dcd3d198a5572a698efa781"
+  ],
+  "etiquette": "https://images1.vinted.net/t/06_02360_CnrhEzPmquHD1vvqULceUJug/f800/c3a84e92.webp?s=d256ec65bf389e4b5dcd3d198a5572a698efa781",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.879,
+  "seuil": 0.68,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "100211954",
+   "profil": "https://www.vinted.fr/member/100211954",
+   "avis": 23,
+   "etoiles": 4.6
+  }
+ },
+ {
   "id": "10846992268",
   "date": "2026-11-16T23:36:33+01:00",
   "type": "vert",
@@ -10039,36 +10076,6 @@
    "profil": null,
    "avis": 54,
    "etoiles": 4.9
-  }
- },
- {
-  "id": "7360979468",
-  "date": "2026-11-01T21:08:06+01:00",
-  "type": "vert",
-  "paire": "Fire Red",
-  "famille": "Jordan 4",
-  "titre": "Jordan 4",
-  "prix": "30.00 EUR",
-  "taille": "42",
-  "etat": "Neuf sans étiquette",
-  "url": "https://www.vinted.fr/items/7360979468-jordan-4",
-  "photos": [
-   "https://images1.vinted.net/t/03_007cf_A9b14BkB3YvMNGoHAH59q3ka/f800/c91276c7.webp?s=11d1b6a88359d6699148d64df65c73de5191afb9"
-  ],
-  "etiquette": null,
-  "ia": {
-   "verdict": "oui",
-   "confiance": 70
-  },
-  "ressemblance": 0.8,
-  "seuil": 0.733,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": 6,
-   "etoiles": 4.2
   }
  }
 ]
