@@ -1,5 +1,37 @@
 [
  {
+  "id": "10865260255",
+  "date": "2026-11-18T11:45:07+01:00",
+  "type": "bleu",
+  "paire": "Jordan 3 Fire Red",
+  "famille": "Jordan 3",
+  "titre": "Nike Air Jordan 3 Fire Red",
+  "prix": "21.00 EUR",
+  "taille": "44",
+  "etat": "Satisfaisant",
+  "url": "https://www.vinted.fr/items/10865260255-nike-air-jordan-3-fire-red",
+  "photos": [
+   "https://images1.vinted.net/t/01_000ed_pkSWTD8mGp4xdmbw5zXPnD7S/f800/880b3b70.webp?s=a676f72931cb0f47b78c88d372c8f2250f9c9c4d",
+   "https://images1.vinted.net/t/05_02319_e2tzuUyAWEF7MJJtV9nWHUxU/f800/c436fe75.webp?s=04e1e8ef6e48adab24fae355b98a1d8185e94694",
+   "https://images1.vinted.net/t/03_0211f_5ej8YrvG5uEFTvJ3XkfdPvzE/f800/1dd897ef.webp?s=ef9be4566766ca0cbca5db5311560f7797a3e919",
+   "https://images1.vinted.net/t/02_01e05_p3RjpssdnxhFNcRWvngJrRB7/f800/7cb2c3e2.webp?s=051b1811879af53bd8a7894d015c0c43cd518b69",
+   "https://images1.vinted.net/t/06_0173c_yu3fUQJHxTSAd4Q9c9diLVxR/f800/39e54a20.webp?s=b86046504bbc252d36d4cbdad1eb3ca9bfd95d35",
+   "https://images1.vinted.net/t/01_012de_euwt9jVWJghTZ4FLCQa7Zi75/f800/c4f89748.webp?s=78bf4c33728b90b24ead1ced6798547439ceadc1"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.786,
+  "seuil": 0.68,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "19730171",
+   "profil": "https://www.vinted.fr/member/19730171",
+   "avis": 232,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10864105336",
   "date": "2026-11-18T10:01:06+01:00",
   "type": "vert",
@@ -10031,40 +10063,6 @@
    "profil": "https://www.vinted.fr/member/17159754",
    "avis": 334,
    "etoiles": 4.9
-  }
- },
- {
-  "id": "10635700711",
-  "date": "2026-11-02T14:51:32+01:00",
-  "type": "vert",
-  "paire": "Frozen Moments",
-  "famille": "Jordan 4",
-  "titre": "Jordan frozen",
-  "prix": "30.00 EUR",
-  "taille": "41",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10635700711-jordan-frozen",
-  "photos": [
-   "https://images1.vinted.net/t/05_00f01_YKVX2KsxzWUNs6h8f365RQGy/f800/d9cef8e4.webp?s=7851c9650adc12332d53555d9daacc3f31e3d575",
-   "https://images1.vinted.net/t/04_01f03_A3Dun6fM5wHsutxUcJuPLCKU/f800/d8b0beec.webp?s=2c4f8cb9a68dba4242437da83258569738d6188b",
-   "https://images1.vinted.net/t/06_025ac_1WEyxjCBPakAU8hQnzBtLRoW/f800/b2f455fd.webp?s=38de1c61490ddac5f7fdfaf73664a745df53f345",
-   "https://images1.vinted.net/t/02_0062d_E5CbUKgSXRCWEg5Szr3Kk3oH/f800/fb0aec76.webp?s=871777c4fb1c6f8a5efd6e1a0d10be776fd414cc",
-   "https://images1.vinted.net/t/02_01ccf_wJ3yKtJxSW2HKfT3nuUctj5i/f800/00c360e2.webp?s=3cee20f2e10af928171a466568fed3f6e1f588e4"
-  ],
-  "etiquette": null,
-  "ia": {
-   "verdict": "oui",
-   "confiance": 72
-  },
-  "ressemblance": 0.793,
-  "seuil": 0.745,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": "kine2012",
-   "id": "162013444",
-   "profil": "https://www.vinted.fr/member/162013444",
-   "avis": 157,
-   "etoiles": 4.8
   }
  }
 ]
