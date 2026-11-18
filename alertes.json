@@ -1,5 +1,39 @@
 [
  {
+  "id": "10864105336",
+  "date": "2026-11-18T10:01:06+01:00",
+  "type": "vert",
+  "paire": "Jordan 3 Dark Iris",
+  "famille": "Jordan 3",
+  "titre": "Jordan 3 blanche et violette",
+  "prix": "30.00 EUR",
+  "taille": "44,5",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10864105336-jordan-3-blanche-et-violette",
+  "photos": [
+   "https://images1.vinted.net/t/01_00717_aY4GnDyLxpWy9NcYvnGpgfuS/f800/eabb4e49.webp?s=6cc62078c66487c672eac811e5e264d58c16de24",
+   "https://images1.vinted.net/t/03_00ddc_gRaw7JVyUWV8Yjfrj2dyzfR6/f800/6ddf4551.webp?s=40be77e2bdb375a5463d7b9614014a7d8b9d4c62",
+   "https://images1.vinted.net/t/01_00f64_uPwg3nXbQbFaoGktzAXnW2N5/f800/00bc659b.webp?s=16160ebcb1c243fbf451f6ec842be407b3d69f66",
+   "https://images1.vinted.net/t/03_012b2_Qt1yoDHCuXe7zWvjmiexbt4u/f800/d2c08119.webp?s=bacb4f76b2124a4c59b6dad3795b8b77b983d321",
+   "https://images1.vinted.net/t/05_01b2a_K58Eigp7zxU1Y5FCQSscEGWi/f800/f8bb1e34.webp?s=df2833bdbf77a6605a5f7cabb995cdccdbf9ab7b"
+  ],
+  "etiquette": "https://images1.vinted.net/t/03_012b2_Qt1yoDHCuXe7zWvjmiexbt4u/f800/d2c08119.webp?s=bacb4f76b2124a4c59b6dad3795b8b77b983d321",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.85,
+  "seuil": 0.691,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "84805452",
+   "profil": "https://www.vinted.fr/member/84805452",
+   "avis": 17,
+   "etoiles": 4.5
+  }
+ },
+ {
   "id": "10863984987",
   "date": "2026-11-18T09:43:43+01:00",
   "type": "vert",
@@ -10031,34 +10065,6 @@
    "profil": "https://www.vinted.fr/member/162013444",
    "avis": 157,
    "etoiles": 4.8
-  }
- },
- {
-  "id": "10635672293",
-  "date": "2026-11-02T14:49:28+01:00",
-  "type": "bleu",
-  "paire": "White Cement",
-  "famille": "Jordan 4",
-  "titre": "Air Jordan 4 Retro White Cement",
-  "prix": "40.00 EUR",
-  "taille": "40",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10635672293-air-jordan-4-retro-white-cement",
-  "photos": [
-   "https://images1.vinted.net/t/02_010f2_tYgp1vHrJLvg3YJG97Avw7xz/f800/6973d29b.webp?s=a43369a273e0b258bda93bbe5ca348fb1a4e1836",
-   "https://images1.vinted.net/t/01_021bb_6TcHK3aQ77n2eepVNgquda5n/f800/1b97b3e2.webp?s=9ef18686032c1486220281c6be17317b31b9601a"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.817,
-  "seuil": 0.776,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": "mehdi.0976",
-   "id": "173338712",
-   "profil": "https://www.vinted.fr/member/173338712",
-   "avis": 4,
-   "etoiles": 5.0
   }
  }
 ]
