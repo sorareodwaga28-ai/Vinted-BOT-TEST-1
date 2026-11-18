@@ -1,5 +1,36 @@
 [
  {
+  "id": "10874654624",
+  "date": "2026-11-18T22:48:14+01:00",
+  "type": "bleu",
+  "paire": "White Cement",
+  "famille": "Jordan 4",
+  "titre": "Nike Air Jordan 4 Retro „White Cement“",
+  "prix": "18.00 EUR",
+  "taille": "42",
+  "etat": "Satisfaisant",
+  "url": "https://www.vinted.fr/items/10874654624-nike-air-jordan-4-retro-white-cement",
+  "photos": [
+   "https://images1.vinted.net/t/05_01517_my6kqPynaPqMu373inCQpvmV/f800/a515749d.webp?s=d7575629612e14ae5037520319ae96360518f20c",
+   "https://images1.vinted.net/t/05_00501_KHb3dSJ3hk9L5tbs9ToDTY8w/f800/bed279d7.webp?s=7deb6432f12d019a4e92c1dc6b6ec499b79213a5",
+   "https://images1.vinted.net/t/01_024cb_nWC3VCBof73E2ixPYu4yQskb/f800/41009291.webp?s=3fafd2372e751b60f88c4e0744e0ace759745ba4",
+   "https://images1.vinted.net/t/06_00054_ke2wSBztkpPdv6wNr2go489J/f800/96c55750.webp?s=821981dc852c965798163f72c81511a4a11789ac",
+   "https://images1.vinted.net/t/05_006d7_nDV73kMSH1jVjo1oppoJtQkp/f800/db9e7e20.webp?s=28420722ccf09c56a033d2b0712294c5f6610221"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.821,
+  "seuil": 0.716,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "joelinak.",
+   "id": "45083128",
+   "profil": "https://www.vinted.fr/member/45083128",
+   "avis": 63,
+   "etoiles": 4.8
+  }
+ },
+ {
   "id": "10828761126",
   "date": "2026-11-18T22:09:32+01:00",
   "type": "vert",
@@ -10022,40 +10053,6 @@
    "profil": "https://www.vinted.fr/member/60253075",
    "avis": 396,
    "etoiles": 4.7
-  }
- },
- {
-  "id": "10649192716",
-  "date": "2026-11-03T14:37:18+01:00",
-  "type": "vert",
-  "paire": "Seafoam",
-  "famille": "Jordan 4",
-  "titre": "Nike air Jordan",
-  "prix": "26.00 EUR",
-  "taille": "40,5",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10649192716-nike-air-jordan",
-  "photos": [
-   "https://images1.vinted.net/t/06_01f4d_hZDQ8H8ojpYYH1PKcNdx28Z1/f800/c234536d.webp?s=cfe2cc16f77f4265c838088e3d0e04201a03985a",
-   "https://images1.vinted.net/t/06_007b4_Y4sZj7y7L1ge4dH22SZz3hTV/f800/d6dbdd59.webp?s=2d32d721dc442c33ee7707b0e7f1584a970b5ac1",
-   "https://images1.vinted.net/t/03_00299_cxe3XqY8GA5Ntg9dj52EJz6C/f800/91647968.webp?s=a23b91fda3e3eb68caad0a81e5aa9b3e0d7f8f49",
-   "https://images1.vinted.net/t/06_015e1_ejB4HExmBQWzePKdYPSgcPvG/f800/ee5a60f4.webp?s=a8f41bb65981af5e6180a256377e4703e0c85fb0",
-   "https://images1.vinted.net/t/06_012fe_QqFwUrRsGgroY5bN66dCb1RJ/f800/a6731de4.webp?s=7b4d6d027db57a1050de78147d37173b5eb05139"
-  ],
-  "etiquette": "https://images1.vinted.net/t/06_015e1_ejB4HExmBQWzePKdYPSgcPvG/f800/ee5a60f4.webp?s=a8f41bb65981af5e6180a256377e4703e0c85fb0",
-  "ia": {
-   "verdict": "oui",
-   "confiance": 85
-  },
-  "ressemblance": 0.842,
-  "seuil": 0.785,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": "itzsold",
-   "id": "142993859",
-   "profil": "https://www.vinted.fr/member/142993859",
-   "avis": 34,
-   "etoiles": 4.9
   }
  }
 ]
