@@ -1,5 +1,39 @@
 [
  {
+  "id": "10826615850",
+  "date": "2026-11-18T20:28:22+01:00",
+  "type": "vert",
+  "paire": "Sacai LDWaffle Undercover Yellow",
+  "famille": "Sacai",
+  "titre": "Nike sacai",
+  "prix": "50.00 EUR",
+  "taille": "42,5",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10826615850-nike-sacai",
+  "photos": [
+   "https://images1.vinted.net/t/02_00af2_egNNbogxTfehPRdsbTutZmKm/f800/5005bba7.webp?s=e0d6d87056fc1fb2183d53e2e22a52c9b5f5ae5d",
+   "https://images1.vinted.net/t/06_002d7_MWm6AMbHFDNEtBc7VYUKrrTN/f800/973f1776.webp?s=e681e6792d57a417c537028e6933dc56ecbd7a99",
+   "https://images1.vinted.net/t/06_02230_6fiHhZszDN5Xzm1uoEkDtKG8/f800/d60fbdae.webp?s=c1d4442de5e3e5736469b9a7dc2ef7df3006924e",
+   "https://images1.vinted.net/t/05_01858_XSYzEHHgon5Wv9kfD31vckqP/f800/d31e1e29.webp?s=82228ec4bf220c0516a2551b579007aaeaa84d87",
+   "https://images1.vinted.net/t/02_00a08_Vv55J9395uudYyq7oDGJRH5n/f800/4ff28480.webp?s=f5c23865463aa604ed510555f3f0ae6b1824db5b"
+  ],
+  "etiquette": "https://images1.vinted.net/t/05_01858_XSYzEHHgon5Wv9kfD31vckqP/f800/d31e1e29.webp?s=82228ec4bf220c0516a2551b579007aaeaa84d87",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 75
+  },
+  "ressemblance": 0.863,
+  "seuil": 0.712,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "mlcloset11",
+   "id": "68723189",
+   "profil": "https://www.vinted.fr/member/68723189",
+   "avis": 66,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10826076031",
   "date": "2026-11-18T19:45:30+01:00",
   "type": "bleu",
@@ -10025,38 +10059,6 @@
    "profil": "https://www.vinted.fr/member/3201627419",
    "avis": 0,
    "etoiles": 0.0
-  }
- },
- {
-  "id": "10642500893",
-  "date": "2026-11-02T22:26:55+01:00",
-  "type": "bleu",
-  "paire": "Taupe Haze",
-  "famille": "Jordan 4",
-  "titre": "Air Jordan 4 Retro Taupe Haze",
-  "prix": "40.00 EUR",
-  "taille": "43",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10642500893-air-jordan-4-retro-taupe-haze",
-  "photos": [
-   "https://images1.vinted.net/t/01_002b7_uPwh2tdvWU7nNh64oTzJ5Dfi/f800/5f260ce4.webp?s=21603e53251d9f30da0fefd62eda47ffe4e2ae9d",
-   "https://images1.vinted.net/t/04_00e9a_cCkPRxqNBFXGRhpxZizXN9k8/f800/12b17ee3.webp?s=46a51b911875082cc0ba2780176f7626d89dd3be",
-   "https://images1.vinted.net/t/04_01146_VFeoVzZYVDTEHgS1QmksDv6G/f800/8e0043fa.webp?s=c24f3b8f635277c07cb61b2d17fa8fdc7de99bbd",
-   "https://images1.vinted.net/t/06_01836_uFtRMbBkLGgSmrRWNKRAAqEZ/f800/41d7734d.webp?s=93b2de332a489c0425a5f4058132cf28a5b01c9c",
-   "https://images1.vinted.net/t/02_00e95_nqdyk3uYknXLHAzeB2PKfB7o/f800/e6376d9d.webp?s=a9f028739a479af6f971ec690c0a83e8c76469e7",
-   "https://images1.vinted.net/t/02_0117c_NKj7UescMVPj56eqQipMhVzj/f800/be15e2b7.webp?s=bd87586d1b0f6f4ee11dc48e43a88f90839e070b"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.827,
-  "seuil": 0.76,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": "josinho.l",
-   "id": "157558958",
-   "profil": "https://www.vinted.fr/member/157558958",
-   "avis": 7,
-   "etoiles": 5.0
   }
  }
 ]
