@@ -1,5 +1,36 @@
 [
  {
+  "id": "10868425017",
+  "date": "2026-11-18T15:44:33+01:00",
+  "type": "bleu",
+  "paire": "Jordan 1 High Lost and Found",
+  "famille": "Jordan 1",
+  "titre": "Jordan 1 Red White “lost and found”",
+  "prix": "8.00 EUR",
+  "taille": "45",
+  "etat": "Satisfaisant",
+  "url": "https://www.vinted.fr/items/10868425017-jordan-1-red-white-lost-and-found",
+  "photos": [
+   "https://images1.vinted.net/t/04_01a3c_MteNgVTyJRsuAAtNDwBRKARd/f800/297dad31.webp?s=6cd3349ba5f1a0499166c3065b4270bb41e75daf",
+   "https://images1.vinted.net/t/05_01810_oJCLZNsoWcmCrNoCBeot8aFf/f800/4e41737a.webp?s=d9c28816f5b1c9eb14b28ad2bb4a4f4420ef47b7",
+   "https://images1.vinted.net/t/05_01154_nDEm7LQoejsQjmMXGUj9ddAo/f800/6593a9cb.webp?s=a158b86820c619b2cd5595b4cb73f2dc214aa2e1",
+   "https://images1.vinted.net/t/06_009c3_oFjMKW5SoXqYPtxXoAoDgjy5/f800/491fb018.webp?s=8294f23d1c2ba13c71e8946fae781f4ac867b738",
+   "https://images1.vinted.net/t/03_0025c_ouUT5p1dpLRKDFkjZM91NaEM/f800/236a61c6.webp?s=5895c3a62b733291e72ff33cf1ab14e47ba8d745"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.0,
+  "seuil": 0.708,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "59870352",
+   "profil": "https://www.vinted.fr/member/59870352",
+   "avis": 111,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10867557133",
   "date": "2026-11-18T14:46:12+01:00",
   "type": "vert",
@@ -10038,38 +10069,6 @@
    "profil": "https://www.vinted.fr/member/109511136",
    "avis": 16,
    "etoiles": 4.4
-  }
- },
- {
-  "id": "10638738993",
-  "date": "2026-11-02T18:11:19+01:00",
-  "type": "vert",
-  "paire": "SB Pine Green",
-  "famille": "Jordan 4",
-  "titre": "Scarpe jordan 4 - Taglia 43",
-  "prix": "50.00 EUR",
-  "taille": "43",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10638738993-scarpe-jordan-4-taglia-43",
-  "photos": [
-   "https://images1.vinted.net/t/05_001d4_68Zezh1c1K3VnstcACJQ73LH/f800/fe63d767.webp?s=44b0e1dcf2cc4b616cb97f6f3ba59076f7fc66b4",
-   "https://images1.vinted.net/t/06_00f77_1RcVYWA3ABH788DyNoeqnfgP/f800/fe8ac7d1.webp?s=85f20b4b8c3d2aeee86c39f3675a94a3e062619b",
-   "https://images1.vinted.net/t/06_00fd4_m27H2C7JmXUX9g1rUWBP6KPu/f800/30fc9da5.webp?s=15c0ce61d89a5f5ab421494c40b85de50586ec1d"
-  ],
-  "etiquette": null,
-  "ia": {
-   "verdict": "oui",
-   "confiance": 75
-  },
-  "ressemblance": 0.822,
-  "seuil": 0.745,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": null,
-   "id": "3203447849",
-   "profil": "https://www.vinted.fr/member/3203447849",
-   "avis": 0,
-   "etoiles": 0.0
   }
  }
 ]
