@@ -1,5 +1,48 @@
 [
  {
+  "id": "10822364903",
+  "date": "2026-11-18T16:17:42+01:00",
+  "type": "vert",
+  "paire": "Lightning",
+  "famille": "Jordan 4",
+  "titre": "Nike air Jordan 4",
+  "prix": "39.99 EUR",
+  "taille": "42,5",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10822364903-nike-air-jordan-4",
+  "photos": [
+   "https://images1.vinted.net/t/02_017da_1zxCDnNPS1FxLVr6ipxTsBvt/f800/9ce14eb9.webp?s=71600b1285e72b0cd5d92151441fc3b9ee5b0e82",
+   "https://images1.vinted.net/t/02_01bc5_abU8joQYhyW9nZz7YpErKfEK/f800/b487b341.webp?s=74d606e7df27d556357f7b6bc6fd27fe94470599",
+   "https://images1.vinted.net/t/02_00850_vH7i9gi2yRCiYsEvNGM9VFdf/f800/793220d9.webp?s=324aedb0b248dc030817adb3032e81d066a2ff8c",
+   "https://images1.vinted.net/t/06_0158f_bYyjqLSd4EpjG1Ky2DsWdypD/f800/aeea471a.webp?s=c9502b7da0005903e70677024b21a75f02ae88a3",
+   "https://images1.vinted.net/t/05_01cd0_gMSpQVgKe4KxhemioM4ebs6Q/f800/8b6f6753.webp?s=db406149e154bd59d689d100d2a739d82c497eee",
+   "https://images1.vinted.net/t/05_01e7e_JUmnBi7v6VyLSD2ijrf14HKw/f800/78b3ecef.webp?s=fd2cf54b3d57d4ff31a7dbc83b8c8a617b3c6f3c",
+   "https://images1.vinted.net/t/02_011b3_HktSVEL2q7rdZ2NYcbEyRPZz/f800/b7124a2a.webp?s=6eea09453ec26d573b0662b79150e7af50f26ea1",
+   "https://images1.vinted.net/t/04_00c72_inARckMbSejZmqURSie3sr3X/f800/78bf21b0.webp?s=648168f812340b49d3f071716db85b6b6b5830c8",
+   "https://images1.vinted.net/t/02_00f3b_y4745tLWLLBn1HBAP4Shasuy/f800/2fe5bb1e.webp?s=d0bdb34157334a0d73a95cfe665d586e066dcfa1",
+   "https://images1.vinted.net/t/02_014f3_F7xuQAoyLYjGFhLM4zcw28iR/f800/5587ae60.webp?s=ae803c3a9128a42d8fd56beebf8c34f5f771964b",
+   "https://images1.vinted.net/t/06_00ba2_F1ENZt2xARhJGKewKaQDQeZ1/f800/47339900.webp?s=7f43c6a6bb40d2fd07eb3aae8725f3f117f3eaec",
+   "https://images1.vinted.net/t/02_00b19_N1V28tMGJ4cVbcpJRTareVb4/f800/2f19632f.webp?s=98e6acd2898a32f60a5d13487f3a57b320e5ba0c",
+   "https://images1.vinted.net/t/06_01f1e_bkRSVLaSSszQiSUMLu6phfp6/f800/c999ad05.webp?s=27589cef8f68cdbdc9733b4a361231a592da051e",
+   "https://images1.vinted.net/t/06_00c23_hi3EEpdebJHSodYqTh346PHq/f800/698a9e85.webp?s=4fc5ba25bc180963d5c6707786b8a6ad49645d18"
+  ],
+  "etiquette": "https://images1.vinted.net/t/02_00850_vH7i9gi2yRCiYsEvNGM9VFdf/f800/793220d9.webp?s=324aedb0b248dc030817adb3032e81d066a2ff8c",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.821,
+  "seuil": 0.704,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "marceaumartin35",
+   "id": "195907678",
+   "profil": "https://www.vinted.fr/member/195907678",
+   "avis": 27,
+   "etoiles": 4.6
+  }
+ },
+ {
   "id": "10868701587",
   "date": "2026-11-18T16:02:58+01:00",
   "type": "vert",
@@ -10032,40 +10075,6 @@
    "profil": "https://www.vinted.fr/member/221623223",
    "avis": 0,
    "etoiles": 0.0
-  }
- },
- {
-  "id": "10641165334",
-  "date": "2026-11-02T20:49:23+01:00",
-  "type": "vert",
-  "paire": "Jordan 1 High Hyper Royal",
-  "famille": "Jordan 1",
-  "titre": "Nike air Jordan 1 mis bleu , taille 43",
-  "prix": "22.00 EUR",
-  "taille": "43",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10641165334-nike-air-jordan-1-mis-bleu-taille-43",
-  "photos": [
-   "https://images1.vinted.net/t/04_00263_4sxWyigQcssYzyz1TKstimvx/f800/d965528b.webp?s=9f21b3b5068ca588778c6885834dfc0f9f25ce50",
-   "https://images1.vinted.net/t/06_025fa_DkkQeQzJtYfrseieirPSM6Rt/f800/11e1657d.webp?s=28918f5f31b693855e918a8e66d7c17388b95745",
-   "https://images1.vinted.net/t/01_01e1d_k9anqpRCLW1m9fenGgeGYmB9/f800/b56044c5.webp?s=78505daa0c6c530991a51e6114cfd53644e77c42",
-   "https://images1.vinted.net/t/02_005a7_dEngX4CN7PLYy2ztmKr5J4af/f800/da7a83e1.webp?s=fcae2604e0019f217edb2a9d4a0b856e34b194c6",
-   "https://images1.vinted.net/t/06_01832_XShhbGiTopk1t3S9VJo36NZS/f800/87167464.webp?s=8a71d6289c83c3a6ca23db59bc670ba182144cdb"
-  ],
-  "etiquette": "https://images1.vinted.net/t/06_01832_XShhbGiTopk1t3S9VJo36NZS/f800/87167464.webp?s=8a71d6289c83c3a6ca23db59bc670ba182144cdb",
-  "ia": {
-   "verdict": "oui",
-   "confiance": 70
-  },
-  "ressemblance": 0.853,
-  "seuil": 0.792,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": "floriendr",
-   "id": "3200402004",
-   "profil": "https://www.vinted.fr/member/3200402004",
-   "avis": 5,
-   "etoiles": 5.0
   }
  }
 ]
