@@ -1,5 +1,40 @@
 [
  {
+  "id": "10867229564",
+  "date": "2026-11-18T14:23:26+01:00",
+  "type": "vert",
+  "paire": "SB Pine Green",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4 Sb Green",
+  "prix": "15.00 EUR",
+  "taille": "43",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10867229564-jordan-4-sb-green",
+  "photos": [
+   "https://images1.vinted.net/t/05_0186a_NgpUa94QT3ZZx8XkHAfHHn9s/f800/368378d5.webp?s=fc70b0e5f4f1dd51166b311cab10e0a37f447dad",
+   "https://images1.vinted.net/t/03_00e0c_xS61aB1uYaUqqDjWK6sWz65M/f800/452df719.webp?s=70f1f7b03d79912dff9a5128a3035abb0e1981cb",
+   "https://images1.vinted.net/t/01_00f2d_A8WfDEToG3GgYdwpadqc7sF7/f800/b7e913b3.webp?s=56f5780ef64d26c7646bd7937edfffb2ca94a5e3",
+   "https://images1.vinted.net/t/06_00c5b_XfDMVgmWyVympKYbQKivH5GW/f800/262beefd.webp?s=b0bba0234c503f66ec40b29ddec3fd4d872f1b6e",
+   "https://images1.vinted.net/t/05_01c4e_yXgv8uiCdar4Nw1bdGQUc4PJ/f800/cdbf57b2.webp?s=6482f278b33d2c9d1ef6f8a8de0ecc03a0033a6e",
+   "https://images1.vinted.net/t/06_010a0_wDARYipP1iErX3VwF7z81aUN/f800/efb907c5.webp?s=8a658626be8a721dbb1a8e89fd58b8cf0551e181"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 85
+  },
+  "ressemblance": 0.881,
+  "seuil": 0.696,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "usuario_1502",
+   "id": "121294443",
+   "profil": "https://www.vinted.fr/member/121294443",
+   "avis": 86,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10866167152",
   "date": "2026-11-18T13:06:07+01:00",
   "type": "vert",
@@ -10033,38 +10068,6 @@
    "id": "184145699",
    "profil": "https://www.vinted.fr/member/184145699",
    "avis": 1,
-   "etoiles": 5.0
-  }
- },
- {
-  "id": "10637734012",
-  "date": "2026-11-02T17:06:06+01:00",
-  "type": "bleu",
-  "paire": "Air Max 1 Patta Waves White",
-  "famille": "Air Max 1",
-  "titre": "Nike Air Max 1 x Patta \"Waves White\"",
-  "prix": "50.00 EUR",
-  "taille": "44",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10637734012-nike-air-max-1-x-patta-waves-white",
-  "photos": [
-   "https://images1.vinted.net/t/02_02314_5dZrehgNX5ii9jXdR3trL3YC/f800/32c9ad89.webp?s=6804ea71e91dbe635a29586e67c3e4d96c9e7646",
-   "https://images1.vinted.net/t/05_0067b_4DKAzUZNfvKiKaT6fTCYL8Nc/f800/166af6f0.webp?s=c21bdded751986146824b621ba814cc4048176e9",
-   "https://images1.vinted.net/t/05_0051a_5JnjmPhho5U1xPu5CThRGiAM/f800/1abcda69.webp?s=cd66d603d9173449285505554a6163f8520380f0",
-   "https://images1.vinted.net/t/05_012ff_v71FSh8RrU9UUBn2dDTkw45i/f800/518a773f.webp?s=3b3fb7af8a8e690e327ab9a341bca5054ea520f1",
-   "https://images1.vinted.net/t/05_0241d_3o3XovJvjkRmkTBSWPLCsm5H/f800/9884f84b.webp?s=8d9cbdfc374902fe29ec29d3bef3dbe829d3d24a",
-   "https://images1.vinted.net/t/06_0093e_5Jt76kr8PHMSkuStjNSyvU28/f800/a773db22.webp?s=05ab02978efbe23207c98e08df122af5caff7f28"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.862,
-  "seuil": 0.796,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": "167428896",
-   "profil": "https://www.vinted.fr/member/167428896",
-   "avis": 9,
    "etoiles": 5.0
   }
  }
