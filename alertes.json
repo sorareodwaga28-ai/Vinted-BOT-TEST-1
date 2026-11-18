@@ -1,5 +1,41 @@
 [
  {
+  "id": "10815817525",
+  "date": "2026-11-18T11:57:26+01:00",
+  "type": "vert",
+  "paire": "Fire Red",
+  "famille": "Jordan 4",
+  "titre": "Jordan retro fire red",
+  "prix": "45.00 EUR",
+  "taille": "44",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10815817525-jordan-retro-fire-red",
+  "photos": [
+   "https://images1.vinted.net/t/02_00147_eqEkD2CriyTe1ThwVPyAT5Wb/f800/6488a73c.webp?s=7d179e974bc1c84e4b9eec502737b7d6487519f8",
+   "https://images1.vinted.net/t/04_01b4a_8eMzXFduFSENKGRQparVocWk/f800/4a4e668f.webp?s=05be90f76e09e609711246c8a6f7c47fae3fdab4",
+   "https://images1.vinted.net/t/04_00d91_ADWbB7p1jG7o3rvHMqedDRFE/f800/2836e432.webp?s=074d5d1437b4228e1c01a4c2fbfac8e42fe4fbb4",
+   "https://images1.vinted.net/t/01_01e9d_JfmkBNS8t41b5kDDr5Fd9ps2/f800/90d80581.webp?s=fd6b92625e6e8dcbc5d57d2b434aac1f184e8089",
+   "https://images1.vinted.net/t/04_01585_dwtZRXgBGPQfrUFxbPtgRyg5/f800/1b55ef48.webp?s=2fb3b686cefcf86f6a590ef404e8cfc6b6c77179",
+   "https://images1.vinted.net/t/01_026a4_mQRSBgg1SjPfaN6desoTHzDq/f800/d737b142.webp?s=e869a7e62a7e37d9df0d0a40c9a52157eb632cdb",
+   "https://images1.vinted.net/t/05_01164_gDhqbKUHPzgEZb19EudGoU3r/f800/b1a910f7.webp?s=148b7d422d9cd16357ff8e6ee12b592fe1fcd74a"
+  ],
+  "etiquette": "https://images1.vinted.net/t/01_01e9d_JfmkBNS8t41b5kDDr5Fd9ps2/f800/90d80581.webp?s=fd6b92625e6e8dcbc5d57d2b434aac1f184e8089",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.791,
+  "seuil": 0.693,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "anermax",
+   "id": "180640504",
+   "profil": "https://www.vinted.fr/member/180640504",
+   "avis": 95,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10815782126",
   "date": "2026-11-18T11:55:58+01:00",
   "type": "bleu",
@@ -10031,37 +10067,6 @@
    "profil": "https://www.vinted.fr/member/238296741",
    "avis": 117,
    "etoiles": 4.9
-  }
- },
- {
-  "id": "10635938848",
-  "date": "2026-11-02T15:07:54+01:00",
-  "type": "bleu",
-  "paire": "Neon",
-  "famille": "Jordan 4",
-  "titre": "Jordan 4 Retro (Neón)",
-  "prix": "45.00 EUR",
-  "taille": "43",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10635938848-jordan-4-retro-neon",
-  "photos": [
-   "https://images1.vinted.net/t/06_0038d_Rq1unmTH5W8ZfFLgESdxJPeP/f800/da47f9bd.webp?s=a9a3c280d79c3a89e0bc9ae4af51d576a4805670",
-   "https://images1.vinted.net/t/01_0010d_W9fLjEjvdkc5dyPrJEQiGi9R/f800/0e95e08d.webp?s=404bc67bbfc65346d88cb54eb52551c4ae754fd2",
-   "https://images1.vinted.net/t/05_01efe_6P1pf1fED5YLctNXvCSduwMG/f800/3d00df8a.webp?s=9e1fef2021389142f36d3423c3142302fb5ff340",
-   "https://images1.vinted.net/t/06_01520_5MxsbAzWRhdvWTQDV8o1FWg4/f800/1df81c21.webp?s=f2f7ba68cd6e1a10adfe2fd5a54c83e6804935cf",
-   "https://images1.vinted.net/t/06_0172e_FMp62W8nwWxyZQhahN1CA6U6/f800/2f29c76c.webp?s=fc8c3ccd66d04187954962417bfa1afe73dc3ca7"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.811,
-  "seuil": 0.745,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": "160084396",
-   "profil": "https://www.vinted.fr/member/160084396",
-   "avis": 32,
-   "etoiles": 4.2
   }
  }
 ]
