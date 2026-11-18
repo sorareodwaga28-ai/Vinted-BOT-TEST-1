@@ -1,5 +1,39 @@
 [
  {
+  "id": "10868553357",
+  "date": "2026-11-18T15:53:17+01:00",
+  "type": "bleu",
+  "paire": "Frozen Moments",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4 Oreo e Jordan 4 Frozen Moments",
+  "prix": "40.00 EUR",
+  "taille": "43",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10868553357-jordan-4-oreo-e-jordan-4-frozen-moments",
+  "photos": [
+   "https://images1.vinted.net/t/04_01e67_cQeTa1dBGXWPzqteu5SBUAJh/f800/d40842f9.webp?s=6641e85ad12a4efe0d49744fa03405045e5cec4c",
+   "https://images1.vinted.net/t/03_01cf0_bb5m71oEH7B8FWDy2uWZnVRw/f800/13014d9d.webp?s=cc71012b18de52cc397a88c203a1d29ca2ca1064",
+   "https://images1.vinted.net/t/02_00a8b_ZDvZsd8T9CxYDM8Sy6bQUwtx/f800/4f4dfb19.webp?s=44ed0f78bfa3af072da647a0e6a7f20d99d8f1d9",
+   "https://images1.vinted.net/t/03_025c2_1efxxZww2xoEwHxJoakRNEYt/f800/f1ffe1a7.webp?s=db27d541ab952b2676e99378ebe31643db1ad350",
+   "https://images1.vinted.net/t/05_00b1c_zygb1QpmTcowcAj6HAFicdaC/f800/f39d927a.webp?s=55f97982032b549977fcb41f29b410e002b17f69",
+   "https://images1.vinted.net/t/06_0164c_VsZu53k2dfxGZiPaqent9Mxq/f800/5dba7631.webp?s=b53e9ce4f5dfc1bbb1226343b6f7b3acf0ac8bb4",
+   "https://images1.vinted.net/t/05_00655_81BV7eZB2X7FzDWxiusVv8BL/f800/b47c3dc5.webp?s=e3fea6bc619866e335b2c0d59a32b99562dbd9f6",
+   "https://images1.vinted.net/t/05_00d6c_zWejdNbpsarZ29AmgZV33dcL/f800/fa02841b.webp?s=0b5a2eb4af48f70c4320315142dbe09808c212db"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.764,
+  "seuil": 0.755,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "3194226160",
+   "profil": "https://www.vinted.fr/member/3194226160",
+   "avis": 4,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10868425017",
   "date": "2026-11-18T15:44:33+01:00",
   "type": "bleu",
@@ -10037,38 +10071,6 @@
    "profil": "https://www.vinted.fr/member/63948962",
    "avis": 60,
    "etoiles": 4.6
-  }
- },
- {
-  "id": "10639526040",
-  "date": "2026-11-02T19:02:14+01:00",
-  "type": "bleu",
-  "paire": "White Cement",
-  "famille": "Jordan 4",
-  "titre": "Jordan 4 white cement",
-  "prix": "10.00 EUR",
-  "taille": "42",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10639526040-jordan-4-white-cement",
-  "photos": [
-   "https://images1.vinted.net/t/02_00983_TvPngUN89W7dWfm7rHYsenof/f800/b0affa52.webp?s=5df9a163e2f0dc17057c777838d3250515d11711",
-   "https://images1.vinted.net/t/06_024ea_7TnYHAMTYjDyQU4oWR5ihLdu/f800/4f16c763.webp?s=8454f9cab66e6f8e79912de7cc3f8e7daac3ddf3",
-   "https://images1.vinted.net/t/02_01ad3_gm4LCxSgpZGqSPLrZHsiwgR1/f800/8b5505f2.webp?s=86bebf35655dca71e99516aa0c3efc44e7f538d5",
-   "https://images1.vinted.net/t/02_00011_z8EqXacgj7fT1orFnu9iKiNp/f800/73e1eba3.webp?s=2117e993899f312763a2460740eb26d44cdd2e69",
-   "https://images1.vinted.net/t/02_01ffa_KqJ9Pnd9m5pvoB31Z18gDicr/f800/992b2e15.webp?s=853550c4371df2eb4d44f993413509ac974eb7eb",
-   "https://images1.vinted.net/t/03_00adb_aQn6fDDWVWZoSZCtvwYeaRoX/f800/29111db0.webp?s=2b5a8c05579e7f10328dd7c81b211f220ffcfb4e"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.0,
-  "seuil": 0.776,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": "109511136",
-   "profil": "https://www.vinted.fr/member/109511136",
-   "avis": 16,
-   "etoiles": 4.4
   }
  }
 ]
