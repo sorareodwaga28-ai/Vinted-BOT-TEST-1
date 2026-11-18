@@ -1,5 +1,35 @@
 [
  {
+  "id": "10873751557",
+  "date": "2026-11-18T21:43:11+01:00",
+  "type": "bleu",
+  "paire": "Rare Air",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4  Rare air",
+  "prix": "46.00 EUR",
+  "taille": "45",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10873751557-jordan-4-rare-air",
+  "photos": [
+   "https://images1.vinted.net/t/02_0211f_LLJ4zzFZGd8LPwhaXCwu3JBv/f800/ed5f8c11.webp?s=5a42facdbbd7861e96cacd68b9db1343e66b444b",
+   "https://images1.vinted.net/t/02_02325_e3oSXHxC6wsDK4btzRPbkic1/f800/2f0ad6d2.webp?s=bd230c5cf59ef2881a6a68cb52e669bc3f29b77a",
+   "https://images1.vinted.net/t/06_004ca_S7uENH8DDDZzWxY7TAjHeVSb/f800/b5a1a9f6.webp?s=57b4f183ecdfa6bd4d6a918bb73f169712055a9e",
+   "https://images1.vinted.net/t/05_022ef_4Ao4BrbHaUPdJFuyUkc1GH5B/f800/4a10ee2c.webp?s=1ba66d57085936730b464e2c6b0e600376fba423"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.881,
+  "seuil": 0.68,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "3216255241",
+   "profil": "https://www.vinted.fr/member/3216255241",
+   "avis": 0,
+   "etoiles": 0.0
+  }
+ },
+ {
   "id": "10826615850",
   "date": "2026-11-18T20:28:22+01:00",
   "type": "vert",
@@ -10026,39 +10056,6 @@
    "profil": "https://www.vinted.fr/member/144202988",
    "avis": 106,
    "etoiles": 5.0
-  }
- },
- {
-  "id": "10645921686",
-  "date": "2026-11-03T10:05:36+01:00",
-  "type": "vert",
-  "paire": "SB Pine Green",
-  "famille": "Jordan 4",
-  "titre": "Jordan 4",
-  "prix": "20.00 EUR",
-  "taille": "46",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10645921686-jordan-4",
-  "photos": [
-   "https://images1.vinted.net/t/06_01386_CSXQ4YHQu18JBeLdjmTBkkmj/f800/a7aa1bc8.webp?s=0a5d46655b4dbc3f25ec087783a7781bb29761c2",
-   "https://images1.vinted.net/t/02_00873_7ECqq5PGaAwpgy1ejwgUrmcU/f800/aa7b6c54.webp?s=4a95a6dd33b16657c8c2b5d09c84a4f5bdcf1d34",
-   "https://images1.vinted.net/t/02_011f3_hPiU2tCiWVRtE5Sd1jHBQMge/f800/426b905e.webp?s=a7cbbe637934aa4e739d70e0b75ea1135b5ad1c8",
-   "https://images1.vinted.net/t/03_01846_6KBrNdShTNRq2AzDWrg1ZLoR/f800/05c4a188.webp?s=1c4d28409afc78879a420ef735662de332c9a69d"
-  ],
-  "etiquette": "https://images1.vinted.net/t/03_01846_6KBrNdShTNRq2AzDWrg1ZLoR/f800/05c4a188.webp?s=1c4d28409afc78879a420ef735662de332c9a69d",
-  "ia": {
-   "verdict": "oui",
-   "confiance": 85
-  },
-  "ressemblance": 0.858,
-  "seuil": 0.745,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": null,
-   "id": "3201627419",
-   "profil": "https://www.vinted.fr/member/3201627419",
-   "avis": 0,
-   "etoiles": 0.0
   }
  }
 ]
