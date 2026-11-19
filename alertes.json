@@ -1,5 +1,35 @@
 [
  {
+  "id": "10882255111",
+  "date": "2026-11-19T16:03:35+01:00",
+  "type": "bleu",
+  "paire": "SB Pine Green",
+  "famille": "Jordan 4",
+  "titre": "Air Jordan 4 Retro SB Pine Green",
+  "prix": "20.00 EUR",
+  "taille": "43",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10882255111-air-jordan-4-retro-sb-pine-green",
+  "photos": [
+   "https://images1.vinted.net/t/01_01676_mNgp95xYwikM2E5QirLTq2Yz/f800/461c557c.webp?s=48c37e1830835615f2916d0776f01c277262af15",
+   "https://images1.vinted.net/t/03_01f4e_DAVa7ZieU1AhfNMYjQxSQxDd/f800/6a42aae8.webp?s=9c7274b5780a42e31a93c185c279529cf524113a",
+   "https://images1.vinted.net/t/06_019fb_Mys9h6CoBe9UXmuJTLBEGNUk/f800/75806f7b.webp?s=87a2687c9d3063d181585fb8b4f89a94b0fb8d92",
+   "https://images1.vinted.net/t/05_0018b_MtPhsWZQA7zFCPXtf7ffLdZi/f800/2a165653.webp?s=bc7b41c20477ccb706005839cbca31eb3ff96925"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.79,
+  "seuil": 0.696,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "178442756",
+   "profil": "https://www.vinted.fr/member/178442756",
+   "avis": 9,
+   "etoiles": 4.6
+  }
+ },
+ {
   "id": "10842100094",
   "date": "2026-11-19T15:43:55+01:00",
   "type": "bleu",
@@ -10025,36 +10055,6 @@
    "profil": "https://www.vinted.fr/member/3177013507",
    "avis": 10,
    "etoiles": 4.0
-  }
- },
- {
-  "id": "10659119152",
-  "date": "2026-11-04T09:22:48+01:00",
-  "type": "bleu",
-  "paire": "Thunder",
-  "famille": "Jordan 4",
-  "titre": "Jordan 4 thunder yellow",
-  "prix": "35.00 EUR",
-  "taille": "42",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10659119152-jordan-4-thunder-yellow",
-  "photos": [
-   "https://images1.vinted.net/t/03_01230_dFiDwPV6eQLiTkqd1WgwxihM/f800/e5e591ba.webp?s=079ba0d8a12ac9a49604bef57a83367f13c0e68b",
-   "https://images1.vinted.net/t/06_026b7_EU6vmhoKLJaNjZdX7CGyWpMS/f800/0a7dcf78.webp?s=f6ddfe06ac6df74d4b2affba3b6c90acc4761bf6",
-   "https://images1.vinted.net/t/06_00f09_ssjzMhpNMaGbTGsPUo3nrHCv/f800/bdc255c9.webp?s=46a3a0574128891cc1779b1d6b72d9bb28aecfd3",
-   "https://images1.vinted.net/t/06_020ec_BD7N6jPLgrvd3PcHUc16QpxV/f800/bb7a9d72.webp?s=1a1535358c3319989c9dafc4dd3b6612975249c9"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.795,
-  "seuil": 0.749,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": "274211291",
-   "profil": "https://www.vinted.fr/member/274211291",
-   "avis": 0,
-   "etoiles": 0.0
   }
  }
 ]
