@@ -1,5 +1,36 @@
 [
  {
+  "id": "10844956518",
+  "date": "2026-11-19T17:50:18+01:00",
+  "type": "bleu",
+  "paire": "Lightning",
+  "famille": "Jordan 4",
+  "titre": "Air Jordan 4 Retro Lightning",
+  "prix": "30.00 EUR",
+  "taille": "40",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10844956518-air-jordan-4-retro-lightning",
+  "photos": [
+   "https://images1.vinted.net/t/02_01ae3_v5L24PHD42M7xJ7NA87BiUET/f800/579173e3.webp?s=9cc6d256bb2909ddae7217753236ad3398615512",
+   "https://images1.vinted.net/t/02_0198c_t4kyzJ3d3qXzwGMbKNU8Cj2i/f800/8186ef3d.webp?s=0b316be2a6b787f52e5b08f9911d07e548ae119a",
+   "https://images1.vinted.net/t/02_01f2e_1QsJfCp6ndVk7Ns5F8nS5ixL/f800/b1294c83.webp?s=2245c54b54a29f9c75e2ea69f186e3bac0b2708f",
+   "https://images1.vinted.net/t/01_01a37_R19uBYdkdYFrsPzv7PgfuJyT/f800/ab673c2c.webp?s=62c142137d411741aac7ba0791c0be7fca3be485",
+   "https://images1.vinted.net/t/01_00620_CR4xp8P8XerkgXhQDydgzuqh/f800/cb0dc7bc.webp?s=9fe9a9de3d73c7d3465842356d42eff86a5fcae7"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.795,
+  "seuil": 0.702,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "3170084927",
+   "profil": "https://www.vinted.fr/member/3170084927",
+   "avis": 0,
+   "etoiles": 0.0
+  }
+ },
+ {
   "id": "10883340148",
   "date": "2026-11-19T17:22:20+01:00",
   "type": "bleu",
@@ -10011,40 +10042,6 @@
    "profil": "https://www.vinted.fr/member/23632126",
    "avis": 45,
    "etoiles": 4.9
-  }
- },
- {
-  "id": "10661214502",
-  "date": "2026-11-04T12:47:28+01:00",
-  "type": "vert",
-  "paire": "Thunder",
-  "famille": "Jordan 4",
-  "titre": "Jordans",
-  "prix": "40.00 EUR",
-  "taille": "43",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10661214502-jordans",
-  "photos": [
-   "https://images1.vinted.net/t/04_00fd0_tdxEbWjAGmWCSuZqpVDhPZyt/f800/119eaa73.webp?s=91432f2f2e4f15521342a34fdb19808a5facdf62",
-   "https://images1.vinted.net/t/05_019fd_PgbhkUoPGquf19LQddW5soyD/f800/7f638b0a.webp?s=3f71c7a11a9956a34afdeadf224be032dbcc7cdd",
-   "https://images1.vinted.net/t/02_01678_VuEdJJnvXPghecuMiEKUGmci/f800/cf7c47d7.webp?s=f8d3eb3d6041cb1a275f1442238d03caca748c49",
-   "https://images1.vinted.net/t/05_0028c_r1RPiiDVBrA6KhbkT52NDS8Q/f800/15521167.webp?s=8c6fa677c15a89a82f736bb5b61ae1bb2bf80271",
-   "https://images1.vinted.net/t/04_02221_fTgDxejAtBakvHp6Zw619jaj/f800/3de54686.webp?s=27d45e14275835d14d6544351104da159aa42d99"
-  ],
-  "etiquette": null,
-  "ia": {
-   "verdict": "oui",
-   "confiance": 72
-  },
-  "ressemblance": 0.771,
-  "seuil": 0.711,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": null,
-   "id": "61735943",
-   "profil": "https://www.vinted.fr/member/61735943",
-   "avis": 0,
-   "etoiles": 0.0
   }
  }
 ]
