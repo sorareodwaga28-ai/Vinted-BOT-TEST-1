@@ -1,5 +1,35 @@
 [
  {
+  "id": "10881437612",
+  "date": "2026-11-19T15:03:35+01:00",
+  "type": "bleu",
+  "paire": "Jordan 1 High Lost and Found",
+  "famille": "Jordan 1",
+  "titre": "Air Jordan 1 High Chicago Lost And Found Original",
+  "prix": "20.00 EUR",
+  "taille": "41",
+  "etat": "Satisfaisant",
+  "url": "https://www.vinted.fr/items/10881437612-air-jordan-1-high-chicago-lost-and-found-original",
+  "photos": [
+   "https://images1.vinted.net/t/04_00d5e_fYt8PHyziyDGWm4hXvTzF8Mg/f800/88eb2813.webp?s=a5551f6748a5d8d0011c9dcab24e18b593ac2729",
+   "https://images1.vinted.net/t/06_006a3_KLwnBXjJLAPKch8i5DBzseYZ/f800/72c9f1b6.webp?s=f6eb6686a1b81b6612d39981df9d487e2cfb12e8",
+   "https://images1.vinted.net/t/06_023f1_56kSEBSD6nRKKEQv1dwySua2/f800/ee97cd05.webp?s=f5046d78102f802d34e75248b6dcc8e5854fc412",
+   "https://images1.vinted.net/t/04_002cb_PB7VJ2aTYz38UoEg2aPFJhW7/f800/66eaf272.webp?s=a7418560e5231d8e9826b18d265bb14589806720"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.0,
+  "seuil": 0.708,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "valentina.xx1",
+   "id": "249490705",
+   "profil": "https://www.vinted.fr/member/249490705",
+   "avis": 64,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10881277382",
   "date": "2026-11-19T14:51:31+01:00",
   "type": "bleu",
@@ -10022,37 +10052,6 @@
    "profil": "https://www.vinted.fr/member/3149284238",
    "avis": 10,
    "etoiles": 3.7
-  }
- },
- {
-  "id": "10656857651",
-  "date": "2026-11-04T00:20:44+01:00",
-  "type": "vert",
-  "paire": "Thunder",
-  "famille": "Jordan 4",
-  "titre": "Scarpe uomo/donna",
-  "prix": "22.00 EUR",
-  "taille": "41",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10656857651-scarpe-uomodonna",
-  "photos": [
-   "https://images1.vinted.net/t/06_00be1_KXdvK9513dE9pcLZyH7mo3Pq/f800/c11bce41.webp?s=1925427c6e70179d3a39bac53936c937ea33c267",
-   "https://images1.vinted.net/t/02_014db_kYtGcH2m3eeXCv5zzdWoVvBL/f800/9a4ac00f.webp?s=3c1db9055094dd1adf216f8b33de7f07f175e627"
-  ],
-  "etiquette": null,
-  "ia": {
-   "verdict": "oui",
-   "confiance": 72
-  },
-  "ressemblance": 0.827,
-  "seuil": 0.749,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": "emanuelap387",
-   "id": "3191895171",
-   "profil": "https://www.vinted.fr/member/3191895171",
-   "avis": 3,
-   "etoiles": 5.0
   }
  }
 ]
