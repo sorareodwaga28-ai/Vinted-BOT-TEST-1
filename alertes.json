@@ -1,5 +1,35 @@
 [
  {
+  "id": "10888411769",
+  "date": "2026-11-20T00:14:31+01:00",
+  "type": "bleu",
+  "paire": "Jordan 3 Dark Iris",
+  "famille": "Jordan 3",
+  "titre": "Nike Air Jordan 3 – Dark Iris / White Purple | Größe 45",
+  "prix": "33.00 EUR",
+  "taille": "45",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10888411769-nike-air-jordan-3-dark-iris-white-purple-grosse-45",
+  "photos": [
+   "https://images1.vinted.net/t/05_02067_MxVw8kGYsrU1A8AWW7Wt4dUP/f800/2fc57c19.webp?s=eea62f64fea74425de0aed24cd8f8ffeb029a4f3",
+   "https://images1.vinted.net/t/04_019cf_xYnQ7PnsE1sckxtF1pjvKeYp/f800/c7bce8f8.webp?s=848e42009bd2f71860b0b5cfb8d78ecf8ce964db",
+   "https://images1.vinted.net/t/01_023a7_DcT5TJgYjqAihZurQa2Bv9mN/f800/0207a638.webp?s=882514941e8080a01c263c4ba491dc6f1482e38f",
+   "https://images1.vinted.net/t/05_02351_LLf7FDGGEB9Drz8Qj1EKQ5WS/f800/90474baf.webp?s=d1891923d298d0aa7f32d8a0786b9e0eb46990ed"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.764,
+  "seuil": 0.68,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "jeygleis17",
+   "id": "3180608011",
+   "profil": "https://www.vinted.fr/member/3180608011",
+   "avis": 3,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10887585578",
   "date": "2026-11-19T22:35:51+01:00",
   "type": "vert",
@@ -10029,36 +10059,6 @@
    "profil": "https://www.vinted.fr/member/3209273878",
    "avis": 0,
    "etoiles": 0.0
-  }
- },
- {
-  "id": "10666137717",
-  "date": "2026-11-04T18:40:12+01:00",
-  "type": "bleu",
-  "paire": "Jordan 3 Racer Blue",
-  "famille": "Jordan 3",
-  "titre": "Air Jordan 3 Retro \"Racer Blue\" Taille 44,5 (US 10.5) avec boîte d'origine",
-  "prix": "25.00 EUR",
-  "taille": "44,5",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10666137717-air-jordan-3-retro-racer-blue-taille-445-us-105-avec-boite-dorigine",
-  "photos": [
-   "https://images1.vinted.net/t/05_0187b_9fXDHdDBpzKVNgJCqonzzo5o/f800/26e40b06.webp?s=e65fb01c75a23c00b13b3a711c48716fd3d6f954",
-   "https://images1.vinted.net/t/06_01728_UX5bAgN72S3qLtEFTiU9Vq4Z/f800/288aa105.webp?s=94ae114219f06fc8fc59d56864b45b22f4b19403",
-   "https://images1.vinted.net/t/05_0087a_8QozuNRu85gVW34wzTU1FPt1/f800/71cdc09f.webp?s=4b109a47a23b4a0fdb45e00158b224d733d8c9d4",
-   "https://images1.vinted.net/t/06_0115d_icrwwgL5pJQuNKXKoHLEieiY/f800/bd3eaf29.webp?s=5f8eccfc012c004a38325c0a6d74d54dd854e83c"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.81,
-  "seuil": 0.68,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": "32461749",
-   "profil": "https://www.vinted.fr/member/32461749",
-   "avis": 15,
-   "etoiles": 4.8
   }
  }
 ]
