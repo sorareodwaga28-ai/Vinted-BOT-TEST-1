@@ -1,5 +1,42 @@
 [
  {
+  "id": "10884630208",
+  "date": "2026-11-19T18:54:10+01:00",
+  "type": "bleu",
+  "paire": "Air Max 1 Safari Cobblestone",
+  "famille": "Air Max 1",
+  "titre": "Nike Air Max 1 PRM Safari Cobblestone – EU 41 (FB5059-100)",
+  "prix": "48.99 EUR",
+  "taille": "41",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10884630208-nike-air-max-1-prm-safari-cobblestone-eu-41-fb5059-100",
+  "photos": [
+   "https://images1.vinted.net/t/02_00668_bU853rwLPubXFmbTgBJsaSXW/f800/dbaa49e5.webp?s=870272dcd14c0e011254a7fc19f6c78091e25bf9",
+   "https://images1.vinted.net/t/06_00085_cQqFmCAAs9DQJuDke1GrHadK/f800/296ed15e.webp?s=1f23606a2e9bade35a77989a7312caf82d0224d0",
+   "https://images1.vinted.net/t/06_00b9f_TAkkfP5VzDbVznhMkYujv1uD/f800/287a08ad.webp?s=a93b224eef55d40e46a67fd443060af1f3117e93",
+   "https://images1.vinted.net/t/03_00c2a_jUcAsRhBtiDZdxK5yMKf2dqA/f800/3fac20a1.webp?s=6042932fd70cdd92e59a3f44694f1f0e0fd4311b",
+   "https://images1.vinted.net/t/03_011c9_SWBABewUu4tFuBRiuPSWDdgz/f800/13fe53fe.webp?s=fc4635ba033bc102aa386bfa65c4b01518ef0db2",
+   "https://images1.vinted.net/t/01_01391_urU1ZtT2EJ4jYHbb1gKPsQFp/f800/e5455df5.webp?s=9e4d5581a1f2be44e825f3da612e001da6d01e66",
+   "https://images1.vinted.net/t/05_02087_pZNYiLqqBtAbtNYfkYzxar4u/f800/ca2e5a20.webp?s=4c3bc24bdabcbcec197fa03786efc92e92d615f8",
+   "https://images1.vinted.net/t/02_026f4_hyq9mPwBwbLMs2A1e4DtCDco/f800/7e850cfa.webp?s=3bb979f44a9cd472a0cd2a67a9e489fd30c105ed",
+   "https://images1.vinted.net/t/01_01783_nsEEJGCqMFqSz1HPDdfnuGka/f800/0e49b364.webp?s=b7a9b9971f8069baab473cbc7c6e37b509604c5d",
+   "https://images1.vinted.net/t/05_005cd_n4PmuA6sjonDeEEw3RnuF29H/f800/93911801.webp?s=b6a6cbde1f0445d4b4d28767a22c8e8d96e048cc",
+   "https://images1.vinted.net/t/05_013fd_Shnt7eH2RvikfZV58UYvezRr/f800/60a59660.webp?s=797d55066e5409e8e2e281bfbcc98278659b9453"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.771,
+  "seuil": 0.717,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "markd6444",
+   "id": "3184335368",
+   "profil": "https://www.vinted.fr/member/3184335368",
+   "avis": 49,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10844956518",
   "date": "2026-11-19T17:50:18+01:00",
   "type": "bleu",
@@ -10011,37 +10048,6 @@
    "profil": "https://www.vinted.fr/member/3206439320",
    "avis": 0,
    "etoiles": 0.0
-  }
- },
- {
-  "id": "10662310875",
-  "date": "2026-11-04T14:15:47+01:00",
-  "type": "bleu",
-  "paire": "Air Max 1 Patta Waves Noise Aqua",
-  "famille": "Air Max 1",
-  "titre": "Nike Air Max 1 Patta Waves Noise Aqua DH1348-004 homme pointure 43 US 9.5 avec boîte d'origine",
-  "prix": "57.00 EUR",
-  "taille": "43",
-  "etat": "Satisfaisant",
-  "url": "https://www.vinted.fr/items/10662310875-nike-air-max-1-patta-waves-noise-aqua-dh1348-004-homme-pointure-43-us-95-avec-boite-dorigine",
-  "photos": [
-   "https://images1.vinted.net/t/02_01deb_oHsqF6Gz4tqmfECENZBiFo4E/f800/30df20fa.webp?s=1fe07b36d0556711c45b2e403018c9d59a0fe27d",
-   "https://images1.vinted.net/t/05_00d60_tG7Ag9aQ6obczEDC9dcuGNTY/f800/0cb501f5.webp?s=be070cbefaddb2e53216dc7b1094b5067faea1aa",
-   "https://images1.vinted.net/t/06_00798_RfqmZ5mKu7CQt4XQA2ZeUCft/f800/c842652c.webp?s=22f20e60a3c170a366dc7bb0a12a1f4cf4a7f4b7",
-   "https://images1.vinted.net/t/02_0151d_qkEoixGMY2QroQpE9HqwbDCd/f800/9cadbfa7.webp?s=ea48787fc958371ddf011561c2360c709aee679f",
-   "https://images1.vinted.net/t/06_00d93_sGAmoZheo4FQVuLzuVyFekmy/f800/44761261.webp?s=3403362c92e5311af1967da8f1b62f21a47fb7eb"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.801,
-  "seuil": 0.749,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": "cedrxc",
-   "id": "23632126",
-   "profil": "https://www.vinted.fr/member/23632126",
-   "avis": 45,
-   "etoiles": 4.9
   }
  }
 ]
