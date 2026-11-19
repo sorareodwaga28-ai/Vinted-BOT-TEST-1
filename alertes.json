@@ -1,5 +1,36 @@
 [
  {
+  "id": "10839830056",
+  "date": "2026-11-19T14:34:50+01:00",
+  "type": "bleu",
+  "paire": "Craft Olive",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4 medium olive “craft”",
+  "prix": "25.00 EUR",
+  "taille": "43",
+  "etat": "Satisfaisant",
+  "url": "https://www.vinted.fr/items/10839830056-jordan-4-medium-olive-craft",
+  "photos": [
+   "https://images1.vinted.net/t/06_00d6a_R7hmvTowhUAcoeJPNeiVbr43/f800/b612d825.webp?s=68b4f4d423f641fd51a67134e6920e03e6130658",
+   "https://images1.vinted.net/t/06_01fbf_LH4UNoq5ebWuv7wD9bvhK7kK/f800/074c20cd.webp?s=db6bc718ba0afa92e20849654e479b1c8d420885",
+   "https://images1.vinted.net/t/05_0001a_ZA1h8kNudRe8CBFu3PjRg1zf/f800/11fb0f35.webp?s=9740d8053b763995a608bc69746808b6edbe23e3",
+   "https://images1.vinted.net/t/04_01137_NiCLaxjDFDB33PtNGj9NjZnt/f800/404de7ff.webp?s=ebf56d7d79e4880a8cb7225dd3024b71960e8d99",
+   "https://images1.vinted.net/t/05_02544_HJT7Ag3s27boxAsB8QCdzfPL/f800/5ae637ff.webp?s=636419b6a5a06c2c8a0afb816b05b1fda094f9b4"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.849,
+  "seuil": 0.68,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "badr8h",
+   "id": "34004230",
+   "profil": "https://www.vinted.fr/member/34004230",
+   "avis": 1,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10844320331",
   "date": "2026-11-19T14:09:06+01:00",
   "type": "vert",
@@ -10020,42 +10051,6 @@
    "id": "3185021866",
    "profil": "https://www.vinted.fr/member/3185021866",
    "avis": 8,
-   "etoiles": 5.0
-  }
- },
- {
-  "id": "10655418732",
-  "date": "2026-11-03T21:50:39+01:00",
-  "type": "vert",
-  "paire": "Rare Air",
-  "famille": "Jordan 4",
-  "titre": "Air Jordan four retros size 42 1/2",
-  "prix": "26.00 EUR",
-  "taille": "42,5",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10655418732-air-jordan-four-retros-size-42-12",
-  "photos": [
-   "https://images1.vinted.net/t/02_007b1_FXvRBioGSmUzc3DEVYW2i2ee/f800/a73bd9d2.webp?s=1cefe372459ecdc5773eeefdaf3ce71025d7fbea",
-   "https://images1.vinted.net/t/05_0264d_MEHDF8fvyRiFD6KmyBBTN8LF/f800/19390abc.webp?s=741b2000c3d70dc9ede7e0c0fc2333a99b2bb8d4",
-   "https://images1.vinted.net/t/02_00404_cRKCUDB35CHL87A3SSuwR3eM/f800/ecddd4b3.webp?s=e4ad2748cd3abc6a58f6cc7f7ff4190e6bed8501",
-   "https://images1.vinted.net/t/02_00aa2_BNQSYKUNJgiNGH3ny6mwaM6i/f800/bbd88609.webp?s=df5417ba20aac63842f8ad179891cb1b1bead1dc",
-   "https://images1.vinted.net/t/05_01618_h2gcihSP299tgAChBvhXxLUQ/f800/6b1a9652.webp?s=d2a47306e8722171497824d3fc55bd045e85231e",
-   "https://images1.vinted.net/t/06_0097e_NyrNY38vNpMw23w3bbGsgBHR/f800/6da6e188.webp?s=fcea525d6d6fc9e25ccc881159435cdb5f6d47eb",
-   "https://images1.vinted.net/t/06_017e6_sEGupMeJWFpZUULLrfxTfZvz/f800/796bb1c4.webp?s=123d11dafa8da09245495dfdd6a0965f03c84fe9"
-  ],
-  "etiquette": "https://images1.vinted.net/t/05_0264d_MEHDF8fvyRiFD6KmyBBTN8LF/f800/19390abc.webp?s=741b2000c3d70dc9ede7e0c0fc2333a99b2bb8d4",
-  "ia": {
-   "verdict": "oui",
-   "confiance": 80
-  },
-  "ressemblance": 0.8,
-  "seuil": 0.737,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": "streetwear457",
-   "id": "3191015193",
-   "profil": "https://www.vinted.fr/member/3191015193",
-   "avis": 9,
    "etoiles": 5.0
   }
  }
