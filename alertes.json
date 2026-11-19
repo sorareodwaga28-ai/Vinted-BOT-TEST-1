@@ -1,5 +1,41 @@
 [
  {
+  "id": "10887585578",
+  "date": "2026-11-19T22:35:51+01:00",
+  "type": "vert",
+  "paire": "Craft Olive",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4",
+  "prix": "20.00 EUR",
+  "taille": "41",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10887585578-jordan-4",
+  "photos": [
+   "https://images1.vinted.net/t/01_016f7_JyZsW7RyJVdrSU1X5zyk8ZDd/f800/81096344.webp?s=429dab6c7e07557a664f615bacd2d4100fcd3fc1",
+   "https://images1.vinted.net/t/03_013f4_csHjPRNHz7nP3JbsAUiKVjHK/f800/8a5cbeeb.webp?s=48a7e7f34215d149d2eb9714080b50e4f2fc9fdc",
+   "https://images1.vinted.net/t/06_023ee_G5B2ggy9syA4iitrmRoG9yKg/f800/ef7ae4a3.webp?s=1fe051367b5398cf7615bb7231bc38e181a9d13f",
+   "https://images1.vinted.net/t/05_024e4_e7KeAyPZabp5FNPpXQArngS4/f800/b5203c16.webp?s=6f371827454a034f3b11a5b8b2cab49af0ede1ed",
+   "https://images1.vinted.net/t/05_00c46_gzH9t3GJzTfQQCVXaCowsVMm/f800/3ce497d8.webp?s=482f41ff40abfc39ed225e634c21af33d01b2d3a",
+   "https://images1.vinted.net/t/03_00c6e_6j3wW5LLpyv93vh2LFpVZQ4X/f800/0da2b293.webp?s=1b7c753ca911999e0da323ece98a3f752d95b9f0",
+   "https://images1.vinted.net/t/03_016cd_p5qthx7MttscfxJXn2DqBZ4N/f800/ad959200.webp?s=2c7a1c85702fc3b19acafbf8ddca4e3dd95b07a7"
+  ],
+  "etiquette": "https://images1.vinted.net/t/03_016cd_p5qthx7MttscfxJXn2DqBZ4N/f800/ad959200.webp?s=2c7a1c85702fc3b19acafbf8ddca4e3dd95b07a7",
+  "ia": {
+   "verdict": "oui",
+   "confiance": 75
+  },
+  "ressemblance": 0.904,
+  "seuil": 0.693,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "mathias1000008",
+   "id": "108144218",
+   "profil": "https://www.vinted.fr/member/108144218",
+   "avis": 33,
+   "etoiles": 3.6
+  }
+ },
+ {
   "id": "10887064952",
   "date": "2026-11-19T21:50:21+01:00",
   "type": "bleu",
@@ -10023,37 +10059,6 @@
    "profil": "https://www.vinted.fr/member/32461749",
    "avis": 15,
    "etoiles": 4.8
-  }
- },
- {
-  "id": "10665878005",
-  "date": "2026-11-04T18:22:27+01:00",
-  "type": "bleu",
-  "paire": "Thunder",
-  "famille": "Jordan 4",
-  "titre": "Jordan 4 Retro Yellow Thunder",
-  "prix": "40.00 EUR",
-  "taille": "40",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10665878005-jordan-4-retro-yellow-thunder",
-  "photos": [
-   "https://images1.vinted.net/t/05_0241a_Wa4ChEv12xKhLRzegXyDyNko/f800/65dc3df9.webp?s=73003fcca9696a481a3094da47569d286dafac80",
-   "https://images1.vinted.net/t/04_01ce7_cgmkNtD1xEMokD4GG6NDCg91/f800/fa56f8a3.webp?s=264fa4e3c454a1e64826c55402619514cfef2bb0",
-   "https://images1.vinted.net/t/06_012fd_m4iYLYNAKG9miSuFLYEt6cQw/f800/e68214fc.webp?s=cf1cf10909eb805edacb8bf85788d87a36744be9",
-   "https://images1.vinted.net/t/06_026ec_piJVyJ3x4bCYQmJZCYvoLNAS/f800/20888c6a.webp?s=93bb3b75334f3b2ea6a021a6cde0c4299a42f1b6",
-   "https://images1.vinted.net/t/03_0238f_3v79vE5YTWS2Sm63jSqT4hLN/f800/f4a3f327.webp?s=aa0aea0c4121d8b7c3484fc538d77ec342a65332"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.823,
-  "seuil": 0.711,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": "ninachod",
-   "id": "3188787920",
-   "profil": "https://www.vinted.fr/member/3188787920",
-   "avis": 7,
-   "etoiles": 5.0
   }
  }
 ]
