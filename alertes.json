@@ -1,5 +1,41 @@
 [
  {
+  "id": "10838741707",
+  "date": "2026-11-19T13:48:31+01:00",
+  "type": "bleu",
+  "paire": "Shimmer",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4 Shimmer TG 42",
+  "prix": "25.00 EUR",
+  "taille": "42",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10838741707-jordan-4-shimmer-tg-42",
+  "photos": [
+   "https://images1.vinted.net/t/05_00cc6_mskXKoZpams75BDtneornJem/f800/6de455b9.webp?s=c27031e1e93e76f17d3bbac0d58419db46a4fdae",
+   "https://images1.vinted.net/t/01_01cad_8Nr977YfBbGVEo6hZBHAcgMY/f800/6ffbe156.webp?s=5257999136b0eda4995dbe28195b877fdaf2267e",
+   "https://images1.vinted.net/t/06_01f3e_nFsnQx4r2pwaB2BQbTcGC2y6/f800/d821c57a.webp?s=e7adbb253af10cbea202705e79f1dc1a12025aad",
+   "https://images1.vinted.net/t/02_00894_och4ewEZDPEYYnmKWJickcjN/f800/c7111774.webp?s=9982fe87602e4a7df954213712c7532f75b11db9",
+   "https://images1.vinted.net/t/01_0269b_mbW34vMmjshuiQrk1HXtaxey/f800/60ed8454.webp?s=40a588a01feebdb4e9042a576e54e30e48661e4f",
+   "https://images1.vinted.net/t/02_02310_gLVHTmXBbFCym1NL25bfYARk/f800/66cb1816.webp?s=98945890096bd51ac099409ef7ba222aba11fc2c",
+   "https://images1.vinted.net/t/04_0117d_rsNy2zDiPJRUzm7BuGRY1yEV/f800/534cbd7f.webp?s=fbbe62da37f2e3db62de841e765c5eea9b3f86bb",
+   "https://images1.vinted.net/t/06_023c3_384KUDh6eEqHkdcDVQdLCARo/f800/a828f527.webp?s=910616c9e041cea61e5d00895776abdeb151fa56",
+   "https://images1.vinted.net/t/02_0220b_q21MNxMFCs6qput5WL6x41Fu/f800/956c15ce.webp?s=6e012c240852c2ad0df975236815375f86c932f9",
+   "https://images1.vinted.net/t/05_02138_F2zWT8EaaC1dLiu7KThCuJBo/f800/f618c108.webp?s=824991cf6b7ec6c4270e05aaa1842e01329cb962"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.812,
+  "seuil": 0.722,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "luisarchivez",
+   "id": "230100682",
+   "profil": "https://www.vinted.fr/member/230100682",
+   "avis": 54,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10836982832",
   "date": "2026-11-19T12:45:45+01:00",
   "type": "vert",
@@ -10009,39 +10045,6 @@
    "profil": "https://www.vinted.fr/member/147925818",
    "avis": 20,
    "etoiles": 4.7
-  }
- },
- {
-  "id": "10654559952",
-  "date": "2026-11-03T20:50:00+01:00",
-  "type": "vert",
-  "paire": "SB Pine Green",
-  "famille": "Jordan 4",
-  "titre": "Jordan 4 SB",
-  "prix": "35.00 EUR",
-  "taille": "42",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10654559952-jordan-4-sb",
-  "photos": [
-   "https://images1.vinted.net/t/02_000d4_q5L3DCDVwqCMrtn5QXEacv1J/f800/df1ff4be.webp?s=d7e4476023d87dbf060aa8a7f32a977515d6750d",
-   "https://images1.vinted.net/t/05_010fd_ooqxU5EyxqVV7X1onymohtzM/f800/1153a6c1.webp?s=5b956b74f3ecb420fab1c3757fe4ab2a001fad7b",
-   "https://images1.vinted.net/t/06_01fab_9pJ1L2qCm4C3uTzDPYXUaJkU/f800/897dc6e1.webp?s=ad52ee4d21aee82efa1a87e61ad127cf7879e8fd",
-   "https://images1.vinted.net/t/01_0099a_eyWt12J3NaLiX8yjggZQU71P/f800/ffd974da.webp?s=a33e6bc55fe25359685bac2507ce92229074d27a"
-  ],
-  "etiquette": "https://images1.vinted.net/t/06_01fab_9pJ1L2qCm4C3uTzDPYXUaJkU/f800/897dc6e1.webp?s=ad52ee4d21aee82efa1a87e61ad127cf7879e8fd",
-  "ia": {
-   "verdict": "oui",
-   "confiance": 72
-  },
-  "ressemblance": 0.796,
-  "seuil": 0.745,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": "samuelgarritano",
-   "id": "197515771",
-   "profil": "https://www.vinted.fr/member/197515771",
-   "avis": 11,
-   "etoiles": 4.5
   }
  }
 ]
