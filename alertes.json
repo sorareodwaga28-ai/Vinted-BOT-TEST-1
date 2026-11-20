@@ -1,5 +1,38 @@
 [
  {
+  "id": "10858434822",
+  "date": "2026-11-20T13:41:25+01:00",
+  "type": "vert",
+  "paire": "Yellow Thunder",
+  "famille": "Jordan 4",
+  "titre": "Air jordan 4",
+  "prix": "25.00 EUR",
+  "taille": "Autre",
+  "etat": "Satisfaisant",
+  "url": "https://www.vinted.fr/items/10858434822-air-jordan-4",
+  "photos": [
+   "https://images1.vinted.net/t/05_025d1_k1GXMBajixrjbVc9H4D646T1/f800/e5f77780.webp?s=57c17dcbbc5b3f9cf88388444a2c20dc1234c7d2",
+   "https://images1.vinted.net/t/05_00283_AUvjjUNy7CHc7Rz5R9YHVGSz/f800/5b955ff1.webp?s=e7fe721ab51a9bcd5f9eb93000a3390c6fa7212d",
+   "https://images1.vinted.net/t/05_002f3_PJc8AqoVcQ4ZEDkAnCPohwwB/f800/9429a527.webp?s=a6470f2e950f528ac49ab99812cc4441898a63cf",
+   "https://images1.vinted.net/t/03_02418_yLWMXQgdCmAABrpEPSKMneqH/f800/010efc1d.webp?s=8d1975f3b0fb28dd5ea85a9aafbe5a40f7148250"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 85
+  },
+  "ressemblance": 0.824,
+  "seuil": 0.68,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "3216303805",
+   "profil": "https://www.vinted.fr/member/3216303805",
+   "avis": 0,
+   "etoiles": 0.0
+  }
+ },
+ {
   "id": "10857415820",
   "date": "2026-11-20T13:17:43+01:00",
   "type": "bleu",
@@ -10026,36 +10059,6 @@
    "id": "211995754",
    "profil": "https://www.vinted.fr/member/211995754",
    "avis": 36,
-   "etoiles": 4.2
-  }
- },
- {
-  "id": "10673961024",
-  "date": "2026-11-05T11:52:37+01:00",
-  "type": "bleu",
-  "paire": "SB Pine Green",
-  "famille": "Jordan 4",
-  "titre": "Jordan 4 sb pine Green",
-  "prix": "50.00 EUR",
-  "taille": "44",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10673961024-jordan-4-sb-pine-green",
-  "photos": [
-   "https://images1.vinted.net/t/05_00d04_GURSQdWzu9cuHvPTY6X53m6K/f800/c0d604a3.webp?s=4fb222ae6f2f4867dacc18ff3b42300b18deecbc",
-   "https://images1.vinted.net/t/05_00d89_EwteWyKKw9DGvTibSYFQ9UpQ/f800/1447e5e3.webp?s=076ebe793022c9b4386fade91cdc9c015090f09d",
-   "https://images1.vinted.net/t/06_018f5_ppJSTQZyHGraPufRUtMkNHLb/f800/c405b853.webp?s=2e90e3222fcffe6bf4d04dfb9398e464c8c87e3c",
-   "https://images1.vinted.net/t/03_01fcb_sedHAtMc7SmLZtvFsNtgMBGQ/f800/ad0a7704.webp?s=3f3460a01e5ddedcdc777e3da5957b293b34c0b7"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.842,
-  "seuil": 0.725,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": "leolegr16",
-   "id": "65252364",
-   "profil": "https://www.vinted.fr/member/65252364",
-   "avis": 68,
    "etoiles": 4.2
   }
  }
