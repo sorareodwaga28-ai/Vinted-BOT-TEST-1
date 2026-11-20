@@ -1,5 +1,38 @@
 [
  {
+  "id": "10859615327",
+  "date": "2026-11-20T14:02:13+01:00",
+  "type": "vert",
+  "paire": "Taupe Haze",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4 marroni",
+  "prix": "50.00 EUR",
+  "taille": "44",
+  "etat": "Neuf sans étiquette",
+  "url": "https://www.vinted.fr/items/10859615327-jordan-4-marroni",
+  "photos": [
+   "https://images1.vinted.net/t/06_00057_bmTWsoeQvtHVQPUGhf8tEx3M/f800/22cff572.webp?s=d3a352593c1db3b04092e9b0def809cf42ff19cc",
+   "https://images1.vinted.net/t/05_023de_31GnsYfhpYVQPcqQmuUwUyML/f800/8fb93ca4.webp?s=aa4e280edb3daefc5b434894cc0ccc8f541eed0c",
+   "https://images1.vinted.net/t/06_0060d_7L9ef5qDMeqA32bjcxoUpqHx/f800/923e9db2.webp?s=cb2dca1ceaae0b6b131d9cb08d3dd43fd70ab652",
+   "https://images1.vinted.net/t/02_00431_DS2Er2xkd1ksi5B29UbpKTKK/f800/b0929253.webp?s=d1a49692aa9d3858489a68653324a5d1b0608625"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 80
+  },
+  "ressemblance": 0.83,
+  "seuil": 0.68,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": null,
+   "id": "291213612",
+   "profil": "https://www.vinted.fr/member/291213612",
+   "avis": 11,
+   "etoiles": 3.8
+  }
+ },
+ {
   "id": "10858863597",
   "date": "2026-11-20T13:47:32+01:00",
   "type": "vert",
@@ -10024,37 +10057,6 @@
    "pseudo": null,
    "id": "3176848885",
    "profil": "https://www.vinted.fr/member/3176848885",
-   "avis": 0,
-   "etoiles": 0.0
-  }
- },
- {
-  "id": "10674948521",
-  "date": "2026-11-05T13:23:37+01:00",
-  "type": "bleu",
-  "paire": "Craft Photon Dust",
-  "famille": "Jordan 4",
-  "titre": "Jordan 4 Craft < Photon Dust >",
-  "prix": "30.00 EUR",
-  "taille": "42",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10674948521-jordan-4-craft-photon-dust",
-  "photos": [
-   "https://images1.vinted.net/t/05_01893_qdZPvHSBxXxJYQphbx12huCD/f800/be9c1f51.webp?s=d7f79ab98751f52ae3c1f0c9352ab90b426095a5",
-   "https://images1.vinted.net/t/02_020ed_p5Dxb1MHxtFT5e7iK5R72zMr/f800/7f58169a.webp?s=7a344aaafc350d91e9c76340793d65ec6743a086",
-   "https://images1.vinted.net/t/05_01ca9_VawN5xoG6UzDcFNmJy2rWEu9/f800/a5f86da6.webp?s=0dbbcbfed25a469e704e371ef61b47ffc85d10b0",
-   "https://images1.vinted.net/t/02_02163_3Jq2eFT1quiB1ATTtugsMBF5/f800/30bd2f10.webp?s=20947c23a01055db569f8a8004df2d30306a997d",
-   "https://images1.vinted.net/t/01_01e6c_2JYDa6ZXFPzvmbeF1GDmvW6x/f800/fb84ceec.webp?s=eaa5e0469146865a672c5b0678036d70dce48861"
-  ],
-  "etiquette": null,
-  "ia": null,
-  "ressemblance": 0.797,
-  "seuil": 0.766,
-  "titre_dit": true,
-  "vendeur": {
-   "pseudo": null,
-   "id": "3140901729",
-   "profil": "https://www.vinted.fr/member/3140901729",
    "avis": 0,
    "etoiles": 0.0
   }
