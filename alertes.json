@@ -1,5 +1,39 @@
 [
  {
+  "id": "10881700675",
+  "date": "2026-11-20T15:24:40+01:00",
+  "type": "bleu",
+  "paire": "Frozen Moments",
+  "famille": "Jordan 4",
+  "titre": "jordan 4 frozen moments",
+  "prix": "5.00 EUR",
+  "taille": "41",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10881700675-jordan-4-frozen-moments",
+  "photos": [
+   "https://images1.vinted.net/t/06_01347_rAq3PtDsCayebgf1twxe3wbY/f800/df98a702.webp?s=eaf6d31b2706a4bf8fea45faf1ed208fb9e58e7e",
+   "https://images1.vinted.net/t/05_00e80_HAk3JKGtvf3kL6wcBQTF8EPQ/f800/69ed1e2a.webp?s=4f7f2cabe1bfdd5e7f434e24c105a43ddc8484ea",
+   "https://images1.vinted.net/t/02_01fef_ayTPE5oR1ghjps3VSu9CAmRj/f800/f232f0a9.webp?s=5dc98dc82cc8804e547cd5f9cab62b08e9d75109",
+   "https://images1.vinted.net/t/04_00858_kAYm36zWhGVTzrMNnLn1VgE9/f800/d23b386f.webp?s=73a943ec9f9dc5f0e8ca169476e9daeb89bc98f2",
+   "https://images1.vinted.net/t/05_00697_fugXDbm731u4qNCfBPoXHENb/f800/28c0b030.webp?s=8d17409ce38a8dfeaf10c98df5cbf6da90858d0b",
+   "https://images1.vinted.net/t/05_01003_8Frz9jw1s1GpJCjbMxgRLU2e/f800/b05c05bc.webp?s=ee1dbe3db6932befec09f240e62adc5ff9901934",
+   "https://images1.vinted.net/t/03_0178c_LcSPMAVcc1cWbVP6NuzyUq94/f800/aea26656.webp?s=7c682764c6eee2c77691fb37386502593552acfa",
+   "https://images1.vinted.net/t/03_00acf_GGBoFeTQiMrd1LnvSgokm85C/f800/be5c1838.webp?s=e71faf02962b8ef47241f4e9f9100c8160a1dcc0"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.775,
+  "seuil": 0.732,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "169954729",
+   "profil": "https://www.vinted.fr/member/169954729",
+   "avis": 87,
+   "etoiles": 4.5
+  }
+ },
+ {
   "id": "10860147165",
   "date": "2026-11-20T14:15:45+01:00",
   "type": "bleu",
@@ -10022,38 +10056,6 @@
    "id": "187230925",
    "profil": "https://www.vinted.fr/member/187230925",
    "avis": 14,
-   "etoiles": 5.0
-  }
- },
- {
-  "id": "10659312890",
-  "date": "2026-11-05T14:50:59+01:00",
-  "type": "vert",
-  "paire": "Seafoam",
-  "famille": "Jordan 4",
-  "titre": "Jordan 4",
-  "prix": "30.00 EUR",
-  "taille": "42,5",
-  "etat": "Neuf sans étiquette",
-  "url": "https://www.vinted.fr/items/10659312890-jordan-4",
-  "photos": [
-   "https://images1.vinted.net/t/04_0211d_UF4VcRWANSHTfMbcPMcAJyax/f800/f9346f00.webp?s=bbaf26f2059c9a917cfd2611ee4d80b3238c737b",
-   "https://images1.vinted.net/t/06_02687_Db8wNGsHbq5M6WBGbtUkS2ZS/f800/4ffe1a97.webp?s=ce019f9fac340c9b4fea171cca0d4e1c641f042b",
-   "https://images1.vinted.net/t/06_00b28_e6Q729TAao3nZ5AJwhnQTMMQ/f800/3028ec59.webp?s=b7233fe9a0d0669a437d3d71462a19af0b71b2d5"
-  ],
-  "etiquette": null,
-  "ia": {
-   "verdict": "oui",
-   "confiance": 72
-  },
-  "ressemblance": 0.867,
-  "seuil": 0.745,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": "sofiaa605",
-   "id": "293188056",
-   "profil": "https://www.vinted.fr/member/293188056",
-   "avis": 4,
    "etoiles": 5.0
   }
  }
