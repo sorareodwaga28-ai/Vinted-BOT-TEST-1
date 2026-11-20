@@ -1,5 +1,45 @@
 [
  {
+  "id": "10854528189",
+  "date": "2026-11-20T12:16:36+01:00",
+  "type": "bleu",
+  "paire": "Air Max 1 Patta Waves White",
+  "famille": "Air Max 1",
+  "titre": "Nike Air Max 1 x Patta White / Pure Platinum",
+  "prix": "59.99 EUR",
+  "taille": "42,5",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10854528189-nike-air-max-1-x-patta-white-pure-platinum",
+  "photos": [
+   "https://images1.vinted.net/t/05_01c75_JqCuFvUeDr3383NDHySCprSM/f800/c3de4804.webp?s=ad690ee948d6527c5a353a5ddbf6aedb78c3ba38",
+   "https://images1.vinted.net/t/02_00815_TYdRyvvaDkTmJyQdYEKo45Kn/f800/d11cf3f1.webp?s=d3f95a4421031e9e639fbb135e8d714d9e5457f9",
+   "https://images1.vinted.net/t/02_0072a_vE4mSy73cwWc2ea4c3hpJ4uK/f800/f3167938.webp?s=8ab08269ba281fef7424e5fcf30b2c1a66297faa",
+   "https://images1.vinted.net/t/06_0118b_DjUNGt3LVAy7Lb4QD2hq6Vwj/f800/18848db9.webp?s=a5773ec89467f7e71f87289a2d44a567fb56a14e",
+   "https://images1.vinted.net/t/05_01fb1_enhqJDVK5m9H5YQMHiS2K49Y/f800/33f2c254.webp?s=24642ae269b53ac60eeace333a0896074725b74e",
+   "https://images1.vinted.net/t/02_01c23_wdAKGoPuRrtKJoZcb8UMsoKS/f800/79255346.webp?s=150e0447ae264cc7784a792e4da6de2804e21ceb",
+   "https://images1.vinted.net/t/02_011e1_TdeXcLvizi1zas48q2atsW72/f800/d91b8d74.webp?s=ec9d48757a6b930cdb3a3f4ab278f177b0604e2c",
+   "https://images1.vinted.net/t/02_00b4c_kp8C6AFXaYqnYzJEDFSvG7Pp/f800/605f8e3e.webp?s=875edf5ad763e3d7b33cb22cdd42eed918f399ef",
+   "https://images1.vinted.net/t/05_016ee_pMUNknWFMdXVFSgJP6gy8NYe/f800/9a3ab20f.webp?s=f5caecd5150249f6b53857635dafaa3f9dcbfbc3",
+   "https://images1.vinted.net/t/06_005ff_L1BybNRVDQssD5SQriwkdHbM/f800/bad267f7.webp?s=30576ef6b72ef233c8331ade6383edaa4c9ba3e7",
+   "https://images1.vinted.net/t/03_0052f_9RGNg9EQN8CepCP9fP6ybbxd/f800/aa9ce7cb.webp?s=558778067b3d7a53ec06cfbc65e9bc2cba3b4b73",
+   "https://images1.vinted.net/t/02_000a4_qgDQPro4YB5vxSakqfftFW8n/f800/3287594c.webp?s=c8e11fa486c3ff1a8dc2483f2cbd2bff94e57893",
+   "https://images1.vinted.net/t/04_02189_kyET6PSvFo5nnkjnB3LVRo23/f800/040a7c10.webp?s=7a8c37df5436cade01b7a965e1f6c086d478897f",
+   "https://images1.vinted.net/t/05_00e73_YwgB6WjCmZuZFaXBrUsSr4vo/f800/9626adf4.webp?s=6b6f9925050fd87424e3f557b7eedb5da1130a4d"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.774,
+  "seuil": 0.749,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "markd6444",
+   "id": "3184335368",
+   "profil": "https://www.vinted.fr/member/3184335368",
+   "avis": 49,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10854731273",
   "date": "2026-11-20T11:23:46+01:00",
   "type": "vert",
@@ -10009,39 +10049,6 @@
   },
   "ressemblance": 0.855,
   "seuil": 0.733,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": "graafkip23",
-   "id": "158364212",
-   "profil": "https://www.vinted.fr/member/158364212",
-   "avis": 879,
-   "etoiles": 4.9
-  }
- },
- {
-  "id": "10672542222",
-  "date": "2026-11-05T09:27:47+01:00",
-  "type": "vert",
-  "paire": "Vivid Sulfur",
-  "famille": "Jordan 4",
-  "titre": "Nike jordan 4",
-  "prix": "20.00 EUR",
-  "taille": "40",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10672542222-nike-jordan-4",
-  "photos": [
-   "https://images1.vinted.net/t/06_00f02_C1UWF2MczZBt8fN2xVNumYRk/f800/94a135d2.webp?s=121d84787c355bd82dec8ee6c89aa2ec74ca83f5",
-   "https://images1.vinted.net/t/06_001a4_tsupfVx2aagVDLJyeMp9hfW5/f800/72a53239.webp?s=85e4887d2e0235f845209f091eec3ecb30afcf3d",
-   "https://images1.vinted.net/t/04_021eb_XUg5DKySvyQBLxJ3KjP9Rf3q/f800/f1e8ac55.webp?s=658e75df425e59241c91e69662f244fa553c1011",
-   "https://images1.vinted.net/t/06_0262b_GoMUbhhLWyccvmWAN9fZmEJK/f800/cfeaabc1.webp?s=dfef9894ede212ca9a409aa0ad712c870c3eed5b"
-  ],
-  "etiquette": "https://images1.vinted.net/t/06_0262b_GoMUbhhLWyccvmWAN9fZmEJK/f800/cfeaabc1.webp?s=dfef9894ede212ca9a409aa0ad712c870c3eed5b",
-  "ia": {
-   "verdict": "oui",
-   "confiance": 82
-  },
-  "ressemblance": 0.842,
-  "seuil": 0.7,
   "titre_dit": false,
   "vendeur": {
    "pseudo": "graafkip23",
