@@ -1,5 +1,38 @@
 [
  {
+  "id": "10895826958",
+  "date": "2026-11-20T16:55:21+01:00",
+  "type": "vert",
+  "paire": "Black Canvas",
+  "famille": "Jordan 4",
+  "titre": "Air Jordan Schuhe",
+  "prix": "15.00 EUR",
+  "taille": "42",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10895826958-air-jordan-schuhe",
+  "photos": [
+   "https://images1.vinted.net/t/01_01b6d_yAMwKVtpBxPeyxsziesB4z9v/f800/c187b6dc.webp?s=d1f5321bc632d3f27c6f0c9bcf11fbd8fc9065ac",
+   "https://images1.vinted.net/t/02_0134d_eDYgoXLnFJTgaMSu6dhe2FAh/f800/10993b27.webp?s=9d897db19d1dbed4032f00cd3411bdaf93a893a8",
+   "https://images1.vinted.net/t/01_01c4f_y2Gi6jNKXADdUQx3KUzxkbQY/f800/f691baa8.webp?s=10f8046fe882e9a5850252d91bbdd01070994315",
+   "https://images1.vinted.net/t/05_00d5c_q3B73SFY4LJCGCNtUtyUnGhF/f800/b9c66f76.webp?s=df3cf617620a4fc60fecd37fd986d1bd61fb5fd3"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 72
+  },
+  "ressemblance": 0.884,
+  "seuil": 0.68,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "marionb828",
+   "id": "3132688973",
+   "profil": "https://www.vinted.fr/member/3132688973",
+   "avis": 24,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10867558931",
   "date": "2026-11-20T16:45:30+01:00",
   "type": "bleu",
@@ -10030,36 +10063,6 @@
    "profil": "https://www.vinted.fr/member/190979536",
    "avis": 62,
    "etoiles": 4.8
-  }
- },
- {
-  "id": "10676971893",
-  "date": "2026-11-05T16:02:53+01:00",
-  "type": "vert",
-  "paire": "Red Thunder",
-  "famille": "Jordan 4",
-  "titre": "Scarpe",
-  "prix": "30.00 EUR",
-  "taille": "41",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10676971893-scarpe",
-  "photos": [
-   "https://images1.vinted.net/t/06_021c6_rDj25o1gFDL6aFN2Rs8fQRj7/f800/d9086a50.webp?s=ab35611a9d80f59f6a6137c0478b0a8f397c0c14"
-  ],
-  "etiquette": null,
-  "ia": {
-   "verdict": "oui",
-   "confiance": 80
-  },
-  "ressemblance": 0.81,
-  "seuil": 0.7,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": null,
-   "id": null,
-   "profil": null,
-   "avis": null,
-   "etoiles": null
   }
  }
 ]
