@@ -1,5 +1,42 @@
 [
  {
+  "id": "10855899865",
+  "date": "2026-11-20T12:16:43+01:00",
+  "type": "vert",
+  "paire": "Red Thunder",
+  "famille": "Jordan 4",
+  "titre": "Air Jordan 4",
+  "prix": "20.00 EUR",
+  "taille": "40,5",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10855899865-air-jordan-4",
+  "photos": [
+   "https://images1.vinted.net/t/06_01861_3Xr19HE2qwXgqdEW2WqohvWg/f800/8200b8bf.webp?s=08435b58d93ff1dd6231c8a177d29e26868ded24",
+   "https://images1.vinted.net/t/05_01a4d_1thKH4pe4VieWhZNZzKZSzTW/f800/de148afc.webp?s=f73c2dbdb5c0c53fa8f7f3608896a93736bd4ba4",
+   "https://images1.vinted.net/t/02_02305_4i2vrKxYGPqhTbhrPsF2cMmD/f800/1c18ed79.webp?s=34cb7716fa5442ea1199fdc787b49b63be479e2e",
+   "https://images1.vinted.net/t/02_0266e_HjfMBvh4UCBt73mcwWhitdga/f800/7df5f031.webp?s=2f768016bd19b652c624359cbee3300a69185358",
+   "https://images1.vinted.net/t/05_0096d_PykL5PSZHKuM2m97d8FRvJdo/f800/53a65cc3.webp?s=3d0d1ce222ff6c4d0d43e3af39075187570e7137",
+   "https://images1.vinted.net/t/06_00ecd_QTspW9WZZGvCRBD7mjepuUz5/f800/2c947aaf.webp?s=60260b89495da03d97956c19e3de66337a84f8d3",
+   "https://images1.vinted.net/t/06_02640_iH4r7muUzacHhzmBnQ7fUtNJ/f800/24a8c013.webp?s=174d1e64a4a7e00de4c0c6e7e05f8c50d4e2f4d8",
+   "https://images1.vinted.net/t/01_00779_JTxjruwVgqyVfmA5sxnYofrk/f800/751e8e54.webp?s=ca969cc6e2032504b06a42bf7f7d100865700611"
+  ],
+  "etiquette": null,
+  "ia": {
+   "verdict": "oui",
+   "confiance": 78
+  },
+  "ressemblance": 0.835,
+  "seuil": 0.68,
+  "titre_dit": false,
+  "vendeur": {
+   "pseudo": "sannetim",
+   "id": "24167793",
+   "profil": "https://www.vinted.fr/member/24167793",
+   "avis": 264,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10854528189",
   "date": "2026-11-20T12:16:36+01:00",
   "type": "bleu",
@@ -10024,38 +10061,6 @@
    "profil": "https://www.vinted.fr/member/3176844367",
    "avis": 0,
    "etoiles": 0.0
-  }
- },
- {
-  "id": "10672576625",
-  "date": "2026-11-05T09:32:36+01:00",
-  "type": "vert",
-  "paire": "Fire Red",
-  "famille": "Jordan 4",
-  "titre": "Nike jordan 4",
-  "prix": "20.00 EUR",
-  "taille": "40,5",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10672576625-nike-jordan-4",
-  "photos": [
-   "https://images1.vinted.net/t/06_01da9_eMWQ5D8zDYWrvTaGdjCJ1LRv/f800/4bca5a4e.webp?s=b0d378ecdae444eeec04048af06b996eef55d91c",
-   "https://images1.vinted.net/t/01_005e4_oBLUc5GtoEVdZoPUDRGyMePJ/f800/4afab8a4.webp?s=2c4af97cb08b6aa8252f1ea66e99155fafaec024",
-   "https://images1.vinted.net/t/05_01b29_ACshjUYdHuaNsnRVn3Dn6Rni/f800/abcdd93b.webp?s=63a07a2ebe104b159a0f0dfc43d1a40eab455357"
-  ],
-  "etiquette": null,
-  "ia": {
-   "verdict": "oui",
-   "confiance": 70
-  },
-  "ressemblance": 0.855,
-  "seuil": 0.733,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": "graafkip23",
-   "id": "158364212",
-   "profil": "https://www.vinted.fr/member/158364212",
-   "avis": 879,
-   "etoiles": 4.9
   }
  }
 ]
