@@ -1,5 +1,37 @@
 [
  {
+  "id": "10907794741",
+  "date": "2026-11-21T15:08:00+01:00",
+  "type": "bleu",
+  "paire": "Fear",
+  "famille": "Jordan 4",
+  "titre": "Jordan 4 Fear",
+  "prix": "50.00 EUR",
+  "taille": "42,5",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10907794741-jordan-4-fear",
+  "photos": [
+   "https://images1.vinted.net/t/05_01291_1LQKnakUpXCNF9XoC18so4cA/f800/0f066053.webp?s=177a149f225816b48392ec70ae423c88af3d1778",
+   "https://images1.vinted.net/t/04_024d8_TuJs966KMFpVvSxXG2MXv2dY/f800/bdc70f75.webp?s=f6f51c202bb85dad821b62e63631fbd8fb85b35a",
+   "https://images1.vinted.net/t/05_002f4_8k3jbUbtVmq3f9vUTYRNTVHk/f800/690c6d6d.webp?s=7a8dd8ad039ac62c6176f3e206c8940c8fdd9491",
+   "https://images1.vinted.net/t/05_01565_eRFNZTKo8JuHJuM1gie6Sprz/f800/4c6c7f11.webp?s=29a8ce15e8495e0a513fcd599e6900d84cfda055",
+   "https://images1.vinted.net/t/03_01b1f_yKAVQLKHeGErGkegKj9Jve6o/f800/7c21d941.webp?s=10fae505cc877f0fde64a0da86afb8243667fed5",
+   "https://images1.vinted.net/t/05_00bc8_YNyDk8k4hHxM6KuBxZScuKM8/f800/56510c88.webp?s=e829df9c3a7159c864841ba9172cf58570a979e8"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.844,
+  "seuil": 0.68,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "289999170",
+   "profil": "https://www.vinted.fr/member/289999170",
+   "avis": 55,
+   "etoiles": 4.6
+  }
+ },
+ {
   "id": "10907768910",
   "date": "2026-11-21T15:05:45+01:00",
   "type": "bleu",
@@ -10016,44 +10048,6 @@
    "profil": "https://www.vinted.fr/member/58485035",
    "avis": 82,
    "etoiles": 4.1
-  }
- },
- {
-  "id": "10680759666",
-  "date": "2026-11-06T12:58:31+01:00",
-  "type": "vert",
-  "paire": "Air Max 1 Patta Waves White",
-  "famille": "Air Max 1",
-  "titre": "Nike Patta Air max 1 tenisice",
-  "prix": "40.00 EUR",
-  "taille": "43",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10680759666-nike-patta-air-max-1-tenisice",
-  "photos": [
-   "https://images1.vinted.net/t/02_0202c_8LF7qDqnrAKb4tEtE86QmHhf/f800/c88a2e70.webp?s=0563fc6fd4e95b1079eb3c2e1c42b8e9297823c6",
-   "https://images1.vinted.net/t/02_02402_ApUT8odAt9mMDNmUSanhGVDb/f800/8792dd36.webp?s=27f238bb22160bab639f92ce763cc763a7c0cb0b",
-   "https://images1.vinted.net/t/01_010de_NaX14iUeCoKr2a941cnjr3PF/f800/2359b4e8.webp?s=f317a0540d43a50f9b93c86a7c407a2a2ba8c8a7",
-   "https://images1.vinted.net/t/01_02461_SFjmmjtT19tnvFoDs6EST5js/f800/0245d6f3.webp?s=a00c2b6fe4b0ec315986c4d78402af6f38b27922",
-   "https://images1.vinted.net/t/02_00b8f_nv9Qt9Ttq3Q6hw4QyoqN2Wuf/f800/8bfed813.webp?s=096b12722b9dd1ebbfa23c316a8483e1c0114781",
-   "https://images1.vinted.net/t/05_016fe_hUQgYCUG7z3rt33vk6KKvfUA/f800/0b09c107.webp?s=b81a2d89ebf7c0caca5cf406ae02a5780a13eaa7",
-   "https://images1.vinted.net/t/05_02249_jGEmEXnbggeCdtDmQA1RQ2M7/f800/05497b45.webp?s=00580ae43046560aba45a6b4f3beb5946e1f26c1",
-   "https://images1.vinted.net/t/06_01100_fX6Pe1L7riWjdMvAGAfSna3f/f800/46366870.webp?s=d0d0148c72a25fff6d6e5fdec66b97f17b920d9a",
-   "https://images1.vinted.net/t/06_024da_HWK3Tmvng3LbotWXqzsk2yMh/f800/0f5c4352.webp?s=eccae6de608201cf198fe40b17c698e5b6e1d9b6"
-  ],
-  "etiquette": "https://images1.vinted.net/t/05_02249_jGEmEXnbggeCdtDmQA1RQ2M7/f800/05497b45.webp?s=00580ae43046560aba45a6b4f3beb5946e1f26c1",
-  "ia": {
-   "verdict": "oui",
-   "confiance": 70
-  },
-  "ressemblance": 0.802,
-  "seuil": 0.782,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": "pipin35",
-   "id": "267536840",
-   "profil": "https://www.vinted.fr/member/267536840",
-   "avis": 8,
-   "etoiles": 4.5
   }
  }
 ]
