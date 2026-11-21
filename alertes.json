@@ -1,5 +1,35 @@
 [
  {
+  "id": "10882311395",
+  "date": "2026-11-21T12:52:41+01:00",
+  "type": "bleu",
+  "paire": "SB Pine Green",
+  "famille": "Jordan 4",
+  "titre": "Air Jordan 4 Retro SB Pine Green",
+  "prix": "29.00 EUR",
+  "taille": "43",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10882311395-air-jordan-4-retro-sb-pine-green",
+  "photos": [
+   "https://images1.vinted.net/t/06_00d3c_CqVNB9fYfBbqSmbNXP637pGc/f800/d8eac681.webp?s=9c92664814f7b4a2c06727375f4cd116b578a711",
+   "https://images1.vinted.net/t/06_008a9_mAjmuAs97Z2oi7dz2hULeR3x/f800/6634756c.webp?s=63dc96496872f661da867a8baeeb1196d4ea4fc3",
+   "https://images1.vinted.net/t/05_0098f_WcywiDwNBAdpdweGNVq95aR6/f800/1eb9acb6.webp?s=3f133eb34a7b20ea08722fded5de2f1be8bd3db3",
+   "https://images1.vinted.net/t/01_00f0c_uKkYroaBpVRY1JLAvJT3F3nJ/f800/d671074f.webp?s=0354dd5f71a52c78c8fe12e83867e0322d01fff3"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.79,
+  "seuil": 0.696,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "178442756",
+   "profil": "https://www.vinted.fr/member/178442756",
+   "avis": 9,
+   "etoiles": 4.6
+  }
+ },
+ {
   "id": "10905530258",
   "date": "2026-11-21T12:40:34+01:00",
   "type": "bleu",
@@ -10030,38 +10060,6 @@
    "profil": "https://www.vinted.fr/member/36069400",
    "avis": 38,
    "etoiles": 4.5
-  }
- },
- {
-  "id": "10686358305",
-  "date": "2026-11-06T11:30:19+01:00",
-  "type": "vert",
-  "paire": "Frozen Moments",
-  "famille": "Jordan 4",
-  "titre": "Jordan 4",
-  "prix": "20.00 EUR",
-  "taille": "42,5",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10686358305-jordan-4",
-  "photos": [
-   "https://images1.vinted.net/t/02_00108_AvFzMxo2LfuD5J9HWKB8HGcH/f800/e40aa4f9.webp?s=61a8460a106a0ca49eb27f3b7f9d0580aaf512b5",
-   "https://images1.vinted.net/t/05_00990_p5EEqxKyCGPmVfzwVrQbSQdP/f800/cb11e024.webp?s=52d9361fb76a1ab88e2c89e39665ee1b82b8cab2",
-   "https://images1.vinted.net/t/06_0134d_SDKvE1B9y6j6e65yNw9VA1oA/f800/80072df5.webp?s=c79ed974cbf249f0e344d0d6ebdc8610895597f8"
-  ],
-  "etiquette": null,
-  "ia": {
-   "verdict": "oui",
-   "confiance": 72
-  },
-  "ressemblance": 0.815,
-  "seuil": 0.773,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": "footcollection",
-   "id": "25128111",
-   "profil": "https://www.vinted.fr/member/25128111",
-   "avis": 113,
-   "etoiles": 4.8
   }
  }
 ]
