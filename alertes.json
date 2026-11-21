@@ -1,5 +1,37 @@
 [
  {
+  "id": "10907768910",
+  "date": "2026-11-21T15:05:45+01:00",
+  "type": "bleu",
+  "paire": "A Ma Maniere Phantom",
+  "famille": "Jordan 4",
+  "titre": "Air Jordan 4 x A Ma Maniére « While You Were Sleeping » EU 40.5 US 9W",
+  "prix": "40.00 EUR",
+  "taille": "40",
+  "etat": "Très bon état",
+  "url": "https://www.vinted.fr/items/10907768910-air-jordan-4-x-a-ma-maniere-while-you-were-sleeping-eu-405-us-9w",
+  "photos": [
+   "https://images1.vinted.net/t/06_003f0_MeRqTUfmG5uNbgtAuSeeqHLX/f800/812f8130.webp?s=7d485b87efaf1c523a083a52d87c6c7fab026e15",
+   "https://images1.vinted.net/t/05_02703_LtYUYWWzYs8p7BFzFVU4amHr/f800/1e84b902.webp?s=355536c6555372c9d855451902e6284005cb3827",
+   "https://images1.vinted.net/t/04_007ca_ZvRRfRPs7AWG3ZT9z94ceTRk/f800/dbfcd34a.webp?s=97c9a75073622fb34d0f7e15d443a88e979dda32",
+   "https://images1.vinted.net/t/05_005fd_v75crfu13UeGZHnh95RCFpWm/f800/16a2e4ae.webp?s=29ec2e8d6503033b7ba838a7ccc1f1ef47d8b950",
+   "https://images1.vinted.net/t/05_016ce_ZedWom6DaE9erWEpfrPrbryo/f800/e8914384.webp?s=44242a909944841afd7c83e33ba16d599dd25d27",
+   "https://images1.vinted.net/t/04_01329_LMuhyBDX9zP6yyboo6uc3eBv/f800/a4a9a551.webp?s=bb156aeef0fff9aa97496d32d162d583e2c6d36c"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.867,
+  "seuil": 0.68,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "lucasscotta",
+   "id": "92015862",
+   "profil": "https://www.vinted.fr/member/92015862",
+   "avis": 331,
+   "etoiles": 4.9
+  }
+ },
+ {
   "id": "10907165597",
   "date": "2026-11-21T14:29:35+01:00",
   "type": "bleu",
@@ -10022,47 +10054,6 @@
    "profil": "https://www.vinted.fr/member/267536840",
    "avis": 8,
    "etoiles": 4.5
-  }
- },
- {
-  "id": "10151985177",
-  "date": "2026-11-06T12:58:32+01:00",
-  "type": "vert",
-  "paire": "Air Max 1 Patta Waves White",
-  "famille": "Air Max 1",
-  "titre": "Nike air max 1 patta",
-  "prix": "20.00 EUR",
-  "taille": "43",
-  "etat": "Satisfaisant",
-  "url": "https://www.vinted.fr/items/10151985177-nike-air-max-1-patta",
-  "photos": [
-   "https://images1.vinted.net/t/05_01d6f_nbEikd81B48WQRmrmyRtUjr1/f800/549b37a3.webp?s=e9fc7c3d71cb355806b982500c9b4767950bb306",
-   "https://images1.vinted.net/t/06_00741_ZrmY9Q989CCkkf3uckhE1AS9/f800/81fc916b.webp?s=56ca1c0df993577d1dde29d8595b8b52daa11bff",
-   "https://images1.vinted.net/t/05_00e12_XWvHXnqS9X7hTfs433uBakPY/f800/48e79ecf.webp?s=c996719b07a1b3a4f45a9b8de0c2d829bb9db6be",
-   "https://images1.vinted.net/t/06_00968_kfPK3eh4Ka4DRdAdUddTvQVQ/f800/4d154ea9.webp?s=5132c3d240ac133fce0d4bc4b185197cf59f85bf",
-   "https://images1.vinted.net/t/02_0035c_578xSiApm6Y1nh85RhLnVaSQ/f800/002595ff.webp?s=06c31454de34a36345db0bae05db47e6407c6e77",
-   "https://images1.vinted.net/t/04_013b3_9ihc9iGHdLsjXYf8oY2VYpTG/f800/88020db5.webp?s=c31744d53691cf017aeefc6e80cedfeb2b64a6dd",
-   "https://images1.vinted.net/t/06_0083f_EhsiuyUmWjY614yd75Bvv4Cv/f800/bac5508f.webp?s=888592339a7e5af8b23eee5d7050a7793a9e834b",
-   "https://images1.vinted.net/t/05_00477_XNQHiCP3GxEUhkDLgDXYhfpA/f800/bf42ed06.webp?s=ef37cbff03b6f7adf85b2daed3ae95ebd20a04f3",
-   "https://images1.vinted.net/t/02_02669_3Rq8iqN7wb5ButbyHjLBXUnZ/f800/93af5de7.webp?s=a92f47761508049df98ea89ac980267ba06a668c",
-   "https://images1.vinted.net/t/05_00a69_zKyDimKC1H7mCGBHq5atnBFk/f800/da546242.webp?s=59126a660312f04859156027175c481180063e73",
-   "https://images1.vinted.net/t/06_00a34_KK1bNu1LB4FwEsQ7tPb6HELC/f800/f3bc7efe.webp?s=660d6b486a6e8bffdaa539ed00d02c97fe55d3eb",
-   "https://images1.vinted.net/t/02_0235e_2dS1K2prqtacduXWT5KL5PUi/f800/7be24306.webp?s=8f8257a6b63989631979549d334d715a71ef42e0"
-  ],
-  "etiquette": "https://images1.vinted.net/t/05_00477_XNQHiCP3GxEUhkDLgDXYhfpA/f800/bf42ed06.webp?s=ef37cbff03b6f7adf85b2daed3ae95ebd20a04f3",
-  "ia": {
-   "verdict": "oui",
-   "confiance": 88
-  },
-  "ressemblance": 0.8,
-  "seuil": 0.78,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": null,
-   "id": "192488048",
-   "profil": "https://www.vinted.fr/member/192488048",
-   "avis": 111,
-   "etoiles": 4.8
   }
  }
 ]
