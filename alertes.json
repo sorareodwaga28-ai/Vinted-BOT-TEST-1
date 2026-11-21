@@ -1,5 +1,40 @@
 [
  {
+  "id": "10902551535",
+  "date": "2026-11-21T06:57:54+01:00",
+  "type": "bleu",
+  "paire": "Air Max 1 Patta Waves Noise Aqua",
+  "famille": "Air Max 1",
+  "titre": "Nike x Patta Air Max 1 “Noise Aqua” - DH1348-004 - Taille 42,5",
+  "prix": "70.00 EUR",
+  "taille": "42,5",
+  "etat": "Satisfaisant",
+  "url": "https://www.vinted.fr/items/10902551535-nike-x-patta-air-max-1-noise-aqua-dh1348-004-taille-425",
+  "photos": [
+   "https://images1.vinted.net/t/01_01cb3_ohNV1WUQofuvjxdug9Y4Dtax/f800/71a0bfe0.webp?s=81db8926a4c0e315caa714900323f7b83ae179cb",
+   "https://images1.vinted.net/t/06_0116d_ysXV5Q9KVFU4zEPtgKsejZ5r/f800/2c1f8555.webp?s=debcd4058dd78802eb25699b9930a95d43f4188b",
+   "https://images1.vinted.net/t/01_01405_W3P46uMecH3xGy7BJY83BD35/f800/2a9098af.webp?s=932a065565493cd8cc77add05430c3f81e17d23f",
+   "https://images1.vinted.net/t/03_019e0_r3Vw6WNw2YysNKfAM7rQ8wQk/f800/2cfd769b.webp?s=a4671c299b42d10ec59082550f364426cb508b1a",
+   "https://images1.vinted.net/t/06_01cee_MD9aeZiFuWtiaerPyZJFc6ft/f800/b17aaf1a.webp?s=8e10a2d1a7f62e5a866b5521b57474d4673aa247",
+   "https://images1.vinted.net/t/03_002db_MANqKVegdiWyJ7CtH5UaNome/f800/4cb9cf04.webp?s=9f266f9044dcb9af1a52d313ad027e9d7af3c509",
+   "https://images1.vinted.net/t/04_0165b_P41ArZ7HEXVNRqW5a8gwTFMK/f800/a16ccb92.webp?s=eae2c58f5fe19dba90ff5d1ca023a2630ecc3036",
+   "https://images1.vinted.net/t/03_0008d_eCBr9xE22Wro3RzEfKCXcowC/f800/f25b4ce3.webp?s=6698f03313dc2b50b84b026308dc044e66439581",
+   "https://images1.vinted.net/t/05_0103d_74WmqyMrg436xagwAu6BR29o/f800/6c21308a.webp?s=bb69953bba40f275f699229a7e930fda78befbdb"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.772,
+  "seuil": 0.68,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "julien071983",
+   "id": "3185532928",
+   "profil": "https://www.vinted.fr/member/3185532928",
+   "avis": 33,
+   "etoiles": 4.8
+  }
+ },
+ {
   "id": "10871916312",
   "date": "2026-11-20T21:50:37+01:00",
   "type": "vert",
@@ -10034,39 +10069,6 @@
    "profil": "https://www.vinted.fr/member/265428614",
    "avis": 0,
    "etoiles": 0.0
-  }
- },
- {
-  "id": "10680830468",
-  "date": "2026-11-05T20:45:35+01:00",
-  "type": "vert",
-  "paire": "SB Pine Green",
-  "famille": "Jordan 4",
-  "titre": "Jordan 4 sb",
-  "prix": "35.00 EUR",
-  "taille": "44",
-  "etat": "Satisfaisant",
-  "url": "https://www.vinted.fr/items/10680830468-jordan-4-sb",
-  "photos": [
-   "https://images1.vinted.net/t/05_01659_v3PR6HdEDNHKm6aP7CbZFXez/f800/d2cfeeba.webp?s=b58b814125a84faafe1fef8ec027cff7c20af965",
-   "https://images1.vinted.net/t/02_01a35_21tp6Pemc62jdudabrDatuJJ/f800/66c79e9a.webp?s=35d94dddc6e21384da1876ca9d52b0695a260331",
-   "https://images1.vinted.net/t/06_023cd_Fn4U7C2zEJsdiKRWJTnenZkG/f800/40f7735f.webp?s=06f7c5ec004bd0231e771c7b042f5602766c8450",
-   "https://images1.vinted.net/t/01_0245f_9dBcrZWmDZkYjG6PaXP5UTvM/f800/20323f0f.webp?s=83dea4c530cb95d6685573b142bb2c12a15d8aed"
-  ],
-  "etiquette": null,
-  "ia": {
-   "verdict": "oui",
-   "confiance": 78
-  },
-  "ressemblance": 0.854,
-  "seuil": 0.725,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": "leolegr16",
-   "id": "65252364",
-   "profil": "https://www.vinted.fr/member/65252364",
-   "avis": 68,
-   "etoiles": 4.2
   }
  }
 ]
