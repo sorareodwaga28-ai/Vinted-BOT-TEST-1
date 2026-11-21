@@ -1,5 +1,41 @@
 [
  {
+  "id": "10908023433",
+  "date": "2026-11-21T15:23:53+01:00",
+  "type": "bleu",
+  "paire": "Jordan 3 Dark Iris",
+  "famille": "Jordan 3",
+  "titre": "Air Jordan 3 Retro Dark Iris",
+  "prix": "18.43 EUR",
+  "taille": "40",
+  "etat": "Satisfaisant",
+  "url": "https://www.vinted.fr/items/10908023433-air-jordan-3-retro-dark-iris",
+  "photos": [
+   "https://images1.vinted.net/t/06_00fcd_L9YY7eXSmzeAi8SJmFKa7c9z/f800/b69b818c.webp?s=2862e6f47a36ac763911c5f1a24952f04ed39024",
+   "https://images1.vinted.net/t/01_0123a_ahGPbhHsL2zdW2uigqeU4rK3/f800/5a786e26.webp?s=10d42ec5a2ecf8259f94efaf13df8bcd07906001",
+   "https://images1.vinted.net/t/01_02304_H4Jftf5jUuE4immc6YMYBDAK/f800/19185517.webp?s=026c61ce2efb17a5712a99e5a540ca5f46bf3aa0",
+   "https://images1.vinted.net/t/05_0045b_oUYkvA6Rynp2oXVjqmSAW3mr/f800/c4d9e1be.webp?s=ab1fb0cca4eca801f4c03b58ef7f80da97e044f8",
+   "https://images1.vinted.net/t/05_01f9c_N1nLv9xyfhP7En9kWF5ehe94/f800/8c12f83a.webp?s=e5c39e8edebc08241dd2dbb6d8ae39e18879abc8",
+   "https://images1.vinted.net/t/02_01174_JQHsZawCyRrbfn5HN1VXkv7u/f800/4088c3ec.webp?s=3636db167d42fbd8215c1e9f81a7556a66f7bc24",
+   "https://images1.vinted.net/t/05_00211_mJbd8NPdjyaC5kkghp3965iY/f800/5aee1154.webp?s=6a404234aad654fbf252c9533653ceffc71f9f97",
+   "https://images1.vinted.net/t/03_0206c_pfoNfq2T7jueB7um1zvtpm6E/f800/8cf3319f.webp?s=5c7a0114ebf5ba4e9c399eaa0d2f271df6092a7e",
+   "https://images1.vinted.net/t/05_01636_Xv2bCwQ4YVQtyo4UuZbquAEe/f800/ea58eac7.webp?s=87ecf9ddd0b9b0a6b805d37dcbf2fa4d3379e4c2",
+   "https://images1.vinted.net/t/06_01394_ctNBfHhfFL6kcNKM2J8VaxR7/f800/ae08b36c.webp?s=564fbf2a21ec6dae6793240d4b1ee6a2c3c9ac1e"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.872,
+  "seuil": 0.68,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": "manuelvender",
+   "id": "126631540",
+   "profil": "https://www.vinted.fr/member/126631540",
+   "avis": 203,
+   "etoiles": 4.3
+  }
+ },
+ {
   "id": "10907972853",
   "date": "2026-11-21T15:17:58+01:00",
   "type": "vert",
@@ -10010,39 +10046,6 @@
    "profil": "https://www.vinted.fr/member/3209896806",
    "avis": 0,
    "etoiles": 0.0
-  }
- },
- {
-  "id": "10687403737",
-  "date": "2026-11-06T13:05:06+01:00",
-  "type": "vert",
-  "paire": "Red Thunder",
-  "famille": "Jordan 4",
-  "titre": "zapatillas jordan",
-  "prix": "40.00 EUR",
-  "taille": "44",
-  "etat": "Bon état",
-  "url": "https://www.vinted.fr/items/10687403737-zapatillas-jordan",
-  "photos": [
-   "https://images1.vinted.net/t/02_00c0a_9r61yDhYTwMmu5AaWLNDccgF/f800/723a510f.webp?s=cf2dd0161daa9a47c2b87257c8aa89293ffae298",
-   "https://images1.vinted.net/t/02_024d3_WbAiqXSFd8ThZmLDv899tMuY/f800/a7a08136.webp?s=f0e64cbe94b18e4780ed13774afec4dbd6ad9c79",
-   "https://images1.vinted.net/t/05_00fa2_H5qpq2rm8bLpiT8rnoGn686M/f800/2a2e7aa8.webp?s=cce5707ece8febc25a8374afda071b735a4c092b",
-   "https://images1.vinted.net/t/06_0202b_A8AuHDZVLFesdtDUgGxJU3SZ/f800/48d3a0bd.webp?s=4a6014002a15e50b2a38667b7bb8934b618c2e98"
-  ],
-  "etiquette": null,
-  "ia": {
-   "verdict": "oui",
-   "confiance": 72
-  },
-  "ressemblance": 0.868,
-  "seuil": 0.68,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": null,
-   "id": "70130068",
-   "profil": "https://www.vinted.fr/member/70130068",
-   "avis": 5,
-   "etoiles": 4.6
   }
  }
 ]
