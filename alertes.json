@@ -1,5 +1,38 @@
 [
  {
+  "id": "10905507022",
+  "date": "2026-11-21T12:39:37+01:00",
+  "type": "bleu",
+  "paire": "Sacai Vaporwaffle Tour Yellow",
+  "famille": "Sacai",
+  "titre": "Nike x Sacai Vaporwaffle Tour Yellow Gorge Green - Taille 43",
+  "prix": "30.00 EUR",
+  "taille": "43",
+  "etat": "Bon état",
+  "url": "https://www.vinted.fr/items/10905507022-nike-x-sacai-vaporwaffle-tour-yellow-gorge-green-taille-43",
+  "photos": [
+   "https://images1.vinted.net/t/01_024d0_mZyH8wXWrn5dB7LcJLE3qi4n/f800/f86a201a.webp?s=feefe838f9ad7bad7ac8293af0aa0ffdeebe7e1f",
+   "https://images1.vinted.net/t/05_000bc_8uZk8mNEWVhbm7AH6nR9oBZA/f800/eb0d8fa7.webp?s=335e411d223cd8e93fe71704cc4fb544fa36c1e4",
+   "https://images1.vinted.net/t/06_0208e_vTedoTwH4ibVKncARZYDxpKZ/f800/03d1ad3e.webp?s=3dd511244532ad8b35836880e26bf15e4ad154c4",
+   "https://images1.vinted.net/t/06_011b9_fKYGaYc2tR4UoPgA6Hnf8oBR/f800/5d7577cc.webp?s=6aee2b226dd9f6671bf5d722b22baad32cf473cd",
+   "https://images1.vinted.net/t/05_01b45_xACShCTmuKTm9TWo66Bu1Cux/f800/031467e8.webp?s=6c7f5fa49f4f8a902c59d3cecd9232d4ae8db749",
+   "https://images1.vinted.net/t/04_01c6a_rik6dTuGio4JWiwG7x1om4oE/f800/eceda3cf.webp?s=1b9a67eb7a85fd68545ea35519324553ccaa07e9",
+   "https://images1.vinted.net/t/06_01986_HZdnVfF6mPFeQ8iqZZDfoeeL/f800/5363cf4c.webp?s=c988e72fe934df5a975fc7d396af01a8ad6f3830"
+  ],
+  "etiquette": null,
+  "ia": null,
+  "ressemblance": 0.593,
+  "seuil": 0.68,
+  "titre_dit": true,
+  "vendeur": {
+   "pseudo": null,
+   "id": "142171937",
+   "profil": "https://www.vinted.fr/member/142171937",
+   "avis": 10,
+   "etoiles": 5.0
+  }
+ },
+ {
   "id": "10905092700",
   "date": "2026-11-21T12:10:09+01:00",
   "type": "bleu",
@@ -10034,38 +10067,6 @@
    "profil": "https://www.vinted.fr/member/217305711",
    "avis": 10,
    "etoiles": 4.2
-  }
- },
- {
-  "id": "10682816246",
-  "date": "2026-11-05T23:50:00+01:00",
-  "type": "vert",
-  "paire": "Thunder",
-  "famille": "Jordan 4",
-  "titre": "Jordan 4 schoenen",
-  "prix": "35.00 EUR",
-  "taille": "44",
-  "etat": "Très bon état",
-  "url": "https://www.vinted.fr/items/10682816246-jordan-4-schoenen",
-  "photos": [
-   "https://images1.vinted.net/t/02_00090_WFyw1DUnrHWqgwwYRcjMWdnk/f800/32b2ff66.webp?s=97f89c4b5b8c03c5deedbb347bb7d5453d4b9093",
-   "https://images1.vinted.net/t/04_01072_TfHXetiwjG9gn5rzqtjDhHrP/f800/d1373ee2.webp?s=c498b36fd3fa36ab661f1f78c7191b6e1b42504c",
-   "https://images1.vinted.net/t/04_02176_pwzTyMr1v4K9yhdryBXRtYp7/f800/3bde3250.webp?s=daa3ee8d677d33510f4b3c9213556eaf5960a508"
-  ],
-  "etiquette": "https://images1.vinted.net/t/04_02176_pwzTyMr1v4K9yhdryBXRtYp7/f800/3bde3250.webp?s=daa3ee8d677d33510f4b3c9213556eaf5960a508",
-  "ia": {
-   "verdict": "oui",
-   "confiance": 78
-  },
-  "ressemblance": 0.815,
-  "seuil": 0.691,
-  "titre_dit": false,
-  "vendeur": {
-   "pseudo": "tibaut16123",
-   "id": "192039317",
-   "profil": "https://www.vinted.fr/member/192039317",
-   "avis": 0,
-   "etoiles": 0.0
   }
  }
 ]
